@@ -2,5 +2,11 @@ int main() {
     int hola = 0;
     while(hola == 0){
     }
+    /* que pedos vo */
+
+    if(hola == 2){
+        hola++;
+    }
+
     return 0;
 }
