@@ -1,6 +1,0 @@
-int main() {
-    int hola = 0;
-    while(hola == 0){
-    }
-    return 0;
-}

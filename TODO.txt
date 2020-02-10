@@ -1,0 +1,1 @@
+Hacer que el for agarre variables ya creadas for (YAEXISTO; YAEXISTO < 1; YAEXISTO++)
