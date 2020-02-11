@@ -25,56 +25,87 @@ commentary_start="/*"
 commentary_end = "*/"
 
 //PALABRAS RESERVADAS
+
+//Data Types
 int = ("int")
+long = ("long")
 float = ("float")
 double = ("double")
+char = ("char")
+bool = ("bool")
+void = ("void")
+
+//Decisiones
 while = ("while")
 for = ("for")
-<<<<<<< HEAD
+if = ("if")
+
 
 //COMBINACIONES
+anyChar = ({letters}*{numbers}*)*
 variables = {letters}+|{letters}+{numbers}+|{numbers}+
 numberType = {int} | {float} | {double}
 whiteSpace = (\s | "")
+varTypes = {int} | {double} | {float} | {long} | {char} | {bool}
+functions = {void} | {int} | {double} | {float} | {long} | {char} | {bool}
+
+commentary = {commentary_start}+ (.*?)+ {commentary_end}
 
 findWhile = while{whiteSpace}+("("){whiteSpace}+{variables}+{whiteSpace}+{relationalOperators}{whiteSpace}+{variables}+{whiteSpace}+(")"){whiteSpace}+("{")
-findFor = for{whiteSpace}+("("){int}\s
+
+findFor = for{whiteSpace}+("("){varTypes}\s
             {variables}+{whiteSpace}+{asignationOperators}{whiteSpace}+{numbers}+{whiteSpace}+(";")
             {whiteSpace}+{variables}+{whiteSpace}+{relationalOperators}{whiteSpace}+{numbers}+{whiteSpace}+(";")
-            //{whiteSpace}+{variables}+{counters}{whiteSpace}+(")"){whiteSpace}+("{")
             {whiteSpace}+({variables}+{counters} | 
             {variables}+{whiteSpace}+{asignationOperators}{whiteSpace}+{numbers}+ | 
             {variables}+{whiteSpace}+{asignationOperators}{whiteSpace}+{variables}+{numbers}+)
             {whiteSpace}+(")"){whiteSpace}+("{")
-=======
-if = ("if")
 
-
-
-
-commentary = {commentary_start}+ (.*?)+ {commentary_end}
-variables = {letters}+|{letters}+{numbers}+|{numbers}+
-findWhile = while("("){variables}+{relationalOperators}{variables}+(")")("{")
 findIf = if("("){variables}+{relationalOperators}{variables}+(")")("{")
->>>>>>> 91c4774016d532972cca796fc4b063539be062d4
+
+findFunctions = {functions}\s{variables}+{whiteSpace}+
+                    ("("){whiteSpace}+({varTypes}\s {variables}+ | {void} | "")
+                    {whiteSpace}+(")"){whiteSpace}+("{")
+
+findDeclarations = {varTypes}\s{variables}+(";")
+
+//AREGLAR ESTO PORQUE LE PODES ASIGNAR LETRAS A UN INT O DOUBLE
+declareAssign = {varTypes}\s{variables}+{whiteSpace}+{asignationOperators}
+                    {whiteSpace}+({numbers}+ | ("\""){whiteSpace}+{anyChar}{whiteSpace}+("\"") | true | false){whiteSpace}+(";")
+
+
 
 %%
 <YYINITIAL> {
 
+    {findDeclarations} {
+        System.out.println("Declaration: " + yytext() + "\n");
+    }
+
+    {declareAssign} {
+        System.out.println("Asignation and declaration: " + yytext() + "\n");
+    }
+
     {findWhile} {
-        System.out.println("While expression found: " + yytext());
+        System.out.println("While found: " + yytext() + "\n");
+
+        //yybegin(metodo);
     }
     
     {findFor} {
-        System.out.println("For found: " + yytext());
+        System.out.println("For found: " + yytext() + "\n");
+    }
+
+    {findFunctions} {
+        System.out.println("Function found: " + yytext() + "\n");
     }
     
     {commentary} {
-        System.out.println("Comentario encontrado: " + yytext());
+        System.out.println("Comentario encontrado: " + yytext() + "\n");
 
     }
     {findIf} {
-        System.out.println("if was found: " + yytext());
+        System.out.println("if was found: " + yytext() + "\n");
     }
 
     {spaces} {    }
@@ -82,3 +113,12 @@ findIf = if("("){variables}+{relationalOperators}{variables}+(")")("{")
     . {    }
 
 }
+
+/*<METODO> {
+    {findIf} {
+        System.out.println("Mario se la come"):
+    }
+    {commentary} {
+        yybegin(0):
+    }
+}*/
