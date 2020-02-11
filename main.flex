@@ -6,8 +6,6 @@
 %int
 %standalone
 
-
-
 //OPERADORES
 relationalOperators = ("!=" | "==" | "<" | "<=" | ">" | ">=")
 logicalOperators = ("&&" | "||" | "!")
@@ -30,7 +28,8 @@ float = ("float")
 double = ("double")
 while = ("while")
 for = ("for")
-<<<<<<< HEAD
+if = ("if")
+
 
 //COMBINACIONES
 variables = {letters}+|{letters}+{numbers}+|{numbers}+
@@ -46,17 +45,12 @@ findFor = for{whiteSpace}+("("){int}\s
             {variables}+{whiteSpace}+{asignationOperators}{whiteSpace}+{numbers}+ | 
             {variables}+{whiteSpace}+{asignationOperators}{whiteSpace}+{variables}+{numbers}+)
             {whiteSpace}+(")"){whiteSpace}+("{")
-=======
-if = ("if")
-
-
-
 
 commentary = {commentary_start}+ (.*?)+ {commentary_end}
 variables = {letters}+|{letters}+{numbers}+|{numbers}+
 findWhile = while("("){variables}+{relationalOperators}{variables}+(")")("{")
 findIf = if("("){variables}+{relationalOperators}{variables}+(")")("{")
->>>>>>> 91c4774016d532972cca796fc4b063539be062d4
+
 
 %%
 <YYINITIAL> {
