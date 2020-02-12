@@ -46,13 +46,14 @@ findFor = for{whiteSpace}+("("){int}\s
             {variables}+{whiteSpace}+{asignationOperators}{whiteSpace}+{variables}+{numbers}+)
             {whiteSpace}+(")"){whiteSpace}+("{")
 
-commentary = {commentary_start}+ (.*?) + {commentary_end}
+//commentary = {commentary_start}+ (.*?) + {commentary_end}
 variables = {letters}+|{letters}+{numbers}+|{numbers}+
 findWhile = while("("){variables}+{relationalOperators}{variables}+(")")("{")
 findIf = if("("){variables}+{relationalOperators}{variables}+(")")("{")
 
 
 %%
+
 <YYINITIAL> {
 
     {findWhile} {
@@ -65,16 +66,16 @@ findIf = if("("){variables}+{relationalOperators}{variables}+(")")("{")
 
 
     {line_commentary} {
-        System.out.print("Comentario en linea encontrado"); yybegin(line_comment);
+        System.out.println("Comentario en linea encontrado"); yybegin(line_comment);
     }
 
-    {commentary} {
-        System.out.print("Comentario encontrado"); yybegin(comment);
+    {commentary_start} {
+        System.out.println("Comentario encontrado"); yybegin(comment);
 
-    }
+    } 
 
     {findIf} {
-        System.out.print("if was found: " + yytext());
+        System.out.println("if was found: " + yytext());
     }
 
     <line_comment>{
