@@ -2,7 +2,10 @@ int main() {
     int hola = 0;
     while(hola == 0){
     }
+    
     /* que pedos vo */
+
+    // mae te pisan
 
     if(hola == 2){
         hola++;
