@@ -40,6 +40,8 @@ while = ("while")
 for = ("for")
 if = ("if")
 
+//Encapsulamiento
+
 
 //COMBINACIONES
 anyChar = ({letters}*{numbers}*)*
