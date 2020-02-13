@@ -1,6 +1,9 @@
+#include <stdlib.h>
+
 int main() {
     int hola = 0;
     while(hola == 0){
+        hola += 1;
     }
     
     /* que pedos vo */
