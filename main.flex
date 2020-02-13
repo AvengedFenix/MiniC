@@ -60,6 +60,8 @@ functions = {void} | {int} | {double} | {float} | {long} | {char} | {bool}
 
 commentary = {commentary_start}+ (.*?)+ {commentary_end}
 
+findMain = {int}\s{whiteSpace}+("main"){whiteSpace}+("("){whiteSpace}+(")"){whiteSpace}+("{")
+
 findWhile = while{whiteSpace}+("("){whiteSpace}+{variables}+{whiteSpace}+{relationalOperators}{whiteSpace}+{variables}+{whiteSpace}+(")"){whiteSpace}+("{")
 
 findFor = for{whiteSpace}+("("){varTypes}\s
@@ -90,39 +92,49 @@ numDeclareAssign = ({signed} | {unsigned})?\s({short} | {long})?\s
 %%
 <YYINITIAL> {
 
-    {findDeclarations} {
-        System.out.println("Declaration: " + yytext() + "\n");
+    {findMain} {
+        System.out.println("Main: " + yytext() + "\n");
+
+        //yybegin(rules);
     }
 
-    {nonNumDeclareAssign} {
-        System.out.println("Bool or char Asignation and declaration: " + yytext() + "\n");
-    }
+    //<rules>{
 
-    {numDeclareAssign} {
-        System.out.println("Number declaration found: " + yytext() + "\n");
-    }
+        {findDeclarations} {
+            System.out.println("Declaration: " + yytext() + "\n");
+        }
 
-    {findWhile} {
-        System.out.println("While found: " + yytext() + "\n");
+        {nonNumDeclareAssign} {
+            System.out.println("Bool or char Asignation and declaration: " + yytext() + "\n");
+        }
+
+        {numDeclareAssign} {
+            System.out.println("Number declaration found: " + yytext() + "\n");
+        }
+
+        {findWhile} {
+            System.out.println("While found: " + yytext() + "\n");
+            yybegin(whileLoops);
+            //yybegin(metodo);
+        }
         
-        //yybegin(metodo);
-    }
-    
-    {findFor} {
-        System.out.println("For found: " + yytext() + "\n");
-    }
+        {findFor} {
+            System.out.println("For found: " + yytext() + "\n");
+        }
 
-    {findFunctions} {
-        System.out.println("Function found: " + yytext() + "\n");
-    }
-    
-    {commentary} {
-        System.out.println("Comentario encontrado: " + yytext() + "\n");
+        {findFunctions} {
+            System.out.println("Function found: " + yytext() + "\n");
+        }
+        
+        {commentary} {
+            System.out.println("Comentario encontrado: " + yytext() + "\n");
 
-    }
-    {findIf} {
-        System.out.println("if was found: " + yytext() + "\n");
-    }
+        }
+        {findIf} {
+            System.out.println("if was found: " + yytext() + "\n");
+        }
+
+    //}
 
     <whileLoops> {
         {closing} {
@@ -131,26 +143,8 @@ numDeclareAssign = ({signed} | {unsigned})?\s({short} | {long})?\s
         }
     }
 
-    <line_comment>{
-        {new_line} {System.out.println("\n"); yybegin(1);}
-        . {System.out.print(yytext());}
-    }
-    <comment>{
-        {commentary_end} {System.out.println("\n"); yybegin(1);}
-        . {System.out.print(yytext());}
-    }
-
     {spaces} {    }
 
     . {    }
 
 }
-
-/*<METODO> {
-    {findIf} {
-        System.out.println("Mario se la come"):
-    }
-    {commentary} {
-        yybegin(0):
-    }
-}*/
