@@ -6,7 +6,11 @@ int main() {
         hola += 1;
     }
     
-    /* que pedos vo */
+    /* 
+        que pedos vo 
+        esto es una prueba
+        a ver si lo agarra 
+    */
 
     // mae te pisan
 
