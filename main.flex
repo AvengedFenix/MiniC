@@ -44,6 +44,11 @@ new_line= [\n]+
 //PALABRAS RESERVADAS
 include = ("include")
 closing = "}"
+pragma = ("pragma")
+struct = ("struct")
+union = ("union")
+
+
 
 //Data Types
 int = ("int")
@@ -57,7 +62,7 @@ short = "short"
 unsigned = "unsigned" 
 long = "long"
 float = "float"
-string = ["(.*?)"]
+
 
 //Decisiones
 while = ("while")
@@ -92,7 +97,7 @@ findFor = for{whiteSpace}+("("){varTypes}\s
             {whiteSpace}+(")"){whiteSpace}+("{")
 
 findIf = if("("){variables}+{relationalOperators}{variables}+(")")("{")
-
+findStruct = {struct}{spaces}{anyChar}{spaces}+("{")
 findFunctions = {functions}\s{variables}+{whiteSpace}+
                     ("("){whiteSpace}+({varTypes}\s {variables}+ | {void} | "")
                     {whiteSpace}+(")"){whiteSpace}+("{")
@@ -114,12 +119,15 @@ numDeclareAssign = ({signed} | {unsigned})?\s({short} | {long})?\s
 <YYINITIAL> {
 
     {findInclude} {
-        System.out.println(" import found:\n" + yytext());
+        System.out.print(" import found:\n" + yytext());
     }
 
     {findMain} {
         System.out.println("Main: " + yytext() + "\n");
         //yybegin(rules);
+    }
+    {findStruct} {
+        System.out.print(" Struct found:\n" + yytext());
     }
 
 
@@ -151,17 +159,17 @@ numDeclareAssign = ({signed} | {unsigned})?\s({short} | {long})?\s
     }
     
     {commentary} {
-        System.out.println("Comentario encontrado: " + yytext() + "\n");
+        System.out.print("Comentario encontrado: " + yytext() + "\n");
 
     }
 
     {line_commentary} {
-        System.out.print("Comentario en linea encontrado:\n"+yytext());
+        System.out.print("Comentario en linea encontrado:"+yytext());
         yybegin(line_comment);
     }
 
     {commentary_start} {
-        System.out.print("Comentario encontrado:\n"+ yytext()); yybegin(comment);
+        System.out.print("Comentario encontrado: \n"+ yytext()); yybegin(comment);
     } 
 
     {findIf} {
@@ -173,13 +181,11 @@ numDeclareAssign = ({signed} | {unsigned})?\s({short} | {long})?\s
         {new_line} {System.out.print(yytext()+"\n"); yybegin(1);
         }
         . {  } 
-        //. {System.out.print(yytext());}
         {spaces} {    }
     }
     <comment>{
         {commentary_end} {System.out.print(yytext()+"\n"); yybegin(1);}
         . {  } 
-        //. {System.out.print(yytext());}
         {spaces} {    }
 
     }
@@ -193,7 +199,6 @@ numDeclareAssign = ({signed} | {unsigned})?\s({short} | {long})?\s
         }
         
         {spaces} { }
-
         . { }
     }
 

@@ -1,1 +1,10 @@
 Hacer que el for agarre variables ya creadas for (YAEXISTO; YAEXISTO < 1; YAEXISTO++)
+pragma
+ifdef 
+typedef
+struct
+union
+operador ternario
+else
+return algo
+scanf, printf http://www.cplusplus.com/reference/cstdio/printf/  , http://www.cplusplus.com/reference/cstdio/scanf/
