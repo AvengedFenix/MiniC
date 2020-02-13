@@ -23,6 +23,7 @@ symbols = ","|";"|"."|":"|"'"|"!"|"?"|"¡"|"¿"|"_"|"{"|"}"|"["|"]"|"@"|"#"|"$"|
 line_commentary= "//"
 commentary_start="/*"
 commentary_end = "*/"
+closing = "}"
 
 //PALABRAS RESERVADAS
 
@@ -103,7 +104,7 @@ numDeclareAssign = ({signed} | {unsigned})?\s({short} | {long})?\s
 
     {findWhile} {
         System.out.println("While found: " + yytext() + "\n");
-
+        
         //yybegin(metodo);
     }
     
@@ -123,6 +124,21 @@ numDeclareAssign = ({signed} | {unsigned})?\s({short} | {long})?\s
         System.out.println("if was found: " + yytext() + "\n");
     }
 
+    <whileLoops> {
+        {closing} {
+            System.out.println("While end found");
+            yybegin(1);
+        }
+    }
+
+    <line_comment>{
+        {new_line} {System.out.println("\n"); yybegin(1);}
+        . {System.out.print(yytext());}
+    }
+    <comment>{
+        {commentary_end} {System.out.println("\n"); yybegin(1);}
+        . {System.out.print(yytext());}
+    }
 
     {spaces} {    }
 
