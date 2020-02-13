@@ -8,6 +8,10 @@ int main() {
 
     int hola; //Declaration
 
+    unsigned long int nightmare = 20;
+
+    long int MIA = 50;
+
     while (hamburguesas == 0) {
         
     }
@@ -22,5 +26,5 @@ int main() {
 int oracle(double tigre) {
     tigre += 2;
 
-    return tigre;
+    return (int)tigre;
 }

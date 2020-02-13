@@ -34,6 +34,10 @@ double = ("double")
 char = ("char")
 bool = ("bool")
 void = ("void")
+signed = "signed" 
+short = "short" 
+unsigned = "unsigned" 
+long = "long"
 
 //Decisiones
 while = ("while")
@@ -49,6 +53,8 @@ variables = {letters}+|{letters}+{numbers}+|{numbers}+
 numberType = {int} | {float} | {double}
 whiteSpace = (\s | "")
 varTypes = {int} | {double} | {float} | {long} | {char} | {bool}
+numTypes = {int} | {double} | {float}
+nonNumTypes = {char} | {bool}
 functions = {void} | {int} | {double} | {float} | {long} | {char} | {bool}
 
 commentary = {commentary_start}+ (.*?)+ {commentary_end}
@@ -69,13 +75,16 @@ findFunctions = {functions}\s{variables}+{whiteSpace}+
                     ("("){whiteSpace}+({varTypes}\s {variables}+ | {void} | "")
                     {whiteSpace}+(")"){whiteSpace}+("{")
 
-findDeclarations = {varTypes}\s{variables}+(";")
+//Esto no está funcionando
+findDeclarations = (/*({signed} | {unsigned})?\s({short} | {long})?\s{numTypes} |*/ {varTypes})\s{whiteSpace}+(variables)+{whiteSpace}+(";")
 
-//AREGLAR ESTO PORQUE LE PODES ASIGNAR LETRAS A UN INT O DOUBLE
-declareAssign = {varTypes}\s{variables}+{whiteSpace}+{asignationOperators}
-                    {whiteSpace}+({numbers}+ | ("\""){whiteSpace}+{anyChar}{whiteSpace}+("\"") | true | false){whiteSpace}+(";")
+nonNumDeclareAssign = ({char}\s{variables}+{whiteSpace}+{asignationOperators}{whiteSpace}+("\""){whiteSpace}+{anyChar}{whiteSpace}+("\"") 
+                        | {bool}\s{variables}+{whiteSpace}+{asignationOperators}{whiteSpace}+(true | false)){whiteSpace}+(";")
 
 
+numDeclareAssign = ({signed} | {unsigned})?\s({short} | {long})?\s
+                    {whiteSpace}{numTypes}\s{variables}+{whiteSpace}+{asignationOperators}
+                    {whiteSpace}+{numbers}+{whiteSpace}+(";")
 
 %%
 <YYINITIAL> {
@@ -84,8 +93,12 @@ declareAssign = {varTypes}\s{variables}+{whiteSpace}+{asignationOperators}
         System.out.println("Declaration: " + yytext() + "\n");
     }
 
-    {declareAssign} {
-        System.out.println("Asignation and declaration: " + yytext() + "\n");
+    {nonNumDeclareAssign} {
+        System.out.println("Bool or char Asignation and declaration: " + yytext() + "\n");
+    }
+
+    {numDeclareAssign} {
+        System.out.println("Number declaration found: " + yytext() + "\n");
     }
 
     {findWhile} {
@@ -109,6 +122,7 @@ declareAssign = {varTypes}\s{variables}+{whiteSpace}+{asignationOperators}
     {findIf} {
         System.out.println("if was found: " + yytext() + "\n");
     }
+
 
     {spaces} {    }
 
