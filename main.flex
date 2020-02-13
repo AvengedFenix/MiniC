@@ -5,8 +5,20 @@
 %column
 %int
 %standalone
+%states whileLoops
 
+/*%{
+    StringBuffer string = new StringBuffer();
 
+    private Symbol symbol(int type) {
+        return new Symbol(type, yyline, yycolumn);
+    }
+
+    private Symbol symbol(int type, Object value) {
+        return new Symbol(type, yyline, yycolumn, value);
+    }
+%}
+*/
 
 //OPERADORES
 relationalOperators = ("!=" | "==" | "<" | "<=" | ">" | ">=")
@@ -100,47 +112,51 @@ numDeclareAssign = ({signed} | {unsigned})?\s({short} | {long})?\s
 
     //<rules>{
 
-        {findDeclarations} {
-            System.out.println("Declaration: " + yytext() + "\n");
-        }
+    {findDeclarations} {
+        System.out.println("Declaration: " + yytext() + "\n");
+    }
 
-        {nonNumDeclareAssign} {
-            System.out.println("Bool or char Asignation and declaration: " + yytext() + "\n");
-        }
+    {nonNumDeclareAssign} {
+        System.out.println("Bool or char Asignation and declaration: " + yytext() + "\n");
+    }
 
-        {numDeclareAssign} {
-            System.out.println("Number declaration found: " + yytext() + "\n");
-        }
+    {numDeclareAssign} {
+        System.out.println("Number declaration found: " + yytext() + "\n");
+    }
 
-        {findWhile} {
-            System.out.println("While found: " + yytext() + "\n");
-            yybegin(whileLoops);
-            //yybegin(metodo);
-        }
-        
-        {findFor} {
-            System.out.println("For found: " + yytext() + "\n");
-        }
+    {findWhile} {
+        System.out.println("While found: " + yytext() + "\n");
+        yybegin(whileLoops);
+    }
+    
+    {findFor} {
+        System.out.println("For found: " + yytext() + "\n");
+    }
 
-        {findFunctions} {
-            System.out.println("Function found: " + yytext() + "\n");
-        }
-        
-        {commentary} {
-            System.out.println("Comentario encontrado: " + yytext() + "\n");
+    {findFunctions} {
+        System.out.println("Function found: " + yytext() + "\n");
+    }
+    
+    {commentary} {
+        System.out.println("Comentario encontrado: " + yytext() + "\n");
 
-        }
-        {findIf} {
-            System.out.println("if was found: " + yytext() + "\n");
-        }
+    }
+    
+    {findIf} {
+        System.out.println("if was found: " + yytext() + "\n");
+    }
 
-    //}
+//}
 
     <whileLoops> {
         {closing} {
-            System.out.println("While end found");
-            yybegin(1);
+            System.out.println("While end found at line: " + yyline);
+            yybegin(YYINITIAL);
         }
+        
+        {spaces} { }
+
+        . { }
     }
 
     {spaces} {    }
