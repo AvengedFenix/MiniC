@@ -31,7 +31,27 @@ counters = ("++" | "--")
 letters = [a-z A-Z]
 numbers =  [0-9]
 spaces = [\n\r\t]+ 
-symbols = ","|";"|"."|":"|"'"|"!"|"?"|"¡"|"¿"|"_"|"{"|"}"|"["|"]"|"@"|"#"|"$"|"%"|"^"|"&"|"*" 
+
+comma = ","
+colon = ":"
+semicolon =";"
+period = "."
+apostrophe = "\'"
+exclamation = "!"
+question = "?"
+underscore = "_"
+open_brace = "{"
+close_brace= "}"
+open_bracket= "["
+close_bracket="]"
+at = "@"
+hash = "#"
+percent= "%"
+hat = "^"
+ampersand = "&"
+asterisk = "*"
+
+
 line_commentary= "//" {whiteSpace}+{anyChar}
 commentary_start="/*" {whiteSpace}+{anyChar}
 commentary_end = "*/"
@@ -47,8 +67,6 @@ closing = "}"
 pragma = ("pragma")
 struct = ("struct")
 union = ("union")
-
-
 
 //Data Types
 int = ("int")
@@ -118,53 +136,142 @@ numDeclareAssign = ({signed} | {unsigned})?\s({short} | {long})?\s
 
 <YYINITIAL> {
 
+    {relationalOperators} {
+        System.out.println("Relational operator found: " + yytext() + " => at (" + yyline +"," + yycolumn +")");
+
+    }
+    {arithmeticOperators} {
+        System.out.println("Aritmethic operator found: " + yytext() + " => at (" + yyline +"," + yycolumn +")");
+
+    }
+     {counters} {
+        System.out.println("Increment or decrement found: " + yytext() + " => at (" + yyline +"," + yycolumn +")");
+
+    }
+    
+    {asignationOperators} {
+        System.out.println("Assignation operator found: " + yytext() + " => at (" + yyline +"," + yycolumn +")");
+    }
+
+    {colon} {
+        System.out.println("colon symbol found: " + yytext() + " => at (" + yyline +"," + yycolumn +")");
+
+    }
+    {comma} {
+        System.out.println("comma symbol found: " + yytext() + " => at (" + yyline +"," + yycolumn +")");
+
+    }
+    {semicolon} {
+        System.out.println("semicolon symbol found: " + yytext() + " => at (" + yyline +"," + yycolumn +")");
+
+    }
+    {comma} {
+        System.out.println("comma symbol found: " + yytext() + " => at (" + yyline +"," + yycolumn +")");
+
+    }
+    {period} {
+        System.out.println("period symbol found: " + yytext() + " => at (" + yyline +"," + yycolumn +")");
+
+    }
+    {apostrophe} {
+        System.out.println("apostrophe symbol found: " + yytext() + " => at (" + yyline +"," + yycolumn +")");
+
+    }
+    {exclamation} {
+        System.out.println("exclamation symbol found: " + yytext() + " => at (" + yyline +"," + yycolumn +")");
+
+    }
+    {question} {
+        System.out.println("question symbol found: " + yytext() + " => at (" + yyline +"," + yycolumn +")");
+
+    }
+    {underscore} {
+        System.out.println("underscore symbol found: " + yytext() + " => at (" + yyline +"," + yycolumn +")");
+
+    }
+    {open_brace} {
+        System.out.println("opening brace symbol found: " + yytext() + " => at (" + yyline +"," + yycolumn +")");
+    }
+    {close_brace} {
+        System.out.println("closing brace symbol found: " + yytext() + " => at (" + yyline +"," + yycolumn +")");
+
+    }
+     {open_bracket} {
+        System.out.println("opening bracket symbol found: " + yytext() + " => at (" + yyline +"," + yycolumn +")");
+    }
+    {close_bracket} {
+        System.out.println("closing bracket symbol found: " + yytext() + " => at (" + yyline +"," + yycolumn +")");
+
+    }
+    {at} {
+        System.out.println("at (@) symbol found: " + yytext() + " => at (" + yyline +"," + yycolumn +")");
+
+    }
+    {hash} {
+        System.out.println("hash symbol found: " + yytext() + " => at (" + yyline +"," + yycolumn +")");
+
+    }
+    {percent} {
+        System.out.println("percent symbol found: " + yytext() + " => at (" + yyline +"," + yycolumn +")");
+
+    }
+    {hat} {
+        System.out.println("hat symbol found: " + yytext() + " => at (" + yyline +"," + yycolumn +")");
+    }
+    {ampersand} {
+        System.out.println("ampersand symbol found: " + yytext() + " => at (" + yyline +"," + yycolumn +")");
+
+    }
+    {asterisk} {
+        System.out.println("asterisk symbol found: " + yytext() + " => at (" + yyline +"," + yycolumn +")");
+
+    }
+
     {findInclude} {
-        System.out.print(" import found:\n" + yytext());
+        System.out.print("import found:\n" + yytext() + " => at (" +yyline + ","+ yycolumn+")");
     }
 
     {findMain} {
-        System.out.println("Main: " + yytext() + "\n");
+        System.out.println("Main: " + yytext()  + " => at (" +yyline + ","+ yycolumn+")");
         //yybegin(rules);
     }
     {findStruct} {
-        System.out.print(" Struct found:\n" + yytext());
+        System.out.print(" Struct found:\n" + yytext()  + " => at (" +yyline + ","+ yycolumn+")");
     }
 
-
     //<rules>{
-
     {findDeclarations} {
-        System.out.println("Declaration: " + yytext() + "\n");
+        System.out.println("Declaration: " + yytext() + "\n"  + " => at (" +yyline + ","+ yycolumn+")");
     }
 
     {nonNumDeclareAssign} {
-        System.out.println("Bool or char Asignation and declaration: " + yytext() + "\n");
+        System.out.println("Bool or char Asignation and declaration: " + yytext() +  " => at (" +yyline + ","+ yycolumn+")");
     }
 
     {numDeclareAssign} {
-        System.out.println("Number declaration found: " + yytext() + "\n");
+        System.out.println("Number declaration found: " + yytext()  + " => at (" +yyline + ","+ yycolumn + ")" );
     }
 
     {findWhile} {
-        System.out.println("While found: " + yytext() + "\n");
+        System.out.println("While found: " + yytext()  + " => at (" +yyline + ","+ yycolumn+")" );
         yybegin(whileLoops);
     }
     
     {findFor} {
-        System.out.println("For found: " + yytext() + "\n");
+        System.out.println("For found: " + yytext()  + " => at (" +yyline + ","+ yycolumn+")" );
     }
 
     {findFunctions} {
-        System.out.println("Function found: " + yytext() + "\n");
+        System.out.println("Function found: " + yytext()  + " => at (" +yyline + ","+ yycolumn+")" );
     }
     
     {commentary} {
-        System.out.print("Comentario encontrado: " + yytext() + "\n");
+        System.out.print("Comentario encontrado: " + yytext()  + " => at (" +yyline + ","+ yycolumn+")" + "\n");
 
     }
 
     {line_commentary} {
-        System.out.print("Comentario en linea encontrado:"+yytext());
+        System.out.print("Comentario en linea encontrado:"  + " => at (" +yyline + ","+ yycolumn+")" +yytext() );
         yybegin(line_comment);
     }
 
@@ -173,12 +280,13 @@ numDeclareAssign = ({signed} | {unsigned})?\s({short} | {long})?\s
     } 
 
     {findIf} {
-        System.out.println("if was found:\n" + yytext());
+        System.out.println("if was found:\n" + yytext()  + " => at (" +yyline + ","+ yycolumn+")");
     } 
     
 
     <line_comment>{
-        {new_line} {System.out.print(yytext()+"\n"); yybegin(1);
+        {new_line} {
+            System.out.print(yytext()+"\n"); yybegin(1);
         }
         . {  } 
         {spaces} {    }
@@ -194,7 +302,7 @@ numDeclareAssign = ({signed} | {unsigned})?\s({short} | {long})?\s
 
     <whileLoops> {
         {closing} {
-            System.out.println("While end found at line: " + yyline);
+            System.out.println("While end found at line: " + " => at (" +yyline + ","+ yycolumn+")" );
             yybegin(YYINITIAL);
         }
         
