@@ -1,12 +1,34 @@
+package FlexAndCup;
+import java_cup.runtime.*;
+
+
 %%
 %unicode
 %class Lexar
+//%type java_cup.runtime.Symbol;
 %line
 %column
 %int
 %standalone
 %states line_comment,comment,includes, whileLoops
+%cup
+%full
 
+
+%{   
+    /* To create a new java_cup.runtime.Symbol with information about
+        the current token, the token will have no value in this
+       case. */
+    private Symbol symbol(int type) {
+        return new Symbol(type, yyline, yycolumn);
+    }
+    
+    /* Also creates a new java_cup.runtime.Symbol with information
+       about the current token, but this object has a value. */
+    private Symbol symbol(int type, Object value) {
+        return new Symbol(type, yyline, yycolumn, value);
+    }
+%}
 
 //OPERADORES
 relationalOperators = ("!=" | "==" | "<" | "<=" | ">" | ">=")
@@ -74,6 +96,7 @@ union = ("union")
 main = "main"
 for = "for"
 while = "while"
+return = "return"
 
 
 //Data Types
@@ -343,24 +366,34 @@ numDeclareAssign = ({signed} | {unsigned})?\s({short} | {long})?\s
 
     {while} {
         System.out.println("while found: " + yytext()  + " => at (" +yyline + ","+ yycolumn+")" );
+        return symbol(sym.WHILE);
     }
     
 
     {for} {
         System.out.println("For found: " + yytext()  + " => at (" +yyline + ","+ yycolumn+")" );
+                return symbol(sym.FOR);
     }
 
     {if} {
         System.out.println("if found: " + yytext()  + " => at (" +yyline + ","+ yycolumn+")" );
+        return symbol(sym.IF);
 
     }
 
     {int} {
         System.out.println("int found: " + yytext()  + " => at (" +yyline + ","+ yycolumn+")" );
+        return symbol(sym.INT);
+    }
+
+    {return} {
+        System.out.println("return found: " + yytext()  + " => at (" +yyline + ","+ yycolumn+")" );
+        return symbol(sym.RETURN);
     }
 
     {long} {
         System.out.println("long found: " + yytext()  + " => at (" +yyline + ","+ yycolumn+")" );
+    
     }
 
     {double} {

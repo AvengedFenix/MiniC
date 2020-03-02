@@ -1,11 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="43a5f880-0ab5-4fcd-88ec-b546c9d3e942" name="Default Changelist" comment="" />
+    <list default="true" id="43a5f880-0ab5-4fcd-88ec-b546c9d3e942" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.flex" beforeDir="false" afterPath="$PROJECT_DIR$/main.flex" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -18,14 +28,61 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.WIDTH" value="262" />
+    <property name="jdk.selected.JAVA_MODULE" value="1.8" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.0" />
+  </component>
+  <component name="RunManager">
+    <configuration name="MainWindow" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="MainWindow" />
+      <module name="Interface" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.MainWindow" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
   <component name="WindowStateProjectService">
-    <state x="656" y="350" key="com.intellij.ide.util.TipDialog" timestamp="1581216031048">
+    <state x="552" y="184" key="#Project_Structure" timestamp="1583157418070">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="656" y="350" key="com.intellij.ide.util.TipDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1581216031048" />
+    <state x="552" y="184" key="#Project_Structure/0.0.1920.1050@0.0.1920.1050" timestamp="1583157418070" />
+    <state x="414" y="181" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1583157166778">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="414" y="181" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1583157166777" />
+    <state x="689" y="310" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1583157164005">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="689" y="310" key="#com.intellij.ide.util.TreeClassChooserDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1583157164005" />
+    <state x="614" y="120" key="CommitChangelistDialog2" timestamp="1583157213998">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="614" y="120" key="CommitChangelistDialog2/0.0.1920.1050@0.0.1920.1050" timestamp="1583157213998" />
+    <state x="739" y="280" key="FileChooserDialogImpl" timestamp="1583157694869">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="739" y="280" key="FileChooserDialogImpl/0.0.1920.1050@0.0.1920.1050" timestamp="1583157694869" />
+    <state x="656" y="350" key="com.intellij.ide.util.TipDialog" timestamp="1583157628691">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="656" y="350" key="com.intellij.ide.util.TipDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1583157628691" />
+    <state x="656" y="123" width="607" height="804" key="find.popup" timestamp="1583157208148">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="656" y="123" width="607" height="804" key="find.popup/0.0.1920.1050@0.0.1920.1050" timestamp="1583157208148" />
+    <state x="342" y="146" key="new project wizard" timestamp="1583157700881">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="342" y="146" key="new project wizard/0.0.1920.1050@0.0.1920.1050" timestamp="1583157700881" />
   </component>
 </project>
