@@ -17,4 +17,10 @@ parser code
 
 :};
 
-terminal INT, IF, ELSE, WHILE, FOR;76
+//Terminals
+terminal IF, ELSE, WHILE, FOR, RETURN;
+terminal INT, STRING;
+terminal OPEN_PARENTHESIS, CLOSE_PARENTHESIS, OPEN_BRACKET, CLOSE_BRACKET, OPEN_BRACE, CLOSE_BRACE;
+terminal AND, OR, TRUE, FALSE, NULL
+
+//Non terminals

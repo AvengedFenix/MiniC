@@ -70,12 +70,15 @@ open_brace = "{"
 close_brace= "}"
 open_bracket= "["
 close_bracket="]"
+open_parenthesis = "("
+open_parenthesis = ")"
 at = "@"
 hash = "#"
 percent= "%"
 hat = "^"
 ampersand = "&"
 asterisk = "*"
+
 
 
 line_commentary= "//" {whiteSpace}+{anyChar}
@@ -88,24 +91,27 @@ end_system_include = ">"
 new_line= [\n]+
 
 //PALABRAS RESERVADAS
-include = ("include")
+true = "true"
+false = "false"
+include = "include"
 closing = "}"
-pragma = ("pragma")
-struct = ("struct")
-union = ("union")
+pragma = "pragma"
+struct = "struct"
+union = "union"
 main = "main"
 for = "for"
 while = "while"
 return = "return"
+null = "NULL"
 
 
 //Data Types
-int = ("int")
-long = ("long")
-double = ("double")
-char = ("char")
-bool = ("bool")
-void = ("void")
+int = "int"
+long = "long"
+double = "double"
+char = "char"
+bool = "bool"
+void = "void"
 signed = "signed" 
 short = "short" 
 unsigned = "unsigned" 
@@ -115,10 +121,10 @@ string = "string"
 
 
 //Decisiones
-while = ("while")
-for = ("for")
-if = ("if")
-return = ("return")
+while = "while"
+for = "for"
+if = "if"
+return = "return"
 
 //COMBINACIONES
 anyChar = ({letters}*{numbers}*)*
@@ -264,6 +270,7 @@ numDeclareAssign = ({signed} | {unsigned})?\s({short} | {long})?\s
     }
     {semicolon} {
         System.out.println("semicolon symbol found: " + yytext() + " => at (" + yyline +"," + yycolumn +")");
+        return symbol(sym.SEMICOLON);
 
     }
     {comma} {
@@ -295,21 +302,40 @@ numDeclareAssign = ({signed} | {unsigned})?\s({short} | {long})?\s
 
     {open_brace} {
         System.out.println("opening brace symbol found: " + yytext() + " => at (" + yyline +"," + yycolumn +")");
+                return symbol(sym.OPEN_BRACE);
+
     }
 
     {close_brace} {
         System.out.println("closing brace symbol found: " + yytext() + " => at (" + yyline +"," + yycolumn +")");
+                return symbol(sym.CLOSE_BRACE);
 
     }
 
     {open_bracket} {
         System.out.println("opening bracket symbol found: " + yytext() + " => at (" + yyline +"," + yycolumn +")");
+            return symbol(sym.OPEN_BRACKET);
+
     }
 
     {close_bracket} {
         System.out.println("closing bracket symbol found: " + yytext() + " => at (" + yyline +"," + yycolumn +")");
+                return symbol(sym.CLOSE_BRACKET);
 
     }
+
+    {open_parenthesis} {
+        System.out.println("opening parenthesis symbol found: " + yytext() + " => at (" + yyline +"," + yycolumn +")");
+            return symbol(sym.OPEN_PARENTHESIS);
+
+    }
+
+    {close_parenthesi} {
+        System.out.println("closing parenthesis symbol found: " + yytext() + " => at (" + yyline +"," + yycolumn +")");
+                return symbol(sym.CLOSE_PARENTHESIS);
+
+    }
+
     {at} {
         System.out.println("at (@) symbol found: " + yytext() + " => at (" + yyline +"," + yycolumn +")");
 
@@ -362,7 +388,7 @@ numDeclareAssign = ({signed} | {unsigned})?\s({short} | {long})?\s
         System.out.println("equal symbol found: " + yytext()  + " => at (" +yyline + ","+ yycolumn+")" );
     }
 
-
+    
 
     {while} {
         System.out.println("while found: " + yytext()  + " => at (" +yyline + ","+ yycolumn+")" );
@@ -372,7 +398,7 @@ numDeclareAssign = ({signed} | {unsigned})?\s({short} | {long})?\s
 
     {for} {
         System.out.println("For found: " + yytext()  + " => at (" +yyline + ","+ yycolumn+")" );
-                return symbol(sym.FOR);
+        return symbol(sym.FOR);
     }
 
     {if} {
@@ -408,6 +434,7 @@ numDeclareAssign = ({signed} | {unsigned})?\s({short} | {long})?\s
 
     {bool} {
         System.out.println("bool found: " + yytext()  + " => at (" +yyline + ","+ yycolumn+")" );
+                return symbol(sym.BOOL);
 
     }
 
@@ -443,6 +470,34 @@ numDeclareAssign = ({signed} | {unsigned})?\s({short} | {long})?\s
 
     {string} {
         System.out.println("string found: " + yytext()  + " => at (" +yyline + ","+ yycolumn+")" );
+                return symbol(sym.STRING);
+
+    }
+
+    {null} {
+        System.out.println("NULL found: " + yytext()  + " => at (" +yyline + ","+ yycolumn+")" );
+        return symbol(sym.NULL);
+
+    }
+
+    {and} {
+        System.out.println("and found: " + yytext()  + " => at (" +yyline + ","+ yycolumn+")" );
+        return symbol(sym.AND);
+    }
+
+    {or} {
+        System.out.println("or found: " + yytext()  + " => at (" +yyline + ","+ yycolumn+")" );
+        return symbol(sym.OR);
+    }
+
+    {true} {
+        System.out.println("true found: " + yytext()  + " => at (" +yyline + ","+ yycolumn+")" );
+        return symbol(sym.TRUE);
+    }
+
+    {false} {
+        System.out.println("false found: " + yytext()  + " => at (" +yyline + ","+ yycolumn+")" );
+        return symbol(sym.FALSE);
 
     }
 
