@@ -3,6 +3,9 @@
 package FlexAndCup;
 import java_cup.runtime.*;
 
+import java_cup.runtime.Symbol;
+import java_cup.sym;
+
 
 
 /**
