@@ -31,13 +31,18 @@ import java_cup.runtime.*;
 %}
 
 //OPERADORES
-relationalOperators = ("!=" | "==" | "<" | "<=" | ">" | ">=")
+//relationalOperators = ("!=" | "==" | "<" | "<=" | ">" | ">=")
 different = "!="
-comparisson = "="
+comparisson = "=="
+lesserThan = "<"
+lesserEqualThan = "<="
+greaterThan = ">"
+greaterEqualThan = ">="
+
 
 logicalOperators = ("&&" | "||" | "!")
 and = "&&"
-or = "or"
+or = "||"
 
 //Preguntarle al ingeniero si estos pueden ir en una sola variable
 arithmeticOperators = ("+" | "-" | "*" | "/")
@@ -49,9 +54,13 @@ slash = "/"
 asignationOperators = ("=")
 equal = "="
 
-counters = ("++" | "--")
+//counters = ("++" | "--")
 plusPlus = "++"
 minusMinus = "--" 
+plusEquals = "+="
+minusEquals = "-="
+divideEquals = "/="
+timesEquals = "*="
 
 //MISC
 letters = [a-z A-Z]
@@ -78,6 +87,7 @@ percent= "%"
 hat = "^"
 ampersand = "&"
 asterisk = "*"
+quote = "\""
 
 
 
@@ -85,9 +95,9 @@ line_commentary= "//" {whiteSpace}+{anyChar}
 commentary_start="/*" {whiteSpace}+{anyChar}
 commentary_end = "*/"
 hash = "#"
-standard_libraries = ("assert.h"|"complex.h"|"ctype.h"|"errno.h"|"float.h"|"inttypes.h"|"iso646.h"|"limits.h"|"locale.h"|"math.h"|"setjmp.h"| "signal.h" | "stdalign.h" | "stdarg.h"| "stdatomic.h"| "stdbool.h" |"stddef.h"| "stdint.h" | "stdio.h" | "stdlib.h"|"stdnoreturn.h"|"string.h"|"tgmath.h"|"threads.h" | "time.h" | "uchar.h" | "wchar.h" | "wctype.h" ) 
-start_system_include = "<"
-end_system_include = ">"
+//standard_libraries = ("assert.h"|"complex.h"|"ctype.h"|"errno.h"|"float.h"|"inttypes.h"|"iso646.h"|"limits.h"|"locale.h"|"math.h"|"setjmp.h"| "signal.h" | "stdalign.h" | "stdarg.h"| "stdatomic.h"| "stdbool.h" |"stddef.h"| "stdint.h" | "stdio.h" | "stdlib.h"|"stdnoreturn.h"|"string.h"|"tgmath.h"|"threads.h" | "time.h" | "uchar.h" | "wchar.h" | "wctype.h" ) 
+//start_system_include = "<"
+//end_system_include = ">"
 new_line= [\n]+
 
 //PALABRAS RESERVADAS
@@ -139,6 +149,8 @@ nonNumTypes = {char} | {bool}
 functions = {void} | {int} | {double} | {float} | {long} | {char} | {bool}
 
 commentary = {commentary_start}+ (.*?)+ {commentary_end}
+
+strs = {quote}{anyChar}{quotes}
 
 
 //findMain = {int}\s{whiteSpace}+("main"){whiteSpace}+("("){whiteSpace}+(")"){whiteSpace}+("{")
@@ -429,7 +441,7 @@ numDeclareAssign = ({signed} | {unsigned})?\s({short} | {long})?\s
 
     {char} {
         System.out.println("char found: " + yytext()  + " => at (" +yyline + ","+ yycolumn+")" );
-
+        return symbol(sym.CHAR);
     }
 
     {bool} {
@@ -498,6 +510,12 @@ numDeclareAssign = ({signed} | {unsigned})?\s({short} | {long})?\s
     {false} {
         System.out.println("false found: " + yytext()  + " => at (" +yyline + ","+ yycolumn+")" );
         return symbol(sym.FALSE);
+
+    }
+
+    {strs} {
+        System.out.println("strs found: " + yytext()  + " => at (" +yyline + ","+ yycolumn+")" );
+        return symbol(sym.STRING);
 
     }
 

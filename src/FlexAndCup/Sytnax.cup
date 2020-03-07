@@ -19,8 +19,72 @@ parser code
 
 //Terminals
 terminal IF, ELSE, WHILE, FOR, RETURN;
-terminal INT, STRING;
+terminal INT, STRING, BOOL, CHAR;
+terminal QUOTE;
 terminal OPEN_PARENTHESIS, CLOSE_PARENTHESIS, OPEN_BRACKET, CLOSE_BRACKET, OPEN_BRACE, CLOSE_BRACE;
 terminal AND, OR, TRUE, FALSE, NULL
+terminal EQUAL, COMPARISSON, LESSERTHAN, LESSEREQUALTHAN, GREATERTHAN, GREATEREQUALTHAN;
+terminal PLUS, MINUS, PLUSPLUS, MINUSMINUS, PLUSEQUALS, MINUSEQUALS, DIVIDEEQUALS, TIMESEQUALS;
+terminal SEMICOLON;
+terminal String ID;
+terminal String NUM;
+terminal String STRING;
 
 //Non terminals
+non terminal forCycle, whileCycle;
+non terminal ifDecision;
+non terminal comparing, varNumberOperations, booleanExpresion;
+non terminal oprel;
+non terminal assignationAndDeclaration, declaration;
+
+//FOR CYCLE
+forCycle ::= FOR OPEN_PARENTHESIS INT ID EQUALS NUM SEMICOLON comparing SEMICOLON varNumberOperations CLOSE_PARENTHESIS 
+                OPEN_BRACE
+                //por mientras perro
+                varNumberOperations
+                CLOSE_BRACE
+                ; 
+
+ifDecision ::= IF OPEN_PARENTHESIS comparing CLOSE_PARENTHESIS 
+                OPEN_BRACE
+                //por mientras perro
+                varNumberOperations
+                CLOSE_BRACE
+                ;
+                                                    
+
+
+//Este solo es para variables como x += 4;
+varNumberOperations ::= ID (PLUSPLUS 
+                            | MINUSMINUS
+                            | PLUSEQUALS
+                            | MINUSEQUALS
+                            | DIVIDEEQUALS
+                            | TIMESEQUALS
+                            | PLUS
+                            | MINUS) (ID | NUM)
+                            ;
+
+oprel ::=  COMPARISSON 
+            | LESSERTHAN 
+            | LESSEREQUALTHAN 
+            | GREATERTHAN 
+            | GREATEREQUALTHAN
+            ;
+
+declaration ::= INT ID
+                | CHAR ID
+                | BOOL ID
+                ;
+
+assignationAndDeclaration ::= INT ID equals NUM
+                                | INT ID equals ID
+                                | CHAR ID EQUALS STRING
+                                | BOOL ID EQUALS TRUE
+                                | BOOL ID EQUALS FALSE
+                                ;
+
+
+booleanExpresion ::= ID oprel ID ;
+
+comparing ::= ID oprel ID ;
