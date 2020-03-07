@@ -18,10 +18,18 @@ public enum Tokens {
     AND,
     OR,
     EQUALS,
+    //Aritmeticos
     PLUS,
     MINUS,
+    PLUSPLUS,
+    MINUSMINUS,
+    PLUSEQUALS,
+    MINUSEQUALS,
+    DIVIDEEQUALS,
+    TIMESEQUALS,
     ASTERISK,
     SLASH,
+    //END Aritmeticos
     OPEN_PARENTHESIS,
     CLOSE_PARENTHESIS,
     OPEN_BRACKET,
