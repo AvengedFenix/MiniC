@@ -1,7 +1,3 @@
-package FlexAndCup;
-import java_cup.runtime.*;
-
-
 %%
 %unicode
 %class Lexar
@@ -126,6 +122,7 @@ bool = "bool"
 void = "void"
 signed = "signed" 
 short = "short" 
+long ="long"
 unsigned = "unsigned" 
 long = "long"
 float = "float"
@@ -149,13 +146,13 @@ identifier = {letters}+ ({letters}|{digits})*
 
 system_header = {start_system_include}+{standard_libraries}+{end_system_include}
 program_header = (\")+{anyChar}+(\")
-varTypes = {int} | {double} | {float} | {long} | {char} | {bool}
+varTypes = {int} | {double} | {float} | {long} | {char} | {bool} 
 numTypes = {int} | {double} | {float}
 nonNumTypes = {char} | {bool}
 functions = {void} | {int} | {double} | {float} | {long} | {char} | {bool}
 
 commentary = {commentary_start}+ (.*?)+ {commentary_end}
-str = quote [^{quote}{apostrophe}]+ quote
+str = {quote} [^\"\'\`]+ {quote}
 strs = {quote}{anyChar}{quote}
 
 
