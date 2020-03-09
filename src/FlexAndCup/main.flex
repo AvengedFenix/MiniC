@@ -145,7 +145,7 @@ anyChar = ({letters}*{digits}*)*
 variables = {letters}+|{letters}+{digits}+|{digits}+
 numberType = {int} | {float} | {double}
 whiteSpace = (\s | "")
-identifier = {letters+} ({letters}|{digits})*
+identifier = {letters}+ ({letters}|{digits})*
 
 system_header = {start_system_include}+{standard_libraries}+{end_system_include}
 program_header = (\")+{anyChar}+(\")
