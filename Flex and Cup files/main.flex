@@ -4,7 +4,7 @@ import java_cup.runtime.*;
 %%
 %unicode
 %class Lexar
-%type java_cup.runtime.Symbol;
+%type java_cup.runtime.Symbol
 %full
 %line
 %column

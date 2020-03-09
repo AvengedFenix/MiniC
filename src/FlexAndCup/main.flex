@@ -52,6 +52,8 @@ minus = "-"
 slash = "/"
 
 asignationOperators = ("=")
+asignationOperators = ("=" | "+=" | "-=" | "*=" | "/=")
+
 equal = "="
 
 //counters = ("++" | "--")
@@ -64,7 +66,7 @@ timesEquals = "*="
 
 //MISC
 letters = [a-z A-Z]
-numbers =  [0-9]
+digits =  [0-9]
 spaces = [\n\r\t]+ 
 
 comma = ","
@@ -80,7 +82,7 @@ close_brace= "}"
 open_bracket= "["
 close_bracket="]"
 open_parenthesis = "("
-open_parenthesis = ")"
+close_parenthesis = ")"
 at = "@"
 hash = "#"
 percent= "%"
@@ -128,6 +130,8 @@ unsigned = "unsigned"
 long = "long"
 float = "float"
 string = "string"
+scanf = "scanf"
+printf = "printf"
 
 
 //Decisiones
@@ -137,10 +141,12 @@ if = "if"
 return = "return"
 
 //COMBINACIONES
-anyChar = ({letters}*{numbers}*)*
-variables = {letters}+|{letters}+{numbers}+|{numbers}+
+anyChar = ({letters}*{digits}*)*
+variables = {letters}+|{letters}+{digits}+|{digits}+
 numberType = {int} | {float} | {double}
 whiteSpace = (\s | "")
+identifier = {letters+} ({letters}|{digits})*
+
 system_header = {start_system_include}+{standard_libraries}+{end_system_include}
 program_header = (\")+{anyChar}+(\")
 varTypes = {int} | {double} | {float} | {long} | {char} | {bool}
@@ -149,8 +155,8 @@ nonNumTypes = {char} | {bool}
 functions = {void} | {int} | {double} | {float} | {long} | {char} | {bool}
 
 commentary = {commentary_start}+ (.*?)+ {commentary_end}
-
-strs = {quote}{anyChar}{quotes}
+str = quote [^{quote}{apostrophe}]+ quote
+strs = {quote}{anyChar}{quote}
 
 
 //findMain = {int}\s{whiteSpace}+("main"){whiteSpace}+("("){whiteSpace}+(")"){whiteSpace}+("{")
@@ -158,11 +164,11 @@ strs = {quote}{anyChar}{quotes}
 //findWhile = while{whiteSpace}+("("){whiteSpace}+{variables}+{whiteSpace}+{relationalOperators}{whiteSpace}+{variables}+{whiteSpace}+(")"){whiteSpace}+("{")
 
 /*findFor = for{whiteSpace}+("("){varTypes}\s
-            {variables}+{whiteSpace}+{asignationOperators}{whiteSpace}+{numbers}+{whiteSpace}+(";")
-            {whiteSpace}+{variables}+{whiteSpace}+{relationalOperators}{whiteSpace}+{numbers}+{whiteSpace}+(";")
+            {variables}+{whiteSpace}+{asignationOperators}{whiteSpace}+{digits}+{whiteSpace}+(";")
+            {whiteSpace}+{variables}+{whiteSpace}+{relationalOperators}{whiteSpace}+{digits}+{whiteSpace}+(";")
             {whiteSpace}+({variables}+{counters} | 
-            {variables}+{whiteSpace}+{asignationOperators}{whiteSpace}+{numbers}+ | 
-            {variables}+{whiteSpace}+{asignationOperators}{whiteSpace}+{variables}+{numbers}+)
+            {variables}+{whiteSpace}+{asignationOperators}{whiteSpace}+{digits}+ | 
+            {variables}+{whiteSpace}+{asignationOperators}{whiteSpace}+{variables}+{digits}+)
             {whiteSpace}+(")"){whiteSpace}+("{")
 */
 
@@ -182,7 +188,7 @@ nonNumDeclareAssign = ({char}\s{variables}+{whiteSpace}+{asignationOperators}{wh
 
 numDeclareAssign = ({signed} | {unsigned})?\s({short} | {long})?\s
                     {whiteSpace}{numTypes}\s{variables}+{whiteSpace}+{asignationOperators}
-                    {whiteSpace}+{numbers}+{whiteSpace}+(";")
+                    {whiteSpace}+{digits}+{whiteSpace}+(";")
 
 %%
 
@@ -342,7 +348,7 @@ numDeclareAssign = ({signed} | {unsigned})?\s({short} | {long})?\s
 
     }
 
-    {close_parenthesi} {
+    {close_parenthesis} {
         System.out.println("closing parenthesis symbol found: " + yytext() + " => at (" + yyline +"," + yycolumn +")");
                 return symbol(sym.CLOSE_PARENTHESIS);
 
@@ -517,6 +523,13 @@ numDeclareAssign = ({signed} | {unsigned})?\s({short} | {long})?\s
         System.out.println("strs found: " + yytext()  + " => at (" +yyline + ","+ yycolumn+")" );
         return symbol(sym.STRING);
 
+    }
+      {scanf} {
+        System.out.println("scanf found: " + yytext()  + " => at (" +yyline + ","+ yycolumn+")" );
+    }
+
+    {printf} {
+        System.out.println("printf found: " + yytext()  + " => at (" +yyline + ","+ yycolumn+")" );
     }
 
     <line_comment>{
