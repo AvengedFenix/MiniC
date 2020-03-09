@@ -1,11 +1,7 @@
-package FlexAndCup;
-import java_cup.runtime.*;
-
-
 %%
 %unicode
 %class Lexar
-//%type java_cup.runtime.Symbol;
+//%type java_cup.runtime.Symbol
 %line
 %column
 %int
@@ -52,6 +48,8 @@ minus = "-"
 slash = "/"
 
 asignationOperators = ("=")
+asignationOperators = ("=" | "+=" | "-=" | "*=" | "/=")
+
 equal = "="
 
 //counters = ("++" | "--")
@@ -64,8 +62,7 @@ timesEquals = "*="
 
 //MISC
 letters = [a-z A-Z]
-
-/c  c=  [0-9]
+digits =  [0-9]
 spaces = [\n\r\t]+ 
 
 comma = ","
@@ -81,7 +78,7 @@ close_brace= "}"
 open_bracket= "["
 close_bracket="]"
 open_parenthesis = "("
-//%tye_parenthesis = ")"
+close_parenthesis = ")"
 at = "@"
 hash = "#"
 percent= "%"
@@ -125,16 +122,11 @@ bool = "bool"
 void = "void"
 signed = "signed" 
 short = "short" 
+long ="long"
 unsigned = "unsigned" 
 long = "long"
 float = "float"
-string = "string"%states line_comment,comment,includes, whileLoops
-%states line_comment,comment,includes, whileLoops
-%cup
-%full
-
-
-
+string = "string"
 scanf = "scanf"
 printf = "printf"
 
@@ -146,35 +138,30 @@ if = "if"
 return = "return"
 
 //COMBINACIONES
-anyludes,({lettewieop
-gits hlLosariables = {letters}+
-%standalone
-%states line_comment,comment,inc|{letters}+{digits}+|{digits}+
+anyChar = ({letters}{digits})*
+variables = {letters}+|{letters}+{digits}+|{digits}+
 numberType = {int} | {float} | {double}
 whiteSpace = (\s | "")
-identifier = {letters+} ({letters}|{digits})*
+identifier = {letters}+ ({letters}|{digits})*
+
 system_header = {start_system_include}+{standard_libraries}+{end_system_include}
 program_header = (\")+{anyChar}+(\")
-varTypes = {int} | {double} | {float} | {long} | {char} | {bool}
+varTypes = {int} | {double} | {float} | {long} | {char} | {bool} 
 numTypes = {int} | {double} | {float}
 nonNumTypes = {char} | {bool}
-%line
-%columpe java_cup.runtime.Symbol
-%line
-%columfunctions = {void} | {int} | {double} | {float} | {long} | {char} | {bool}
+functions = {void} | {int} | {double} | {float} | {long} | {char} | {bool}
 
 commentary = {commentary_start}+ (.*?)+ {commentary_end}
-
-str = quote [^{quote}{apostrophe}]+ quote
-strs = {quote}{anyChar}{quotes}
+str = {quote} [^\"\'\`]+ {quote}
+strs = {quote}{anyChar}{quote}
 
 
 //findMain = {int}\s{whiteSpace}+("main"){whiteSpace}+("("){whiteSpace}+(")"){whiteSpace}+("{")
 
-//findWhile = while{whiteSpace}+("("){whiteSpace}+{variables}+{whiteSp   ew_elationa  oteaors}{whiteSpace}+{variables}+{whiteSpace}+(")"){whiteSpace}+("{")
+//findWhile = while{whiteSpace}+("("){whiteSpace}+{variables}+{whiteSpace}+{relationalOperators}{whiteSpace}+{variables}+{whiteSpace}+(")"){whiteSpace}+("{")
 
 /*findFor = for{whiteSpace}+("("){varTypes}\s
-            {variables}+{  Tanvace}+{asignationOperators}{whiteSpace}+{digits}+{whi{  e a}+(";")
+            {variables}+{whiteSpace}+{asignationOperators}{whiteSpace}+{digits}+{whiteSpace}+(";")
             {whiteSpace}+{variables}+{whiteSpace}+{relationalOperators}{whiteSpace}+{digits}+{whiteSpace}+(";")
             {whiteSpace}+({variables}+{counters} | 
             {variables}+{whiteSpace}+{asignationOperators}{whiteSpace}+{digits}+ | 
@@ -190,14 +177,13 @@ findFunctions = {functions}\s{variables}+{whiteSpace}+
 findInclude = {hash}{include}{whiteSpace}+({system_header}|{program_header})
 
 //Esto no está funcionando
-findDeclarations = (/*({signed} | {unsigned})?\s({short} | {long})?\s{numTypes} |*/ {varTypes})\s{whiteSpace}+(variables)+{whiteSpace}+(";")
+findDeclarations = (/({signed} | {unsigned})?\s({short} | {long})?\s{numTypes} |/ {varTypes})\s{whiteSpace}+(variables)+{whiteSpace}+(";")
 
 nonNumDeclareAssign = ({char}\s{variables}+{whiteSpace}+{asignationOperators}{whiteSpace}+("\""){whiteSpace}+{anyChar}{whiteSpace}+("\"") 
                         | {bool}\s{variables}+{whiteSpace}+{asignationOperators}{whiteSpace}+(true | false)){whiteSpace}+(";")
 
 
-numDeclareAssign = ({signed} |%
-*rajned})?\s({short} | {long})?\s
+numDeclareAssign = ({signed} | {unsigned})?\s({short} | {long})?\s
                     {whiteSpace}{numTypes}\s{variables}+{whiteSpace}+{asignationOperators}
                     {whiteSpace}+{digits}+{whiteSpace}+(";")
 
@@ -355,7 +341,7 @@ numDeclareAssign = ({signed} |%
 
     {open_parenthesis} {
         System.out.println("opening parenthesis symbol found: " + yytext() + " => at (" + yyline +"," + yycolumn +")");
-            return syumbol(sym.OPEN_PARENTHESIS);
+            return symbol(sym.OPEN_PARENTHESIS);
 
     }
 
@@ -530,22 +516,12 @@ numDeclareAssign = ({signed} |%
 
     }
 
-    {%full
-
-
-%{   
-    /* To create a new java_cul
-ymbo
-    /* To create a new java_cup.runtime.Symbol with information about
-        the current token, the token will have no value in this
-       case. */
-    pstrs} {
+    {strs} {
         System.out.println("strs found: " + yytext()  + " => at (" +yyline + ","+ yycolumn+")" );
         return symbol(sym.STRING);
 
     }
-
-    {scanf} {
+      {scanf} {
         System.out.println("scanf found: " + yytext()  + " => at (" +yyline + ","+ yycolumn+")" );
     }
 
@@ -569,6 +545,18 @@ ymbo
 
 //}
 
-    <whileLo%line
-umn
+    <whileLoops> {
+        {closing} {
+            System.out.println("While end found at line: " + " => at (" +yyline + ","+ yycolumn+")" );
+            yybegin(YYINITIAL);
+        }
+        
+        {spaces} { }
+        . { }
+    }
 
+    {spaces} {    }
+
+    . {    }
+
+}

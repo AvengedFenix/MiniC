@@ -18,14 +18,14 @@ parser code
 :};
 
 //Terminals
-terminal IF, ELSE, WHILE, FOR, RETURN;
+terminal IF, ELSE, WHILE, FOR, RETURN, BREAK;
 terminal INT, BOOL, CHAR;
 terminal QUOTE;
 terminal OPEN_PARENTHESIS, CLOSE_PARENTHESIS, OPEN_BRACKET, CLOSE_BRACKET, OPEN_BRACE, CLOSE_BRACE;
-terminal AND, OR, TRUE, FALSE, NULL
-terminal EQUAL, COMPARISSON, LESSERTHAN, LESSEREQUALTHAN, GREATERTHAN, GREATEREQUALTHAN;
-terminal PLUS, MINUS, PLUSPLUS, MINUSMINUS, PLUSEQUALS, MINUSEQUALS, DIVIDEEQUALS, TIMESEQUALS;
-terminal SEMICOLON;
+terminal AND, OR, TRUE, FALSE, NULL, NOT;
+terminal EQUALS, COMPARISSON, LESSERTHAN, LESSEREQUALTHAN, GREATERTHAN, GREATEREQUALTHAN, DIFFERENT;
+terminal PLUS, MINUS, TIMES, MOD, DIVIDE, PLUSPLUS, MINUSMINUS, PLUSEQUALS, MINUSEQUALS, DIVIDEEQUALS, TIMESEQUALS;
+terminal SEMICOLON, COMMA;
 terminal String ID;
 terminal String NUM;
 terminal String STRING;
@@ -34,29 +34,44 @@ terminal String STRING;
 non terminal forCycle, whileCycle;
 non terminal ifDecision;
 non terminal comparing, varNumberOperations, booleanExpresion, idOrNum;
-non terminal oprel;
-non terminal assignationAndDeclaration, declaration;
+non terminal oprel, typeIden, data;
+non terminal assignationAndDeclaration, declarationID;
 
-//FOR CYCLE
+precedence left PLUS, MINUS;
+precedence left TIMES, DIVIDE, MOD;
+
+//Posiblemente esto haya que cambiarlo
+//data ::= ID | NUM | STRING | TRUE | FALSE;
+
+/*
 forCycle ::= FOR OPEN_PARENTHESIS assignationAndDeclaration comparing SEMICOLON varNumberOperations CLOSE_PARENTHESIS 
                 OPEN_BRACE
-                //por mientras perro
-                varNumberOperations
+                //por mientras
+                anyCode
                 CLOSE_BRACE
                 ; 
+*/
 
+/*
 ifDecision ::= IF OPEN_PARENTHESIS comparing CLOSE_PARENTHESIS 
                 OPEN_BRACE
-                //por mientras perro
-                varNumberOperations
+                //por mientras
+                anyCode
                 CLOSE_BRACE
-                ;
-                                                    
-anyCode ::= varNumberOperations SEMICOLON
-            | declaration SEMICOLON
-            | assignationAndDeclaration SEMICOLON
-            | comparing SEMICOLON
+                ;\
+*/
 
+/*
+anyCode ::= varNumberOperations SEMICOLON
+            | declarationID SEMICOLON
+            | assignationAnddeclarationID SEMICOLON
+            | comparing SEMICOLON
+            | forCycle
+            | ifDecision
+            ;
+*/
+
+/*
 //Este solo es para variables como x += 4;
 varNumberOperations ::= ID PLUSPLUS
                             | ID MINUSMINUS 
@@ -67,27 +82,129 @@ varNumberOperations ::= ID PLUSPLUS
                             | ID PLUS idOrNum
                             | ID MINUS idOrNum
                             ;
+*/
 
 idOrNum = ID | NUM;
 
-oprel ::=  COMPARISSON 
-            | LESSERTHAN 
-            | LESSEREQUALTHAN 
-            | GREATERTHAN 
-            | GREATEREQUALTHAN
-            ;
+varDeclaration ::= typeIden varDeclarationList SEMICOLON;
 
-declaration ::= INT ID SEMICOLON
-                | CHAR ID SEMICOLON
-                | BOOL ID SEMICOLON
-                ;
+varDeclarationList ::= varDeclarationList COMMA assignationAndDeclaration 
+                    | assignationAndDeclaration
+                    ;
 
-assignationAndDeclaration ::= INT ID equals NUM SEMICOLON
-                                | INT ID equals ID SEMICOLON
+assignationAndDeclaration ::= delcarationID | declarationID EQUALS simpleExp
+typeIden ::= INT | BOOL | CHAR;
+
+/*assignationAndDeclaration ::= INT ID EQUALS NUM SEMICOLON
+                                | INT ID EQUALS ID SEMICOLON
                                 | CHAR ID EQUALS STRING SEMICOLON
                                 | BOOL ID EQUALS TRUE SEMICOLON
                                 | BOOL ID EQUALS FALSE SEMICOLON
                                 ;
+*/
+
+funDeclaration ::= typeIDen ID OPEN_PARENTHESIS params CLOSE_PARENTHESIS statement 
+                    | ID OPEN_PARENTHESIS params CLOSE_PARENTHESIS statement
+                    ;
+params ::= paramList | /* VACIO */ ;
+paramList ::= paramList SEMICOLON paramTypeList | paramTypeList;
+paramTypeList ::= typeIDen paramIdList;
+paramIdList ::= paramIdList COMMA paramID | paramID;
+paramID ::= ID | ID OPEN_BRACKET CLOSE_BRACKET;
+
+statement ::= expressionStmt 
+                | compoundStmt 
+                | ifStmt 
+                | iterationStmt 
+                | returnStmt 
+                | breakStmt
+                ;
+
+expressionStmt ::= expression SEMICOLON | SEMICOLON;
+compoundStmt ::= OPEN_BRACE localDeclarations statementList CLOSE_BRACE;
+localDeclarations ::= localDeclarations varDeclaration | /* VACIO */ ;
+statementList ::= statementList statement | /* VACIO */ ;
+elseifList ::= elseifList ELSE IF OPEN_PARENTHESIS simpleExp CLOSE_PARENTHESIS 
+                OPEN_BRACE
+                    statement
+                CLOSE_BRACE
+                | /* VACIO */ 
+                ;
+ifStmt ::= IF OPEN_PARENTHESIS simpleExp CLOSE_PARENTHESIS
+                    OPEN_BRACE 
+                        statement elseifList
+                    CLOSE_BRACE
+                    | IF OPEN_PARENTHESIS simpleExp CLOSE_PARENTHESIS
+                        OPEN_BRACE 
+                            statement elseifList
+                        CLOSE_BRACE ELSE 
+                            OPEN_BRACE
+                                statement
+                            CLOSE_BRACE
+                    ;
+
+/*Creo que este vendria siendo el for de C-
+iterationRange ::= ID EQUALS simpleExp
+*/
+
+forStmt ::= FOR OPEN_PARENTHESIS assignationAndDeclaration SEMICOLON simpleExp SEMICOLON expression CLOSE_PARENTHESIS 
+                OPEN_BRACE
+                    statement
+                CLOSE_BRACE
+                ; 
+whileStmt ::= while OPEN_PARENTHESIS simpleExp CLOSE_PARENTHESIS
+                OPEN_BRACE
+                    statement
+                CLOSE_BRACE
+                ;
+returnStmt ::= RETURN SEMICOLON | RETURN expression SEMICOLON;
+breakStmt ::= BREAK SEMICOLON;
+
+
+expression ::= mutable EQUALS expression 
+                | mutable PLUSEQUALS expression 
+                | mutalbe MINUSEQUALS expression
+                | mutable TIMESEQUALS expression
+                | mutable DIVIDEEQUALS expression
+                | mutable PLUSPLUS
+                | mutable MINUSMINUS
+                | simpleExp
+                ;
+simpleExp ::= simpleExp OR andExp | andExp;
+andExp ::= andExp AND unaryRelExp | unaryRelExp;
+unaryRelExp ::= NOT unaryRelExp | relExp;
+relExp ::= sumExp oprel sumExp | sumExp;
+oprel ::= COMPARISSON 
+            | LESSERTHAN 
+            | LESSEREQUALTHAN 
+            | GREATERTHAN 
+            | GREATEREQUALTHAN
+            | DIFFERENT
+            ;
+sumExp ::= sumExp sumOp mulExp | mulExp;
+sumOp ::= PLUS | MINUS;
+mulExp ::= mulExp mulOp | unaryExp | unaryExp;
+mulOp ::= TIMES | DIVIDE | MOD;
+unaryExp ::= unaryOp unaryExp | factor;
+unaryOp ::= MINUS | * | ?;
+factor ::= immutable | mutable;
+mutable ::= ID | mutable OPEN_BRACKET expression CLOSE_BRACKET;
+immutable ::= OPEN_PARENTHESIS expression CLOSE_PARENTHESIS | call | constant;
+call ::= ID OPEN_PARENTHESIS args CLOSE_PARENTHESIS;
+args ::= argList | /* VACIO */;
+argList ::= argList COMMA expression | expression
+constant ::= data;
+
+declarationID ::= ID; // Creo que aqui va otra cosa
+
+
+/*
+declarationID ::= INT ID SEMICOLON
+                | CHAR ID SEMICOLON
+                | BOOL ID SEMICOLON
+                ;
+*/
+
 
 
 //booleanExpresion ::= ID oprel ID ;
