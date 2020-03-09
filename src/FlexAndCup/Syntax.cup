@@ -19,7 +19,7 @@ parser code
 
 //Terminals
 terminal IF, ELSE, WHILE, FOR, RETURN;
-terminal INT, STRING, BOOL, CHAR;
+terminal INT, BOOL, CHAR;
 terminal QUOTE;
 terminal OPEN_PARENTHESIS, CLOSE_PARENTHESIS, OPEN_BRACKET, CLOSE_BRACKET, OPEN_BRACE, CLOSE_BRACE;
 terminal AND, OR, TRUE, FALSE, NULL
@@ -33,12 +33,12 @@ terminal String STRING;
 //Non terminals
 non terminal forCycle, whileCycle;
 non terminal ifDecision;
-non terminal comparing, varNumberOperations, booleanExpresion;
+non terminal comparing, varNumberOperations, booleanExpresion, idOrNum;
 non terminal oprel;
 non terminal assignationAndDeclaration, declaration;
 
 //FOR CYCLE
-forCycle ::= FOR OPEN_PARENTHESIS INT ID EQUALS NUM SEMICOLON comparing SEMICOLON varNumberOperations CLOSE_PARENTHESIS 
+forCycle ::= FOR OPEN_PARENTHESIS assignationAndDeclaration comparing SEMICOLON varNumberOperations CLOSE_PARENTHESIS 
                 OPEN_BRACE
                 //por mientras perro
                 varNumberOperations
@@ -52,18 +52,23 @@ ifDecision ::= IF OPEN_PARENTHESIS comparing CLOSE_PARENTHESIS
                 CLOSE_BRACE
                 ;
                                                     
-
+anyCode ::= varNumberOperations SEMICOLON
+            | declaration SEMICOLON
+            | assignationAndDeclaration SEMICOLON
+            | comparing SEMICOLON
 
 //Este solo es para variables como x += 4;
-varNumberOperations ::= ID (PLUSPLUS 
-                            | MINUSMINUS
-                            | PLUSEQUALS
-                            | MINUSEQUALS
-                            | DIVIDEEQUALS
-                            | TIMESEQUALS
-                            | PLUS
-                            | MINUS) (ID | NUM)
+varNumberOperations ::= ID PLUSPLUS
+                            | ID MINUSMINUS 
+                            | ID PLUSEQUALS idOrNum
+                            | ID MINUSEQUALS idOrNum
+                            | ID DIVIDEEQUALS idOrNum
+                            | ID TIMESEQUALS idOrNum
+                            | ID PLUS idOrNum
+                            | ID MINUS idOrNum
                             ;
+
+idOrNum = ID | NUM;
 
 oprel ::=  COMPARISSON 
             | LESSERTHAN 
@@ -72,19 +77,19 @@ oprel ::=  COMPARISSON
             | GREATEREQUALTHAN
             ;
 
-declaration ::= INT ID
-                | CHAR ID
-                | BOOL ID
+declaration ::= INT ID SEMICOLON
+                | CHAR ID SEMICOLON
+                | BOOL ID SEMICOLON
                 ;
 
-assignationAndDeclaration ::= INT ID equals NUM
-                                | INT ID equals ID
-                                | CHAR ID EQUALS STRING
-                                | BOOL ID EQUALS TRUE
-                                | BOOL ID EQUALS FALSE
+assignationAndDeclaration ::= INT ID equals NUM SEMICOLON
+                                | INT ID equals ID SEMICOLON
+                                | CHAR ID EQUALS STRING SEMICOLON
+                                | BOOL ID EQUALS TRUE SEMICOLON
+                                | BOOL ID EQUALS FALSE SEMICOLON
                                 ;
 
 
-booleanExpresion ::= ID oprel ID ;
+//booleanExpresion ::= ID oprel ID ;
 
-comparing ::= ID oprel ID ;
+comparing ::= idOrNum oprel idOrNum ;
