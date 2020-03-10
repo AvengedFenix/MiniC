@@ -25,7 +25,7 @@ terminal OPEN_PARENTHESIS, CLOSE_PARENTHESIS, OPEN_BRACKET, CLOSE_BRACKET, OPEN_
 terminal AND, OR, TRUE, FALSE, NULL, NOT;
 terminal EQUALS, COMPARISSON, LESSERTHAN, LESSEREQUALTHAN, GREATERTHAN, GREATEREQUALTHAN, DIFFERENT;
 terminal PLUS, MINUS, TIMES, MOD, DIVIDE, PLUSPLUS, MINUSMINUS, PLUSEQUALS, MINUSEQUALS, DIVIDEEQUALS, TIMESEQUALS;
-terminal SEMICOLON, COMMA;
+terminal SEMICOLON, COMMA, QUESTION;
 terminal String ID;
 terminal String NUM;
 terminal String STRING;
@@ -35,7 +35,13 @@ non terminal forCycle, whileCycle;
 non terminal ifDecision;
 non terminal comparing, varNumberOperations, booleanExpresion, idOrNum;
 non terminal oprel, typeIden, data;
-non terminal assignationAndDeclaration, declarationID;
+non terminal assignationAndDeclaration, declarationID,varDeclaration,funDeclaration,varDeclarationList;
+non terminal ifStmt ,forStmt ,whileStmt ,returnStmt,breakStmt,iterationStmt;
+non terminal params, paramList, paramID, paramIdList, paramTypeList ;
+non terminal statement , expressionStmt, compoundStmt, localDeclarations, statementList, elseifList;
+non terminal expression, simpleExp, andExp, unaryRelExp, relExp, sumExp, mulExp, unaryExp;
+non terminal sumOp, mulOp, unaryOp ;
+non terminal factor, mutable, immutable, call, args, argList, constant;
 
 precedence left PLUS, MINUS;
 precedence left TIMES, DIVIDE, MOD;
@@ -84,7 +90,7 @@ varNumberOperations ::= ID PLUSPLUS
                             ;
 */
 
-idOrNum = ID | NUM;
+idOrNum ::= ID | NUM;
 
 varDeclaration ::= typeIden varDeclarationList SEMICOLON;
 
@@ -92,7 +98,7 @@ varDeclarationList ::= varDeclarationList COMMA assignationAndDeclaration
                     | assignationAndDeclaration
                     ;
 
-assignationAndDeclaration ::= delcarationID | declarationID EQUALS simpleExp
+assignationAndDeclaration ::= declarationID | declarationID EQUALS simpleExp;
 typeIden ::= INT | BOOL | CHAR;
 
 /*assignationAndDeclaration ::= INT ID EQUALS NUM SEMICOLON
@@ -103,12 +109,12 @@ typeIden ::= INT | BOOL | CHAR;
                                 ;
 */
 
-funDeclaration ::= typeIDen ID OPEN_PARENTHESIS params CLOSE_PARENTHESIS statement 
+funDeclaration ::= typeIden ID OPEN_PARENTHESIS params CLOSE_PARENTHESIS statement 
                     | ID OPEN_PARENTHESIS params CLOSE_PARENTHESIS statement
                     ;
 params ::= paramList | /* VACIO */ ;
 paramList ::= paramList SEMICOLON paramTypeList | paramTypeList;
-paramTypeList ::= typeIDen paramIdList;
+paramTypeList ::= typeIden paramIdList;
 paramIdList ::= paramIdList COMMA paramID | paramID;
 paramID ::= ID | ID OPEN_BRACKET CLOSE_BRACKET;
 
@@ -152,7 +158,7 @@ forStmt ::= FOR OPEN_PARENTHESIS assignationAndDeclaration SEMICOLON simpleExp S
                     statement
                 CLOSE_BRACE
                 ; 
-whileStmt ::= while OPEN_PARENTHESIS simpleExp CLOSE_PARENTHESIS
+whileStmt ::= WHILE OPEN_PARENTHESIS simpleExp CLOSE_PARENTHESIS
                 OPEN_BRACE
                     statement
                 CLOSE_BRACE
@@ -163,7 +169,7 @@ breakStmt ::= BREAK SEMICOLON;
 
 expression ::= mutable EQUALS expression 
                 | mutable PLUSEQUALS expression 
-                | mutalbe MINUSEQUALS expression
+                | mutable MINUSEQUALS expression
                 | mutable TIMESEQUALS expression
                 | mutable DIVIDEEQUALS expression
                 | mutable PLUSPLUS
@@ -185,14 +191,14 @@ sumExp ::= sumExp sumOp mulExp | mulExp;
 sumOp ::= PLUS | MINUS;
 mulExp ::= mulExp mulOp | unaryExp | unaryExp;
 mulOp ::= TIMES | DIVIDE | MOD;
-unaryExp ::= unaryOp unaryExp | factor;
-unaryOp ::= MINUS | * | ?;
+unaryExp ::= unaryOp unaryExp | factor ;
+unaryOp ::= MINUS | TIMES | QUESTION ;
 factor ::= immutable | mutable;
 mutable ::= ID | mutable OPEN_BRACKET expression CLOSE_BRACKET;
 immutable ::= OPEN_PARENTHESIS expression CLOSE_PARENTHESIS | call | constant;
 call ::= ID OPEN_PARENTHESIS args CLOSE_PARENTHESIS;
 args ::= argList | /* VACIO */;
-argList ::= argList COMMA expression | expression
+argList ::= argList COMMA expression | expression;
 constant ::= data;
 
 declarationID ::= ID; // Creo que aqui va otra cosa

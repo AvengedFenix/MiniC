@@ -150,7 +150,8 @@ varTypes = {int} | {double} | {float} | {long} | {char} | {bool}
 numTypes = {int} | {double} | {float}
 nonNumTypes = {char} | {bool}
 functions = {void} | {int} | {double} | {float} | {long} | {char} | {bool}
-
+pointer = {varTypes}({spaces}|{whiteSpace}){asterisk}{identifier}
+pointer_reference = {ampersand}{identifier}
 commentary = {commentary_start}+ (.*?)+ {commentary_end}
 str = {quote} [^\"\'\`]+ {quote}
 strs = {quote}{anyChar}{quote}
@@ -177,7 +178,7 @@ findFunctions = {functions}\s{variables}+{whiteSpace}+
 findInclude = {hash}{include}{whiteSpace}+({system_header}|{program_header})
 
 //Esto no está funcionando
-findDeclarations = (/({signed} | {unsigned})?\s({short} | {long})?\s{numTypes} |/ {varTypes})\s{whiteSpace}+(variables)+{whiteSpace}+(";")
+findDeclarations = (({signed} | {unsigned})?\s({short} | {long})?\s{numTypes} | {varTypes})\s{whiteSpace}+(variables)+{whiteSpace}+(";")
 
 nonNumDeclareAssign = ({char}\s{variables}+{whiteSpace}+{asignationOperators}{whiteSpace}+("\""){whiteSpace}+{anyChar}{whiteSpace}+("\"") 
                         | {bool}\s{variables}+{whiteSpace}+{asignationOperators}{whiteSpace}+(true | false)){whiteSpace}+(";")
@@ -518,6 +519,17 @@ numDeclareAssign = ({signed} | {unsigned})?\s({short} | {long})?\s
 
     {strs} {
         System.out.println("strs found: " + yytext()  + " => at (" +yyline + ","+ yycolumn+")" );
+        return symbol(sym.STRING);
+
+    }
+
+    {pointer} {
+        System.out.println("pointer found: " + yytext()  + " => at (" +yyline + ","+ yycolumn+")" );
+        return symbol(sym.STRING);
+
+    }
+    {pointer_reference} {
+        System.out.println("pointer reference found: " + yytext()  + " => at (" +yyline + ","+ yycolumn+")" );
         return symbol(sym.STRING);
 
     }

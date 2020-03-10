@@ -28,7 +28,7 @@ public class App extends javax.swing.JFrame {
     //Variables globales
     PrintWriter writer;
     Process powerShellProcess;
-    String path = "C:\\Users\\Maslz\\Desktop\\MiniC\\src\\FlexAndCup\\";
+    String path = ".\\src\\FlexAndCup\\";
     String[] pathSyntax = {"-parser", "Syntax", path + "Syntax.cup"};
 
     /**
@@ -217,26 +217,26 @@ public class App extends javax.swing.JFrame {
         jflex.Main.generate(file);
         java_cup.Main.main(pathSyntax);
 
-        Path pathLexar = Paths.get("C:\\Users\\Maslz\\Desktop\\MiniC\\src\\FlexAndCup\\Lexar.java");
+        Path pathLexar = Paths.get(".\\src\\FlexAndCup\\Lexar.java");
 
         if (Files.exists(pathLexar)) {
             Files.delete(pathLexar);
         }
 
         Files.move(
-                Paths.get("C:\\Users\\Maslz\\Desktop\\MiniC\\Lexar.java"),
-                Paths.get("C:\\Users\\Maslz\\Desktop\\MiniC\\src\\FlexAndCup\\Lexar.java")
+                Paths.get(".\\Lexar.java"),
+                Paths.get(".\\src\\FlexAndCup\\Lexar.java")
         );
 
-        Path pathSyntaxCup = Paths.get("C:\\Users\\Maslz\\Desktop\\MiniC\\src\\FlexAndCup\\Syntax.java");
+        Path pathSyntaxCup = Paths.get(".\\src\\FlexAndCup\\Syntax.java");
 
         if (Files.exists(pathSyntaxCup)) {
             Files.delete(pathSyntaxCup);
         }
 
         Files.move(
-                Paths.get("C:\\Users\\Maslz\\Desktop\\MiniC\\Syntax.java"),
-                Paths.get("C:\\Users\\Maslz\\Desktop\\MiniC\\src\\FlexAndCup\\Syntax.java")
+                Paths.get(".\\Syntax.java"),
+                Paths.get(".\\src\\FlexAndCup\\Syntax.java")
         );
     }
 

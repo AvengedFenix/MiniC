@@ -3,9 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/Users/k_k_r/Desktop/test/MiniC/src/compilerminic/Lexar.java</file>
+            <file>file:/C:/Users/k_k_r/Desktop/test/MiniC/src/compilerminic/App.java</file>
             <file>file:/C:/Users/k_k_r/Desktop/test/MiniC/src/FlexAndCup/main.flex</file>
-            <file>file:/C:/Users/k_k_r/Desktop/test/MiniC/src/FlexAndCup/Lexar.java</file>
-            <file>file:/C:/Users/k_k_r/Desktop/test/MiniC/src/FlexAndCup/Sytnax.cup</file>
+            <file>file:/C:/Users/k_k_r/Desktop/test/MiniC/src/FlexAndCup/Syntax.cup</file>
+            <file>file:/C:/Users/k_k_r/Desktop/test/MiniC/src/compilerminic/Tokens.java</file>
             <file>file:/C:/Users/k_k_r/Desktop/test/MiniC/src/proyectocompiladores/app.java</file>
         </group>
     </open-files>
