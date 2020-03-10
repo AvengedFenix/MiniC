@@ -33,6 +33,7 @@ int main() {
 
 int oracle(double tigre) {
     tigre += 2;
-    tigre +=1
+
     return (int)tigre;
 }
+

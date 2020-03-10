@@ -8,16 +8,19 @@ package compilerminic;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import proyectocompiladores.app;
 
 /**
  *
@@ -55,10 +58,17 @@ public class App extends javax.swing.JFrame {
         jb_compile = new javax.swing.JButton();
         jb_genFlex = new javax.swing.JButton();
         jb_genFlex1 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
+        jLabel2 = new javax.swing.JLabel();
+        jb_save_as = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setMaximumSize(new java.awt.Dimension(1280, 720));
         setMinimumSize(new java.awt.Dimension(1280, 720));
+        setResizable(false);
         setSize(new java.awt.Dimension(1280, 720));
 
         ta_code.setColumns(20);
@@ -80,6 +90,11 @@ public class App extends javax.swing.JFrame {
         });
 
         jb_load.setText("Load");
+        jb_load.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jb_loadActionPerformed(evt);
+            }
+        });
 
         jb_compile.setText("Compile");
         jb_compile.addActionListener(new java.awt.event.ActionListener() {
@@ -102,45 +117,73 @@ public class App extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setText("Your Code:");
+
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane2.setViewportView(jTextArea1);
+
+        jLabel2.setText("Output:");
+
+        jb_save_as.setText("Save as..");
+        jb_save_as.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jb_save_asActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 962, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jb_clear)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 166, Short.MAX_VALUE)
-                        .addComponent(jb_load))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jb_save)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jb_compile, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jb_genFlex, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jb_genFlex1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 688, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jb_save)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jb_clear)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jb_load))
+                            .addComponent(jb_genFlex)
+                            .addComponent(jb_genFlex1)
+                            .addComponent(jb_compile)
+                            .addComponent(jb_save_as)))
+                    .addComponent(jLabel2))
+                .addGap(0, 0, 0))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jb_clear)
                             .addComponent(jb_load))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jb_save)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 524, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jb_save_as)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jb_genFlex)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jb_genFlex1)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jb_compile))
-                    .addComponent(jScrollPane1))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 479, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -148,22 +191,33 @@ public class App extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jb_saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_saveActionPerformed
-        // TODO add your handling code here:
-        String fileName = JOptionPane.showInputDialog(this, "File name");
-        try {
-            writer = new PrintWriter(fileName + ".c", "UTF-8");
-            writer.println(ta_code.getText());
-            writer.close();
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (UnsupportedEncodingException ex) {
-            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+
+        if (this.input_C == null) {
+            this.saveNewFile();
+
+        } else {
+            if (input_C.exists()) {
+                FileWriter fr = null;
+                try {
+                    fr = new FileWriter(input_C);
+                    fr.write(this.ta_code.getText());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } finally {
+                    try {
+                        fr.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
         }
+
     }//GEN-LAST:event_jb_saveActionPerformed
 
     private void jb_clearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_clearActionPerformed
-        // TODO add your handling code here:
-        ta_code.setText(null);
+        clear();
+        this.input_C = null;
     }//GEN-LAST:event_jb_clearActionPerformed
 
     private void jb_compileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_compileActionPerformed
@@ -194,8 +248,8 @@ public class App extends javax.swing.JFrame {
             Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
         }
         // Getting the results
-        
-        
+
+
     }//GEN-LAST:event_jb_compileActionPerformed
 
     private void jb_genFlexActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_genFlexActionPerformed
@@ -208,8 +262,28 @@ public class App extends javax.swing.JFrame {
     }//GEN-LAST:event_jb_genFlexActionPerformed
 
     private void jb_genFlex1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_genFlex1ActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_jb_genFlex1ActionPerformed
+
+    private void jb_loadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_loadActionPerformed
+        clear();
+        JFileChooser jfc = new JFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("C files.", "c");
+        jfc.setFileFilter(filter);
+        int result = jfc.showOpenDialog(this);
+        if (result == JFileChooser.APPROVE_OPTION) {
+            this.input_C = jfc.getSelectedFile();
+            try {
+                this.ta_code.setText(this.getCFileText(input_C));
+            } catch (IOException ex) {
+                Logger.getLogger(app.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_jb_loadActionPerformed
+
+    private void jb_save_asActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_save_asActionPerformed
+        this.saveNewFile();
+    }//GEN-LAST:event_jb_save_asActionPerformed
 
     public static void generate(String path, String[] pathSyntax) throws IOException, Exception {
         File file;
@@ -238,6 +312,50 @@ public class App extends javax.swing.JFrame {
                 Paths.get(".\\Syntax.java"),
                 Paths.get(".\\src\\FlexAndCup\\Syntax.java")
         );
+    }
+
+    String getCFileText(File file) throws FileNotFoundException, IOException {
+        BufferedReader br = new BufferedReader(new FileReader(file));
+        String st;
+        String out = "";
+        while ((st = br.readLine()) != null) {
+            System.out.println(st);
+            out += st + "\n";
+        }
+        br.close();
+        return out;
+    }
+
+    void clear() {
+        this.jTextArea1.setText("");
+        this.ta_code.setText("");
+    }
+
+    void saveNewFile() {
+        JFileChooser jfc = new JFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("C files.", "c");
+        jfc.setFileFilter(filter);
+        int option = jfc.showSaveDialog(this);
+        if (option == JFileChooser.APPROVE_OPTION) {
+            String new_file_path = jfc.getSelectedFile().getAbsolutePath();
+            if (!new_file_path.endsWith(".c")) {
+                new_file_path += ".c";
+            }
+            input_C = new File(new_file_path);
+            FileWriter fr = null;
+            try {
+                fr = new FileWriter(input_C);
+                fr.write(this.ta_code.getText());
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    fr.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     /**
@@ -276,14 +394,20 @@ public class App extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JButton jb_clear;
     private javax.swing.JButton jb_compile;
     private javax.swing.JButton jb_genFlex;
     private javax.swing.JButton jb_genFlex1;
     private javax.swing.JButton jb_load;
     private javax.swing.JButton jb_save;
+    private javax.swing.JButton jb_save_as;
     private javax.swing.JTextArea ta_code;
     // End of variables declaration//GEN-END:variables
+    File input_C;
 
 }
