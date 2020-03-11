@@ -5,6 +5,7 @@
  */
 package compilerminic;
 
+import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -39,6 +40,12 @@ public class App extends javax.swing.JFrame {
      */
     public App() {
         initComponents();
+        this.setLocationRelativeTo(null);
+        
+        this.ta_code.setBackground(Color.BLACK);
+        this.ta_code.setForeground(Color.WHITE);
+        this.ta_result.setBackground(Color.BLACK);
+        this.ta_result.setForeground(Color.WHITE);
     }
 
     /**
@@ -60,14 +67,12 @@ public class App extends javax.swing.JFrame {
         jb_genFlex1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        ta_result = new javax.swing.JTextArea();
         jLabel2 = new javax.swing.JLabel();
         jb_save_as = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        setMaximumSize(new java.awt.Dimension(1280, 720));
-        setMinimumSize(new java.awt.Dimension(1280, 720));
         setResizable(false);
         setSize(new java.awt.Dimension(1280, 720));
 
@@ -119,9 +124,10 @@ public class App extends javax.swing.JFrame {
 
         jLabel1.setText("Your Code:");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane2.setViewportView(jTextArea1);
+        ta_result.setEditable(false);
+        ta_result.setColumns(20);
+        ta_result.setRows(5);
+        jScrollPane2.setViewportView(ta_result);
 
         jLabel2.setText("Output:");
 
@@ -145,18 +151,18 @@ public class App extends javax.swing.JFrame {
                             .addComponent(jScrollPane1)
                             .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jb_save)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jb_genFlex, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jb_genFlex1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jb_compile, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jb_clear)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jb_load))
-                            .addComponent(jb_genFlex)
-                            .addComponent(jb_genFlex1)
-                            .addComponent(jb_compile)
-                            .addComponent(jb_save_as)))
+                            .addComponent(jb_save_as)
+                            .addComponent(jb_save)))
                     .addComponent(jLabel2))
-                .addGap(0, 0, 0))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -171,7 +177,7 @@ public class App extends javax.swing.JFrame {
                             .addComponent(jb_load))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jb_save)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jb_save_as)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jb_genFlex)
@@ -327,7 +333,7 @@ public class App extends javax.swing.JFrame {
     }
 
     void clear() {
-        this.jTextArea1.setText("");
+        this.ta_result.setText("");
         this.ta_code.setText("");
     }
 
@@ -398,7 +404,6 @@ public class App extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JButton jb_clear;
     private javax.swing.JButton jb_compile;
     private javax.swing.JButton jb_genFlex;
@@ -407,6 +412,7 @@ public class App extends javax.swing.JFrame {
     private javax.swing.JButton jb_save;
     private javax.swing.JButton jb_save_as;
     private javax.swing.JTextArea ta_code;
+    private javax.swing.JTextArea ta_result;
     // End of variables declaration//GEN-END:variables
     File input_C;
 

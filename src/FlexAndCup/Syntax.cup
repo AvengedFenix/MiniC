@@ -112,6 +112,7 @@ typeIden ::= INT | BOOL | CHAR;
 funDeclaration ::= typeIden ID OPEN_PARENTHESIS params CLOSE_PARENTHESIS statement 
                     | ID OPEN_PARENTHESIS params CLOSE_PARENTHESIS statement
                     ;
+                    
 params ::= paramList | /* VACIO */ ;
 paramList ::= paramList SEMICOLON paramTypeList | paramTypeList;
 paramTypeList ::= typeIden paramIdList;
@@ -163,6 +164,7 @@ whileStmt ::= WHILE OPEN_PARENTHESIS simpleExp CLOSE_PARENTHESIS
                     statement
                 CLOSE_BRACE
                 ;
+
 returnStmt ::= RETURN SEMICOLON | RETURN expression SEMICOLON;
 breakStmt ::= BREAK SEMICOLON;
 
@@ -210,8 +212,6 @@ declarationID ::= INT ID SEMICOLON
                 | BOOL ID SEMICOLON
                 ;
 */
-
-
 
 //booleanExpresion ::= ID oprel ID ;
 
