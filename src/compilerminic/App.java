@@ -5,6 +5,7 @@
  */
 package compilerminic;
 
+
 import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.File;
@@ -22,6 +23,9 @@ import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import proyectocompiladores.app;
+import java.io.StringReader;
+
+import java_cup.runtime.Symbol;
 
 /**
  *
@@ -41,7 +45,7 @@ public class App extends javax.swing.JFrame {
     public App() {
         initComponents();
         this.setLocationRelativeTo(null);
-        
+
         this.ta_code.setBackground(Color.BLACK);
         this.ta_code.setForeground(Color.WHITE);
         this.ta_result.setBackground(Color.BLACK);
@@ -201,20 +205,18 @@ public class App extends javax.swing.JFrame {
         if (this.input_C == null) {
             this.saveNewFile();
 
-        } else {
-            if (input_C.exists()) {
-                FileWriter fr = null;
+        } else if (input_C.exists()) {
+            FileWriter fr = null;
+            try {
+                fr = new FileWriter(input_C);
+                fr.write(this.ta_code.getText());
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
                 try {
-                    fr = new FileWriter(input_C);
-                    fr.write(this.ta_code.getText());
+                    fr.close();
                 } catch (IOException e) {
                     e.printStackTrace();
-                } finally {
-                    try {
-                        fr.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
                 }
             }
         }
@@ -228,33 +230,46 @@ public class App extends javax.swing.JFrame {
 
     private void jb_compileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_compileActionPerformed
         // TODO add your handling code here:
-        String command = "powershell.exe  cd '.\\Flex and Cup files\\' ;; jflex .\\main.flex;; javac Lexar.java;; java Lexar .\\test.c";
-        // Executing the command
+        
+        
+        parser p = new parser(new compilerminic.Lexar(new StringReader(ta_code.getText())));
+        
         try {
+            p.parse();
+            ta_result.setText("Tu hermana");
+            
+        } catch (Exception ex) {
+            Symbol sym = p.getS();
+        }
+            /*
+            
+            String command = "powershell.exe  cd '.\\Flex and Cup files\\' ;; jflex .\\main.flex;; javac Lexar.java;; java Lexar .\\test.c";
+            // Executing the command
+            try {
             powerShellProcess = Runtime.getRuntime().exec(command);
             powerShellProcess.getOutputStream().close();
             String line;
             System.out.println("Standard Output:");
             BufferedReader stdout = new BufferedReader(new InputStreamReader(
-                    powerShellProcess.getInputStream()));
+            powerShellProcess.getInputStream()));
             while ((line = stdout.readLine()) != null) {
-                System.out.println(line);
+            System.out.println(line);
             }
             stdout.close();
             System.out.println("Standard Error:");
             BufferedReader stderr = new BufferedReader(new InputStreamReader(
-                    powerShellProcess.getErrorStream()));
+            powerShellProcess.getErrorStream()));
             while ((line = stderr.readLine()) != null) {
-                System.out.println(line);
+            System.out.println(line);
             }
             stderr.close();
             System.out.println("Done");
-
-        } catch (IOException ex) {
+            
+            } catch (IOException ex) {
             Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        // Getting the results
-
+            }
+            // Getting the results
+            */
 
     }//GEN-LAST:event_jb_compileActionPerformed
 
@@ -390,7 +405,7 @@ public class App extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(App.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
+        //sym s = new sym();
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
