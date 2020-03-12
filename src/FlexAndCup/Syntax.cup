@@ -96,7 +96,15 @@ varNumberOperations ::= ID PLUSPLUS
             ;
 */
 
-start with varDeclaration;
+start with program;
+
+program ::= declarationList {: System.out.println("Production #-2") :};
+
+declarationList ::= declarationList declaration {: System.out.println("Production #-1") :}
+| declaration {: System.out.println("Production #0") :};
+
+declaration ::= varDeclaration {: System.out.println("Production #1") :}
+                | funDeclaration {: System.out.println("Production #2") :};
 
 varDeclaration ::= typeIden varDeclarationList SEMICOLON {: System.out.println("Production #3") :};
 
