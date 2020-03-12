@@ -2,8 +2,7 @@ package FlexAndCup;
 
 import java_cup.runtime.Symbol;
 
-parser code
-{:
+parser code{:
     private Symbol s;
 
     public void syntax_error(Symbol s){
@@ -44,139 +43,85 @@ non terminal factor, mutable, immutable, call, args, argList, constant;
 
 precedence left PLUS, MINUS;
 precedence left TIMES, DIVIDE, MOD;
-//precedence left ELSE;
+precedence left ELSE;
 
 //Posiblemente esto haya que cambiarlo
 //data ::= ID | NUM | STRING | TRUE | FALSE;
 
-/*
-forCycle ::= FOR OPEN_PARENTHESIS assignationAndDeclaration comparing SEMICOLON varNumberOperations CLOSE_PARENTHESIS 
-                OPEN_BRACE
-                //por mientras
-                anyCode
-                CLOSE_BRACE
-                ; 
-*/
-
-/*
-ifDecision ::= IF OPEN_PARENTHESIS comparing CLOSE_PARENTHESIS 
-                OPEN_BRACE
-                //por mientras
-                anyCode
-                CLOSE_BRACE
-                ;\
-*/
-
-/*
-anyCode ::= varNumberOperations SEMICOLON
-            | declarationID SEMICOLON
-            | assignationAnddeclarationID SEMICOLON
-            | comparing SEMICOLON
-            | forCycle
-            | ifDecision
-            ;
-*/
-
-/*
-//Este solo es para variables como x += 4;
-varNumberOperations ::= ID PLUSPLUS
-                            | ID MINUSMINUS 
-                            | ID PLUSEQUALS idOrNum
-                            | ID MINUSEQUALS idOrNum
-                            | ID DIVIDEEQUALS idOrNum
-                            | ID TIMESEQUALS idOrNum
-                            | ID PLUS idOrNum
-                            | ID MINUS idOrNum
-                            ;
-*/
-
-/*idOrNum ::= ID {: System.out.println("Production #1") :} 
-            | NUM {: System.out.println("Production #2") :}
-            ;
-*/
-
 start with program;
 
-program ::= declarationList {: System.out.println("Production #-2") :};
+program ::= declarationList                                                                                      {: System.out.println("Production #-2") :};
 
-declarationList ::= declarationList declaration {: System.out.println("Production #-1") :}
-| declaration {: System.out.println("Production #0") :};
+declarationList ::= declarationList declaration                                                                  {: System.out.println("Production #-1") :}
+| declaration                                                                                                    {: System.out.println("Production #0") :};
 
-declaration ::= varDeclaration {: System.out.println("Production #1") :}
-                | funDeclaration {: System.out.println("Production #2") :};
+declaration ::= varDeclaration                                                                                   {: System.out.println("Production #1") :}
+                | funDeclaration                                                                                 {: System.out.println("Production #2") :};
 
-varDeclaration ::= typeIden varDeclarationList SEMICOLON {: System.out.println("Production #3") :};
+varDeclaration ::= typeIden varDeclarationList SEMICOLON                                                         {: System.out.println("Production #3") :};
 
-varDeclarationList ::= varDeclarationList COMMA assignationAndDeclaration  {: System.out.println("Production #4") :}
-                        | assignationAndDeclaration {: System.out.println("Production #5") :}
+varDeclarationList ::= varDeclarationList COMMA assignationAndDeclaration                                        {: System.out.println("Production #4") :}
+                        | assignationAndDeclaration                                                              {: System.out.println("Production #5") :}
                         ;
 
-assignationAndDeclaration ::= declarationID {: System.out.println("Production #6") :} 
-                                | declarationID EQUALS simpleExp {: System.out.println("Production #7") :}
+assignationAndDeclaration ::= declarationID                                                                      {: System.out.println("Production #6") :} 
+                                | declarationID EQUALS simpleExp                                                 {: System.out.println("Production #7") :}
                                 ;
 
-typeIden ::= INT {: System.out.println("Production #8") :} 
-                | BOOL {: System.out.println("Production #9") :} 
-                | CHAR {: System.out.println("Production #10") :};
+typeIden ::= INT                                                                                                 {: System.out.println("Production #8") :} 
+                | BOOL                                                                                           {: System.out.println("Production #9") :} 
+                | CHAR                                                                                           {: System.out.println("Production #10") :};
 
-/*assignationAndDeclaration ::= INT ID EQUALS NUM SEMICOLON
-                                | INT ID EQUALS ID SEMICOLON
-                                | CHAR ID EQUALS STRING SEMICOLON
-                                | BOOL ID EQUALS TRUE SEMICOLON
-                                | BOOL ID EQUALS FALSE SEMICOLON
-                                ;
-*/
-
-funDeclaration ::= typeIden ID OPEN_PARENTHESIS params CLOSE_PARENTHESIS statement  {: System.out.println("Production #11") :}
-                    | ID OPEN_PARENTHESIS params CLOSE_PARENTHESIS statement {: System.out.println("Production #12") :};
+funDeclaration ::= typeIden ID OPEN_PARENTHESIS params CLOSE_PARENTHESIS statement                               {: System.out.println("Production #11") :}
+                    | ID OPEN_PARENTHESIS params CLOSE_PARENTHESIS statement                                     {: System.out.println("Production #12") :};
                     
-params ::= paramList {: System.out.println("Production #13") :} 
-            | /* VACIO */  {: System.out.println("Production #14") :};
+params ::= paramList                                                                                             {: System.out.println("Production #13") :} 
+            | /* VACIO */                                                                                        {: System.out.println("Production #14") :};
 
-paramList ::= paramList SEMICOLON paramTypeList {: System.out.println("Production #15") :} 
-                | paramTypeList {: System.out.println("Production #16") :}
+paramList ::= paramList SEMICOLON paramTypeList                                                                  {: System.out.println("Production #15") :} 
+                | paramTypeList                                                                                  {: System.out.println("Production #16") :}
                 ;
 
-paramTypeList ::= typeIden paramIdList {: System.out.println("Production #17") :};
+paramTypeList ::= typeIden paramIdList                                                                           {: System.out.println("Production #17") :};
 
-paramIdList ::= paramIdList COMMA paramID {: System.out.println("Production #18") :} 
-                | paramID {: System.out.println("Production #19") :};
+paramIdList ::= paramIdList COMMA paramID                                                                        {: System.out.println("Production #18") :} 
+                | paramID                                                                                        {: System.out.println("Production #19") :};
 
-paramID ::= ID {: System.out.println("Production #20") :} 
-            | ID OPEN_BRACKET CLOSE_BRACKET {: System.out.println("Production #21") :};
+paramID ::= ID                                                                                                   {: System.out.println("Production #20") :} 
+            | ID OPEN_BRACKET CLOSE_BRACKET                                                                      {: System.out.println("Production #21") :};
 
-statement ::= expressionStmt {: System.out.println("Production #22") :} 
-                | compoundStmt  {: System.out.println("Production #23") :}
-                | ifStmt {: System.out.println("Production #24") :} 
-                | whileStmt  {: System.out.println("Production #25") :}
-                | returnStmt  {: System.out.println("Production #26") :}
-                | forStmt {: System.out.println("Production #95") :}
-                | breakStmt {: System.out.println("Production #27") :}
+statement ::= expressionStmt                                                                                     {: System.out.println("Production #22") :} 
+                | compoundStmt                                                                                   {: System.out.println("Production #23") :}
+                | ifStmt                                                                                         {: System.out.println("Production #24") :} 
+                | whileStmt                                                                                      {: System.out.println("Production #25") :}
+                | returnStmt                                                                                     {: System.out.println("Production #26") :}
+                | forStmt                                                                                        {: System.out.println("Production #95") :}
+                | breakStmt                                                                                      {: System.out.println("Production #27") :}
                 ;
 
-expressionStmt ::= expression SEMICOLON {: System.out.println("Production #28") :} 
-                    | SEMICOLON {: System.out.println("Production #29") :}
+expressionStmt ::= expression SEMICOLON                                                                          {: System.out.println("Production #28") :} 
+                    | SEMICOLON                                                                                  {: System.out.println("Production #29") :}
                     ;
 
-compoundStmt ::= OPEN_BRACE localDeclarations statementList CLOSE_BRACE {: System.out.println("Production #30") :};
+compoundStmt ::= OPEN_BRACE localDeclarations statementList CLOSE_BRACE                                          {: System.out.println("Production #30") :};
 
-localDeclarations ::= localDeclarations varDeclaration {: System.out.println("Production #31") :} 
-                        | /* VACIO */  {: System.out.println("Production #32") :};
+localDeclarations ::= localDeclarations varDeclaration                                                           {: System.out.println("Production #31") :} 
+                        | /* VACIO */                                                                            {: System.out.println("Production #32") :};
 
-statementList ::= statementList statement {: System.out.println("Production #33") :} 
-                    | /* VACIO */  {: System.out.println("Production #34") :};
+statementList ::= statementList statement                                                                        {: System.out.println("Production #33") :} 
+                    | /* VACIO */                                                                                {: System.out.println("Production #34") :};
 
 elseifList ::= elseifList ELSE IF OPEN_PARENTHESIS simpleExp CLOSE_PARENTHESIS 
                 OPEN_BRACE
                     statement
-                CLOSE_BRACE {: System.out.println("Production #35") :}
-                | /* VACIO */ {: System.out.println("Production #36") :}
+                CLOSE_BRACE                                                                                      {: System.out.println("Production #35") :}
+                | /* VACIO */                                                                                    {: System.out.println("Production #36") :}
                 ;
 
 ifStmt ::= IF OPEN_PARENTHESIS simpleExp CLOSE_PARENTHESIS
                     OPEN_BRACE 
                         statement elseifList
-                    CLOSE_BRACE {: System.out.println("Production #37") :}
+                    CLOSE_BRACE                                                                                  {: System.out.println("Production #37") :}
                     | IF OPEN_PARENTHESIS simpleExp CLOSE_PARENTHESIS
                         OPEN_BRACE 
                             statement elseifList
@@ -184,7 +129,7 @@ ifStmt ::= IF OPEN_PARENTHESIS simpleExp CLOSE_PARENTHESIS
                             OPEN_BRACE
                                 statement
                             CLOSE_BRACE
-                     {: System.out.println("Production #38") :}
+                                                                                                                 {: System.out.println("Production #38") :}
                      ;
 
 /*Creo que este vendria siendo el for de C-
@@ -195,107 +140,107 @@ forStmt ::= FOR OPEN_PARENTHESIS assignationAndDeclaration SEMICOLON simpleExp S
                 OPEN_BRACE
                     statement
                 CLOSE_BRACE
-                {: System.out.println("Production #39") :}
+                                                                                                                 {: System.out.println("Production #39") :}
                 ; 
 
 whileStmt ::= WHILE OPEN_PARENTHESIS simpleExp CLOSE_PARENTHESIS
                 OPEN_BRACE
                     statement
                 CLOSE_BRACE
-                 {: System.out.println("Production #40") :}
+                                                                                                                 {: System.out.println("Production #40") :}
                  ;
 
-returnStmt ::= RETURN SEMICOLON {: System.out.println("Production #41") :} 
-                | RETURN expression SEMICOLON {: System.out.println("Production #42") :}
+returnStmt ::= RETURN SEMICOLON                                                                                  {: System.out.println("Production #41") :} 
+                | RETURN expression SEMICOLON                                                                    {: System.out.println("Production #42") :}
                 ;
 
-breakStmt ::= BREAK SEMICOLON {: System.out.println("Production #43") :};
+breakStmt ::= BREAK SEMICOLON                                                                                    {: System.out.println("Production #43") :};
 
 
-expression ::= mutable EQUALS expression  {: System.out.println("Production #44") :}
-                | mutable PLUSEQUALS expression  {: System.out.println("Production #45") :}
-                | mutable MINUSEQUALS expression {: System.out.println("Production #46") :}
-                | mutable TIMESEQUALS expression {: System.out.println("Production #47") :}
-                | mutable DIVIDEEQUALS expression {: System.out.println("Production #48") :}
-                | mutable PLUSPLUS {: System.out.println("Production #49") :}
-                | mutable MINUSMINUS {: System.out.println("Production #50") :}
-                | simpleExp {: System.out.println("Production #51") :}
+expression ::= mutable EQUALS expression                                                                         {: System.out.println("Production #44") :}
+                | mutable PLUSEQUALS expression                                                                  {: System.out.println("Production #45") :}
+                | mutable MINUSEQUALS expression                                                                 {: System.out.println("Production #46") :}
+                | mutable TIMESEQUALS expression                                                                 {: System.out.println("Production #47") :}
+                | mutable DIVIDEEQUALS expression                                                                {: System.out.println("Production #48") :}
+                | mutable PLUSPLUS                                                                               {: System.out.println("Production #49") :}
+                | mutable MINUSMINUS                                                                             {: System.out.println("Production #50") :}
+                | simpleExp                                                                                      {: System.out.println("Production #51") :}
                 ;
 
-simpleExp ::= simpleExp OR andExp {: System.out.println("Production #52"); :}
-                | andExp {: System.out.println("Production #53"); :}
+simpleExp ::= simpleExp OR andExp                                                                                {: System.out.println("Production #52"); :}
+                | andExp                                                                                         {: System.out.println("Production #53"); :}
                 ;
 
-andExp ::= andExp AND unaryRelExp {: System.out.println("Production #54"); :}
-            | unaryRelExp {: System.out.println("Production #55"); :}
+andExp ::= andExp AND unaryRelExp                                                                                {: System.out.println("Production #54"); :}
+            | unaryRelExp                                                                                        {: System.out.println("Production #55"); :}
             ;
 
-unaryRelExp ::= NOT unaryRelExp {: System.out.println("Production #56"); :}
-                | relExp {: System.out.println("Production #57"); :}
+unaryRelExp ::= NOT unaryRelExp                                                                                  {: System.out.println("Production #56"); :}
+                | relExp                                                                                         {: System.out.println("Production #57"); :}
                 ;
 
-relExp ::= sumExp oprel sumExp {: System.out.println("Production #58"); :}
-            | sumExp {: System.out.println("Production #59"); :}
+relExp ::= sumExp oprel sumExp                                                                                   {: System.out.println("Production #58"); :}
+            | sumExp                                                                                             {: System.out.println("Production #59"); :}
             ;
 
-oprel ::= COMPARISSON {: System.out.println("Production #60"); :}
-            | LESSERTHAN {: System.out.println("Production #61"); :}
-            | LESSEREQUALTHAN {: System.out.println("Production #62"); :}
-            | GREATERTHAN {: System.out.println("Production #63"); :}
-            | GREATEREQUALTHAN {: System.out.println("Production #64"); :}
-            | DIFFERENT{: System.out.println("Production #65"); :}
+oprel ::= COMPARISSON                                                                                            {: System.out.println("Production #60"); :}
+            | LESSERTHAN                                                                                         {: System.out.println("Production #61"); :}
+            | LESSEREQUALTHAN                                                                                    {: System.out.println("Production #62"); :}
+            | GREATERTHAN                                                                                        {: System.out.println("Production #63"); :}
+            | GREATEREQUALTHAN                                                                                   {: System.out.println("Production #64"); :}
+            | DIFFERENT                                                                                          {: System.out.println("Production #65"); :}
             ;
 
-sumExp ::= sumExp sumOp mulExp {: System.out.println("Production #66"); :}
-            | mulExp {: System.out.println("Production #67"); :}
+sumExp ::= sumExp sumOp mulExp                                                                                   {: System.out.println("Production #66"); :}
+            | mulExp                                                                                             {: System.out.println("Production #67"); :}
             ;
 
-sumOp ::= PLUS {: System.out.println("Production #68"); :}
-            | MINUS {: System.out.println("Production #69"); :}
+sumOp ::= PLUS                                                                                                   {: System.out.println("Production #68"); :}
+            | MINUS                                                                                              {: System.out.println("Production #69"); :}
             ;
 
-mulExp ::= mulExp mulOp {: System.out.println("Production #70"); :}
-            | unaryExp  {: System.out.println("Production #71"); :}
+mulExp ::= mulExp mulOp                                                                                          {: System.out.println("Production #70"); :}
+            | unaryExp                                                                                           {: System.out.println("Production #71"); :}
             ;
 
-mulOp ::= TIMES {: System.out.println("Production #73"); :}
-            | DIVIDE  {: System.out.println("Production #74"); :}
-            | MOD {: System.out.println("Production #75"); :}
+mulOp ::= TIMES                                                                                                  {: System.out.println("Production #73"); :}
+            | DIVIDE                                                                                             {: System.out.println("Production #74"); :}
+            | MOD                                                                                                {: System.out.println("Production #75"); :}
             ;
 
-unaryExp ::= unaryOp unaryExp {: System.out.println("Production #76"); :}
-            | factor {: System.out.println("Production #77"); :}
+unaryExp ::= unaryOp unaryExp                                                                                    {: System.out.println("Production #76"); :}
+            | factor                                                                                             {: System.out.println("Production #77"); :}
             ;
 
-unaryOp ::= MINUS {: System.out.println("Production #78"); :}
-            | TIMES {: System.out.println("Production #79"); :}
-            | QUESTION {: System.out.println("Production #80"); :}
+unaryOp ::= MINUS                                                                                                {: System.out.println("Production #78"); :}
+            | TIMES                                                                                              {: System.out.println("Production #79"); :}
+            | QUESTION                                                                                           {: System.out.println("Production #80"); :}
             ;
 
-factor ::= immutable {: System.out.println("Production #81"); :}
-            | mutable {: System.out.println("Production #82"); :}
+factor ::= immutable                                                                                             {: System.out.println("Production #81"); :}
+            | mutable                                                                                            {: System.out.println("Production #82"); :}
             ;
 
-mutable ::= ID {: System.out.println("Production #83"); :}
-            | mutable OPEN_BRACKET expression CLOSE_BRACKET {: System.out.println("Production #84"); :}
+mutable ::= ID                                                                                                   {: System.out.println("Production #83"); :}
+            | mutable OPEN_BRACKET expression CLOSE_BRACKET                                                      {: System.out.println("Production #84"); :}
             ;
 
-immutable ::= OPEN_PARENTHESIS expression CLOSE_PARENTHESIS {: System.out.println("Production #85"); :}
-                | call {: System.out.println("Production #86"); :}
-                | constant {: System.out.println("Production #87"); :}
+immutable ::= OPEN_PARENTHESIS expression CLOSE_PARENTHESIS                                                      {: System.out.println("Production #85"); :}
+                | call                                                                                           {: System.out.println("Production #86"); :}
+                | constant                                                                                       {: System.out.println("Production #87"); :}
                 ; 
 
-call ::= ID OPEN_PARENTHESIS args CLOSE_PARENTHESIS {: System.out.println("Production #88"); :};
+call ::= ID OPEN_PARENTHESIS args CLOSE_PARENTHESIS                                                              {: System.out.println("Production #88"); :};
 
-args ::= argList {: System.out.println("Production #89"); :}
-        | /* VACIO */ {: System.out.println("Production #90"); :}
+args ::= argList                                                                                                 {: System.out.println("Production #89"); :}
+        | /* VACIO */                                                                                            {: System.out.println("Production #90"); :}
         ;
 
-argList ::= argList COMMA expression {: System.out.println("Production #91"); :}
-                | expression {: System.out.println("Production #92"); :}
+argList ::= argList COMMA expression                                                                             {: System.out.println("Production #91"); :}
+                | expression                                                                                     {: System.out.println("Production #92"); :}
                 ;
 
-constant ::= data {: System.out.println("Production #93"); :};
+constant ::= data                                                                                                {: System.out.println("Production #93"); :};
 
-declarationID ::= ID {: System.out.println("Production #94"); :}; // Creo que aqui va otra cosa
+declarationID ::= ID                                                                                             {: System.out.println("Production #94"); :}; // Creo que aqui va otra cosa
 
