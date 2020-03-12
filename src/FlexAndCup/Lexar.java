@@ -66,15 +66,16 @@ class Lexar implements java_cup.runtime.Scanner {
     "\1\27\1\1\1\30\1\31\1\32\1\33\15\1\1\34"+
     "\1\1\1\35\1\1\1\36\1\37\1\0\1\40\1\41"+
     "\1\42\1\2\1\43\1\44\1\45\1\46\1\47\1\50"+
-    "\1\51\7\0\1\52\14\0\1\53\2\0\1\45\3\0"+
-    "\1\46\7\0\1\54\1\55\13\0\1\45\1\56\1\0"+
-    "\1\46\1\57\1\60\1\61\6\0\1\62\6\0\1\63"+
-    "\1\0\1\64\3\0\1\56\2\0\1\65\1\66\1\67"+
-    "\2\0\1\70\1\71\3\0\1\72\1\0\1\73\1\74"+
-    "\1\75\1\76\1\77\2\0\1\100";
+    "\1\51\1\52\1\53\1\54\1\55\7\0\1\56\14\0"+
+    "\1\57\2\0\1\50\3\0\1\51\7\0\1\60\1\61"+
+    "\13\0\1\50\1\62\1\0\1\51\1\63\1\64\1\65"+
+    "\6\0\1\66\6\0\1\67\1\0\1\70\3\0\1\62"+
+    "\2\0\1\71\1\72\1\73\2\0\1\74\1\75\3\0"+
+    "\1\76\1\0\1\77\1\100\1\101\1\102\1\103\2\0"+
+    "\1\104";
 
   private static int [] zzUnpackAction() {
-    int [] result = new int[163];
+    int [] result = new int[167];
     int offset = 0;
     offset = zzUnpackAction(ZZ_ACTION_PACKED_0, offset, result);
     return result;
@@ -105,24 +106,24 @@ class Lexar implements java_cup.runtime.Scanner {
     "\0\u012c\0\u0384\0\u03c0\0\u03fc\0\u012c\0\u012c\0\u0438\0\u012c"+
     "\0\u012c\0\u012c\0\u012c\0\u0474\0\u04b0\0\u04ec\0\u0528\0\u0564"+
     "\0\u05a0\0\u05dc\0\u0618\0\u0654\0\u0690\0\u06cc\0\u0708\0\u0744"+
-    "\0\u012c\0\u0780\0\u012c\0\u0294\0\u012c\0\u012c\0\u07bc\0\u012c"+
-    "\0\u07f8\0\u012c\0\u012c\0\u012c\0\u012c\0\u0834\0\u0870\0\u012c"+
-    "\0\u012c\0\u012c\0\u08ac\0\u08e8\0\u0924\0\u0960\0\u099c\0\u09d8"+
-    "\0\u0a14\0\u012c\0\u0a50\0\u0a8c\0\u0ac8\0\u0b04\0\u0b40\0\u0b7c"+
-    "\0\u0bb8\0\u0bf4\0\u0c30\0\u0c6c\0\u0ca8\0\u0ce4\0\u012c\0\u021c"+
-    "\0\u0d20\0\u0d5c\0\u0d98\0\u0dd4\0\u0e10\0\u0e4c\0\u0e88\0\u0ec4"+
-    "\0\u0f00\0\u0f3c\0\u0f78\0\u0fb4\0\u0ff0\0\u012c\0\u102c\0\u1068"+
-    "\0\u10a4\0\u10e0\0\u111c\0\u1158\0\u1194\0\u11d0\0\u120c\0\u1248"+
-    "\0\u1284\0\u12c0\0\u12fc\0\u0d20\0\u1338\0\u1374\0\u012c\0\u102c"+
-    "\0\u102c\0\u13b0\0\u13ec\0\u1428\0\u1464\0\u14a0\0\u14dc\0\u102c"+
-    "\0\u1518\0\u1554\0\u1590\0\u15cc\0\u1608\0\u1644\0\u012c\0\u1680"+
-    "\0\u012c\0\u16bc\0\u16f8\0\u1734\0\u0dd4\0\u1770\0\u17ac\0\u012c"+
-    "\0\u102c\0\u17e8\0\u1824\0\u1860\0\u012c\0\u012c\0\u189c\0\u18d8"+
-    "\0\u1914\0\u012c\0\u1950\0\u102c\0\u012c\0\u012c\0\u012c\0\u012c"+
-    "\0\u198c\0\u19c8\0\u012c";
+    "\0\u012c\0\u0780\0\u012c\0\u07bc\0\u012c\0\u012c\0\u07f8\0\u012c"+
+    "\0\u0834\0\u012c\0\u012c\0\u012c\0\u012c\0\u012c\0\u012c\0\u012c"+
+    "\0\u0870\0\u08ac\0\u012c\0\u012c\0\u012c\0\u012c\0\u08e8\0\u0924"+
+    "\0\u0960\0\u099c\0\u09d8\0\u0a14\0\u0a50\0\u012c\0\u0a8c\0\u0ac8"+
+    "\0\u0b04\0\u0b40\0\u0b7c\0\u0bb8\0\u0bf4\0\u0c30\0\u0c6c\0\u0ca8"+
+    "\0\u0ce4\0\u0d20\0\u012c\0\u021c\0\u0d5c\0\u0d98\0\u0dd4\0\u0e10"+
+    "\0\u0e4c\0\u0e88\0\u0ec4\0\u0f00\0\u0f3c\0\u0f78\0\u0fb4\0\u0ff0"+
+    "\0\u102c\0\u012c\0\u1068\0\u10a4\0\u10e0\0\u111c\0\u1158\0\u1194"+
+    "\0\u11d0\0\u120c\0\u1248\0\u1284\0\u12c0\0\u12fc\0\u1338\0\u0d5c"+
+    "\0\u1374\0\u13b0\0\u012c\0\u1068\0\u1068\0\u13ec\0\u1428\0\u1464"+
+    "\0\u14a0\0\u14dc\0\u1518\0\u1068\0\u1554\0\u1590\0\u15cc\0\u1608"+
+    "\0\u1644\0\u1680\0\u012c\0\u16bc\0\u012c\0\u16f8\0\u1734\0\u1770"+
+    "\0\u0e10\0\u17ac\0\u17e8\0\u012c\0\u1068\0\u1824\0\u1860\0\u189c"+
+    "\0\u012c\0\u012c\0\u18d8\0\u1914\0\u1950\0\u012c\0\u198c\0\u1068"+
+    "\0\u012c\0\u012c\0\u012c\0\u012c\0\u19c8\0\u1a04\0\u012c";
 
   private static int [] zzUnpackRowMap() {
-    int [] result = new int[163];
+    int [] result = new int[167];
     int offset = 0;
     offset = zzUnpackRowMap(ZZ_ROWMAP_PACKED_0, offset, result);
     return result;
@@ -158,56 +159,57 @@ class Lexar implements java_cup.runtime.Scanner {
     "\75\0\2\7\1\0\1\7\70\0\1\7\1\10\1\0"+
     "\1\7\117\0\1\66\50\0\1\67\1\0\1\70\24\0"+
     "\4\67\4\0\23\67\12\0\1\71\4\0\1\72\21\0"+
-    "\4\71\4\0\23\71\30\0\1\73\67\0\1\74\75\0"+
-    "\1\75\70\0\1\76\4\0\1\77\100\0\1\100\73\0"+
-    "\1\101\73\0\1\102\102\0\1\103\113\0\1\104\67\0"+
-    "\1\105\77\0\1\106\60\0\1\107\10\0\1\110\1\0"+
-    "\1\111\65\0\1\112\4\0\1\113\74\0\1\114\75\0"+
-    "\1\115\62\0\1\116\71\0\1\117\4\0\1\120\1\121"+
-    "\6\0\1\122\71\0\1\123\70\0\1\124\74\0\1\125"+
-    "\67\0\1\126\110\0\1\127\27\0\1\130\54\0\1\71"+
-    "\16\0\1\71\7\0\4\71\4\0\23\71\5\0\1\131"+
-    "\4\76\1\132\10\131\1\133\4\131\1\134\10\131\4\135"+
-    "\4\131\23\135\3\131\1\76\2\0\4\77\1\136\26\0"+
-    "\4\137\4\0\23\137\3\0\1\77\36\0\1\140\115\0"+
-    "\1\141\60\0\1\142\113\0\1\143\64\0\1\144\75\0"+
-    "\1\145\75\0\1\146\75\0\1\147\66\0\1\150\71\0"+
-    "\1\151\102\0\1\152\54\0\1\153\106\0\1\154\66\0"+
-    "\1\155\102\0\1\156\76\0\1\157\71\0\1\160\65\0"+
-    "\1\161\73\0\1\162\17\0\2\131\3\0\11\131\1\133"+
-    "\54\131\1\0\1\131\4\76\1\132\10\131\1\133\4\131"+
-    "\1\134\1\163\7\131\4\135\4\131\23\135\3\131\1\76"+
-    "\1\0\2\131\3\0\11\131\1\133\4\131\1\164\47\131"+
-    "\1\0\2\131\3\0\11\131\1\165\54\131\1\0\2\131"+
-    "\3\0\11\131\1\133\5\131\1\163\46\131\2\0\4\77"+
-    "\1\136\16\0\1\166\7\0\4\137\4\0\23\137\3\0"+
-    "\1\77\25\0\1\166\104\0\1\167\113\0\1\170\77\0"+
-    "\1\171\57\0\1\172\110\0\1\173\55\0\1\174\30\0"+
-    "\2\175\1\176\1\175\1\176\10\0\1\177\53\0\1\176"+
-    "\53\0\1\200\77\0\1\201\101\0\1\202\65\0\1\203"+
-    "\76\0\1\204\70\0\1\205\71\0\1\206\67\0\1\207"+
-    "\77\0\1\210\66\0\1\211\101\0\1\212\16\0\2\131"+
-    "\3\0\1\135\10\131\1\133\4\131\1\134\10\131\4\135"+
-    "\4\131\23\135\4\131\1\0\1\131\4\213\1\214\10\131"+
-    "\1\133\4\131\1\215\10\131\4\216\4\131\23\216\3\131"+
-    "\1\213\6\0\1\137\26\0\4\137\4\0\23\137\62\0"+
-    "\1\217\66\0\1\220\106\0\1\221\11\0\2\175\1\0"+
-    "\1\175\11\0\1\177\73\0\1\177\62\0\1\222\26\0"+
-    "\4\222\4\0\23\222\70\0\1\223\71\0\1\224\63\0"+
-    "\1\225\105\0\1\226\60\0\1\227\101\0\1\230\67\0"+
-    "\1\231\71\0\1\232\23\0\1\131\4\213\1\214\10\131"+
-    "\1\133\4\131\1\134\10\131\4\216\4\131\23\216\3\131"+
-    "\1\213\1\0\1\131\4\213\1\214\10\131\1\133\4\131"+
-    "\1\134\1\233\7\131\4\216\4\131\23\216\3\131\1\213"+
-    "\1\0\2\131\3\0\11\131\1\133\5\131\1\233\46\131"+
-    "\51\0\1\234\30\0\1\222\16\0\1\222\7\0\4\222"+
-    "\4\0\23\222\56\0\1\235\100\0\1\236\64\0\1\237"+
-    "\76\0\1\240\77\0\1\241\15\0\2\131\3\0\1\216"+
-    "\10\131\1\133\4\131\1\134\10\131\4\216\4\131\23\216"+
-    "\4\131\51\0\1\242\72\0\1\243\24\0";
+    "\4\71\4\0\23\71\30\0\1\73\4\0\1\74\62\0"+
+    "\1\75\10\0\1\76\64\0\1\77\6\0\1\100\61\0"+
+    "\1\101\4\0\1\102\4\0\1\103\73\0\1\104\73\0"+
+    "\1\105\73\0\1\106\102\0\1\107\113\0\1\110\67\0"+
+    "\1\111\77\0\1\112\60\0\1\113\10\0\1\114\1\0"+
+    "\1\115\65\0\1\116\4\0\1\117\74\0\1\120\75\0"+
+    "\1\121\62\0\1\122\71\0\1\123\4\0\1\124\1\125"+
+    "\6\0\1\126\71\0\1\127\70\0\1\130\74\0\1\131"+
+    "\67\0\1\132\110\0\1\133\26\0\1\73\74\0\1\134"+
+    "\54\0\1\71\16\0\1\71\7\0\4\71\4\0\23\71"+
+    "\5\0\1\135\4\101\1\136\10\135\1\137\4\135\1\140"+
+    "\10\135\4\141\4\135\23\141\3\135\1\101\2\0\4\102"+
+    "\1\142\26\0\4\143\4\0\23\143\3\0\1\102\36\0"+
+    "\1\144\115\0\1\145\60\0\1\146\113\0\1\147\64\0"+
+    "\1\150\75\0\1\151\75\0\1\152\75\0\1\153\66\0"+
+    "\1\154\71\0\1\155\102\0\1\156\54\0\1\157\106\0"+
+    "\1\160\66\0\1\161\102\0\1\162\76\0\1\163\71\0"+
+    "\1\164\65\0\1\165\73\0\1\166\17\0\2\135\3\0"+
+    "\11\135\1\137\54\135\1\0\1\135\4\101\1\136\10\135"+
+    "\1\137\4\135\1\140\1\167\7\135\4\141\4\135\23\141"+
+    "\3\135\1\101\1\0\2\135\3\0\11\135\1\137\4\135"+
+    "\1\170\47\135\1\0\2\135\3\0\11\135\1\171\54\135"+
+    "\1\0\2\135\3\0\11\135\1\137\5\135\1\167\46\135"+
+    "\2\0\4\102\1\142\16\0\1\172\7\0\4\143\4\0"+
+    "\23\143\3\0\1\102\25\0\1\172\104\0\1\173\113\0"+
+    "\1\174\77\0\1\175\57\0\1\176\110\0\1\177\55\0"+
+    "\1\200\30\0\2\201\1\202\1\201\1\202\10\0\1\203"+
+    "\53\0\1\202\53\0\1\204\77\0\1\205\101\0\1\206"+
+    "\65\0\1\207\76\0\1\210\70\0\1\211\71\0\1\212"+
+    "\67\0\1\213\77\0\1\214\66\0\1\215\101\0\1\216"+
+    "\16\0\2\135\3\0\1\141\10\135\1\137\4\135\1\140"+
+    "\10\135\4\141\4\135\23\141\4\135\1\0\1\135\4\217"+
+    "\1\220\10\135\1\137\4\135\1\221\10\135\4\222\4\135"+
+    "\23\222\3\135\1\217\6\0\1\143\26\0\4\143\4\0"+
+    "\23\143\62\0\1\223\66\0\1\224\106\0\1\225\11\0"+
+    "\2\201\1\0\1\201\11\0\1\203\73\0\1\203\62\0"+
+    "\1\226\26\0\4\226\4\0\23\226\70\0\1\227\71\0"+
+    "\1\230\63\0\1\231\105\0\1\232\60\0\1\233\101\0"+
+    "\1\234\67\0\1\235\71\0\1\236\23\0\1\135\4\217"+
+    "\1\220\10\135\1\137\4\135\1\140\10\135\4\222\4\135"+
+    "\23\222\3\135\1\217\1\0\1\135\4\217\1\220\10\135"+
+    "\1\137\4\135\1\140\1\237\7\135\4\222\4\135\23\222"+
+    "\3\135\1\217\1\0\2\135\3\0\11\135\1\137\5\135"+
+    "\1\237\46\135\51\0\1\240\30\0\1\226\16\0\1\226"+
+    "\7\0\4\226\4\0\23\226\56\0\1\241\100\0\1\242"+
+    "\64\0\1\243\76\0\1\244\77\0\1\245\15\0\2\135"+
+    "\3\0\1\222\10\135\1\137\4\135\1\140\10\135\4\222"+
+    "\4\135\23\222\4\135\51\0\1\246\72\0\1\247\24\0";
 
   private static int [] zzUnpackTrans() {
-    int [] result = new int[6660];
+    int [] result = new int[6720];
     int offset = 0;
     offset = zzUnpackTrans(ZZ_TRANS_PACKED_0, offset, result);
     return result;
@@ -253,7 +255,7 @@ class Lexar implements java_cup.runtime.Scanner {
     "\5\0\1\11\2\1\1\11\2\1\2\11\1\1\3\11"+
     "\2\1\1\11\1\1\1\11\1\1\2\11\3\1\2\11"+
     "\1\1\4\11\15\1\1\11\1\1\1\11\1\1\2\11"+
-    "\1\0\1\11\1\1\4\11\2\1\3\11\7\0\1\11"+
+    "\1\0\1\11\1\1\7\11\2\1\4\11\7\0\1\11"+
     "\14\0\1\11\2\0\1\1\3\0\1\1\7\0\1\11"+
     "\1\1\13\0\2\1\1\0\1\1\1\11\2\1\6\0"+
     "\1\1\6\0\1\11\1\0\1\11\3\0\1\1\2\0"+
@@ -261,7 +263,7 @@ class Lexar implements java_cup.runtime.Scanner {
     "\4\11\2\0\1\11";
 
   private static int [] zzUnpackAttribute() {
-    int [] result = new int[163];
+    int [] result = new int[167];
     int offset = 0;
     offset = zzUnpackAttribute(ZZ_ATTRIBUTE_PACKED_0, offset, result);
     return result;
@@ -760,407 +762,431 @@ class Lexar implements java_cup.runtime.Scanner {
             { 
             }
             // fall through
-          case 65: break;
+          case 69: break;
           case 2:
             { System.out.print(yytext()+"\n"); yybegin(1);
             }
             // fall through
-          case 66: break;
+          case 70: break;
           case 3:
             { System.out.print(yytext());
             }
             // fall through
-          case 67: break;
+          case 71: break;
           case 4:
             { System.out.println("exclamation symbol found: " + yytext() + " => at (" + yyline +"," + yycolumn +")");
         return new Symbol(sym.exclamation,yyline,yycolumn,yytext());
             }
             // fall through
-          case 68: break;
+          case 72: break;
           case 5:
             { System.out.println("hash symbol found: " + yytext() + " => at (" + yyline +"," + yycolumn +")");
         return new Symbol(sym.hash,yyline,yycolumn,yytext());
             }
             // fall through
-          case 69: break;
+          case 73: break;
           case 6:
             { System.out.println("percent symbol found: " + yytext() + " => at (" + yyline +"," + yycolumn +")");
         return new Symbol(sym.percent,yyline,yycolumn,yytext());
             }
             // fall through
-          case 70: break;
+          case 74: break;
           case 7:
             { System.out.println("ampersand symbol found: " + yytext() + " => at (" + yyline +"," + yycolumn +")");
         return new Symbol(sym.ampersand,yyline,yycolumn,yytext());
             }
             // fall through
-          case 71: break;
+          case 75: break;
           case 8:
             { System.out.println("apostrophe symbol found: " + yytext() + " => at (" + yyline +"," + yycolumn +")");
         return new Symbol(sym.apostrophe,yyline,yycolumn,yytext());
             }
             // fall through
-          case 72: break;
+          case 76: break;
           case 9:
             { System.out.println("opening parenthesis symbol found: " + yytext() + " => at (" + yyline +"," + yycolumn +")");
             return symbol(sym.OPEN_PARENTHESIS);
         return new Symbol(sym.open_parenthesis,yyline,yycolumn,yytext());
             }
             // fall through
-          case 73: break;
+          case 77: break;
           case 10:
             { System.out.println("closing parenthesis symbol found: " + yytext() + " => at (" + yyline +"," + yycolumn +")");
         return symbol(sym.CLOSE_PARENTHESIS);
         return new Symbol(sym.close_parenthesis,yyline,yycolumn,yytext());
             }
             // fall through
-          case 74: break;
+          case 78: break;
           case 11:
             { System.out.println("asterisk symbol found: " + yytext() + " => at (" + yyline +"," + yycolumn +")");
         return new Symbol(sym.asterisk,yyline,yycolumn,yytext());
             }
             // fall through
-          case 75: break;
+          case 79: break;
           case 12:
             { System.out.println("plus symbol found: " + yytext()  + " => at (" +yyline + ","+ yycolumn+")" );
         return new Symbol(sym.plus,yyline,yycolumn,yytext());
             }
             // fall through
-          case 76: break;
+          case 80: break;
           case 13:
             { System.out.println("comma symbol found: " + yytext() + " => at (" + yyline +"," + yycolumn +")");
                 return new Symbol(sym.comma,yyline,yycolumn,yytext());
             }
             // fall through
-          case 77: break;
+          case 81: break;
           case 14:
             { System.out.println("minus symbol found: " + yytext()  + " => at (" +yyline + ","+ yycolumn+")" );
         return new Symbol(sym.minus,yyline,yycolumn,yytext());
             }
             // fall through
-          case 78: break;
+          case 82: break;
           case 15:
             { System.out.println("period symbol found: " + yytext() + " => at (" + yyline +"," + yycolumn +")");
         return new Symbol(sym.period,yyline,yycolumn,yytext());
             }
             // fall through
-          case 79: break;
+          case 83: break;
           case 16:
             { System.out.println("slash symbol found: " + yytext()  + " => at (" +yyline + ","+ yycolumn+")" );
         return new Symbol(sym.asterisk,yyline,yycolumn,yytext());
             }
             // fall through
-          case 80: break;
+          case 84: break;
           case 17:
             { System.out.println("colon symbol found: " + yytext() + " => at (" + yyline +"," + yycolumn +")");
                 return new Symbol(sym.colon,yyline,yycolumn,yytext());
             }
             // fall through
-          case 81: break;
+          case 85: break;
           case 18:
             { System.out.println("semicolon symbol found: " + yytext() + " => at (" + yyline +"," + yycolumn +")");
         //return symbol(sym.SEMICOLON);
         return new Symbol(sym.semicolon,yyline,yycolumn,yytext());
             }
             // fall through
-          case 82: break;
+          case 86: break;
           case 19:
             { System.out.println("lesserThan found: " + yytext()  + " => at (" +yyline + ","+ yycolumn+")" );
         return new Symbol(sym.lesserThan,yyline,yycolumn,yytext());
             }
             // fall through
-          case 83: break;
+          case 87: break;
           case 20:
             { System.out.println("equal symbol found: " + yytext()  + " => at (" +yyline + ","+ yycolumn+")" );
         return new Symbol(sym.equal,yyline,yycolumn,yytext());
             }
             // fall through
-          case 84: break;
+          case 88: break;
           case 21:
             { System.out.println("greaterThan found: " + yytext()  + " => at (" +yyline + ","+ yycolumn+")" );
         return new Symbol(sym.greaterThan,yyline,yycolumn,yytext());
             }
             // fall through
-          case 85: break;
+          case 89: break;
           case 22:
             { System.out.println("question symbol found: " + yytext() + " => at (" + yyline +"," + yycolumn +")");
         return new Symbol(sym.question,yyline,yycolumn,yytext());
             }
             // fall through
-          case 86: break;
+          case 90: break;
           case 23:
             { System.out.println("at (@) symbol found: " + yytext() + " => at (" + yyline +"," + yycolumn +")");
         return new Symbol(sym.at,yyline,yycolumn,yytext());
             }
             // fall through
-          case 87: break;
+          case 91: break;
           case 24:
             { System.out.println("opening bracket symbol found: " + yytext() + " => at (" + yyline +"," + yycolumn +")");
         //return symbol(sym.OPEN_BRACKET);
         return new Symbol(sym.open_bracket,yyline,yycolumn,yytext());
             }
             // fall through
-          case 88: break;
+          case 92: break;
           case 25:
             { System.out.println("closing bracket symbol found: " + yytext() + " => at (" + yyline +"," + yycolumn +")");
         //return symbol(sym.CLOSE_BRACKET);
         return new Symbol(sym.close_bracket,yyline,yycolumn,yytext());
             }
             // fall through
-          case 89: break;
+          case 93: break;
           case 26:
             { System.out.println("hat symbol found: " + yytext() + " => at (" + yyline +"," + yycolumn +")");
         return new Symbol(sym.hat,yyline,yycolumn,yytext());
             }
             // fall through
-          case 90: break;
+          case 94: break;
           case 27:
             { System.out.println("underscore symbol found: " + yytext() + " => at (" + yyline +"," + yycolumn +")");
         return new Symbol(sym.underscore,yyline,yycolumn,yytext());
             }
             // fall through
-          case 91: break;
+          case 95: break;
           case 28:
             { System.out.println("opening brace symbol found: " + yytext() + " => at (" + yyline +"," + yycolumn +")");
         //return symbol(sym.OPEN_BRACE);
         return new Symbol(sym.open_brace,yyline,yycolumn,yytext());
             }
             // fall through
-          case 92: break;
+          case 96: break;
           case 29:
             { System.out.println("closing brace symbol found: " + yytext() + " => at (" + yyline +"," + yycolumn +")");
         //return symbol(sym.CLOSE_BRACE);
         return new Symbol(sym.close_brace,yyline,yycolumn,yytext());
             }
             // fall through
-          case 93: break;
+          case 97: break;
           case 30:
             { System.out.println("While end found at line: " + " => at (" +yyline + ","+ yycolumn+")" );
             yybegin(YYINITIAL);
             }
             // fall through
-          case 94: break;
+          case 98: break;
           case 31:
             { System.out.println("different found: " + yytext()  + " => at (" +yyline + ","+ yycolumn+")" );
         return new Symbol(sym.different,yyline,yycolumn,yytext());
             }
             // fall through
-          case 95: break;
+          case 99: break;
           case 32:
             { System.out.println("strs found: " + yytext()  + " => at (" +yyline + ","+ yycolumn+")" );
         //return symbol(sym.STRING);
         return new Symbol(sym.string,yyline,yycolumn,yytext());
             }
             // fall through
-          case 96: break;
+          case 100: break;
           case 33:
             { System.out.println("pointer reference found: " + yytext()  + " => at (" +yyline + ","+ yycolumn+")" );
        // return symbol(sym.STRING);
         return new Symbol(sym.pointer_reference,yyline,yycolumn,yytext());
             }
             // fall through
-          case 97: break;
+          case 101: break;
           case 34:
             { System.out.println("and found: " + yytext()  + " => at (" +yyline + ","+ yycolumn+")" );
         //return symbol(sym.AND);
         return new Symbol(sym.and,yyline,yycolumn,yytext());
             }
             // fall through
-          case 98: break;
+          case 102: break;
           case 35:
+            { System.out.println("timesEquals found: " + yytext()  + " => at (" +yyline + ","+ yycolumn+")" );
+        return new Symbol(sym.timesEquals,yyline,yycolumn,yytext());
+            }
+            // fall through
+          case 103: break;
+          case 36:
             { System.out.println("plus plus symbol found: " + yytext()  + " => at (" +yyline + ","+ yycolumn+")" );
         return new Symbol(sym.plusPlus,yyline,yycolumn,yytext());
             }
             // fall through
-          case 99: break;
-          case 36:
+          case 104: break;
+          case 37:
+            { System.out.println("plusEquals found: " + yytext()  + " => at (" +yyline + ","+ yycolumn+")" );
+        return new Symbol(sym.plusEquals,yyline,yycolumn,yytext());
+            }
+            // fall through
+          case 105: break;
+          case 38:
             { System.out.println("minus minus symbol found: " + yytext()  + " => at (" +yyline + ","+ yycolumn+")" );
         return new Symbol(sym.minusMinus,yyline,yycolumn,yytext());
             }
             // fall through
-          case 100: break;
-          case 37:
+          case 106: break;
+          case 39:
+            { System.out.println("minusEquals found: " + yytext()  + " => at (" +yyline + ","+ yycolumn+")" );
+        return new Symbol(sym.minusEquals,yyline,yycolumn,yytext());
+            }
+            // fall through
+          case 107: break;
+          case 40:
             { System.out.print("Comentario encontrado: \n"+ yytext()); yybegin(comment);
                 return new Symbol(sym.commentary_start,yyline,yycolumn,yytext());
             }
             // fall through
-          case 101: break;
-          case 38:
+          case 108: break;
+          case 41:
             { System.out.print("Comentario en linea encontrado:"  + " => at (" +yyline + ","+ yycolumn+")" +yytext() );
         yybegin(line_comment);
                 return new Symbol(sym.line_commentary,yyline,yycolumn,yytext());
             }
             // fall through
-          case 102: break;
-          case 39:
+          case 109: break;
+          case 42:
+            { System.out.println("divideEquals found: " + yytext()  + " => at (" +yyline + ","+ yycolumn+")" );
+        return new Symbol(sym.divideEquals,yyline,yycolumn,yytext());
+            }
+            // fall through
+          case 110: break;
+          case 43:
             { System.out.println("lesserEqualThan found: " + yytext()  + " => at (" +yyline + ","+ yycolumn+")" );
         return new Symbol(sym.lesserEqualThan,yyline,yycolumn,yytext());
             }
             // fall through
-          case 103: break;
-          case 40:
+          case 111: break;
+          case 44:
             { System.out.println("comparisson found: " + yytext()  + " => at (" +yyline + ","+ yycolumn+")" );
         return new Symbol(sym.comparisson,yyline,yycolumn,yytext());
             }
             // fall through
-          case 104: break;
-          case 41:
+          case 112: break;
+          case 45:
             { System.out.println("greaterEqualThan found: " + yytext()  + " => at (" +yyline + ","+ yycolumn+")" );
         return new Symbol(sym.greaterEqualThan,yyline,yycolumn,yytext());
             }
             // fall through
-          case 105: break;
-          case 42:
+          case 113: break;
+          case 46:
             { System.out.println("if found: " + yytext()  + " => at (" +yyline + ","+ yycolumn+")" );
         //return symbol(sym.IF);
         return new Symbol(sym.if,yyline,yycolumn,yytext());
             }
             // fall through
-          case 106: break;
-          case 43:
+          case 114: break;
+          case 47:
             { System.out.println("or found: " + yytext()  + " => at (" +yyline + ","+ yycolumn+")" );
         //return symbol(sym.OR);
         return new Symbol(sym.or,yyline,yycolumn,yytext());
             }
             // fall through
-          case 107: break;
-          case 44:
+          case 115: break;
+          case 48:
             { System.out.println("For found: " + yytext()  + " => at (" +yyline + ","+ yycolumn+")" );
         //return symbol(sym.FOR);
         return new Symbol(sym.for,yyline,yycolumn,yytext());
             }
             // fall through
-          case 108: break;
-          case 45:
+          case 116: break;
+          case 49:
             { System.out.println("int found: " + yytext()  + " => at (" +yyline + ","+ yycolumn+")" );
         //return symbol(sym.INT);
         return new Symbol(sym.int,yyline,yycolumn,yytext());
             }
             // fall through
-          case 109: break;
-          case 46:
+          case 117: break;
+          case 50:
             { System.out.print("Comentario encontrado: " + yytext()  + " => at (" +yyline + ","+ yycolumn+")" + "\n");
         return new Symbol(sym.commentary,yyline,yycolumn,yytext());
             }
             // fall through
-          case 110: break;
-          case 47:
+          case 118: break;
+          case 51:
             { System.out.println("NULL found: " + yytext()  + " => at (" +yyline + ","+ yycolumn+")" );
        // return symbol(sym.NULL);
         return new Symbol(sym.null,yyline,yycolumn,yytext());
             }
             // fall through
-          case 111: break;
-          case 48:
+          case 119: break;
+          case 52:
             { System.out.println("bool found: " + yytext()  + " => at (" +yyline + ","+ yycolumn+")" );
         //return symbol(sym.BOOL);
         return new Symbol(sym.bool,yyline,yycolumn,yytext());
             }
             // fall through
-          case 112: break;
-          case 49:
+          case 120: break;
+          case 53:
             { System.out.println("char found: " + yytext()  + " => at (" +yyline + ","+ yycolumn+")" );
         //return symbol(sym.CHAR);
         return new Symbol(sym.char,yyline,yycolumn,yytext());
             }
             // fall through
-          case 113: break;
-          case 50:
+          case 121: break;
+          case 54:
             { System.out.println("long found: " + yytext()  + " => at (" +yyline + ","+ yycolumn+")" );
         return new Symbol(sym.long,yyline,yycolumn,yytext());
             }
             // fall through
-          case 114: break;
-          case 51:
+          case 122: break;
+          case 55:
             { System.out.println("true found: " + yytext()  + " => at (" +yyline + ","+ yycolumn+")" );
         //return symbol(sym.TRUE);
         return new Symbol(sym.true,yyline,yycolumn,yytext());
             }
             // fall through
-          case 115: break;
-          case 52:
+          case 123: break;
+          case 56:
             { System.out.println("void found: " + yytext()  + " => at (" +yyline + ","+ yycolumn+")" );
         return new Symbol(sym.void,yyline,yycolumn,yytext());
             }
             // fall through
-          case 116: break;
-          case 53:
+          case 124: break;
+          case 57:
             { System.out.println("false found: " + yytext()  + " => at (" +yyline + ","+ yycolumn+")" );
         //return symbol(sym.FALSE);
         return new Symbol(sym.false,yyline,yycolumn,yytext());
             }
             // fall through
-          case 117: break;
-          case 54:
+          case 125: break;
+          case 58:
             { System.out.println("float found: " + yytext()  + " => at (" + yyline + "," + yycolumn + ")" );
         return new Symbol(sym.float,yyline,yycolumn,yytext());
             }
             // fall through
-          case 118: break;
-          case 55:
+          case 126: break;
+          case 59:
             { System.out.println("pointer found: " + yytext()  + " => at (" +yyline + ","+ yycolumn+")" );
         //return symbol(sym.STRING);
         return new Symbol(sym.pointer,yyline,yycolumn,yytext());
             }
             // fall through
-          case 119: break;
-          case 56:
+          case 127: break;
+          case 60:
             { System.out.println("scanf found: " + yytext()  + " => at (" +yyline + ","+ yycolumn+")" );
         return new Symbol(sym.scanf,yyline,yycolumn,yytext());
             }
             // fall through
-          case 120: break;
-          case 57:
+          case 128: break;
+          case 61:
             { System.out.println("short found: " + yytext()  + " => at (" + yyline + ","+ yycolumn+")" );
         return new Symbol(sym.short,yyline,yycolumn,yytext());
             }
             // fall through
-          case 121: break;
-          case 58:
+          case 129: break;
+          case 62:
             { System.out.println("while found: " + yytext()  + " => at (" +yyline + ","+ yycolumn+")" );
         //return symbol(sym.WHILE);
         return new Symbol(sym.while,yyline,yycolumn,yytext());
             }
             // fall through
-          case 122: break;
-          case 59:
+          case 130: break;
+          case 63:
             { System.out.println("double found: " + yytext()  + " => at (" +yyline + ","+ yycolumn+")" );
         return new Symbol(sym.double,yyline,yycolumn,yytext());
             }
             // fall through
-          case 123: break;
-          case 60:
+          case 131: break;
+          case 64:
             { System.out.println("printf found: " + yytext()  + " => at (" +yyline + ","+ yycolumn+")" );
         return new Symbol(sym.printf,yyline,yycolumn,yytext());
             }
             // fall through
-          case 124: break;
-          case 61:
+          case 132: break;
+          case 65:
             { System.out.println("return found: " + yytext()  + " => at (" +yyline + ","+ yycolumn+")" );
         //return symbol(sym.RETURN);
         return new Symbol(sym.return,yyline,yycolumn,yytext());
             }
             // fall through
-          case 125: break;
-          case 62:
+          case 133: break;
+          case 66:
             { System.out.println("signed found: " + yytext()  + " => at (" + yyline + ","+ yycolumn+")" );
         return new Symbol(sym.signed,yyline,yycolumn,yytext());
             }
             // fall through
-          case 126: break;
-          case 63:
+          case 134: break;
+          case 67:
             { System.out.println("string found: " + yytext()  + " => at (" +yyline + ","+ yycolumn+")" );
         //return symbol(sym.STRING);
         return new Symbol(sym.string,yyline,yycolumn,yytext());
             }
             // fall through
-          case 127: break;
-          case 64:
+          case 135: break;
+          case 68:
             { System.out.println("unsigned found: " + yytext()  + " => at (" + yyline + ","+ yycolumn+")" );
         return new Symbol(sym.unsigned,yyline,yycolumn,yytext());
             }
             // fall through
-          case 128: break;
+          case 136: break;
           default:
             zzScanError(ZZ_NO_MATCH);
         }
