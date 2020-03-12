@@ -32,12 +32,10 @@ terminal String NUM;
 terminal String STRING;
 
 //Non terminals
-non terminal forCycle, whileCycle;
-non terminal ifDecision;
-non terminal idOrNum;
 non terminal oprel, typeIden, data;
-non terminal assignationAndDeclaration, declarationID,varDeclaration,funDeclaration,varDeclarationList;
-non terminal ifStmt ,forStmt ,whileStmt ,returnStmt,breakStmt,iterationStmt;
+non terminal program;
+non terminal declaration, declarationList, assignationAndDeclaration, declarationID,varDeclaration,funDeclaration,varDeclarationList;
+non terminal ifStmt ,forStmt ,whileStmt ,returnStmt,breakStmt;
 non terminal params, paramList, paramID, paramIdList, paramTypeList ;
 non terminal statement , expressionStmt, compoundStmt, localDeclarations, statementList, elseifList;
 non terminal expression, simpleExp, andExp, unaryRelExp, relExp, sumExp, mulExp, unaryExp;
@@ -46,6 +44,7 @@ non terminal factor, mutable, immutable, call, args, argList, constant;
 
 precedence left PLUS, MINUS;
 precedence left TIMES, DIVIDE, MOD;
+//precedence left ELSE;
 
 //Posiblemente esto haya que cambiarlo
 //data ::= ID | NUM | STRING | TRUE | FALSE;
@@ -149,8 +148,9 @@ paramID ::= ID {: System.out.println("Production #20") :}
 statement ::= expressionStmt {: System.out.println("Production #22") :} 
                 | compoundStmt  {: System.out.println("Production #23") :}
                 | ifStmt {: System.out.println("Production #24") :} 
-                | iterationStmt  {: System.out.println("Production #25") :}
+                | whileStmt  {: System.out.println("Production #25") :}
                 | returnStmt  {: System.out.println("Production #26") :}
+                | forStmt {: System.out.println("Production #95") :}
                 | breakStmt {: System.out.println("Production #27") :}
                 ;
 
@@ -256,7 +256,6 @@ sumOp ::= PLUS {: System.out.println("Production #68"); :}
 
 mulExp ::= mulExp mulOp {: System.out.println("Production #70"); :}
             | unaryExp  {: System.out.println("Production #71"); :}
-            | unaryExp {: System.out.println("Production #72"); :}
             ;
 
 mulOp ::= TIMES {: System.out.println("Production #73"); :}
@@ -300,14 +299,3 @@ constant ::= data {: System.out.println("Production #93"); :};
 
 declarationID ::= ID {: System.out.println("Production #94"); :}; // Creo que aqui va otra cosa
 
-
-/*
-declarationID ::= INT ID SEMICOLON
-                | CHAR ID SEMICOLON
-                | BOOL ID SEMICOLON
-                ;
-*/
-
-//booleanexpression ::= ID oprel ID ;
-
-//comparing ::= idOrNum oprel idOrNum ;
