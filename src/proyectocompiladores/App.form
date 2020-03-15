@@ -43,7 +43,6 @@
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="jb_genFlex" alignment="0" max="32767" attributes="0"/>
                           <Component id="jb_genFlex1" alignment="0" max="32767" attributes="0"/>
-                          <Component id="jb_compile" min="-2" pref="115" max="-2" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jb_clear" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
@@ -51,6 +50,8 @@
                           </Group>
                           <Component id="jb_save_as" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="jb_save" min="-2" max="-2" attributes="0"/>
+                          <Component id="jb_compile" alignment="1" max="32767" attributes="0"/>
+                          <Component id="jb_RUN" alignment="1" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                   <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
@@ -87,7 +88,10 @@
               <EmptySpace pref="13" max="32767" attributes="0"/>
               <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jScrollPane2" min="-2" pref="182" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="jScrollPane2" min="-2" pref="182" max="-2" attributes="0"/>
+                  <Component id="jb_RUN" min="-2" max="-2" attributes="0"/>
+              </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -189,6 +193,14 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jb_save_asActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="jb_RUN">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="RUN"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jb_RUNActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

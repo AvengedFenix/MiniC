@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package compilerminic;
+package proyectocompiladores;
 
 
 import java.awt.Color;
@@ -13,19 +13,13 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java_cup.runtime.Scanner;
+import java_cup.runtime.Symbol;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import proyectocompiladores.app;
-import java.io.StringReader;
-
-import java_cup.runtime.Symbol;
 
 /**
  *
@@ -74,6 +68,7 @@ public class App extends javax.swing.JFrame {
         ta_result = new javax.swing.JTextArea();
         jLabel2 = new javax.swing.JLabel();
         jb_save_as = new javax.swing.JButton();
+        jb_RUN = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -142,6 +137,13 @@ public class App extends javax.swing.JFrame {
             }
         });
 
+        jb_RUN.setText("RUN");
+        jb_RUN.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jb_RUNActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -158,13 +160,14 @@ public class App extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jb_genFlex, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jb_genFlex1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jb_compile, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jb_clear)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jb_load))
                             .addComponent(jb_save_as)
-                            .addComponent(jb_save)))
+                            .addComponent(jb_save)
+                            .addComponent(jb_compile, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jb_RUN, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addComponent(jLabel2))
                 .addContainerGap(14, Short.MAX_VALUE))
         );
@@ -193,7 +196,9 @@ public class App extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jb_RUN))
                 .addContainerGap())
         );
 
@@ -229,18 +234,25 @@ public class App extends javax.swing.JFrame {
     }//GEN-LAST:event_jb_clearActionPerformed
 
     private void jb_compileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_compileActionPerformed
-        // TODO add your handling code here:
-        
-        
-        parser p = new parser(new compilerminic.Lexar(new StringReader(ta_code.getText())));
-        
         try {
+            // TODO add your handling code here:
+            generate();
+            
+            /*
+            parser p = new parser(new compilerminic.Lexar(new StringReader(ta_code.getText())));
+            
+            try {
             p.parse();
+            p.parse();
+            p.parse();
+            
             ta_result.setText("Tu hermana");
             
-        } catch (Exception ex) {
+            } catch (Exception ex) {
             Symbol sym = p.getS();
-        }
+            //ta_result.setText(p.getS().toString());
+            
+            }
             /*
             
             String command = "powershell.exe  cd '.\\Flex and Cup files\\' ;; jflex .\\main.flex;; javac Lexar.java;; java Lexar .\\test.c";
@@ -270,13 +282,15 @@ public class App extends javax.swing.JFrame {
             }
             // Getting the results
             */
+        } catch (Exception ex) {
+            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }//GEN-LAST:event_jb_compileActionPerformed
 
     private void jb_genFlexActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_genFlexActionPerformed
         try {
-            // TODO add your handling code here:
-            generate(path, pathSyntax);
+            generate();
         } catch (Exception ex) {
             Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -297,7 +311,7 @@ public class App extends javax.swing.JFrame {
             try {
                 this.ta_code.setText(this.getCFileText(input_C));
             } catch (IOException ex) {
-                Logger.getLogger(app.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }//GEN-LAST:event_jb_loadActionPerformed
@@ -306,33 +320,28 @@ public class App extends javax.swing.JFrame {
         this.saveNewFile();
     }//GEN-LAST:event_jb_save_asActionPerformed
 
-    public static void generate(String path, String[] pathSyntax) throws IOException, Exception {
-        File file;
-        file = new File(path + "main.flex");
-        jflex.Main.generate(file);
-        java_cup.Main.main(pathSyntax);
-
-        Path pathLexar = Paths.get(".\\src\\FlexAndCup\\Lexar.java");
-
-        if (Files.exists(pathLexar)) {
-            Files.delete(pathLexar);
+    private void jb_RUNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_RUNActionPerformed
+        if(this.input_C == null){
+            try {
+                parser p = new parser( (Scanner) new FileReader(this.input_C.getAbsolutePath()));
+                Object x = p.parse().value;
+                System.out.println(x.toString());
+            } catch (FileNotFoundException ex) {
+                
+                
+                Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Exception ex) {
+                Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            System.out.println();
+        
+        
         }
+    }//GEN-LAST:event_jb_RUNActionPerformed
 
-        Files.move(
-                Paths.get(".\\Lexar.java"),
-                Paths.get(".\\src\\FlexAndCup\\Lexar.java")
-        );
-
-        Path pathSyntaxCup = Paths.get(".\\src\\FlexAndCup\\Syntax.java");
-
-        if (Files.exists(pathSyntaxCup)) {
-            Files.delete(pathSyntaxCup);
-        }
-
-        Files.move(
-                Paths.get(".\\Syntax.java"),
-                Paths.get(".\\src\\FlexAndCup\\Syntax.java")
-        );
+    public static void generate() throws IOException, Exception {
+       generateLexer();
+       generateParser();
     }
 
     String getCFileText(File file) throws FileNotFoundException, IOException {
@@ -378,6 +387,37 @@ public class App extends javax.swing.JFrame {
             }
         }
     }
+    
+    
+    public static void generateLexer() {
+
+        String paramsLexer[] = new String[3];
+        paramsLexer[0] = "-d";
+        paramsLexer[1] = "src/proyectocompiladores/";
+        paramsLexer[2] = "src/proyectocompiladores/Lexer.flex";
+        try {
+            jflex.Main.generate(paramsLexer);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+    }
+    
+    
+    
+    public static void generateParser() {
+        String params[] = new String[5];
+        params[0] = "-destdir";
+        params[1] = "src/proyectocompiladores/";
+        params[2] = "-parser";
+        params[3] = "parser";
+        params[4] = "src/proyectocompiladores/Syntax.cup";
+        try {
+            java_cup.Main.main(params);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
 
     /**
      * @param args the command line arguments
@@ -419,6 +459,7 @@ public class App extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JButton jb_RUN;
     private javax.swing.JButton jb_clear;
     private javax.swing.JButton jb_compile;
     private javax.swing.JButton jb_genFlex;

@@ -1,4 +1,4 @@
-package FlexAndCup;
+package proyectocompiladores;
 
 import java_cup.runtime.Symbol;
 /*
@@ -33,7 +33,7 @@ terminal SEMICOLON, COMMA, QUESTION;
 terminal String ID;
 terminal String NUM;
 terminal String STRING;
-
+terminal MAIN;
 //Non terminals
 non terminal oprel, typeIden, data;
 non terminal program;
