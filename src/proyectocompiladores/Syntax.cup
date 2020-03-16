@@ -246,5 +246,7 @@ argList ::= argList COMMA expression                                            
 
 constant ::= data                                                                                                {: System.out.println("Production #93"); :};
 
-declarationID ::= ID                                                                                             {: System.out.println("Production #94"); :}; // Creo que aqui va otra cosa
+declarationID ::= ID                                                                                             {: System.out.println("Production #94"); :};
+                | TRUE                                                                                           {: System.out.println("Production #95"); :};
+                | FALSE                                                                                          {: System.out.println("Production #96"); :};// AQUI NO VA NI TRUE NI FALSE CREO
 

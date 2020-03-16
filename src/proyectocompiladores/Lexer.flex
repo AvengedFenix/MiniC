@@ -62,7 +62,7 @@ divideEquals = "/="
 timesEquals = "*="
 
 //MISC
-letters = [a-z A-Z]
+letters = [a-zA-Z]
 digits =  [0-9]
 spaces = [\n\r\t]+ 
 
@@ -143,7 +143,7 @@ anyChar = ({letters}{digits})*
 variables = {letters}+|{letters}+{digits}+|{digits}+
 numberType = {int} | {float} | {double}
 whiteSpace = (\s | "")
-identifier = {letters}+ ({letters}|{digits})*
+identifier = {letters}({letters}|{digits})*
 
 system_header = {start_system_include}+{standard_libraries}+{end_system_include}
 program_header = (\")+{anyChar}+(\")
@@ -163,7 +163,7 @@ strs = {quote}{anyChar}{quote}
 
  
     
-    
+   /* 
     {commentary} {
         System.out.print("Comentario encontrado: " + yytext()  + " => at (" +yyline + ","+ yycolumn+")" + "\n");
         return new Symbol(sym.COMMENTARY,yyline,yycolumn,yytext());
@@ -187,6 +187,7 @@ strs = {quote}{anyChar}{quote}
                 return new Symbol(sym.MAIN,yyline,yycolumn,yytext());
 
     }  
+*/
 
     //-----------------------------------------------------------------------------------------------------------------------
     //De la nueva manera / Encontrando cada token
@@ -528,7 +529,12 @@ strs = {quote}{anyChar}{quote}
         return new Symbol(sym.DIVIDEEQUALS,yyline,yycolumn,yytext());
     }
 
+    {identifier} {
+        System.out.println("ID found: " + yytext()  + " => at (" +yyline + ","+ yycolumn+")" );
+        return new Symbol(sym.ID,yyline,yycolumn,yytext());
+    }
 
+/*
     <line_comment>{
         {new_line} {
             System.out.print(yytext()+"\n"); yybegin(1);
@@ -542,9 +548,9 @@ strs = {quote}{anyChar}{quote}
         {spaces} {    }
 
     }
-
+*/
 //}
-
+/*
     <whileLoops> {
         {closing} {
             System.out.println("While end found at line: " + " => at (" +yyline + ","+ yycolumn+")" );
@@ -558,5 +564,7 @@ strs = {quote}{anyChar}{quote}
     {spaces} {    }
 
     . {    }
+
+*/
 
 }

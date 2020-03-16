@@ -14,6 +14,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.StringReader;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java_cup.runtime.Scanner;
@@ -321,9 +322,9 @@ public class App extends javax.swing.JFrame {
     }//GEN-LAST:event_jb_save_asActionPerformed
 
     private void jb_RUNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_RUNActionPerformed
-        if(this.input_C == null){
+        if(ta_code.getText() != null){
             try {
-                parser p = new parser( (Scanner) new FileReader(this.input_C.getAbsolutePath()));
+                parser p = new parser(new Lexar(new StringReader(ta_code.getText())));
                 Object x = p.parse().value;
                 System.out.println(x.toString());
             } catch (FileNotFoundException ex) {
