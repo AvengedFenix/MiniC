@@ -18,7 +18,6 @@ public class sym {
   public static final int APOSTROPHE = 6;
   public static final int DIVIDEEQUALS = 63;
   public static final int PERIOD = 5;
-  public static final int COMMENTARY = 13;
   public static final int LESSEREQUALTHAN = 50;
   public static final int CLOSE_BRACKET = 38;
   public static final int GREATEREQUALTHAN = 52;
@@ -45,6 +44,7 @@ public class sym {
   public static final int QUESTION = 67;
   public static final int WHILE = 27;
   public static final int EXCLAMATION = 2;
+  public static final int LINE_COMMENT = 12;
   public static final int CHAR = 33;
   public static final int FOR = 28;
   public static final int VOID = 15;
@@ -58,6 +58,7 @@ public class sym {
   public static final int OPEN_PARENTHESIS = 35;
   public static final int EOF = 0;
   public static final int SEMICOLON = 65;
+  public static final int COMMENT = 13;
   public static final int UNDERSCORE = 7;
   public static final int MAIN = 71;
   public static final int MINUS = 55;
@@ -67,7 +68,6 @@ public class sym {
   public static final int COMMENTARYSTART = 18;
   public static final int PLUSEQUALS = 61;
   public static final int LESSERTHAN = 49;
-  public static final int LINECOMMENTARY = 12;
   public static final int IF = 25;
   public static final int UNSIGNED = 17;
   public static final int ID = 68;
@@ -93,8 +93,8 @@ public class sym {
   "HASH",
   "HAT",
   "POINTERREFERENCE",
-  "LINECOMMENTARY",
-  "COMMENTARY",
+  "LINE_COMMENT",
+  "COMMENT",
   "LONG",
   "VOID",
   "FLOAT",

@@ -218,7 +218,9 @@ public class App extends javax.swing.JFrame {
                 e.printStackTrace();
             } finally {
                 try {
+         
                     fr.close();
+                    fr.flush();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -229,6 +231,7 @@ public class App extends javax.swing.JFrame {
 
     private void jb_clearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_clearActionPerformed
         clear();
+       
         this.input_C = null;
     }//GEN-LAST:event_jb_clearActionPerformed
 
@@ -390,6 +393,7 @@ public class App extends javax.swing.JFrame {
             } finally {
                 try {
                     fr.close();
+                    fr.flush();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

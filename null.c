@@ -1,3 +1,4 @@
+//hola
 int main() {
     bool simulationTheory = true;
     int hamburguesas = 4;
@@ -25,4 +26,3 @@ int oracle(double tigre) {
 
     return (int)tigre;
 }
-

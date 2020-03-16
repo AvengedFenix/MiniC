@@ -10,7 +10,6 @@ import java_cup.runtime.*;
 %int
 %type java_cup.runtime.Symbol
 %standalone
-%states line_comment,comment,includes, whileLoops
 %cup
 %full
 
@@ -152,7 +151,8 @@ nonNumTypes = {char} | {bool}
 functions = {void} | {int} | {double} | {float} | {long} | {char} | {bool}
 pointer = {varTypes}({spaces}|{whiteSpace}){asterisk}{identifier}
 pointer_reference = {ampersand}{identifier}
-commentary = {commentary_start}+ (.*?)+ {commentary_end}
+comment = "/*" [^*] ~"*/" | "/*" "*"+ "/"
+line_comment ="//" [^\r\n]* {new_line}
 str = {quote} [^\"\'\`]+ {quote}
 strs = {quote}{anyChar}{quote}
 
@@ -160,37 +160,26 @@ strs = {quote}{anyChar}{quote}
 
 <YYINITIAL> {
 
- 
-    
-   /* 
-    {commentary} {
-        System.out.print("Comentario encontrado: " + yytext()  + " => at (" +yyline + ","+ yycolumn+")" + "\n");
-        return new Symbol(sym.COMMENTARY,yyline,yycolumn,yytext());
-    }
-    {line_commentary} {
-        System.out.print("Comentario en linea encontrado:"  + " => at (" +yyline + ","+ yycolumn+")" +yytext() );
-        yybegin(line_comment);
-                return new Symbol(sym.LINECOMMENTARY,yyline,yycolumn,yytext());
-    }
-    {commentary_start} {
-        System.out.print("Comentario encontrado: \n"+ yytext()); yybegin(comment);
-                return new Symbol(sym.COMMENTARYSTART,yyline,yycolumn,yytext());
-    }
-    {main} {
-        System.out.print("Comentario encontrado: \n"+ yytext()); yybegin(comment);
+    /*{main} {
+        System.out.println("MAIN " + yytext() + " => at (" + yyline +"," + yycolumn +")");
                 return new Symbol(sym.MAIN,yyline,yycolumn,yytext());
-    }  
-*/
+    }*/
 
-    //-----------------------------------------------------------------------------------------------------------------------
-    //De la nueva manera / Encontrando cada token
+    {comment} {
+        System.out.println("Normal comment found found:\n " + yytext() + "\n => at (" + yyline +"," + yycolumn +")");
+                return new Symbol(sym.COMMENT,yyline,yycolumn,yytext());
+    }
+
+    {line_comment} {
+        System.out.println("Line comment found found: " + yytext() + " => at (" + yyline +"," + yycolumn +")");
+                return new Symbol(sym.LINE_COMMENT,yyline,yycolumn,yytext());
+    }
 
     {colon} {
         System.out.println("colon symbol found: " + yytext() + " => at (" + yyline +"," + yycolumn +")");
                 return new Symbol(sym.COLON,yyline,yycolumn,yytext());
-
-
     }
+
     {comma} {
         System.out.println("comma symbol found: " + yytext() + " => at (" + yyline +"," + yycolumn +")");
                 return new Symbol(sym.COMMA,yyline,yycolumn,yytext());
