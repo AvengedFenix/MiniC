@@ -1,13 +1,4 @@
-#include <stdbool.h>
-#include "tigre.h"
-
-struct  estructura  
-{
-    int x = 2;
-    char y = 'a' ;
-};
-
-
+int x = 0;
 
 int main() {
     bool simulationTheory = true;

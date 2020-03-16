@@ -4,7 +4,8 @@ import java_cup.runtime.*;
 
 %%
 %unicode
-%class Lexar
+%class Lexer
+%cupsym sym
 %line
 %column
 %int
@@ -161,12 +162,21 @@ strs = {quote}{anyChar}{quote}
 
 <YYINITIAL> {
 
- 
-    
-    
     {commentary} {
         System.out.print("Comentario encontrado: " + yytext()  + " => at (" +yyline + ","+ yycolumn+")" + "\n");
         return new Symbol(sym.COMMENTARY,yyline,yycolumn,yytext());
+
+    }
+    
+    {int} {
+        System.out.println("int found: " + yytext()  + " => at (" +yyline + ","+ yycolumn+")" );
+        //return symbol(sym.INT);
+        return new Symbol(sym.INT,yyline,yycolumn,yytext());
+    }
+
+    {identifier} {
+        System.out.print("Identificador encontrado: " + yytext()  + " => at (" +yyline + ","+ yycolumn+")" + "\n");
+        return new Symbol(sym.ID,yyline,yycolumn,yytext());
 
     }
 
@@ -348,11 +358,7 @@ strs = {quote}{anyChar}{quote}
 
     }
 
-    {int} {
-        System.out.println("int found: " + yytext()  + " => at (" +yyline + ","+ yycolumn+")" );
-        //return symbol(sym.INT);
-        return new Symbol(sym.INT,yyline,yycolumn,yytext());
-    }
+    
 
     {return} {
         System.out.println("return found: " + yytext()  + " => at (" +yyline + ","+ yycolumn+")" );
@@ -360,10 +366,9 @@ strs = {quote}{anyChar}{quote}
         return new Symbol(sym.RETURN,yyline,yycolumn,yytext());
     }
 
-    {long} {
-        System.out.println("long found: " + yytext()  + " => at (" +yyline + ","+ yycolumn+")" );
-        return new Symbol(sym.LONG,yyline,yycolumn,yytext());
-    
+    {int} {
+        System.out.println("double found: " + yytext()  + " => at (" +yyline + ","+ yycolumn+")" );
+        return new Symbol(sym.DOUBLE,yyline,yycolumn,yytext());
     }
 
     {double} {

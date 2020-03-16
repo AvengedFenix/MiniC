@@ -5,7 +5,6 @@
  */
 package proyectocompiladores;
 
-
 import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.File;
@@ -14,6 +13,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.StringReader;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java_cup.runtime.Scanner;
@@ -237,7 +237,7 @@ public class App extends javax.swing.JFrame {
         try {
             // TODO add your handling code here:
             generate();
-            
+
             /*
             parser p = new parser(new compilerminic.Lexar(new StringReader(ta_code.getText())));
             
@@ -281,7 +281,7 @@ public class App extends javax.swing.JFrame {
             Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
             }
             // Getting the results
-            */
+             */
         } catch (Exception ex) {
             Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -321,27 +321,30 @@ public class App extends javax.swing.JFrame {
     }//GEN-LAST:event_jb_save_asActionPerformed
 
     private void jb_RUNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_RUNActionPerformed
-        if(this.input_C == null){
+        if (this.input_C != null) {
             try {
-                parser p = new parser( (Scanner) new FileReader(this.input_C.getAbsolutePath()));
-                Object x = p.parse().value;
-                System.out.println(x.toString());
+                System.out.println(input_C.getPath());
+                //parser p = new parser(new FileReader(this.input_C.getAbsolutePath()));
+                parser q = new parser(new Lexer(new StringReader(ta_code.getText())));
+                
+                q.parse();
+                
+             
             } catch (FileNotFoundException ex) {
-                
-                
+
                 Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
             } catch (Exception ex) {
                 Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println(ex.toString());
             }
             System.out.println();
-        
-        
+
         }
     }//GEN-LAST:event_jb_RUNActionPerformed
 
     public static void generate() throws IOException, Exception {
-       generateLexer();
-       generateParser();
+        generateLexer();
+        generateParser();
     }
 
     String getCFileText(File file) throws FileNotFoundException, IOException {
@@ -387,8 +390,7 @@ public class App extends javax.swing.JFrame {
             }
         }
     }
-    
-    
+
     public static void generateLexer() {
 
         String paramsLexer[] = new String[3];
@@ -402,9 +404,7 @@ public class App extends javax.swing.JFrame {
         }
 
     }
-    
-    
-    
+
     public static void generateParser() {
         String params[] = new String[5];
         params[0] = "-destdir";
