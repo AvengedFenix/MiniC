@@ -508,7 +508,7 @@ public class parser extends java_cup.runtime.lr_parser {
         String lex = s.value.toString();
         int fila = s.right;
         int columna = s.left;
-        String err = "Error sintáctico: " + lex + " fila: " + fila + " columna: " + columna;
+        String err = "Error sintáctico: " + lex + " fila: " + columna + " columna: " + fila;
 
         System.out.println(err);
         errores.add(err);
@@ -518,7 +518,7 @@ public class parser extends java_cup.runtime.lr_parser {
         String lex = s.value.toString();
         int fila = s.right;
         int columna = s.left;
-        String err = "puta no se que pasa aqui perro: " + lex + " fila: " + fila + " columna: " + columna;
+        String err = "puta no se que pasa aqui perro: " + lex + " fila: " + columna + " columna: " + fila;
 
         System.out.println(err);
         errores.add(err);

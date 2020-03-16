@@ -88,9 +88,8 @@ quote = "\""
 
 
 
-line_commentary= "//" {whiteSpace}+{anyChar}
-commentary_start="/*" {whiteSpace}+{anyChar}
-commentary_end = "*/"
+//commentary_start="/*" {whiteSpace}+{anyChar}
+//commentary_end = "*/"
 hash = "#"
 //standard_libraries = ("assert.h"|"complex.h"|"ctype.h"|"errno.h"|"float.h"|"inttypes.h"|"iso646.h"|"limits.h"|"locale.h"|"math.h"|"setjmp.h"| "signal.h" | "stdalign.h" | "stdarg.h"| "stdatomic.h"| "stdbool.h" |"stddef.h"| "stdint.h" | "stdio.h" | "stdlib.h"|"stdnoreturn.h"|"string.h"|"tgmath.h"|"threads.h" | "time.h" | "uchar.h" | "wchar.h" | "wctype.h" ) 
 //start_system_include = "<"
@@ -100,10 +99,6 @@ new_line= [\n]+
 //PALABRAS RESERVADAS
 true = "true"
 false = "false"
-include = "include"
-closing = "}"
-pragma = "pragma"
-struct = "struct"
 union = "union"
 main = "main"
 for = "for"
@@ -114,20 +109,19 @@ null = "NULL"
 
 //Data Types
 int = "int"
-long = "long"
 double = "double"
 char = "char"
 bool = "bool"
 void = "void"
 signed = "signed" 
 short = "short" 
-long ="long"
 unsigned = "unsigned" 
 long = "long"
 float = "float"
 string = "string"
 scanf = "scanf"
 printf = "printf"
+break = "break"
 
 
 //Decisiones
@@ -143,14 +137,12 @@ numberType = {int} | {float} | {double}
 whiteSpace = (\s | "")
 identifier = {letters}({letters}|{digits})*
 
-system_header = {start_system_include}+{standard_libraries}+{end_system_include}
-program_header = (\")+{anyChar}+(\")
 varTypes = {int} | {double} | {float} | {long} | {char} | {bool} 
 numTypes = {int} | {double} | {float}
 nonNumTypes = {char} | {bool}
-functions = {void} | {int} | {double} | {float} | {long} | {char} | {bool}
 pointer = {varTypes}({spaces}|{whiteSpace}){asterisk}{identifier}
 pointer_reference = {ampersand}{identifier}
+
 comment = "/*" [^*] ~"*/" | "/*" "*"+ "/"
 line_comment ="//" [^\r\n]* {new_line}
 str = {quote} [^\"\'\`]+ {quote}
@@ -388,11 +380,6 @@ strs = {quote}{anyChar}{quote}
         return new Symbol(sym.SHORT,yyline,yycolumn,yytext());
     }
 
-    {long} {
-        System.out.println("long found: " + yytext()  + " => at (" + yyline + ","+ yycolumn+")" );
-        return new Symbol(sym.LONG,yyline,yycolumn,yytext());
-    }
-
     {float} {
         System.out.println("float found: " + yytext()  + " => at (" + yyline + "," + yycolumn + ")" );
         return new Symbol(sym.FLOAT,yyline,yycolumn,yytext());
@@ -514,6 +501,10 @@ strs = {quote}{anyChar}{quote}
     {identifier} {
         System.out.println("ID found: " + yytext()  + " => at (" +yyline + ","+ yycolumn+")" );
         return new Symbol(sym.ID,yyline,yycolumn,yytext());
+    }
+    {break} {
+        System.out.println("BREAK found: " + yytext()  + " => at (" +yyline + ","+ yycolumn+")" );
+        return new Symbol(sym.BREAK,yyline,yycolumn,yytext());
     }
    <<EOF>> {
         System.out.println("EOF found" );
