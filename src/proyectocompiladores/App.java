@@ -14,10 +14,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringReader;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java_cup.runtime.Scanner;
-import java_cup.runtime.Symbol;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -324,12 +323,19 @@ public class App extends javax.swing.JFrame {
         if (this.input_C != null) {
             try {
                 System.out.println(input_C.getPath());
-                //parser p = new parser(new FileReader(this.input_C.getAbsolutePath()));
+                // parser p = new parser(new FileReader(this.input_C.getAbsolutePath()));
                 parser q = new parser(new Lexer(new StringReader(ta_code.getText())));
-                
+
                 q.parse();
-                
-             
+
+                ArrayList<String> errors = q.errores;
+                String output = "";
+                for (String error : errors) {
+                    output += error + "\n";
+                }
+
+                this.ta_result.setText(output);
+
             } catch (FileNotFoundException ex) {
 
                 Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);

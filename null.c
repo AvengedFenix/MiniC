@@ -1,5 +1,3 @@
-int x = 0;
-
 int main() {
     bool simulationTheory = true;
     int hamburguesas = 4;
