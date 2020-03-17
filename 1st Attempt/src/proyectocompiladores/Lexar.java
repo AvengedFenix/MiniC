@@ -693,7 +693,15 @@ class Lexar implements java_cup.runtime.Scanner {
       if (zzInput == YYEOF && zzStartRead == zzCurrentPos) {
         zzAtEOF = true;
             zzDoEOF();
+            switch (zzLexicalState) {
+            case YYINITIAL: {
+              System.out.println("EOF found" );
+        return new Symbol(sym.EOF);
+            }  // fall though
+            case 142: break;
+            default:
           { return new java_cup.runtime.Symbol(sym.EOF); }
+        }
       }
       else {
         switch (zzAction < 0 ? zzAction : ZZ_ACTION[zzAction]) {

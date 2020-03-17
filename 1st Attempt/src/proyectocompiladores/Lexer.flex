@@ -534,6 +534,10 @@ strs = {quote}{anyChar}{quote}
         return new Symbol(sym.ID,yyline,yycolumn,yytext());
     }
 
+<<EOF>> {
+        System.out.println("EOF found" );
+        return new Symbol(sym.EOF);
+    }
 /*
     <line_comment>{
         {new_line} {

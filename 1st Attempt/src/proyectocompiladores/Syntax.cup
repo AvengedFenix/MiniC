@@ -54,7 +54,9 @@ precedence left ELSE;
 
 start with program;
 
-program ::= declarationList                                                                                      {: System.out.println("Production #-2"); :};
+program ::= declarationList                                                                                      {: System.out.println("Production #-2"); :}
+            | /*VACIO*/
+            ;
 
 declarationList ::= declarationList declaration                                                                  {: System.out.println("Production #-1"); :}
 | declaration                                                                                                    {: System.out.println("Production #0"); :};
@@ -149,9 +151,8 @@ forStmt ::= FOR OPEN_PARENTHESIS assignationAndDeclaration SEMICOLON simpleExp S
 
 whileStmt ::= WHILE OPEN_PARENTHESIS simpleExp CLOSE_PARENTHESIS
                 OPEN_BRACE
-                    statement
-                CLOSE_BRACE
-                                                                                                                 {: System.out.println("Production #40"); :}
+                    program
+                CLOSE_BRACE                                                                                      {: System.out.println("Production #40"); :}
                  ;
 
 returnStmt ::= RETURN SEMICOLON                                                                                  {: System.out.println("Production #41"); :} 
@@ -244,9 +245,11 @@ argList ::= argList COMMA expression                                            
                 | expression                                                                                     {: System.out.println("Production #92"); :}
                 ;
 
-constant ::= data                                                                                                {: System.out.println("Production #93"); :};
+constant ::= TRUE                                                                                                {: System.out.println("Production #93"); :}
+            | FALSE                                                                                               {: System.out.println("Production #97"); :}
+                ;
 
-declarationID ::= ID                                                                                             {: System.out.println("Production #94"); :};
-                | TRUE                                                                                           {: System.out.println("Production #95"); :};
+declarationID ::= ID                                                                                             {: System.out.println("Production #94"); :}
+                | TRUE                                                                                           {: System.out.println("Production #95"); :}
                 | FALSE                                                                                          {: System.out.println("Production #96"); :};// AQUI NO VA NI TRUE NI FALSE CREO
 
