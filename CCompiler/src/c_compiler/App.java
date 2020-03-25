@@ -5,6 +5,8 @@
  */
 package c_compiler;
 
+import helpers.TreeNode;
+import helpers.Values;
 import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.File;
@@ -20,6 +22,8 @@ import java_cup.runtime.Scanner;
 import java_cup.runtime.Symbol;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import org.graphstream.graph.Graph;
+import org.graphstream.graph.implementations.SingleGraph;
 
 /**
  *
@@ -325,7 +329,48 @@ public class App extends javax.swing.JFrame {
             try {
                 parser p = new parser(new Lexer(new StringReader(ta_code.getText())));
                 Object x = p.parse().value;
-                System.out.println(x.toString());
+
+                //System.out.println(x.toString());
+                TreeNode myTree = (TreeNode) x;
+                Values v = myTree.printAndFill();
+                Graph graph = new SingleGraph("AST");
+                //graph.addNode("");
+                for (int i = 0; i < v.list.size(); i++) {
+                    String sub1, sub2, sub3;
+                    sub1 = myTree.graphList.get(i)[0];
+                    sub2 = myTree.graphList.get(i)[1];
+                    sub3 = myTree.graphList.get(i)[2];
+                    /*
+                    System.out.println("Main graphList Element 1: " + myTree.graphList.get(i)[0]);
+                    System.out.println("Main graphList Element 2: " + myTree.graphList.get(i)[1]);
+                    System.out.println("Main graphList Element 2: " + myTree.graphList.get(i)[1]);
+                    */
+                    graph.addNode(sub1).addAttribute("ui.label", sub3);
+
+                    //graph.addNode(sub1).addAttribute("ui.label", "Name: " + sub1 + "        Parent: " + sub2);
+                }
+                System.out.println(v.tree);
+                System.out.println("length " + myTree.graphList.size());
+
+                for (int i = 0; i < v.list.size(); i++) {
+                    String sub1, sub2;
+                    sub1 = myTree.graphList.get(i)[0];
+                    sub2 = myTree.graphList.get(i)[1];
+
+                    if (sub1.equals("translation_unit") && sub2.equals("")) {
+                        System.out.println("translation_unit");
+                    } else {
+                        graph.addEdge(sub2 + " " + sub1, sub2, sub1);
+
+                    }
+                }
+
+                graph.display();
+                /*for (int i = 0; i < myTree.graphList.size(); i++) {
+                    
+
+                }*/
+                //myTree.printGraph();
             } catch (FileNotFoundException ex) {
 
                 Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
@@ -335,6 +380,7 @@ public class App extends javax.swing.JFrame {
             System.out.println();
 
         }
+
     }//GEN-LAST:event_jb_RUNActionPerformed
 
     public static void generate() throws IOException, Exception {
