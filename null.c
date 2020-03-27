@@ -1,6 +1,5 @@
 //hola
 int main() {
-    bool simulationTheory = true;
     int hamburguesas = 4;
     char papaNoel = "Sape";
 

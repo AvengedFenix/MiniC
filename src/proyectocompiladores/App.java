@@ -330,9 +330,12 @@ public class App extends javax.swing.JFrame {
                 parser q = new parser(new Lexer(new StringReader(ta_code.getText())));
 
                 q.parse();
+                
+                
 
-                ArrayList<String> errors = q.errores;
+                ArrayList<String> errors = q.errors;
                 String output = "";
+                
                 for (String error : errors) {
                     output += error + "\n";
                 }
@@ -406,7 +409,7 @@ public class App extends javax.swing.JFrame {
         String paramsLexer[] = new String[3];
         paramsLexer[0] = "-d";
         paramsLexer[1] = "src/proyectocompiladores/";
-        paramsLexer[2] = "src/proyectocompiladores/Lexer.flex";
+        paramsLexer[2] = "src/proyectocompiladores/newLexer.flex";
         try {
             jflex.Main.generate(paramsLexer);
         } catch (Exception e) {
@@ -421,7 +424,7 @@ public class App extends javax.swing.JFrame {
         params[1] = "src/proyectocompiladores/";
         params[2] = "-parser";
         params[3] = "parser";
-        params[4] = "src/proyectocompiladores/Syntax.cup";
+        params[4] = "src/proyectocompiladores/parser.cup";
         try {
             java_cup.Main.main(params);
         } catch (Exception e) {

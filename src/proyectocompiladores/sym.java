@@ -8,151 +8,179 @@ package proyectocompiladores;
 /** CUP generated class containing symbol constants. */
 public class sym {
   /* terminals */
-  public static final int AT = 8;
-  public static final int SHORT = 19;
-  public static final int SIGNED = 21;
-  public static final int TIMES = 56;
-  public static final int BOOL = 32;
-  public static final int POINTER = 20;
-  public static final int SCANF = 23;
-  public static final int APOSTROPHE = 6;
-  public static final int DIVIDEEQUALS = 63;
-  public static final int PERIOD = 5;
-  public static final int LESSEREQUALTHAN = 50;
-  public static final int CLOSE_BRACKET = 38;
-  public static final int GREATEREQUALTHAN = 52;
-  public static final int TIMESEQUALS = 64;
-  public static final int COMMA = 66;
-  public static final int DOUBLE = 22;
-  public static final int FALSE = 44;
-  public static final int NOT = 46;
-  public static final int DIFFERENT = 53;
-  public static final int FLOAT = 16;
-  public static final int NUM = 69;
-  public static final int MINUSEQUALS = 62;
-  public static final int CLOSE_BRACE = 40;
-  public static final int OPEN_BRACKET = 37;
-  public static final int GREATERTHAN = 51;
-  public static final int MOD = 57;
-  public static final int PRINTF = 24;
-  public static final int TRUE = 43;
-  public static final int LONG = 14;
-  public static final int PLUS = 54;
-  public static final int COMPARISSON = 48;
-  public static final int QUOTE = 34;
-  public static final int DIVIDE = 58;
-  public static final int QUESTION = 67;
-  public static final int WHILE = 27;
-  public static final int EXCLAMATION = 2;
-  public static final int LINE_COMMENT = 12;
+  public static final int SHORT = 34;
+  public static final int SIGNED = 37;
+  public static final int LEFT_ASSIGN = 22;
+  public static final int IDENTIFIER = 2;
+  public static final int MOD_ASSIGN = 19;
+  public static final int OR_OP = 16;
+  public static final int SCANF = 84;
+  public static final int SUB_ASSIGN = 21;
+  public static final int AND_OP = 15;
+  public static final int PARAR = 67;
+  public static final int CONST = 41;
+  public static final int PARAL = 66;
+  public static final int SEMI = 60;
+  public static final int REGISTER = 32;
+  public static final int ENUM = 46;
+  public static final int SIZEOF = 5;
+  public static final int INC_OP = 7;
+  public static final int COMMA = 63;
+  public static final int GE_OP = 12;
+  public static final int DEC_OP = 8;
+  public static final int AND_ASSIGN = 24;
+  public static final int DOUBLE = 40;
+  public static final int STRUCT = 44;
+  public static final int COND = 83;
+  public static final int LE_OP = 11;
+  public static final int NOT = 72;
+  public static final int TILDE = 73;
+  public static final int XOR_ASSIGN = 25;
+  public static final int FLOAT = 39;
+  public static final int GOTO = 56;
+  public static final int MUL = 76;
+  public static final int CURLYR = 62;
+  public static final int RIGHT_ASSIGN = 23;
+  public static final int CURLYL = 61;
+  public static final int MODULUS = 78;
+  public static final int PRINTF = 85;
+  public static final int ADD_ASSIGN = 20;
+  public static final int ADRESS = 71;
+  public static final int PLUS = 75;
+  public static final int LONG = 36;
+  public static final int DIVIDE = 77;
+  public static final int WHILE = 53;
+  public static final int UNION = 45;
+  public static final int MUL_ASSIGN = 17;
+  public static final int ASSIGN = 65;
   public static final int CHAR = 33;
-  public static final int FOR = 28;
-  public static final int VOID = 15;
-  public static final int RETURN = 29;
-  public static final int ELSE = 26;
-  public static final int BREAK = 30;
-  public static final int AMPERSAND = 3;
-  public static final int INT = 31;
-  public static final int NULL = 45;
-  public static final int POINTERREFERENCE = 11;
-  public static final int OPEN_PARENTHESIS = 35;
+  public static final int PTR_OP = 6;
+  public static final int SWITCH = 52;
+  public static final int DO = 54;
+  public static final int FOR = 55;
+  public static final int GREATER = 80;
+  public static final int VOID = 43;
+  public static final int EXTERN = 29;
+  public static final int RETURN = 59;
+  public static final int ELSE = 51;
+  public static final int POINT = 70;
+  public static final int BREAK = 58;
+  public static final int INT = 35;
+  public static final int STRING_LITERAL = 4;
   public static final int EOF = 0;
-  public static final int SEMICOLON = 65;
-  public static final int COMMENT = 13;
-  public static final int UNDERSCORE = 7;
-  public static final int MAIN = 71;
-  public static final int MINUS = 55;
-  public static final int HAT = 10;
-  public static final int OR = 42;
+  public static final int TYPE_NAME = 27;
+  public static final int DEFAULT = 49;
+  public static final int MINUS = 74;
+  public static final int CONSTANT = 3;
+  public static final int OR = 82;
   public static final int error = 1;
-  public static final int COMMENTARYSTART = 18;
-  public static final int PLUSEQUALS = 61;
-  public static final int LESSERTHAN = 49;
-  public static final int IF = 25;
-  public static final int UNSIGNED = 17;
-  public static final int ID = 68;
-  public static final int MINUSMINUS = 60;
-  public static final int COLON = 4;
-  public static final int OPEN_BRACE = 39;
-  public static final int PLUSPLUS = 59;
-  public static final int STRING = 70;
-  public static final int AND = 41;
-  public static final int CLOSE_PARENTHESIS = 36;
-  public static final int EQUALS = 47;
-  public static final int HASH = 9;
+  public static final int RIGHT_OP = 10;
+  public static final int OR_ASSIGN = 26;
+  public static final int CONTINUE = 57;
+  public static final int IF = 50;
+  public static final int UNSIGNED = 38;
+  public static final int DIV_ASSIGN = 18;
+  public static final int COLON = 64;
+  public static final int VOLATILE = 42;
+  public static final int SQUAREDR = 69;
+  public static final int NE_OP = 14;
+  public static final int CASE = 48;
+  public static final int EQ_OP = 13;
+  public static final int SQUAREDL = 68;
+  public static final int LESS = 79;
+  public static final int ELLIPSIS = 47;
+  public static final int STATIC = 30;
+  public static final int TYPEDEF = 28;
+  public static final int XOR = 81;
+  public static final int AUTO = 31;
+  public static final int LEFT_OP = 9;
   public static final String[] terminalNames = new String[] {
   "EOF",
   "error",
-  "EXCLAMATION",
-  "AMPERSAND",
-  "COLON",
-  "PERIOD",
-  "APOSTROPHE",
-  "UNDERSCORE",
-  "AT",
-  "HASH",
-  "HAT",
-  "POINTERREFERENCE",
-  "LINE_COMMENT",
-  "COMMENT",
-  "LONG",
-  "VOID",
-  "FLOAT",
-  "UNSIGNED",
-  "COMMENTARYSTART",
+  "IDENTIFIER",
+  "CONSTANT",
+  "STRING_LITERAL",
+  "SIZEOF",
+  "PTR_OP",
+  "INC_OP",
+  "DEC_OP",
+  "LEFT_OP",
+  "RIGHT_OP",
+  "LE_OP",
+  "GE_OP",
+  "EQ_OP",
+  "NE_OP",
+  "AND_OP",
+  "OR_OP",
+  "MUL_ASSIGN",
+  "DIV_ASSIGN",
+  "MOD_ASSIGN",
+  "ADD_ASSIGN",
+  "SUB_ASSIGN",
+  "LEFT_ASSIGN",
+  "RIGHT_ASSIGN",
+  "AND_ASSIGN",
+  "XOR_ASSIGN",
+  "OR_ASSIGN",
+  "TYPE_NAME",
+  "TYPEDEF",
+  "EXTERN",
+  "STATIC",
+  "AUTO",
+  "REGISTER",
+  "CHAR",
   "SHORT",
-  "POINTER",
+  "INT",
+  "LONG",
   "SIGNED",
+  "UNSIGNED",
+  "FLOAT",
   "DOUBLE",
-  "SCANF",
-  "PRINTF",
+  "CONST",
+  "VOLATILE",
+  "VOID",
+  "STRUCT",
+  "UNION",
+  "ENUM",
+  "ELLIPSIS",
+  "CASE",
+  "DEFAULT",
   "IF",
   "ELSE",
+  "SWITCH",
   "WHILE",
+  "DO",
   "FOR",
-  "RETURN",
+  "GOTO",
+  "CONTINUE",
   "BREAK",
-  "INT",
-  "BOOL",
-  "CHAR",
-  "QUOTE",
-  "OPEN_PARENTHESIS",
-  "CLOSE_PARENTHESIS",
-  "OPEN_BRACKET",
-  "CLOSE_BRACKET",
-  "OPEN_BRACE",
-  "CLOSE_BRACE",
-  "AND",
-  "OR",
-  "TRUE",
-  "FALSE",
-  "NULL",
-  "NOT",
-  "EQUALS",
-  "COMPARISSON",
-  "LESSERTHAN",
-  "LESSEREQUALTHAN",
-  "GREATERTHAN",
-  "GREATEREQUALTHAN",
-  "DIFFERENT",
-  "PLUS",
-  "MINUS",
-  "TIMES",
-  "MOD",
-  "DIVIDE",
-  "PLUSPLUS",
-  "MINUSMINUS",
-  "PLUSEQUALS",
-  "MINUSEQUALS",
-  "DIVIDEEQUALS",
-  "TIMESEQUALS",
-  "SEMICOLON",
+  "RETURN",
+  "SEMI",
+  "CURLYL",
+  "CURLYR",
   "COMMA",
-  "QUESTION",
-  "ID",
-  "NUM",
-  "STRING",
-  "MAIN"
+  "COLON",
+  "ASSIGN",
+  "PARAL",
+  "PARAR",
+  "SQUAREDL",
+  "SQUAREDR",
+  "POINT",
+  "ADRESS",
+  "NOT",
+  "TILDE",
+  "MINUS",
+  "PLUS",
+  "MUL",
+  "DIVIDE",
+  "MODULUS",
+  "LESS",
+  "GREATER",
+  "XOR",
+  "OR",
+  "COND",
+  "SCANF",
+  "PRINTF"
   };
 }
 
