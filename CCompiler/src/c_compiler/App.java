@@ -23,7 +23,9 @@ import java_cup.runtime.Symbol;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import org.graphstream.graph.Graph;
+import org.graphstream.graph.Node;
 import org.graphstream.graph.implementations.SingleGraph;
+import org.graphstream.ui.view.Viewer;
 
 /**
  *
@@ -325,6 +327,7 @@ public class App extends javax.swing.JFrame {
     }//GEN-LAST:event_jb_save_asActionPerformed
 
     private void jb_RUNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_RUNActionPerformed
+        System.setProperty("org.graphstream.ui.renderer", "org.graphstream.ui.j2dviewer.J2DGraphRenderer");
         if (ta_code.getText() != null) {
             try {
                 parser p = new parser(new Lexer(new StringReader(ta_code.getText())));
@@ -334,7 +337,11 @@ public class App extends javax.swing.JFrame {
                 TreeNode myTree = (TreeNode) x;
                 Values v = myTree.printAndFill();
                 Graph graph = new SingleGraph("AST");
+
                 //graph.addNode("");
+                int initialPositionX = 0;
+                int initialPositionY = 0;
+
                 for (int i = 0; i < v.list.size(); i++) {
                     String sub1, sub2, sub3;
                     sub1 = myTree.graphList.get(i)[0];
@@ -344,9 +351,31 @@ public class App extends javax.swing.JFrame {
                     System.out.println("Main graphList Element 1: " + myTree.graphList.get(i)[0]);
                     System.out.println("Main graphList Element 2: " + myTree.graphList.get(i)[1]);
                     System.out.println("Main graphList Element 2: " + myTree.graphList.get(i)[1]);
-                    */
-                    graph.addNode(sub1).addAttribute("ui.label", sub3);
+                     */
+                    graph.addNode(sub1).addAttribute("ui.label", sub3/*,*/);
+                    if (sub1 == "translation_unit") {
+                        Node node = graph.getNode(sub1);
+                        node.addAttribute("ui.class", "F");
+                        node.addAttribute("layout.frozen");
+                        node.addAttribute("x", 128.0);
+                        node.addAttribute("y", 0.0);
 
+                        node.addAttribute("ui.style", "fill-color: rgb(255,0,0);"
+                                + "size: 15px, 15px;");
+
+                    } else {
+                        Node node = graph.getNode(sub1);
+                        node.addAttribute("ui.class", "N");
+                        node.addAttribute("ui.style", "fill-color: rgb(255,255,0);");
+
+                        //graph.getNode(sub1).addAttribute("ui.style", "fill-mode: none;");
+                        //graph.getNode(sub1).addAttribute("ui.style", "text-align: center;");
+
+                    }
+
+                    //graph.getNode(sub1).addAttribute("ui.style", "text-alignment: center;");
+                    //initialPositionY += 20;
+                    //initialPositionX += 20;
                     //graph.addNode(sub1).addAttribute("ui.label", "Name: " + sub1 + "        Parent: " + sub2);
                 }
                 System.out.println(v.tree);
@@ -365,11 +394,14 @@ public class App extends javax.swing.JFrame {
                     }
                 }
 
-                graph.display();
-                /*for (int i = 0; i < myTree.graphList.size(); i++) {
-                    
+                graph.addAttribute("ui.stylesheet", "node:clicked { fill-color: rgb(0,0,255); } ");
 
-                }*/
+                graph.setAttribute("ui.antialias");
+                graph.setAttribute("ui.quality");
+                Viewer viewer = graph.display();
+                viewer.setCloseFramePolicy(Viewer.CloseFramePolicy.HIDE_ONLY);
+                //viewer.disableAutoLayout();
+                //graph.display().disableAutoLayout();
                 //myTree.printGraph();
             } catch (FileNotFoundException ex) {
 
