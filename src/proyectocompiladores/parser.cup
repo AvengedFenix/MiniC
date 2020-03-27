@@ -22,13 +22,12 @@ parser code {:
 			}
 			if(s.value != null){
                             errorHead.append(" en el token "+s.value );
-							System.out.println("veamos que hay aqui ");
-							System.out.println(s.value +" ");
+							//System.out.println("veamos que hay aqui ");
+							//System.out.println(s.value +" ");
                                                         if(s.value == "#-1"){
                                                             return;
                                                         }
 							errorHead.append(": "+ getToken(Integer.parseInt(s.value.toString().replaceAll("#",""))));
-
 							
 			}
 			errorHead.append(": ");
@@ -41,7 +40,8 @@ parser code {:
 	}
 
         public String getToken(int id){
-            String value = sym.terminalNames[id];
+            String value = "";
+            value = sym.terminalNames[id];
             return value;
         }
            
@@ -392,6 +392,7 @@ additive_expression ::=
 		RESULT = parent;
 	:}
 	| additive_expression:ae PLUS:op multiplicative_expression:me {:
+                System.err.println("Produccion 35.5");
 		TreeNode parent = new TreeNode(null, "additive_expression");
 		TreeNode child = new TreeNode(parent, (Symbol)op);
 		parent.addChild(child);
@@ -544,6 +545,7 @@ inclusive_or_expression	::=
 		RESULT = parent;
 	:}
 	| inclusive_or_expression:ioe OR exclusive_or_expression:eoe {:
+                System.err.println("Produccion 52.5");
 		TreeNode parent = new TreeNode(null, "inclusive_or_expression");
 		parent.addChild(ioe);
 		parent.addChild(eoe);

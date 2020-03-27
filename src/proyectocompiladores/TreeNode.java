@@ -5,17 +5,24 @@
  */
 package proyectocompiladores;
 
+import proyectocompiladores.Values;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Objects;
 import java_cup.runtime.Symbol;
+import org.graphstream.graph.*;
+import org.graphstream.graph.implementations.SingleGraph;
 
 /**
  *
- * @author k_k_r
+ * @author Isaias Valle
  */
 public class TreeNode {
+
+    public ArrayList<String[]> graphList = new ArrayList<String[]>();
+    Graph graph = new SingleGraph("AST");
 
     private TreeNode parent;
     private ArrayList<TreeNode> childs = new ArrayList();
@@ -43,11 +50,6 @@ public class TreeNode {
     }
 
     public boolean addChild(Object value) {
-        System.out.println("entra a add child");
-
-                System.out.println(value+"");
-                System.out.println("contenido del string");
-
         return childs.add(new TreeNode(this, (Symbol) value));
     }
 
@@ -83,6 +85,7 @@ public class TreeNode {
         childs = new ArrayList();
     }
 
+    /*
     public void reduceTreeNode() {
         if (childs.size() == 1) {
             value = childs.get(0).value;
@@ -95,28 +98,88 @@ public class TreeNode {
             }
         }
     }
+     */
+    String myParent;
 
-    @Override
-    public String toString() {
-        return toString("", true);
+    public Values printAndFill() {
+        myParent = value.value.toString();
+        System.out.println("this is the parent: " + myParent);
+        graph.addNode(value.value.toString());
+        graphList.add(new String[]{myParent, "", myParent});
+        Values v = toString(myParent, "", true, graphList);
+
+        /*
+        for (int i = 0; i < v.list.size(); i++) {
+            System.out.println("\n\n");
+            System.out.println("printAndFill graphList Element 1: " + v.list.get(i)[0]);
+            System.out.println("printAndFill graphList Element 2: " + v.list.get(i)[1]);
+            System.out.println("\n\n");
+
+        }
+        */
+        graphList = new ArrayList<String[]>(v.list);
+        return v;
     }
 
-    private String toString(String indent, boolean last) {
+    /*private ArrayList AddToArray(ArrayList<String[]> list){
+        graphList = new ArrayList<String[]>(list);
+        
+    }*/
+    private Values toString(String mySubParent, String indent, boolean last, ArrayList<String[]> list) {
+        Values temp;
+
+        myParent = mySubParent;
+        System.out.println("this is the parent child: " + myParent);
+
+        /*graphList = new ArrayList<String[]>();
+        System.out.println("Parameter List: " + graphList.toString());
+        
+        for (int i = 0; i < list.size(); i++) {
+            graphList.add(new String[]{list.get(i)[0].toString(),list.get(i)[1].toString()});
+        }
+         */
+        //System.out.println("graphList: " + graphList.toString());
         String tree = indent;
         if (last) {
-            tree += "└───";
+            tree += "└───> ";
             indent += "    ";
         } else {
-            tree += "├───";
+            tree += "├───> ";
             indent += "│   ";
         }
         tree += value.value.toString() + "\n";
         int index = 0;
         for (TreeNode child : childs) {
             index++;
-            tree += child.toString(indent, index == childs.size());
+          
+            StringBuilder name = new StringBuilder(myParent);
+
+            System.out.println("This is child's name: " + child.getValue().value.toString());
+
+            name.append(child.getValue().value.toString() + Integer.toString(index));
+            //String name = myParent + child.getValue().value.toString() + Integer.toString(index);
+            //graph.addNode(name).addAttribute("ui.label", name);
+            list.add(new String[]{name.toString(), myParent, child.getValue().value.toString()});
+
+            //graph.addEdge("", name, myParent);
+            tree += child.toString(name.toString(), indent, index == childs.size(), list);
+            //graph.display();
         }
-        return tree;
+        /*
+        for (int i = 0; i < graphList.size(); i++) {
+            System.out.println("\n\n");
+            System.out.println("Iteration number: " + i);
+            System.out.println("toString graphList Element 1: " + graphList.get(i)[0]);
+            System.out.println("toString graphList Element 2: " + graphList.get(i)[1]);
+            System.out.println("toString graphList Element 3: " + graphList.get(i)[2]);
+
+            System.out.println("\n\n");
+
+        }
+        */
+        temp = new Values(tree, list);
+        //graph.display();
+        return temp;
     }
 
     public boolean valueIsString(String other) {
@@ -150,6 +213,7 @@ public class TreeNode {
         }
     }
 
+    /*
     public void saveTreeToFile(String name) {
         try {
             FileOutputStream out = new FileOutputStream(name + ".tree");
@@ -168,8 +232,9 @@ public class TreeNode {
             System.err.println("WritngToFile Error");
         }
     }
+     */
 
-    private void writeToFile(String indent, boolean last, FileOutputStream out) throws IOException {
+ /*private void writeToFile(String indent, boolean last, FileOutputStream out) throws IOException {
         out.write(indent.getBytes());
         if (last) {
             out.write("└───".getBytes());
@@ -185,6 +250,9 @@ public class TreeNode {
             index++;
             child.writeToFile(indent, index == childs.size(), out);
         }
+    }*/
+    public void printGraph() {
+        graph.display();
     }
 
     public ArrayList<TreeNode> getNodes(String value) {
@@ -198,5 +266,4 @@ public class TreeNode {
         }
         return result;
     }
-
 }

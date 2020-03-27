@@ -1892,13 +1892,12 @@ public class parser extends java_cup.runtime.lr_parser {
 			}
 			if(s.value != null){
                             errorHead.append(" en el token "+s.value );
-							System.out.println("veamos que hay aqui ");
-							System.out.println(s.value +" ");
+							//System.out.println("veamos que hay aqui ");
+							//System.out.println(s.value +" ");
                                                         if(s.value == "#-1"){
                                                             return;
                                                         }
 							errorHead.append(": "+ getToken(Integer.parseInt(s.value.toString().replaceAll("#",""))));
-
 							
 			}
 			errorHead.append(": ");
@@ -1911,7 +1910,8 @@ public class parser extends java_cup.runtime.lr_parser {
 	}
 
         public String getToken(int id){
-            String value = sym.terminalNames[id];
+            String value = "";
+            value = sym.terminalNames[id];
             return value;
         }
            
@@ -2716,6 +2716,7 @@ class CUP$parser$actions {
 		int meright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		TreeNode me = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
+                System.err.println("Produccion 35.5");
 		TreeNode parent = new TreeNode(null, "additive_expression");
 		TreeNode child = new TreeNode(parent, (Symbol)op);
 		parent.addChild(child);
@@ -3113,6 +3114,7 @@ class CUP$parser$actions {
 		int eoeright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		TreeNode eoe = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
+                System.err.println("Produccion 52.5");
 		TreeNode parent = new TreeNode(null, "inclusive_or_expression");
 		parent.addChild(ioe);
 		parent.addChild(eoe);

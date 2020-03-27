@@ -19,6 +19,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import org.graphstream.graph.Graph;
+import org.graphstream.graph.implementations.SingleGraph;
+import org.graphstream.ui.layout.HierarchicalLayout;
+import org.graphstream.ui.view.Viewer;
 
 /**
  *
@@ -240,50 +244,7 @@ public class App extends javax.swing.JFrame {
             // TODO add your handling code here:
             generate();
 
-            /*
-            parser p = new parser(new compilerminic.Lexar(new StringReader(ta_code.getText())));
-            
-            try {
-            p.parse();
-            p.parse();
-            p.parse();
-            
-            ta_result.setText("Tu hermana");
-            
-            } catch (Exception ex) {
-            Symbol sym = p.getS();
-            //ta_result.setText(p.getS().toString());
-            
-            }
-            /*
-            
-            String command = "powershell.exe  cd '.\\Flex and Cup files\\' ;; jflex .\\main.flex;; javac Lexar.java;; java Lexar .\\test.c";
-            // Executing the command
-            try {
-            powerShellProcess = Runtime.getRuntime().exec(command);
-            powerShellProcess.getOutputStream().close();
-            String line;
-            System.out.println("Standard Output:");
-            BufferedReader stdout = new BufferedReader(new InputStreamReader(
-            powerShellProcess.getInputStream()));
-            while ((line = stdout.readLine()) != null) {
-            System.out.println(line);
-            }
-            stdout.close();
-            System.out.println("Standard Error:");
-            BufferedReader stderr = new BufferedReader(new InputStreamReader(
-            powerShellProcess.getErrorStream()));
-            while ((line = stderr.readLine()) != null) {
-            System.out.println(line);
-            }
-            stderr.close();
-            System.out.println("Done");
-            
-            } catch (IOException ex) {
-            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            // Getting the results
-             */
+           
         } catch (Exception ex) {
             Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -329,10 +290,8 @@ public class App extends javax.swing.JFrame {
                 // parser p = new parser(new FileReader(this.input_C.getAbsolutePath()));
                 parser q = new parser(new Lexer(new StringReader(ta_code.getText())));
 
-                q.parse();
+                Object x = q.parse().value;
                 
-                
-
                 ArrayList<String> errors = q.errors;
                 String output = "";
                 
@@ -341,6 +300,44 @@ public class App extends javax.swing.JFrame {
                 }
 
                 this.ta_result.setText(output);
+                
+                
+                TreeNode myTree = (TreeNode) x;
+                Values v = myTree.printAndFill();
+                Graph graph = new SingleGraph("AST");
+                
+                //graph.addNode("");
+                for (int i = 0; i < v.list.size(); i++) {
+                    String sub1, sub2, sub3;
+                    sub1 = myTree.graphList.get(i)[0];
+                    sub2 = myTree.graphList.get(i)[1];
+                    sub3 = myTree.graphList.get(i)[2];
+                    /*
+                    System.out.println("Main graphList Element 1: " + myTree.graphList.get(i)[0]);
+                    System.out.println("Main graphList Element 2: " + myTree.graphList.get(i)[1]);
+                    System.out.println("Main graphList Element 2: " + myTree.graphList.get(i)[1]);
+                    */
+                    graph.addNode(sub1).addAttribute("ui.label", sub3);
+
+                    //graph.addNode(sub1).addAttribute("ui.label", "Name: " + sub1 + "        Parent: " + sub2);
+                }
+                System.out.println(v.tree);
+                System.out.println("length " + myTree.graphList.size());
+
+                for (int i = 0; i < v.list.size(); i++) {
+                    String sub1, sub2;
+                    sub1 = myTree.graphList.get(i)[0];
+                    sub2 = myTree.graphList.get(i)[1];
+
+                    if (sub1.equals("translation_unit") && sub2.equals("")) {
+                        System.out.println("translation_unit");
+                    } else {
+                        graph.addEdge(sub2 + " " + sub1, sub2, sub1);
+
+                    }
+                }
+
+                graph.display();
 
             } catch (FileNotFoundException ex) {
 
