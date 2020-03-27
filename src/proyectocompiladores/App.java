@@ -14,14 +14,15 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringReader;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java_cup.runtime.Scanner;
+import java_cup.runtime.Symbol;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import org.graphstream.graph.Graph;
+import org.graphstream.graph.Node;
 import org.graphstream.graph.implementations.SingleGraph;
-import org.graphstream.ui.layout.HierarchicalLayout;
 import org.graphstream.ui.view.Viewer;
 
 /**
@@ -222,9 +223,7 @@ public class App extends javax.swing.JFrame {
                 e.printStackTrace();
             } finally {
                 try {
-         
                     fr.close();
-                    fr.flush();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -235,7 +234,6 @@ public class App extends javax.swing.JFrame {
 
     private void jb_clearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_clearActionPerformed
         clear();
-       
         this.input_C = null;
     }//GEN-LAST:event_jb_clearActionPerformed
 
@@ -244,7 +242,50 @@ public class App extends javax.swing.JFrame {
             // TODO add your handling code here:
             generate();
 
-           
+            /*
+            parser p = new parser(new compilerminic.Lexar(new StringReader(ta_code.getText())));
+            
+            try {
+            p.parse();
+            p.parse();
+            p.parse();
+            
+            ta_result.setText("Tu hermana");
+            
+            } catch (Exception ex) {
+            Symbol sym = p.getS();
+            //ta_result.setText(p.getS().toString());
+            
+            }
+            /*
+            
+            String command = "powershell.exe  cd '.\\Flex and Cup files\\' ;; jflex .\\main.flex;; javac Lexar.java;; java Lexar .\\test.c";
+            // Executing the command
+            try {
+            powerShellProcess = Runtime.getRuntime().exec(command);
+            powerShellProcess.getOutputStream().close();
+            String line;
+            System.out.println("Standard Output:");
+            BufferedReader stdout = new BufferedReader(new InputStreamReader(
+            powerShellProcess.getInputStream()));
+            while ((line = stdout.readLine()) != null) {
+            System.out.println(line);
+            }
+            stdout.close();
+            System.out.println("Standard Error:");
+            BufferedReader stderr = new BufferedReader(new InputStreamReader(
+            powerShellProcess.getErrorStream()));
+            while ((line = stderr.readLine()) != null) {
+            System.out.println(line);
+            }
+            stderr.close();
+            System.out.println("Done");
+            
+            } catch (IOException ex) {
+            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            // Getting the results
+             */
         } catch (Exception ex) {
             Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -284,29 +325,21 @@ public class App extends javax.swing.JFrame {
     }//GEN-LAST:event_jb_save_asActionPerformed
 
     private void jb_RUNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_RUNActionPerformed
-        if (this.input_C != null) {
+        System.setProperty("org.graphstream.ui.renderer", "org.graphstream.ui.j2dviewer.J2DGraphRenderer");
+        if (ta_code.getText() != null) {
             try {
-                System.out.println(input_C.getPath());
-                // parser p = new parser(new FileReader(this.input_C.getAbsolutePath()));
-                parser q = new parser(new Lexer(new StringReader(ta_code.getText())));
+                parser p = new parser(new Lexer(new StringReader(ta_code.getText())));
+                Object x = p.parse().value;
 
-                Object x = q.parse().value;
-                
-                ArrayList<String> errors = q.errors;
-                String output = "";
-                
-                for (String error : errors) {
-                    output += error + "\n";
-                }
-
-                this.ta_result.setText(output);
-                
-                
+                //System.out.println(x.toString());
                 TreeNode myTree = (TreeNode) x;
                 Values v = myTree.printAndFill();
                 Graph graph = new SingleGraph("AST");
-                
+
                 //graph.addNode("");
+                int initialPositionX = 0;
+                int initialPositionY = 0;
+
                 for (int i = 0; i < v.list.size(); i++) {
                     String sub1, sub2, sub3;
                     sub1 = myTree.graphList.get(i)[0];
@@ -316,9 +349,31 @@ public class App extends javax.swing.JFrame {
                     System.out.println("Main graphList Element 1: " + myTree.graphList.get(i)[0]);
                     System.out.println("Main graphList Element 2: " + myTree.graphList.get(i)[1]);
                     System.out.println("Main graphList Element 2: " + myTree.graphList.get(i)[1]);
-                    */
-                    graph.addNode(sub1).addAttribute("ui.label", sub3);
+                     */
+                    graph.addNode(sub1).addAttribute("ui.label", sub3/*,*/);
+                    if (sub1 == "translation_unit") {
+                        Node node = graph.getNode(sub1);
+                        node.addAttribute("ui.class", "F");
+                        node.addAttribute("layout.frozen");
+                        node.addAttribute("x", 128.0);
+                        node.addAttribute("y", 0.0);
 
+                        node.addAttribute("ui.style", "fill-color: rgb(255,0,0);"
+                                + "size: 15px, 15px;");
+
+                    } else {
+                        Node node = graph.getNode(sub1);
+                        node.addAttribute("ui.class", "N");
+                        node.addAttribute("ui.style", "fill-color: rgb(255,255,0);");
+
+                        //graph.getNode(sub1).addAttribute("ui.style", "fill-mode: none;");
+                        //graph.getNode(sub1).addAttribute("ui.style", "text-align: center;");
+
+                    }
+
+                    //graph.getNode(sub1).addAttribute("ui.style", "text-alignment: center;");
+                    //initialPositionY += 20;
+                    //initialPositionX += 20;
                     //graph.addNode(sub1).addAttribute("ui.label", "Name: " + sub1 + "        Parent: " + sub2);
                 }
                 System.out.println(v.tree);
@@ -337,18 +392,25 @@ public class App extends javax.swing.JFrame {
                     }
                 }
 
-                graph.display();
+                graph.addAttribute("ui.stylesheet", "node:clicked { fill-color: rgb(0,0,255); } ");
 
+                graph.setAttribute("ui.antialias");
+                graph.setAttribute("ui.quality");
+                Viewer viewer = graph.display();
+                viewer.setCloseFramePolicy(Viewer.CloseFramePolicy.HIDE_ONLY);
+                //viewer.disableAutoLayout();
+                //graph.display().disableAutoLayout();
+                //myTree.printGraph();
             } catch (FileNotFoundException ex) {
 
                 Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
             } catch (Exception ex) {
                 Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
-                System.out.println(ex.toString());
             }
             System.out.println();
 
         }
+
     }//GEN-LAST:event_jb_RUNActionPerformed
 
     public static void generate() throws IOException, Exception {
@@ -393,7 +455,6 @@ public class App extends javax.swing.JFrame {
             } finally {
                 try {
                     fr.close();
-                    fr.flush();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
