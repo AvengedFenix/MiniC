@@ -6,6 +6,8 @@
 package proyectocompiladores;
 
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -17,11 +19,16 @@ import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.BorderFactory;
+
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import org.graphstream.graph.Graph;
 import org.graphstream.graph.Node;
 import org.graphstream.graph.implementations.SingleGraph;
+import org.graphstream.ui.swingViewer.ViewPanel;
 import org.graphstream.ui.view.Viewer;
 
 /**
@@ -348,13 +355,8 @@ public class App extends javax.swing.JFrame {
                 }else{
                     this.ta_result.setForeground(Color.RED);
                     this.ta_result.setText(errores);
-                    
-                }
-                
-               
-                
-                
-                
+                   
+                }   
                 //graph.addNode("");
                 int initialPositionX = 0;
                 int initialPositionY = 0;
@@ -374,7 +376,7 @@ public class App extends javax.swing.JFrame {
                         Node node = graph.getNode(sub1);
                         node.addAttribute("ui.class", "F");
                         node.addAttribute("layout.frozen");
-                        node.addAttribute("x", 128.0);
+                        node.addAttribute("x", 0.0);
                         node.addAttribute("y", 0.0);
 
                         node.addAttribute("ui.style", "fill-color: rgb(255,0,0);"
@@ -387,7 +389,6 @@ public class App extends javax.swing.JFrame {
 
                         //graph.getNode(sub1).addAttribute("ui.style", "fill-mode: none;");
                         //graph.getNode(sub1).addAttribute("ui.style", "text-align: center;");
-
                     }
 
                     //graph.getNode(sub1).addAttribute("ui.style", "text-alignment: center;");
@@ -404,7 +405,7 @@ public class App extends javax.swing.JFrame {
                     sub2 = myTree.graphList.get(i)[1];
 
                     if (sub1.equals("translation_unit") && sub2.equals("")) {
-                        System.out.println("translation_unit");
+                        //System.out.println("translation_unit");
                     } else {
                         graph.addEdge(sub2 + " " + sub1, sub2, sub1);
 
@@ -415,11 +416,36 @@ public class App extends javax.swing.JFrame {
 
                 graph.setAttribute("ui.antialias");
                 graph.setAttribute("ui.quality");
-                Viewer viewer = graph.display();
-                viewer.setCloseFramePolicy(Viewer.CloseFramePolicy.HIDE_ONLY);
+
                 //viewer.disableAutoLayout();
                 //graph.display().disableAutoLayout();
                 //myTree.printGraph();
+                /*
+                Viewer viewer = graph.display();
+
+                viewer.setCloseFramePolicy(Viewer.CloseFramePolicy.HIDE_ONLY);
+                 */
+                JFrame frame = new JFrame("GRAPH");
+                @SuppressWarnings("serial")
+                JPanel panel = new JPanel(new GridLayout()) {
+                    @Override
+                    public Dimension getPreferredSize() {
+                        return new Dimension(640, 480);
+                    }
+                };
+                panel.setBorder(BorderFactory.createLineBorder(Color.blue, 5));
+                Viewer viewer = new Viewer(graph, Viewer.ThreadingModel.GRAPH_IN_GUI_THREAD);
+                ViewPanel viewPanel = viewer.addDefaultView(false);
+                viewer.enableAutoLayout();
+                viewPanel.getCamera().setViewPercent(0.25);
+                viewPanel.getCamera().setViewCenter(0, 0, 0);
+                viewPanel.requestFocusInWindow();
+                panel.add(viewPanel);
+                frame.add(panel);
+                frame.pack();
+                frame.setLocationRelativeTo(null);
+                frame.setVisible(true);
+
             } catch (FileNotFoundException ex) {
 
                 Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
