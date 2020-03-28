@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package proyectocompiladores;
 
 import proyectocompiladores.Values;
@@ -15,10 +11,6 @@ import java_cup.runtime.Symbol;
 import org.graphstream.graph.*;
 import org.graphstream.graph.implementations.SingleGraph;
 
-/**
- *
- * @author Isaias Valle
- */
 public class TreeNode {
 
     public ArrayList<String[]> graphList = new ArrayList<String[]>();
@@ -85,20 +77,7 @@ public class TreeNode {
         childs = new ArrayList();
     }
 
-    /*
-    public void reduceTreeNode() {
-        if (childs.size() == 1) {
-            value = childs.get(0).value;
-            childs = childs.get(0).childs;
-            this.reduceTreeNode();
-        }
-        if (childs.size() > 1) {
-            for (TreeNode child : childs) {
-                child.reduceTreeNode();
-            }
-        }
-    }
-     */
+   
     String myParent;
 
     public Values printAndFill() {
@@ -172,9 +151,7 @@ public class TreeNode {
             System.out.println("toString graphList Element 1: " + graphList.get(i)[0]);
             System.out.println("toString graphList Element 2: " + graphList.get(i)[1]);
             System.out.println("toString graphList Element 3: " + graphList.get(i)[2]);
-
             System.out.println("\n\n");
-
         }
         */
         temp = new Values(tree, list);
@@ -212,45 +189,6 @@ public class TreeNode {
             child.prettyPrint(indent, index == childs.size());
         }
     }
-
-    /*
-    public void saveTreeToFile(String name) {
-        try {
-            FileOutputStream out = new FileOutputStream(name + ".tree");
-            try {
-                writeToFile("", true, out);
-                out.flush();
-                out.close();
-            } catch (IOException iOException) {
-                out.flush();
-                out.close();
-                System.err.println("WritngToFile Error");
-            }
-        } catch (FileNotFoundException ex) {
-            System.err.println("FileNotFound Error");
-        } catch (IOException ex) {
-            System.err.println("WritngToFile Error");
-        }
-    }
-     */
-
- /*private void writeToFile(String indent, boolean last, FileOutputStream out) throws IOException {
-        out.write(indent.getBytes());
-        if (last) {
-            out.write("└───".getBytes());
-            indent += "    ";
-        } else {
-            out.write("├───".getBytes());
-            indent += "│   ";
-        }
-        out.write(value.value.toString().getBytes());
-        out.write("\n".getBytes());
-        int index = 0;
-        for (TreeNode child : childs) {
-            index++;
-            child.writeToFile(indent, index == childs.size(), out);
-        }
-    }*/
     public void printGraph() {
         graph.display();
     }

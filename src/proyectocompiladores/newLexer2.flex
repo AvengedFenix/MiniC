@@ -506,6 +506,6 @@ NO_IDEA = [^]
         System.out.println("EOF found" );
         return  Symbol(sym.EOF);
     } 
-    c
+    
 
 //}

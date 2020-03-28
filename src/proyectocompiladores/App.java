@@ -14,10 +14,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringReader;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java_cup.runtime.Scanner;
-import java_cup.runtime.Symbol;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import org.graphstream.graph.Graph;
@@ -330,12 +329,32 @@ public class App extends javax.swing.JFrame {
             try {
                 parser p = new parser(new Lexer(new StringReader(ta_code.getText())));
                 Object x = p.parse().value;
-
+                
                 //System.out.println(x.toString());
                 TreeNode myTree = (TreeNode) x;
                 Values v = myTree.printAndFill();
                 Graph graph = new SingleGraph("AST");
-
+                
+                ArrayList<String> resultado = p.errors;
+                String errores = "";
+                
+                for (String error : resultado) {
+                    errores+= error + "\n";
+                }
+                
+                if (errores.isEmpty()) {
+                    this.ta_result.setForeground(Color.GREEN);
+                    this.ta_result.setText("¡Analisis lexico y sintactico exitoso!");                   
+                }else{
+                    this.ta_result.setForeground(Color.RED);
+                    this.ta_result.setText(errores);
+                    
+                }
+                
+               
+                
+                
+                
                 //graph.addNode("");
                 int initialPositionX = 0;
                 int initialPositionY = 0;
