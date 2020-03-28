@@ -129,7 +129,7 @@ public class TreeNode {
         Values temp;
 
         myParent = mySubParent;
-        System.out.println("this is the parent child: " + myParent);
+        //System.out.println("this is the parent child: " + myParent);
 
         /*graphList = new ArrayList<String[]>();
         System.out.println("Parameter List: " + graphList.toString());
@@ -154,7 +154,7 @@ public class TreeNode {
           
             StringBuilder name = new StringBuilder(myParent);
 
-            System.out.println("This is child's name: " + child.getValue().value.toString());
+            //System.out.println("This is child's name: " + child.getValue().value.toString());
 
             name.append(child.getValue().value.toString() + Integer.toString(index));
             //String name = myParent + child.getValue().value.toString() + Integer.toString(index);
