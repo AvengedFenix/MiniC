@@ -32,18 +32,18 @@ import java.lang.String;
         return new Symbol(sym, yycolumn, yyline, val);
 	}
 %}
-//Rexeges primarios 
+
 Digit = [0-9]
 Letter = [a-zA-Z_]
-CharLiteral = \'([:jletterdigit:]| (\\ ([:jletterdigit:]|\\|"'") ) )\'
 H = [a-fA-F0-9]
 E = [Ee][+-]?{Digit}+
 FS = (f|F|l|L)
 IS = (u|U|l|L)*
-TC = "/*" [^*] ~"*/" | "/*" "*"+ "/"
-EC = "//" [^\r\n]* {_line}
-_line = \r|\n|\r\n
-white_space = {_line} | [ \t\f]
+TC = "/*" [^*] ~"*/" | "/*" "*"+ "/"    
+EC = "//" [^\r\n]* {new_line}
+new_line = \r|\n|\r\n
+white_space = {new_line} | [ \t\f]
+CharLiteral = \'([:jletterdigit:]| (\\ ([:jletterdigit:]|\\|"'") ) )\'
 
 
 // palabras reservadas
@@ -149,11 +149,12 @@ NO_IDEA = [^]
 
 %%
 
-{EC}                    { }
-{TC}                    { }
-{white_space}           { }
 
-//<YYINITIAL> {
+<YYINITIAL> {
+    {EC}                    { }
+    {TC}                    { }
+    {white_space}           { }
+
 
     {auto} {
         //System.out.println("auto " + yytext() + " => at (" + yyline +"," + yycolumn +")");

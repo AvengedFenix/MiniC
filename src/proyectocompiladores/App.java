@@ -48,7 +48,7 @@ public class App extends javax.swing.JFrame {
      * Creates new form App
      */
     public App() {
-        
+
         initComponents();
         this.setLocationRelativeTo(null);
         this.ta_result.setBackground(Color.BLACK);
@@ -108,7 +108,7 @@ public class App extends javax.swing.JFrame {
             }
         });
 
-        jb_compile.setText("Compile");
+        jb_compile.setText("Generate");
         jb_compile.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jb_compileActionPerformed(evt);
@@ -226,7 +226,6 @@ public class App extends javax.swing.JFrame {
             // TODO add your handling code here:
             generate();
 
-            
         } catch (Exception ex) {
             Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -390,7 +389,6 @@ public class App extends javax.swing.JFrame {
                 //Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
             }
             System.out.println();
-
         }
 
     }//GEN-LAST:event_jb_RUNActionPerformed
@@ -445,7 +443,7 @@ public class App extends javax.swing.JFrame {
     }
 
     public static void generateLexer() {
-        String parametros[]= {"-d","src/proyectocompiladores/","src/proyectocompiladores/newLexer.flex"};
+        String parametros[] = {"-d", "src/proyectocompiladores/", "src/proyectocompiladores/newLexer.flex"};
         try {
             jflex.Main.generate(parametros);
         } catch (Exception e) {
@@ -455,7 +453,7 @@ public class App extends javax.swing.JFrame {
     }
 
     public static void generateParser() {
-        String parametros[]={"-destdir","src/proyectocompiladores/","-parser","parser","src/proyectocompiladores/parser.cup"}; 
+        String parametros[] = {"-destdir", "src/proyectocompiladores/", "-parser", "parser", "src/proyectocompiladores/parser.cup"};
         try {
             java_cup.Main.main(parametros);
         } catch (Exception e) {

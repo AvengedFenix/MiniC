@@ -1914,6 +1914,7 @@ public class parser extends java_cup.runtime.lr_parser {
     public String getToken(int id){
         String value = "";
         value = sym.terminalNames[id];
+
         switch(id){
             case sym.CURLYL:
                 return "{";

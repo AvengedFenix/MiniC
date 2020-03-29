@@ -981,7 +981,7 @@ class Lexer implements java_cup.runtime.Scanner {
       else {
         switch (zzAction < 0 ? zzAction : ZZ_ACTION[zzAction]) {
           case 1: 
-            { System.err.println("Error Lexico, token no identificado: "+yytext()+" "+(yyline+1)+" : "+(yycolumn+1));
+            { System.err.println("Error, token desconocido : "+yytext()+" "+(yyline+1)+" : "+(yycolumn+1));
             } 
             // fall through
           case 87: break;
@@ -1236,7 +1236,7 @@ class Lexer implements java_cup.runtime.Scanner {
             // fall through
           case 137: break;
           case 52: 
-            { System.err.println("Error Lexico, comillas dobles para strings: "+yytext()+" "+(yyline+1)+" : "+(yycolumn+1));
+            { System.err.println("Error,strings con comillas de mas: "+yytext()+" "+(yyline+1)+" : "+(yycolumn+1));
             } 
             // fall through
           case 138: break;

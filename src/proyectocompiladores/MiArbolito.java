@@ -17,12 +17,12 @@ public class MiArbolito {
     Graph graph = new SingleGraph("AST");
 
     private MiArbolito parent;
-    private ArrayList<MiArbolito> childs = new ArrayList();
+    private ArrayList<MiArbolito> children = new ArrayList();
     private Symbol value;
 
     public MiArbolito(MiArbolito copy) {
         parent = copy.parent;
-        childs = copy.childs;
+        children = copy.children;
         value = copy.value;
     }
 
@@ -38,11 +38,11 @@ public class MiArbolito {
 
     public boolean addChild(MiArbolito newChild) {
         newChild.parent = this;
-        return childs.add(newChild);
+        return children.add(newChild);
     }
 
     public boolean addChild(Object value) {
-        return childs.add(new MiArbolito(this, (Symbol) value));
+        return children.add(new MiArbolito(this, (Symbol) value));
     }
 
     public void setParent(MiArbolito parent) {
@@ -69,12 +69,12 @@ public class MiArbolito {
         this.value.sym = value;
     }
 
-    public ArrayList<MiArbolito> getChilds() {
-        return childs;
+    public ArrayList<MiArbolito> getChildren() {
+        return children;
     }
 
-    public void deleteChilds() {
-        childs = new ArrayList();
+    public void deleteChildren() {
+        children = new ArrayList();
     }
 
    
@@ -125,7 +125,7 @@ public class MiArbolito {
         }
         tree += value.value.toString() + "\n";
         int index = 0;
-        for (MiArbolito child : childs) {
+        for (MiArbolito child : children) {
             index++;
           
             StringBuilder name = new StringBuilder(myParent);
@@ -138,7 +138,7 @@ public class MiArbolito {
             list.add(new String[]{name.toString(), myParent, child.getValue().value.toString()});
 
             //graph.addEdge("", name, myParent);
-            tree += child.toString(name.toString(), indent, index == childs.size(), list);
+            tree += child.toString(name.toString(), indent, index == children.size(), list);
             //graph.display();
         }
         /*
@@ -166,7 +166,7 @@ public class MiArbolito {
         if (this.value.value.equals(value)) {
             result.add(this);
         } else {
-            for (MiArbolito node : childs) {
+            for (MiArbolito node : children) {
                 result.addAll(node.getNodes(value));
             }
         }

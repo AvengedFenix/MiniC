@@ -1,9 +1,9 @@
 int sum(int n);
 
-/**/*/
+/*/**/*/
 
 int pops() {
-    in number, result;
+    int number, result;
     int papa= 10;
     char equis
     printf("Enter a positive integer: ");
