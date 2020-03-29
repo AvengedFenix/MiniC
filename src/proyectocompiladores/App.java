@@ -23,6 +23,7 @@ import javax.swing.BorderFactory;
 
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import org.graphstream.graph.Graph;
@@ -336,27 +337,27 @@ public class App extends javax.swing.JFrame {
             try {
                 parser p = new parser(new Lexer(new StringReader(ta_code.getText())));
                 Object x = p.parse().value;
-                
+
                 //System.out.println(x.toString());
                 TreeNode myTree = (TreeNode) x;
                 Values v = myTree.printAndFill();
                 Graph graph = new SingleGraph("AST");
-                
+
                 ArrayList<String> resultado = p.errors;
                 String errores = "";
-                
+
                 for (String error : resultado) {
-                    errores+= error + "\n";
+                    errores += error + "\n";
                 }
-                
+
                 if (errores.isEmpty()) {
                     this.ta_result.setForeground(Color.GREEN);
-                    this.ta_result.setText("¡Analisis lexico y sintactico exitoso!");                   
-                }else{
+                    this.ta_result.setText("¡Analisis lexico y sintactico exitoso!");
+                } else {
                     this.ta_result.setForeground(Color.RED);
                     this.ta_result.setText(errores);
-                   
-                }   
+
+                }
                 //graph.addNode("");
                 int initialPositionX = 0;
                 int initialPositionY = 0;
@@ -380,13 +381,14 @@ public class App extends javax.swing.JFrame {
                         node.addAttribute("y", 0.0);
 
                         node.addAttribute("ui.style", "fill-color: rgb(255,0,0);"
-                                + "size: 15px, 15px;");
+                                + "size: 40px, 40px;");
+
 
                     } else {
                         Node node = graph.getNode(sub1);
                         node.addAttribute("ui.class", "N");
-                        node.addAttribute("ui.style", "fill-color: rgb(255,255,0);");
 
+                        //node.addAttribute("ui.style", "fill-color: rgb(255,255,0);");
                         //graph.getNode(sub1).addAttribute("ui.style", "fill-mode: none;");
                         //graph.getNode(sub1).addAttribute("ui.style", "text-align: center;");
                     }
@@ -407,12 +409,25 @@ public class App extends javax.swing.JFrame {
                     if (sub1.equals("translation_unit") && sub2.equals("")) {
                         //System.out.println("translation_unit");
                     } else {
-                        graph.addEdge(sub2 + " " + sub1, sub2, sub1);
+                        graph.addEdge(sub2 + " " + sub1, sub2, sub1).addAttribute("layout.weight", 4, pathSyntax);
 
                     }
                 }
 
-                graph.addAttribute("ui.stylesheet", "node:clicked { fill-color: rgb(0,0,255); } ");
+                graph.addAttribute("ui.stylesheet", "graph { fill-color: #bc572f; "
+                        + "fill-mode: gradient-vertical;}"
+                        + "node { text-color: white;"
+                        + "text-size: 18px;"
+                        + "size: 30px, 30px;"
+                        + "shape: circle; "
+                        + "fill-color: red, orange;"
+                        + "    fill-mode: gradient-vertical;"
+                        + "    stroke-mode: plain;"
+                        + "    stroke-color: black;"
+                        + "    stroke-width: 5px; }"
+                        + "edge { fill-color: #d19214;"
+                        + "    size: 2px;  } "
+                        + "node:clicked { fill-color: rgb(0,0,255); } ");
 
                 graph.setAttribute("ui.antialias");
                 graph.setAttribute("ui.quality");
@@ -452,6 +467,7 @@ public class App extends javax.swing.JFrame {
             } catch (Exception ex) {
                 Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
             }
+            JOptionPane.showMessageDialog(this, "Para navegar el arbol utilize las teclas direccionales, Page UP y Page Down para hacer Zoom");
             System.out.println();
 
         }
