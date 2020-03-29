@@ -4,12 +4,9 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/k_k_r/Documents/NetBeansProjects/test/MiniC/src/proyectocompiladores/App.java</file>
-            <file>file:/C:/Users/k_k_r/Documents/NetBeansProjects/test/MiniC/src/proyectocompiladores/Syntax.cup</file>
-            <file>file:/C:/Users/k_k_r/Documents/NetBeansProjects/test/MiniC/src/proyectocompiladores/parser.java</file>
-            <file>file:/C:/Users/k_k_r/Documents/NetBeansProjects/test/MiniC/src/proyectocompiladores/Lexer.java</file>
-            <file>file:/C:/Users/k_k_r/Documents/NetBeansProjects/test/MiniC/src/proyectocompiladores/Values.java</file>
-            <file>file:/C:/Users/k_k_r/Documents/NetBeansProjects/test/MiniC/src/proyectocompiladores/Tokens.java</file>
-            <file>file:/C:/Users/k_k_r/Documents/NetBeansProjects/test/MiniC/src/proyectocompiladores/TreeNode.java</file>
+            <file>file:/C:/Users/k_k_r/Documents/NetBeansProjects/test/MiniC/src/proyectocompiladores/sym.java</file>
+            <file>file:/C:/Users/k_k_r/Documents/NetBeansProjects/test/MiniC/src/proyectocompiladores/parser.cup</file>
+            <file>file:/C:/Users/k_k_r/Documents/NetBeansProjects/test/MiniC/src/proyectocompiladores/graphStyles.css</file>
         </group>
     </open-files>
 </project-private>

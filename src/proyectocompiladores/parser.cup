@@ -44,6 +44,7 @@ parser code {:
     public String getToken(int id){
         String value = "";
         value = sym.terminalNames[id];
+
         switch(id){
             case sym.CURLYL:
                 return "{";

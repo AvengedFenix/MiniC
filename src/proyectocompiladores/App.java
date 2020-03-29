@@ -48,11 +48,9 @@ public class App extends javax.swing.JFrame {
      * Creates new form App
      */
     public App() {
+        
         initComponents();
         this.setLocationRelativeTo(null);
-
-        this.ta_code.setBackground(Color.BLACK);
-        this.ta_code.setForeground(Color.WHITE);
         this.ta_result.setBackground(Color.BLACK);
         this.ta_result.setForeground(Color.WHITE);
     }
@@ -72,8 +70,6 @@ public class App extends javax.swing.JFrame {
         jb_save = new javax.swing.JButton();
         jb_load = new javax.swing.JButton();
         jb_compile = new javax.swing.JButton();
-        jb_genFlex = new javax.swing.JButton();
-        jb_genFlex1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         ta_result = new javax.swing.JTextArea();
@@ -82,6 +78,7 @@ public class App extends javax.swing.JFrame {
         jb_RUN = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(0, 0, 0));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setResizable(false);
         setSize(new java.awt.Dimension(1280, 720));
@@ -115,20 +112,6 @@ public class App extends javax.swing.JFrame {
         jb_compile.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jb_compileActionPerformed(evt);
-            }
-        });
-
-        jb_genFlex.setText("Generate Flex");
-        jb_genFlex.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jb_genFlexActionPerformed(evt);
-            }
-        });
-
-        jb_genFlex1.setText("Generate Syntax");
-        jb_genFlex1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jb_genFlex1ActionPerformed(evt);
             }
         });
 
@@ -169,8 +152,6 @@ public class App extends javax.swing.JFrame {
                             .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jb_genFlex, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jb_genFlex1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jb_clear)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -198,10 +179,6 @@ public class App extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jb_save_as)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jb_genFlex)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jb_genFlex1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jb_compile))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 479, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
@@ -249,71 +226,16 @@ public class App extends javax.swing.JFrame {
             // TODO add your handling code here:
             generate();
 
-            /*
-            parser p = new parser(new compilerminic.Lexar(new StringReader(ta_code.getText())));
             
-            try {
-            p.parse();
-            p.parse();
-            p.parse();
-            
-            ta_result.setText("Tu hermana");
-            
-            } catch (Exception ex) {
-            Symbol sym = p.getS();
-            //ta_result.setText(p.getS().toString());
-            
-            }
-            /*
-            
-            String command = "powershell.exe  cd '.\\Flex and Cup files\\' ;; jflex .\\main.flex;; javac Lexar.java;; java Lexar .\\test.c";
-            // Executing the command
-            try {
-            powerShellProcess = Runtime.getRuntime().exec(command);
-            powerShellProcess.getOutputStream().close();
-            String line;
-            System.out.println("Standard Output:");
-            BufferedReader stdout = new BufferedReader(new InputStreamReader(
-            powerShellProcess.getInputStream()));
-            while ((line = stdout.readLine()) != null) {
-            System.out.println(line);
-            }
-            stdout.close();
-            System.out.println("Standard Error:");
-            BufferedReader stderr = new BufferedReader(new InputStreamReader(
-            powerShellProcess.getErrorStream()));
-            while ((line = stderr.readLine()) != null) {
-            System.out.println(line);
-            }
-            stderr.close();
-            System.out.println("Done");
-            
-            } catch (IOException ex) {
-            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            // Getting the results
-             */
         } catch (Exception ex) {
             Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }//GEN-LAST:event_jb_compileActionPerformed
 
-    private void jb_genFlexActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_genFlexActionPerformed
-        try {
-            generate();
-        } catch (Exception ex) {
-            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_jb_genFlexActionPerformed
-
-    private void jb_genFlex1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_genFlex1ActionPerformed
-
-    }//GEN-LAST:event_jb_genFlex1ActionPerformed
-
     private void jb_loadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_loadActionPerformed
         clear();
-        JFileChooser jfc = new JFileChooser();
+        JFileChooser jfc = new JFileChooser("./Test Files/");
         FileNameExtensionFilter filter = new FileNameExtensionFilter("C files.", "c");
         jfc.setFileFilter(filter);
         int result = jfc.showOpenDialog(this);
@@ -496,7 +418,7 @@ public class App extends javax.swing.JFrame {
     }
 
     void saveNewFile() {
-        JFileChooser jfc = new JFileChooser();
+        JFileChooser jfc = new JFileChooser("./Test Files/");
         FileNameExtensionFilter filter = new FileNameExtensionFilter("C files.", "c");
         jfc.setFileFilter(filter);
         int option = jfc.showSaveDialog(this);
@@ -523,13 +445,9 @@ public class App extends javax.swing.JFrame {
     }
 
     public static void generateLexer() {
-
-        String paramsLexer[] = new String[3];
-        paramsLexer[0] = "-d";
-        paramsLexer[1] = "src/proyectocompiladores/";
-        paramsLexer[2] = "src/proyectocompiladores/newLexer.flex";
+        String parametros[]= {"-d","src/proyectocompiladores/","src/proyectocompiladores/newLexer.flex"};
         try {
-            jflex.Main.generate(paramsLexer);
+            jflex.Main.generate(parametros);
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -537,14 +455,9 @@ public class App extends javax.swing.JFrame {
     }
 
     public static void generateParser() {
-        String params[] = new String[5];
-        params[0] = "-destdir";
-        params[1] = "src/proyectocompiladores/";
-        params[2] = "-parser";
-        params[3] = "parser";
-        params[4] = "src/proyectocompiladores/parser.cup";
+        String parametros[]={"-destdir","src/proyectocompiladores/","-parser","parser","src/proyectocompiladores/parser.cup"}; 
         try {
-            java_cup.Main.main(params);
+            java_cup.Main.main(parametros);
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -593,8 +506,6 @@ public class App extends javax.swing.JFrame {
     private javax.swing.JButton jb_RUN;
     private javax.swing.JButton jb_clear;
     private javax.swing.JButton jb_compile;
-    private javax.swing.JButton jb_genFlex;
-    private javax.swing.JButton jb_genFlex1;
     private javax.swing.JButton jb_load;
     private javax.swing.JButton jb_save;
     private javax.swing.JButton jb_save_as;
