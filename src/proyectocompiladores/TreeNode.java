@@ -100,10 +100,7 @@ public class TreeNode {
         return v;
     }
 
-    /*private ArrayList AddToArray(ArrayList<String[]> list){
-        graphList = new ArrayList<String[]>(list);
-        
-    }*/
+
     private Values toString(String mySubParent, String indent, boolean last, ArrayList<String[]> list) {
         Values temp;
 
@@ -120,11 +117,11 @@ public class TreeNode {
         //System.out.println("graphList: " + graphList.toString());
         String tree = indent;
         if (last) {
-            tree += "└───> ";
+            tree += "\\\\~~~~:> ";
             indent += "    ";
         } else {
-            tree += "├───> ";
-            indent += "│   ";
+            tree += "\\\\~~~~:> ";
+            indent += "||   ";
         }
         tree += value.value.toString() + "\n";
         int index = 0;
@@ -163,35 +160,6 @@ public class TreeNode {
         return this.value.value.toString().equals(other);
     }
 
-    public void prettyPrint() {
-        String indent = "";
-        System.out.println(value.value);
-        int index = 0;
-        for (TreeNode child : childs) {
-            index++;
-            child.prettyPrint(indent, index == childs.size());
-        }
-    }
-
-    private void prettyPrint(String indent, boolean last) {
-        System.out.print(indent);
-        if (last) {
-            System.out.print("└───");
-            indent += "    ";
-        } else {
-            System.out.print("├───");
-            indent += "│   ";
-        }
-        System.out.println(value.value);
-        int index = 0;
-        for (TreeNode child : childs) {
-            index++;
-            child.prettyPrint(indent, index == childs.size());
-        }
-    }
-    public void printGraph() {
-        graph.display();
-    }
 
     public ArrayList<TreeNode> getNodes(String value) {
         ArrayList<TreeNode> result = new ArrayList();
