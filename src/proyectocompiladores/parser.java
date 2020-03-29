@@ -1877,7 +1877,69 @@ public class parser extends java_cup.runtime.lr_parser {
 
 
 
+    
     ArrayList<String> errors = new ArrayList();
+
+     @Override
+    public void syntax_error(Symbol s){
+        String lexVal = s.value != null ? s.value.toString() : getToken(s.sym);
+        int line = s.right;
+        int column = s.left;
+        String err = "";
+        if(lexVal.equals("EOF")){
+            err = "Error found: expected }";
+        } else {
+            err = "Error found: " +  " line: " + line + " column: " + column + ", Token not expected: " + lexVal;
+        }
+
+        System.err.println(err);
+        errors.add(err);
+    }
+
+    @Override
+    public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception {
+        String lexVal = s.value != null ? s.value.toString() : getToken(s.sym);
+        int line = s.right;
+        int column = s.left;
+        String err = "";
+        if(lexVal.equals("EOF")){
+            err = "";
+        }else{
+            err = "PANIC MODE! Error found: " + " line: " + line + " column: " + column + ", Token not expected: " + lexVal;
+        }
+        System.err.println(err);
+        errors.add(err);
+    }
+
+    public String getToken(int id){
+        String value = "";
+        value = sym.terminalNames[id];
+        switch(id){
+            case sym.CURLYL:
+                return "{";
+            case sym.CURLYR:
+                return "}";
+            case sym.PARAL:
+                return "(";
+            case sym.PARAR:
+                return ")";
+            default:
+                return value;
+ 
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+/*
     public parser (java.io.Reader input) {super(new Lexer(input));}
 	public void report_error(String errorBody, Object info) {
 		StringBuffer errorHead = new StringBuffer("Error");
@@ -1890,17 +1952,17 @@ public class parser extends java_cup.runtime.lr_parser {
                     }
 			}
 			if(s.value != null){
-                errorHead.append(" en el token "+s.value );
-				//System.out.println("veamos que hay aqui ");
-				//System.out.println(s.value +" ");
-                if(s.value == "#-1"){
-                	return;
-            	}
-				errorHead.append(": "+ getToken(Integer.parseInt(s.value.toString().replaceAll("#",""))));
+                            errorHead.append(" en el token "+s.value );
+                            //System.out.println("veamos que hay aqui ");
+                            //System.out.println(s.value +" ");
+                            if(s.value == "#-1"){
+                                    return;
+                            }
+                            errorHead.append(": "+ getToken(Integer.parseInt(s.value.toString().replaceAll("#",""))));
 							
 			}
 			errorHead.append(": ");
-            // errorHead.append(": " + getToken((int) s.value));
+                        // errorHead.append(": " + getToken((int) s.value));
                         
 		}
 		System.err.print(errorHead);
@@ -1914,6 +1976,8 @@ public class parser extends java_cup.runtime.lr_parser {
             value = sym.terminalNames[id];
             return value;
         }
+
+*/
            
 
 
@@ -6398,6 +6462,6 @@ class CUP$parser$actions {
                                CUP$parser$stack,
                                CUP$parser$top);
     }
-    }
+}
 
 }

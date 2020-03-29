@@ -383,7 +383,6 @@ public class App extends javax.swing.JFrame {
                         node.addAttribute("ui.style", "fill-color: rgb(255,0,0);"
                                 + "size: 40px, 40px;");
 
-
                     } else {
                         Node node = graph.getNode(sub1);
                         node.addAttribute("ui.class", "N");
@@ -459,15 +458,15 @@ public class App extends javax.swing.JFrame {
                 frame.add(panel);
                 frame.pack();
                 frame.setLocationRelativeTo(null);
+                JOptionPane.showMessageDialog(this, "Para navegar el arbol utilize las teclas direccionales, Page UP y Page Down para hacer Zoom");
                 frame.setVisible(true);
 
             } catch (FileNotFoundException ex) {
 
                 Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
             } catch (Exception ex) {
-                Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+                //Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
             }
-            JOptionPane.showMessageDialog(this, "Para navegar el arbol utilize las teclas direccionales, Page UP y Page Down para hacer Zoom");
             System.out.println();
 
         }
