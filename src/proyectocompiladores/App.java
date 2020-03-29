@@ -339,7 +339,7 @@ public class App extends javax.swing.JFrame {
                 Object x = p.parse().value;
 
                 //System.out.println(x.toString());
-                TreeNode myTree = (TreeNode) x;
+                MiArbolito myTree = (MiArbolito) x;
                 Values v = myTree.printAndFill();
                 Graph graph = new SingleGraph("AST");
 

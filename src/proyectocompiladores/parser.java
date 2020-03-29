@@ -5,7 +5,7 @@
 
 package proyectocompiladores;
 
-import proyectocompiladores.TreeNode;
+import proyectocompiladores.MiArbolito;
 import java.io.*;
 import java_cup.runtime.*;
 import java.util.ArrayList;
@@ -1947,7 +1947,7 @@ class CUP$parser$actions {
               Object RESULT =null;
 		int start_valleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int start_valright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
-		TreeNode start_val = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+		MiArbolito start_val = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		RESULT = start_val;
               CUP$parser$result = parser.getSymbolFactory().newSymbol("$START",0, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
@@ -1958,13 +1958,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 1: // primary_expression ::= IDENTIFIER 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int identleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int identright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Object ident = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 1");
-		TreeNode parent = new TreeNode(null, "primary_expression");
+		MiArbolito parent = new MiArbolito(null, "primary_expression");
 		parent.addChild(ident);
 		RESULT = parent;
 		
@@ -1976,13 +1976,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 2: // primary_expression ::= CONSTANT 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int constantleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int constantright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Object constant = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 2");
-		TreeNode parent = new TreeNode(null, "primary_expression");
+		MiArbolito parent = new MiArbolito(null, "primary_expression");
 		parent.addChild(constant);
 		RESULT = parent;
 		
@@ -1995,13 +1995,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 3: // primary_expression ::= STRING_LITERAL 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int stringliteralleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int stringliteralright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Object stringliteral = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 3");
-		TreeNode parent = new TreeNode(null, "primary_expression");
+		MiArbolito parent = new MiArbolito(null, "primary_expression");
 		parent.addChild(stringliteral);
 		RESULT = parent;
 		
@@ -2013,19 +2013,19 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 4: // primary_expression ::= PARAL expression PARAR 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int plleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int plright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
 		Object pl = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		int eleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int eright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
-		TreeNode e = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+		MiArbolito e = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		int prleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int prright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Object pr = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 4");
-		TreeNode parent = new TreeNode(null, "primary_expression");
+		MiArbolito parent = new MiArbolito(null, "primary_expression");
 		parent.addChild(e);
 		RESULT = parent;
 	
@@ -2036,13 +2036,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 5: // postfix_expression ::= primary_expression 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int peleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int peright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode pe = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito pe = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 5");
-		TreeNode parent = new TreeNode(null, "postfix_expression");
+		MiArbolito parent = new MiArbolito(null, "postfix_expression");
 		parent.addChild(pe);
 		RESULT = parent;
 	
@@ -2053,22 +2053,22 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 6: // postfix_expression ::= postfix_expression SQUAREDL expression SQUAREDR 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int peleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)).left;
 		int peright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)).right;
-		TreeNode pe = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-3)).value;
+		MiArbolito pe = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-3)).value;
 		int slleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int slright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
 		Object sl = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		int indexleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int indexright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
-		TreeNode index = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+		MiArbolito index = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		int sdleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int sdright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Object sd = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 6");
-		TreeNode parent = new TreeNode(null, "postfix_expression");
+		MiArbolito parent = new MiArbolito(null, "postfix_expression");
 		parent.addChild(new Symbol(-1,0,0,"array"));
 		parent.addChild(pe);
 		parent.addChild(index);
@@ -2081,10 +2081,10 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 7: // postfix_expression ::= postfix_expression PARAL PARAR 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int peleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int peright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
-		TreeNode pe = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
+		MiArbolito pe = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		int plleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int plright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
 		Object pl = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
@@ -2093,7 +2093,7 @@ class CUP$parser$actions {
 		Object pr = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 7");
-		TreeNode parent = new TreeNode(null, "postfix_expression");
+		MiArbolito parent = new MiArbolito(null, "postfix_expression");
 		parent.addChild(new Symbol(-1,0,0,"function_call"));
 		parent.addChild(pe);
 		RESULT = parent;
@@ -2105,22 +2105,22 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 8: // postfix_expression ::= postfix_expression PARAL expression PARAR 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int peleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)).left;
 		int peright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)).right;
-		TreeNode pe = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-3)).value;
+		MiArbolito pe = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-3)).value;
 		int plleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int plright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
 		Object pl = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		int eleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int eright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
-		TreeNode e = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+		MiArbolito e = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		int prleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int prright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Object pr = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 8");
-		TreeNode parent = new TreeNode(null, "postfix_expression");
+		MiArbolito parent = new MiArbolito(null, "postfix_expression");
 		parent.addChild(new Symbol(-1,0,0,"function_call"));
 		parent.addChild(pe);
 		parent.addChild(e);
@@ -2133,7 +2133,7 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 9: // postfix_expression ::= PRINTF PARAL PARAR 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int pfleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int pfright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
 		Object pf = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
@@ -2145,7 +2145,7 @@ class CUP$parser$actions {
 		Object pr = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 9");
-		TreeNode parent = new TreeNode(null, "postfix_expression");
+		MiArbolito parent = new MiArbolito(null, "postfix_expression");
 		parent.addChild(new Symbol(-1,0,0,"function_call"));
 		parent.addChild(pf);
 		RESULT = parent;
@@ -2157,7 +2157,7 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 10: // postfix_expression ::= SCANF PARAL PARAR 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int sfleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int sfright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
 		Object sf = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
@@ -2169,7 +2169,7 @@ class CUP$parser$actions {
 		Object pr = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 10");
-		TreeNode parent = new TreeNode(null, "postfix_expression");
+		MiArbolito parent = new MiArbolito(null, "postfix_expression");
 		parent.addChild(new Symbol(-1,0,0,"function_call"));
 		parent.addChild(sf);
 		RESULT = parent;
@@ -2181,7 +2181,7 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 11: // postfix_expression ::= PRINTF PARAL expression PARAR 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int pfleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)).left;
 		int pfright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)).right;
 		Object pf = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-3)).value;
@@ -2190,13 +2190,13 @@ class CUP$parser$actions {
 		Object pl = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		int eleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int eright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
-		TreeNode e = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+		MiArbolito e = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		int prleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int prright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Object pr = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 11");
-		TreeNode parent = new TreeNode(null, "postfix_expression");
+		MiArbolito parent = new MiArbolito(null, "postfix_expression");
 		parent.addChild(new Symbol(-1,0,0,"function_call"));
 		parent.addChild(pf);
 		parent.addChild(e);
@@ -2209,7 +2209,7 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 12: // postfix_expression ::= SCANF PARAL expression PARAR 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int sfleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)).left;
 		int sfright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)).right;
 		Object sf = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-3)).value;
@@ -2218,13 +2218,13 @@ class CUP$parser$actions {
 		Object pl = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		int eleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int eright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
-		TreeNode e = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+		MiArbolito e = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		int prleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int prright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Object pr = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 12");
-		TreeNode parent = new TreeNode(null, "postfix_expression");
+		MiArbolito parent = new MiArbolito(null, "postfix_expression");
 		parent.addChild(new Symbol(-1,0,0,"function_call"));
 		parent.addChild(sf);
 		parent.addChild(e);
@@ -2237,10 +2237,10 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 13: // postfix_expression ::= postfix_expression POINT IDENTIFIER 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int peleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int peright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
-		TreeNode pe = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
+		MiArbolito pe = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		int pleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int pright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
 		Object p = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
@@ -2249,7 +2249,7 @@ class CUP$parser$actions {
 		Object id = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 13");
-		TreeNode parent = new TreeNode(null, "postfix_expression");
+		MiArbolito parent = new MiArbolito(null, "postfix_expression");
 		parent.addChild(pe);
 		parent.addChild(p);
 		parent.addChild(id);
@@ -2262,10 +2262,10 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 14: // postfix_expression ::= postfix_expression PTR_OP IDENTIFIER 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int peleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int peright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
-		TreeNode pe = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
+		MiArbolito pe = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		int poleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int poright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
 		Object po = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
@@ -2274,7 +2274,7 @@ class CUP$parser$actions {
 		Object id = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 14");
-		TreeNode parent = new TreeNode(null, "postfix_expression");
+		MiArbolito parent = new MiArbolito(null, "postfix_expression");
 		parent.addChild(pe);
 		parent.addChild(po);
 		parent.addChild(id);
@@ -2287,16 +2287,16 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 15: // postfix_expression ::= postfix_expression INC_OP 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int peleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int peright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
-		TreeNode pe = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+		MiArbolito pe = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		int opleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int opright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Object op = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 15");
-		TreeNode parent = new TreeNode(null, "postfix_expression");
+		MiArbolito parent = new MiArbolito(null, "postfix_expression");
 		parent.addChild(pe);
 		parent.addChild(op);
 		RESULT = parent;
@@ -2308,16 +2308,16 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 16: // postfix_expression ::= postfix_expression DEC_OP 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int peleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int peright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
-		TreeNode pe = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+		MiArbolito pe = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		int opleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int opright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Object op = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 16");
-		TreeNode parent = new TreeNode(null, "postfix_expression");
+		MiArbolito parent = new MiArbolito(null, "postfix_expression");
 		parent.addChild(pe);
 		parent.addChild(op);
 		RESULT = parent;
@@ -2329,13 +2329,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 17: // unary_expression ::= postfix_expression 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int peleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int peright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode pe = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito pe = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 17");
-		TreeNode parent = new TreeNode(null, "unary_expression");
+		MiArbolito parent = new MiArbolito(null, "unary_expression");
 		parent.addChild(pe);
 		RESULT = parent;
 	
@@ -2346,16 +2346,16 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 18: // unary_expression ::= INC_OP unary_expression 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int opleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int opright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
 		Object op = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		int ueleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int ueright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode ue = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito ue = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 18");
-		TreeNode parent = new TreeNode(null, "unary_expression");
+		MiArbolito parent = new MiArbolito(null, "unary_expression");
 		parent.addChild(op);
 		parent.addChild(ue);
 		RESULT = parent;
@@ -2367,16 +2367,16 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 19: // unary_expression ::= DEC_OP unary_expression 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int opleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int opright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
 		Object op = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		int ueleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int ueright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode ue = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito ue = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 19");
-		TreeNode parent = new TreeNode(null, "unary_expression");
+		MiArbolito parent = new MiArbolito(null, "unary_expression");
 		parent.addChild(op);
 		parent.addChild(ue);
 		RESULT = parent;
@@ -2388,17 +2388,17 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 20: // unary_expression ::= unary_operator cast_expression 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int uoleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int uoright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
-		TreeNode uo = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+		MiArbolito uo = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		int celeft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int ceright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode ce = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito ce = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 20");
 
-		TreeNode parent = new TreeNode(null, "unary_expression");
+		MiArbolito parent = new MiArbolito(null, "unary_expression");
 		parent.addChild(uo);
 		parent.addChild(ce);
 		RESULT = parent;
@@ -2410,17 +2410,17 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 21: // unary_expression ::= SIZEOF unary_expression 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int soleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int soright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
 		Object so = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		int ueleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int ueright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode ue = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito ue = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 21");
 
-		TreeNode parent = new TreeNode(null, "unary_expression");
+		MiArbolito parent = new MiArbolito(null, "unary_expression");
 		parent.addChild(so);
 		parent.addChild(ue);
 		RESULT = parent;
@@ -2432,16 +2432,16 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 22: // unary_expression ::= SIZEOF PARAL type_name PARAR 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int soleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)).left;
 		int soright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)).right;
 		Object so = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-3)).value;
 		int tnleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int tnright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
-		TreeNode tn = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+		MiArbolito tn = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		
 		System.out.println("Produccion 22");
-		TreeNode parent = new TreeNode(null, "unary_expression");
+		MiArbolito parent = new MiArbolito(null, "unary_expression");
 		parent.addChild(so);
 		parent.addChild(tn);
 		RESULT = parent;
@@ -2453,13 +2453,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 23: // unary_operator ::= ADRESS 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int opleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int opright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Object op = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 23");
-		TreeNode parent = new TreeNode(null, "unary_operator");
+		MiArbolito parent = new MiArbolito(null, "unary_operator");
 		parent.addChild(op);
 		RESULT = parent;
 	
@@ -2470,13 +2470,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 24: // unary_operator ::= MUL 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int opleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int opright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Object op = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 24");
-		TreeNode parent = new TreeNode(null, "unary_operator");
+		MiArbolito parent = new MiArbolito(null, "unary_operator");
 		parent.addChild(op);
 		RESULT = parent;
 	
@@ -2487,13 +2487,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 25: // unary_operator ::= PLUS 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int opleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int opright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Object op = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 25");
-		TreeNode parent = new TreeNode(null, "unary_operator");
+		MiArbolito parent = new MiArbolito(null, "unary_operator");
 		parent.addChild(op);
 		RESULT = parent;
 	
@@ -2504,13 +2504,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 26: // unary_operator ::= MINUS 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int opleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int opright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Object op = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 26");
-		TreeNode parent = new TreeNode(null, "unary_operator");
+		MiArbolito parent = new MiArbolito(null, "unary_operator");
 		parent.addChild(op);
 		RESULT = parent;
 	
@@ -2521,13 +2521,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 27: // unary_operator ::= TILDE 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int opleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int opright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Object op = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 27");
-		TreeNode parent = new TreeNode(null, "unary_operator");
+		MiArbolito parent = new MiArbolito(null, "unary_operator");
 		parent.addChild(op);
 		RESULT = parent;
 	
@@ -2538,13 +2538,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 28: // unary_operator ::= NOT 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int opleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int opright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Object op = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 28");
-		TreeNode parent = new TreeNode(null, "unary_operator");
+		MiArbolito parent = new MiArbolito(null, "unary_operator");
 		parent.addChild(op);
 		RESULT = parent;
 	
@@ -2555,13 +2555,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 29: // cast_expression ::= unary_expression 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int ueleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int ueright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode ue = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito ue = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 29");
-		TreeNode parent = new TreeNode(null, "cast_expression");
+		MiArbolito parent = new MiArbolito(null, "cast_expression");
 		parent.addChild(ue);
 		RESULT = parent;
 	
@@ -2572,16 +2572,16 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 30: // cast_expression ::= PARAL type_name PARAR cast_expression 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int tnleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int tnright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
-		TreeNode tn = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
+		MiArbolito tn = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		int celeft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int ceright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode ce = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito ce = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 30");
-		TreeNode parent = new TreeNode(null, "cast_expression");
+		MiArbolito parent = new MiArbolito(null, "cast_expression");
 		parent.addChild(tn);
 		parent.addChild(ce);
 		RESULT = parent;
@@ -2593,13 +2593,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 31: // multiplicative_expression ::= cast_expression 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int celeft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int ceright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode ce = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito ce = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 31");
-		TreeNode parent = new TreeNode(null, "multiplicative_expression");
+		MiArbolito parent = new MiArbolito(null, "multiplicative_expression");
 		parent.addChild(ce);
 		RESULT = parent;
 	
@@ -2610,20 +2610,20 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 32: // multiplicative_expression ::= multiplicative_expression MUL cast_expression 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int meleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int meright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
-		TreeNode me = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
+		MiArbolito me = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		int opleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int opright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
 		Object op = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		int celeft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int ceright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode ce = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito ce = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 32");
-		TreeNode parent = new TreeNode(null, "multiplicative_expression");
-		TreeNode child = new TreeNode(parent, (Symbol)op);
+		MiArbolito parent = new MiArbolito(null, "multiplicative_expression");
+		MiArbolito child = new MiArbolito(parent, (Symbol)op);
 		parent.addChild(child);
 		child.addChild(me);
 		child.addChild(ce);
@@ -2636,20 +2636,20 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 33: // multiplicative_expression ::= multiplicative_expression DIVIDE cast_expression 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int meleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int meright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
-		TreeNode me = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
+		MiArbolito me = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		int opleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int opright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
 		Object op = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		int celeft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int ceright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode ce = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito ce = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 33");
-		TreeNode parent = new TreeNode(null, "multiplicative_expression");
-		TreeNode child = new TreeNode(parent, (Symbol)op);
+		MiArbolito parent = new MiArbolito(null, "multiplicative_expression");
+		MiArbolito child = new MiArbolito(parent, (Symbol)op);
 		parent.addChild(child);
 		child.addChild(me);
 		child.addChild(ce);
@@ -2662,20 +2662,20 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 34: // multiplicative_expression ::= multiplicative_expression MODULUS cast_expression 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int meleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int meright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
-		TreeNode me = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
+		MiArbolito me = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		int opleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int opright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
 		Object op = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		int celeft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int ceright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode ce = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito ce = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 34");
-		TreeNode parent = new TreeNode(null, "multiplicative_expression");
-		TreeNode child = new TreeNode(parent, (Symbol)op);
+		MiArbolito parent = new MiArbolito(null, "multiplicative_expression");
+		MiArbolito child = new MiArbolito(parent, (Symbol)op);
 		parent.addChild(child);
 		child.addChild(me);
 		child.addChild(ce);
@@ -2688,13 +2688,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 35: // additive_expression ::= multiplicative_expression 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int meleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int meright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode me = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito me = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 35");
-		TreeNode parent = new TreeNode(null, "additive_expression");
+		MiArbolito parent = new MiArbolito(null, "additive_expression");
 		parent.addChild(me);
 		RESULT = parent;
 	
@@ -2705,20 +2705,20 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 36: // additive_expression ::= additive_expression PLUS multiplicative_expression 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int aeleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int aeright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
-		TreeNode ae = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
+		MiArbolito ae = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		int opleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int opright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
 		Object op = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		int meleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int meright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode me = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito me = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
                 System.out.println("Produccion 35.5");
-		TreeNode parent = new TreeNode(null, "additive_expression");
-		TreeNode child = new TreeNode(parent, (Symbol)op);
+		MiArbolito parent = new MiArbolito(null, "additive_expression");
+		MiArbolito child = new MiArbolito(parent, (Symbol)op);
 		parent.addChild(child);
 		child.addChild(ae);
 		child.addChild(me);
@@ -2731,20 +2731,20 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 37: // additive_expression ::= additive_expression MINUS multiplicative_expression 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int aeleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int aeright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
-		TreeNode ae = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
+		MiArbolito ae = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		int opleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int opright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
 		Object op = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		int meleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int meright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode me = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito me = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 36");
-		TreeNode parent = new TreeNode(null, "additive_expression");
-		TreeNode child = new TreeNode(parent, (Symbol)op);
+		MiArbolito parent = new MiArbolito(null, "additive_expression");
+		MiArbolito child = new MiArbolito(parent, (Symbol)op);
 		parent.addChild(child);
 		child.addChild(ae);
 		child.addChild(me);
@@ -2757,13 +2757,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 38: // shift_expression ::= additive_expression 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int aeleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int aeright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode ae = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito ae = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 37");
-		TreeNode parent = new TreeNode(null, "shift_expression");
+		MiArbolito parent = new MiArbolito(null, "shift_expression");
 		parent.addChild(ae);
 		RESULT = parent;
 	
@@ -2774,20 +2774,20 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 39: // shift_expression ::= shift_expression LEFT_OP additive_expression 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int seleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int seright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
-		TreeNode se = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
+		MiArbolito se = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		int opleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int opright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
 		Object op = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		int aeleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int aeright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode ae = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito ae = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 38");
-		TreeNode parent = new TreeNode(null, "shift_expression");
-		TreeNode child = new TreeNode(parent, (Symbol)op);
+		MiArbolito parent = new MiArbolito(null, "shift_expression");
+		MiArbolito child = new MiArbolito(parent, (Symbol)op);
 		parent.addChild(child);
 		child.addChild(se);
 		child.addChild(ae);
@@ -2800,20 +2800,20 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 40: // shift_expression ::= shift_expression RIGHT_OP additive_expression 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int seleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int seright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
-		TreeNode se = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
+		MiArbolito se = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		int opleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int opright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
 		Object op = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		int aeleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int aeright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode ae = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito ae = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 39");
-		TreeNode parent = new TreeNode(null, "shift_expression");
-		TreeNode child = new TreeNode(parent, (Symbol)op);
+		MiArbolito parent = new MiArbolito(null, "shift_expression");
+		MiArbolito child = new MiArbolito(parent, (Symbol)op);
 		parent.addChild(child);
 		parent.addChild(se);
 		parent.addChild(ae);
@@ -2826,13 +2826,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 41: // relational_expression ::= shift_expression 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int seleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int seright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode se = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito se = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 40");
-		TreeNode parent = new TreeNode(null, "relational_expression");
+		MiArbolito parent = new MiArbolito(null, "relational_expression");
 		parent.addChild(se);
 		RESULT = parent;
 	
@@ -2843,19 +2843,19 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 42: // relational_expression ::= relational_expression LESS shift_expression 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int releft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int reright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
-		TreeNode re = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
+		MiArbolito re = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		int opleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int opright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
 		Object op = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		int seleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int seright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode se = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito se = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 41");
-		TreeNode parent = new TreeNode(null, "relational_expression");
+		MiArbolito parent = new MiArbolito(null, "relational_expression");
 		parent.addChild(re);
 		parent.addChild(op);
 		parent.addChild(se);
@@ -2868,19 +2868,19 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 43: // relational_expression ::= relational_expression GREATER shift_expression 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int releft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int reright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
-		TreeNode re = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
+		MiArbolito re = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		int opleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int opright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
 		Object op = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		int seleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int seright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode se = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito se = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 42");
-		TreeNode parent = new TreeNode(null, "relational_expression");
+		MiArbolito parent = new MiArbolito(null, "relational_expression");
 		parent.addChild(re);
 		parent.addChild(op);
 		parent.addChild(se);
@@ -2893,19 +2893,19 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 44: // relational_expression ::= relational_expression LE_OP shift_expression 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int releft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int reright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
-		TreeNode re = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
+		MiArbolito re = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		int opleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int opright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
 		Object op = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		int seleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int seright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode se = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito se = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 43");
-		TreeNode parent = new TreeNode(null, "relational_expression");
+		MiArbolito parent = new MiArbolito(null, "relational_expression");
 		parent.addChild(re);
 		parent.addChild(op);
 		parent.addChild(se);
@@ -2918,19 +2918,19 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 45: // relational_expression ::= relational_expression GE_OP shift_expression 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int releft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int reright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
-		TreeNode re = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
+		MiArbolito re = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		int opleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int opright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
 		Object op = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		int seleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int seright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode se = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito se = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 44");
-		TreeNode parent = new TreeNode(null, "relational_expression");
+		MiArbolito parent = new MiArbolito(null, "relational_expression");
 		parent.addChild(re);
 		parent.addChild(op);
 		parent.addChild(se);
@@ -2943,13 +2943,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 46: // equality_expression ::= relational_expression 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int releft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int reright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode re = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito re = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 45");
-		TreeNode parent = new TreeNode(null, "equality_expression");
+		MiArbolito parent = new MiArbolito(null, "equality_expression");
 		parent.addChild(re);
 		RESULT = parent;
 	
@@ -2960,19 +2960,19 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 47: // equality_expression ::= equality_expression EQ_OP relational_expression 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int eeleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int eeright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
-		TreeNode ee = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
+		MiArbolito ee = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		int opleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int opright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
 		Object op = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		int releft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int reright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode re = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito re = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 46");
-		TreeNode parent = new TreeNode(null, "equality_expression");
+		MiArbolito parent = new MiArbolito(null, "equality_expression");
 		parent.addChild(ee);
 		parent.addChild(op);
 		parent.addChild(re);
@@ -2985,19 +2985,19 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 48: // equality_expression ::= equality_expression NE_OP relational_expression 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int eeleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int eeright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
-		TreeNode ee = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
+		MiArbolito ee = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		int opleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int opright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
 		Object op = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		int releft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int reright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode re = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito re = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 47");
-		TreeNode parent = new TreeNode(null, "equality_expression");
+		MiArbolito parent = new MiArbolito(null, "equality_expression");
 		parent.addChild(ee);
 		parent.addChild(op);
 		parent.addChild(re);
@@ -3010,13 +3010,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 49: // and_expression ::= equality_expression 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int eeleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int eeright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode ee = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito ee = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 48");
-		TreeNode parent = new TreeNode(null, "and_expression");
+		MiArbolito parent = new MiArbolito(null, "and_expression");
 		parent.addChild(ee);
 		RESULT = parent;
 	
@@ -3027,19 +3027,19 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 50: // and_expression ::= and_expression ADRESS equality_expression 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int aeleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int aeright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
-		TreeNode ae = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
+		MiArbolito ae = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		int aleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int aright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
 		Object a = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		int eeleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int eeright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode ee = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito ee = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 49");
-		TreeNode parent = new TreeNode(null, "and_expression");
+		MiArbolito parent = new MiArbolito(null, "and_expression");
 		parent.addChild(ae);
 		parent.addChild(ee);
 		RESULT = parent;
@@ -3051,13 +3051,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 51: // exclusive_or_expression ::= and_expression 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int aeleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int aeright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode ae = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito ae = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 50");
-		TreeNode parent = new TreeNode(null, "and_expression");
+		MiArbolito parent = new MiArbolito(null, "and_expression");
 		parent.addChild(ae);
 		RESULT = parent;
 	
@@ -3068,16 +3068,16 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 52: // exclusive_or_expression ::= exclusive_or_expression XOR and_expression 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int eoeleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int eoeright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
-		TreeNode eoe = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
+		MiArbolito eoe = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		int aeleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int aeright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode ae = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito ae = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 51");
-		TreeNode parent = new TreeNode(null, "and_expression");
+		MiArbolito parent = new MiArbolito(null, "and_expression");
 		parent.addChild(eoe);
 		parent.addChild(ae);
 		RESULT = parent;
@@ -3089,13 +3089,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 53: // inclusive_or_expression ::= exclusive_or_expression 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int eoeleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int eoeright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode eoe = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito eoe = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 52");
-		TreeNode parent = new TreeNode(null, "inclusive_or_expression");
+		MiArbolito parent = new MiArbolito(null, "inclusive_or_expression");
 		parent.addChild(eoe);
 		RESULT = parent;
 	
@@ -3106,16 +3106,16 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 54: // inclusive_or_expression ::= inclusive_or_expression OR exclusive_or_expression 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int ioeleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int ioeright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
-		TreeNode ioe = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
+		MiArbolito ioe = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		int eoeleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int eoeright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode eoe = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito eoe = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
                 System.out.println("Produccion 52.5");
-		TreeNode parent = new TreeNode(null, "inclusive_or_expression");
+		MiArbolito parent = new MiArbolito(null, "inclusive_or_expression");
 		parent.addChild(ioe);
 		parent.addChild(eoe);
 		RESULT = parent;
@@ -3127,13 +3127,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 55: // logical_and_expression ::= inclusive_or_expression 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int ioeleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int ioeright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode ioe = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito ioe = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 53");
-		TreeNode parent = new TreeNode(null, "logical_and_expression");
+		MiArbolito parent = new MiArbolito(null, "logical_and_expression");
 		parent.addChild(ioe);
 		RESULT = parent;
 	
@@ -3144,19 +3144,19 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 56: // logical_and_expression ::= logical_and_expression AND_OP inclusive_or_expression 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int laeleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int laeright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
-		TreeNode lae = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
+		MiArbolito lae = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		int opleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int opright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
 		Object op = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		int ioeleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int ioeright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode ioe = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito ioe = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 54");
-		TreeNode parent = new TreeNode(null, "logical_and_expression");
+		MiArbolito parent = new MiArbolito(null, "logical_and_expression");
 		parent.addChild(lae);
 		parent.addChild(ioe);
 		RESULT = parent;
@@ -3168,13 +3168,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 57: // logical_or_expression ::= logical_and_expression 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int laeleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int laeright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode lae = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito lae = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 55");
-		TreeNode parent = new TreeNode(null, "logical_or_expression");
+		MiArbolito parent = new MiArbolito(null, "logical_or_expression");
 		parent.addChild(lae);
 		RESULT = parent;
 	
@@ -3185,19 +3185,19 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 58: // logical_or_expression ::= logical_or_expression OR_OP logical_and_expression 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int loeleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int loeright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
-		TreeNode loe = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
+		MiArbolito loe = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		int opleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int opright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
 		Object op = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		int laeleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int laeright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode lae = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito lae = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 56");
-		TreeNode parent = new TreeNode(null, "logical_or_expression");
+		MiArbolito parent = new MiArbolito(null, "logical_or_expression");
 		parent.addChild(loe);
 		parent.addChild(lae);
 		RESULT = parent;
@@ -3209,13 +3209,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 59: // conditional_expression ::= logical_or_expression 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int loeleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int loeright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode loe = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito loe = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 57");
-		TreeNode parent = new TreeNode(null, "conditional_expression");
+		MiArbolito parent = new MiArbolito(null, "conditional_expression");
 		parent.addChild(loe);
 		RESULT = parent;
 	
@@ -3226,19 +3226,19 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 60: // conditional_expression ::= logical_or_expression COND expression COLON conditional_expression 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int loeleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-4)).left;
 		int loeright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-4)).right;
-		TreeNode loe = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-4)).value;
+		MiArbolito loe = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-4)).value;
 		int eleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int eright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
-		TreeNode e = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
+		MiArbolito e = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		int celeft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int ceright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode ce = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito ce = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 58");
-		TreeNode parent = new TreeNode(null, "conditional_expression");
+		MiArbolito parent = new MiArbolito(null, "conditional_expression");
 		parent.addChild(loe);
 		parent.addChild(e);
 		parent.addChild(ce);
@@ -3251,13 +3251,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 61: // assignment_expression ::= conditional_expression 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int celeft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int ceright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode ce = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito ce = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 59");
-		TreeNode parent = new TreeNode(null, "assignment_expression");
+		MiArbolito parent = new MiArbolito(null, "assignment_expression");
 		parent.addChild(ce);
 		RESULT = parent;
 	
@@ -3268,20 +3268,20 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 62: // assignment_expression ::= unary_expression assignment_operator assignment_expression 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int ueleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int ueright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
-		TreeNode ue = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
+		MiArbolito ue = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		int aopleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int aopright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
-		TreeNode aop = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+		MiArbolito aop = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		int aeleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int aeright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode ae = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito ae = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 60");
-		TreeNode parent = new TreeNode(null, "assignment_expression");
-		TreeNode child = new TreeNode(null, aop.getValue());
+		MiArbolito parent = new MiArbolito(null, "assignment_expression");
+		MiArbolito child = new MiArbolito(null, aop.getValue());
 		parent.addChild(child);
 		child.addChild(ue);
 		child.addChild(ae);
@@ -3294,17 +3294,17 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 63: // assignment_expression ::= error assignment_operator assignment_expression 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int aopleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int aopright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
-		TreeNode aop = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+		MiArbolito aop = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		int aeleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int aeright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode ae = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito ae = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 61");
-		TreeNode parent = new TreeNode(null, "assignment_expression");
-		TreeNode child = new TreeNode(parent, aop.getValue());
+		MiArbolito parent = new MiArbolito(null, "assignment_expression");
+		MiArbolito child = new MiArbolito(parent, aop.getValue());
 		parent.addChild(child);
 		child.addChild(new Symbol(-1,0,0,"ERROR"));
 		child.addChild(ae);
@@ -3321,13 +3321,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 64: // assignment_operator ::= ASSIGN 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int aleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int aright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Object a = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 62");
-		TreeNode parent = new TreeNode(null, (Symbol)a);
+		MiArbolito parent = new MiArbolito(null, (Symbol)a);
 		RESULT = parent;
 	
               CUP$parser$result = parser.getSymbolFactory().newSymbol("assignment_operator",60, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
@@ -3337,13 +3337,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 65: // assignment_operator ::= MUL_ASSIGN 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int aleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int aright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Object a = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 63");
-		TreeNode parent = new TreeNode(null, (Symbol)a);
+		MiArbolito parent = new MiArbolito(null, (Symbol)a);
 		RESULT = parent;
 	
               CUP$parser$result = parser.getSymbolFactory().newSymbol("assignment_operator",60, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
@@ -3353,13 +3353,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 66: // assignment_operator ::= DIV_ASSIGN 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int aleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int aright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Object a = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 64");
-		TreeNode parent = new TreeNode(null, (Symbol)a);
+		MiArbolito parent = new MiArbolito(null, (Symbol)a);
 		RESULT = parent;
 	
               CUP$parser$result = parser.getSymbolFactory().newSymbol("assignment_operator",60, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
@@ -3369,13 +3369,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 67: // assignment_operator ::= MOD_ASSIGN 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int aleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int aright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Object a = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 65");
-		TreeNode parent = new TreeNode(null, (Symbol)a);
+		MiArbolito parent = new MiArbolito(null, (Symbol)a);
 		RESULT = parent;
 	
               CUP$parser$result = parser.getSymbolFactory().newSymbol("assignment_operator",60, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
@@ -3385,13 +3385,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 68: // assignment_operator ::= ADD_ASSIGN 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int aleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int aright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Object a = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 66");
-		TreeNode parent = new TreeNode(null, (Symbol)a);
+		MiArbolito parent = new MiArbolito(null, (Symbol)a);
 		RESULT = parent;
 	
               CUP$parser$result = parser.getSymbolFactory().newSymbol("assignment_operator",60, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
@@ -3401,13 +3401,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 69: // assignment_operator ::= SUB_ASSIGN 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int aleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int aright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Object a = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 67");
-		TreeNode parent = new TreeNode(null, (Symbol)a);
+		MiArbolito parent = new MiArbolito(null, (Symbol)a);
 		RESULT = parent;
 	
               CUP$parser$result = parser.getSymbolFactory().newSymbol("assignment_operator",60, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
@@ -3417,13 +3417,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 70: // assignment_operator ::= LEFT_ASSIGN 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int aleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int aright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Object a = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 68");
-		TreeNode parent = new TreeNode(null, (Symbol)a);
+		MiArbolito parent = new MiArbolito(null, (Symbol)a);
 		RESULT = parent;
 	
               CUP$parser$result = parser.getSymbolFactory().newSymbol("assignment_operator",60, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
@@ -3433,13 +3433,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 71: // assignment_operator ::= RIGHT_ASSIGN 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int aleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int aright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Object a = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 69");
-		TreeNode parent = new TreeNode(null, (Symbol)a);
+		MiArbolito parent = new MiArbolito(null, (Symbol)a);
 		RESULT = parent;
 	
               CUP$parser$result = parser.getSymbolFactory().newSymbol("assignment_operator",60, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
@@ -3449,13 +3449,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 72: // assignment_operator ::= AND_ASSIGN 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int aleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int aright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Object a = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 70");
-		TreeNode parent = new TreeNode(null, (Symbol)a);
+		MiArbolito parent = new MiArbolito(null, (Symbol)a);
 		RESULT = parent;
 	
               CUP$parser$result = parser.getSymbolFactory().newSymbol("assignment_operator",60, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
@@ -3465,13 +3465,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 73: // assignment_operator ::= XOR_ASSIGN 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int aleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int aright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Object a = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 71");
-		TreeNode parent = new TreeNode(null, (Symbol)a);
+		MiArbolito parent = new MiArbolito(null, (Symbol)a);
 		RESULT = parent;
 	
               CUP$parser$result = parser.getSymbolFactory().newSymbol("assignment_operator",60, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
@@ -3481,13 +3481,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 74: // assignment_operator ::= OR_ASSIGN 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int aleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int aright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Object a = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 72");
-		TreeNode parent = new TreeNode(null, (Symbol)a);
+		MiArbolito parent = new MiArbolito(null, (Symbol)a);
 		RESULT = parent;
 	
               CUP$parser$result = parser.getSymbolFactory().newSymbol("assignment_operator",60, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
@@ -3497,13 +3497,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 75: // expression ::= assignment_expression 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int aeleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int aeright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode ae = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito ae = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 73");
-		TreeNode parent = new TreeNode(null, "expression");
+		MiArbolito parent = new MiArbolito(null, "expression");
 		parent.addChild(ae);
 		RESULT = parent;
 	
@@ -3514,16 +3514,16 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 76: // expression ::= expression COMMA assignment_expression 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int eleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int eright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
-		TreeNode e = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
+		MiArbolito e = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		int aeleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int aeright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode ae = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito ae = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 74");
-		TreeNode parent = new TreeNode(null, "expression");
+		MiArbolito parent = new MiArbolito(null, "expression");
 		parent.addChild(e);
 		parent.addChild(ae);
 		RESULT = parent;
@@ -3535,13 +3535,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 77: // constant_expression ::= conditional_expression 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int celeft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int ceright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode ce = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito ce = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 75");
-		TreeNode parent = new TreeNode(null, "constant_expression");
+		MiArbolito parent = new MiArbolito(null, "constant_expression");
 		parent.addChild(ce);
 		RESULT = parent;
 	
@@ -3552,13 +3552,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 78: // declaration ::= declaration_specifiers SEMI 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int dsleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int dsright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
-		TreeNode ds = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+		MiArbolito ds = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		
 		System.out.println("Produccion 76");
-		TreeNode parent = new TreeNode(null, "declaration");
+		MiArbolito parent = new MiArbolito(null, "declaration");
 		parent.addChild(ds);
 		RESULT = parent;
 	
@@ -3569,16 +3569,16 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 79: // declaration ::= declaration_specifiers init_declarator_list SEMI 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int dsleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int dsright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
-		TreeNode ds = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
+		MiArbolito ds = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		int idlleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int idlright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
-		TreeNode idl = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+		MiArbolito idl = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		
 		System.out.println("Produccion 77");
-		TreeNode parent = new TreeNode(null, "declaration");
+		MiArbolito parent = new MiArbolito(null, "declaration");
 		parent.addChild(ds);
 		parent.addChild(idl);
 		RESULT = parent;
@@ -3590,13 +3590,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 80: // declaration ::= declaration_specifiers error 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int dsleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int dsright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
-		TreeNode ds = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+		MiArbolito ds = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		
 		System.out.println("Produccion 78");
-		TreeNode parent = new TreeNode(null, "declaration");
+		MiArbolito parent = new MiArbolito(null, "declaration");
 		parent.addChild(ds);
 		parent.addChild(new Symbol(-1,0,0,"ERROR"));
 		RESULT = parent;
@@ -3612,13 +3612,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 81: // declaration_specifiers ::= storage_class_specifier 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int sccleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int sccright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode scc = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito scc = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 79");
-		TreeNode parent = new TreeNode(null, "declaration_specifiers");
+		MiArbolito parent = new MiArbolito(null, "declaration_specifiers");
 		parent.addChild(scc);
 		RESULT = parent;
 	
@@ -3629,16 +3629,16 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 82: // declaration_specifiers ::= storage_class_specifier declaration_specifiers 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int sccleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int sccright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
-		TreeNode scc = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+		MiArbolito scc = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		int dsleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int dsright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode ds = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito ds = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 80");
-		TreeNode parent = new TreeNode(null, "declaration_specifiers");
+		MiArbolito parent = new MiArbolito(null, "declaration_specifiers");
 		parent.addChild(scc);
 		parent.addChild(ds);
 		RESULT = parent;
@@ -3650,13 +3650,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 83: // declaration_specifiers ::= type_specifier 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int tsleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int tsright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode ts = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito ts = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 81");
-		TreeNode parent = new TreeNode(null, "declaration_specifiers");
+		MiArbolito parent = new MiArbolito(null, "declaration_specifiers");
 		parent.addChild(ts);
 		RESULT = parent;
 	
@@ -3667,16 +3667,16 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 84: // declaration_specifiers ::= type_specifier declaration_specifiers 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int tsleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int tsright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
-		TreeNode ts = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+		MiArbolito ts = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		int dsleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int dsright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode ds = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito ds = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 82");
-		TreeNode parent = new TreeNode(null, "declaration_specifiers");
+		MiArbolito parent = new MiArbolito(null, "declaration_specifiers");
 		parent.addChild(ts);
 		parent.addChild(ds);
 		RESULT = parent;
@@ -3688,13 +3688,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 85: // declaration_specifiers ::= type_qualifier 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int tqleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int tqright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode tq = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito tq = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 83");
-		TreeNode parent = new TreeNode(null, "declaration_specifiers");
+		MiArbolito parent = new MiArbolito(null, "declaration_specifiers");
 		parent.addChild(tq);
 		RESULT = parent;
 	
@@ -3705,16 +3705,16 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 86: // declaration_specifiers ::= type_qualifier declaration_specifiers 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int tqleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int tqright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
-		TreeNode tq = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+		MiArbolito tq = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		int dsleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int dsright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode ds = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito ds = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 84");
-		TreeNode parent = new TreeNode(null, "declaration_specifiers");
+		MiArbolito parent = new MiArbolito(null, "declaration_specifiers");
 		parent.addChild(tq);
 		parent.addChild(ds);
 		RESULT = parent;
@@ -3726,13 +3726,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 87: // init_declarator_list ::= init_declarator 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int idleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int idright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode id = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito id = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 85");
-		TreeNode parent = new TreeNode(null, "init_declarator_list");
+		MiArbolito parent = new MiArbolito(null, "init_declarator_list");
 		parent.addChild(id);
 		RESULT = parent;
 	
@@ -3743,16 +3743,16 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 88: // init_declarator_list ::= init_declarator_list COMMA init_declarator 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int idlleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int idlright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
-		TreeNode idl = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
+		MiArbolito idl = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		int idleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int idright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode id = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito id = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 86");
-		TreeNode parent = new TreeNode(null, "init_declarator_list");
+		MiArbolito parent = new MiArbolito(null, "init_declarator_list");
 		parent.addChild(idl);
 		parent.addChild(id);
 		RESULT = parent;
@@ -3764,13 +3764,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 89: // init_declarator ::= declarator 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int dleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int dright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode d = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito d = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 87");
-		TreeNode parent = new TreeNode(null, "init_declarator");
+		MiArbolito parent = new MiArbolito(null, "init_declarator");
 		parent.addChild(d);
 		RESULT = parent;
 	
@@ -3781,16 +3781,16 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 90: // init_declarator ::= declarator ASSIGN initializer 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int dleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int dright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
-		TreeNode d = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
+		MiArbolito d = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		int ileft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int iright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode i = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito i = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 88");
-		TreeNode parent = new TreeNode(null, "init_declarator");
+		MiArbolito parent = new MiArbolito(null, "init_declarator");
 		parent.addChild(d);
 		parent.addChild(i);
 		RESULT = parent;
@@ -3802,13 +3802,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 91: // storage_class_specifier ::= TYPEDEF 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int idleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int idright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Object id = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 89");
-		TreeNode parent = new TreeNode(null, "storage_class_specifier");
+		MiArbolito parent = new MiArbolito(null, "storage_class_specifier");
 		parent.addChild(id);
 		RESULT = parent;
 	
@@ -3819,13 +3819,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 92: // storage_class_specifier ::= EXTERN 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int idleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int idright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Object id = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 90");
-		TreeNode parent = new TreeNode(null, "storage_class_specifier");
+		MiArbolito parent = new MiArbolito(null, "storage_class_specifier");
 		parent.addChild(id);
 		RESULT = parent;
 	
@@ -3836,13 +3836,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 93: // storage_class_specifier ::= STATIC 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int idleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int idright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Object id = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 91");
-		TreeNode parent = new TreeNode(null, "storage_class_specifier");
+		MiArbolito parent = new MiArbolito(null, "storage_class_specifier");
 		parent.addChild(id);
 		RESULT = parent;
 	
@@ -3853,13 +3853,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 94: // storage_class_specifier ::= AUTO 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int idleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int idright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Object id = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 92");
-		TreeNode parent = new TreeNode(null, "storage_class_specifier");
+		MiArbolito parent = new MiArbolito(null, "storage_class_specifier");
 		parent.addChild(id);
 		RESULT = parent;
 	
@@ -3870,13 +3870,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 95: // storage_class_specifier ::= REGISTER 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int idleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int idright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Object id = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 93");
-		TreeNode parent = new TreeNode(null, "storage_class_specifier");
+		MiArbolito parent = new MiArbolito(null, "storage_class_specifier");
 		parent.addChild(id);
 		RESULT = parent;
 	
@@ -3887,13 +3887,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 96: // type_specifier ::= VOID 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int typeleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int typeright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Object type = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 94");
-		TreeNode parent = new TreeNode(null, "type_specifier");
+		MiArbolito parent = new MiArbolito(null, "type_specifier");
 		parent.addChild(type);
 		RESULT = parent;
 	
@@ -3904,13 +3904,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 97: // type_specifier ::= CHAR 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int typeleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int typeright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Object type = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 95");
-		TreeNode parent = new TreeNode(null, "type_specifier");
+		MiArbolito parent = new MiArbolito(null, "type_specifier");
 		parent.addChild(type);
 		RESULT = parent;
 	
@@ -3921,13 +3921,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 98: // type_specifier ::= SHORT 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int typeleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int typeright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Object type = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 96");
-		TreeNode parent = new TreeNode(null, "type_specifier");
+		MiArbolito parent = new MiArbolito(null, "type_specifier");
 		parent.addChild(type);
 		RESULT = parent;
 	
@@ -3938,13 +3938,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 99: // type_specifier ::= INT 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int typeleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int typeright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Object type = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 97");
-		TreeNode parent = new TreeNode(null, "type_specifier");
+		MiArbolito parent = new MiArbolito(null, "type_specifier");
 		parent.addChild(type);
 		RESULT = parent;
 	
@@ -3955,13 +3955,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 100: // type_specifier ::= LONG 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int typeleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int typeright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Object type = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 98");
-		TreeNode parent = new TreeNode(null, "type_specifier");
+		MiArbolito parent = new MiArbolito(null, "type_specifier");
 		parent.addChild(type);
 		RESULT = parent;
 	
@@ -3972,13 +3972,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 101: // type_specifier ::= FLOAT 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int typeleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int typeright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Object type = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 99");
-		TreeNode parent = new TreeNode(null, "type_specifier");
+		MiArbolito parent = new MiArbolito(null, "type_specifier");
 		parent.addChild(type);
 		RESULT = parent;
 	
@@ -3989,13 +3989,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 102: // type_specifier ::= DOUBLE 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int typeleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int typeright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Object type = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 100");
-		TreeNode parent = new TreeNode(null, "type_specifier");
+		MiArbolito parent = new MiArbolito(null, "type_specifier");
 		parent.addChild(type);
 		RESULT = parent;
 	
@@ -4006,13 +4006,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 103: // type_specifier ::= SIGNED 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int typeleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int typeright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Object type = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 101");
-		TreeNode parent = new TreeNode(null, "type_specifier");
+		MiArbolito parent = new MiArbolito(null, "type_specifier");
 		parent.addChild(type);
 		RESULT = parent;
 	
@@ -4023,13 +4023,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 104: // type_specifier ::= UNSIGNED 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int typeleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int typeright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Object type = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 102");
-		TreeNode parent = new TreeNode(null, "type_specifier");
+		MiArbolito parent = new MiArbolito(null, "type_specifier");
 		parent.addChild(type);
 		RESULT = parent;
 	
@@ -4040,13 +4040,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 105: // type_specifier ::= struct_or_union_specifier 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int typeleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int typeright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode type = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito type = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 103");
-		TreeNode parent = new TreeNode(null, "type_specifier");
+		MiArbolito parent = new MiArbolito(null, "type_specifier");
 		parent.addChild(type);
 		RESULT = parent;
 	
@@ -4057,13 +4057,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 106: // type_specifier ::= enum_specifier 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int typeleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int typeright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode type = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito type = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 104");
-		TreeNode parent = new TreeNode(null, "type_specifier");
+		MiArbolito parent = new MiArbolito(null, "type_specifier");
 		parent.addChild(type);
 		RESULT = parent;
 	
@@ -4074,13 +4074,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 107: // type_specifier ::= TYPE_NAME 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int typeleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int typeright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Object type = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 105");
-		TreeNode parent = new TreeNode(null, "type_specifier");
+		MiArbolito parent = new MiArbolito(null, "type_specifier");
 		parent.addChild(type);
 		RESULT = parent;
 	
@@ -4091,7 +4091,7 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 108: // struct_or_union_specifier ::= STRUCT IDENTIFIER CURLYL struct_declaration_list CURLYR 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int sleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-4)).left;
 		int sright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-4)).right;
 		Object s = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-4)).value;
@@ -4100,10 +4100,10 @@ class CUP$parser$actions {
 		Object id = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-3)).value;
 		int sdlleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int sdlright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
-		TreeNode sdl = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+		MiArbolito sdl = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		
 		System.out.println("Produccion 106");
-		TreeNode parent = new TreeNode(null, "struct_or_union_specifier");
+		MiArbolito parent = new MiArbolito(null, "struct_or_union_specifier");
 		parent.addChild(s);
 		parent.addChild(id);
 		parent.addChild(sdl);
@@ -4116,16 +4116,16 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 109: // struct_or_union_specifier ::= STRUCT CURLYL struct_declaration_list CURLYR 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int sleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)).left;
 		int sright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)).right;
 		Object s = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-3)).value;
 		int sdlleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int sdlright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
-		TreeNode sdl = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+		MiArbolito sdl = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		
 		System.out.println("Produccion 107");
-		TreeNode parent = new TreeNode(null, "struct_or_union_specifier");
+		MiArbolito parent = new MiArbolito(null, "struct_or_union_specifier");
 		parent.addChild(s);
 		parent.addChild(sdl);
 		RESULT = parent;
@@ -4137,7 +4137,7 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 110: // struct_or_union_specifier ::= STRUCT IDENTIFIER 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int sleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int sright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
 		Object s = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
@@ -4146,7 +4146,7 @@ class CUP$parser$actions {
 		Object id = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 108");
-		TreeNode parent = new TreeNode(null, "struct_or_union_specifier");
+		MiArbolito parent = new MiArbolito(null, "struct_or_union_specifier");
 		parent.addChild(s);
 		parent.addChild(id);
 		RESULT = parent;
@@ -4158,7 +4158,7 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 111: // struct_or_union_specifier ::= UNION IDENTIFIER CURLYL struct_declaration_list CURLYR 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int uleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-4)).left;
 		int uright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-4)).right;
 		Object u = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-4)).value;
@@ -4167,10 +4167,10 @@ class CUP$parser$actions {
 		Object id = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-3)).value;
 		int sdlleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int sdlright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
-		TreeNode sdl = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+		MiArbolito sdl = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		
 		System.out.println("Produccion 109");
-		TreeNode parent = new TreeNode(null, "struct_or_union_specifier");
+		MiArbolito parent = new MiArbolito(null, "struct_or_union_specifier");
 		parent.addChild(u);
 		parent.addChild(id);
 		parent.addChild(sdl);
@@ -4183,16 +4183,16 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 112: // struct_or_union_specifier ::= UNION CURLYL struct_declaration_list CURLYR 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int uleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)).left;
 		int uright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)).right;
 		Object u = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-3)).value;
 		int sdlleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int sdlright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
-		TreeNode sdl = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+		MiArbolito sdl = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		
 		System.out.println("Produccion 110");
-		TreeNode parent = new TreeNode(null, "struct_or_union_specifier");
+		MiArbolito parent = new MiArbolito(null, "struct_or_union_specifier");
 		parent.addChild(u);
 		parent.addChild(sdl);
 		RESULT = parent;
@@ -4204,7 +4204,7 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 113: // struct_or_union_specifier ::= UNION IDENTIFIER 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int uleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int uright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
 		Object u = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
@@ -4213,7 +4213,7 @@ class CUP$parser$actions {
 		Object id = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 111");
-		TreeNode parent = new TreeNode(null, "struct_or_union_specifier");
+		MiArbolito parent = new MiArbolito(null, "struct_or_union_specifier");
 		parent.addChild(u);
 		parent.addChild(id);
 		RESULT = parent;
@@ -4225,13 +4225,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 114: // struct_declaration_list ::= struct_declaration 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int sleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int sright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode s = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito s = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 112");
-		TreeNode parent = new TreeNode(null, "struct_declaration_list");
+		MiArbolito parent = new MiArbolito(null, "struct_declaration_list");
 		parent.addChild(s);
 		RESULT = parent;
 	
@@ -4242,16 +4242,16 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 115: // struct_declaration_list ::= struct_declaration_list struct_declaration 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int slleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int slright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
-		TreeNode sl = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+		MiArbolito sl = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		int sleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int sright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode s = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito s = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 113");
-		TreeNode parent = new TreeNode(null, "struct_declaration_list");
+		MiArbolito parent = new MiArbolito(null, "struct_declaration_list");
 		parent.addChild(sl);
 		parent.addChild(s);
 		RESULT = parent;
@@ -4263,16 +4263,16 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 116: // struct_declaration ::= specifier_qualifier_list struct_declarator_list SEMI 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int sqleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int sqright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
-		TreeNode sq = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
+		MiArbolito sq = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		int sdleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int sdright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
-		TreeNode sd = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+		MiArbolito sd = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		
 		System.out.println("Produccion 114");
-		TreeNode parent = new TreeNode(null, "struct_declaration");
+		MiArbolito parent = new MiArbolito(null, "struct_declaration");
 		parent.addChild(sq);
 		parent.addChild(sd);
 		RESULT = parent;
@@ -4284,16 +4284,16 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 117: // specifier_qualifier_list ::= type_specifier specifier_qualifier_list 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int tsleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int tsright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
-		TreeNode ts = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+		MiArbolito ts = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		int sqleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int sqright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode sq = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito sq = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 115");
-		TreeNode parent = new TreeNode(null, "specifier_qualifier_list");
+		MiArbolito parent = new MiArbolito(null, "specifier_qualifier_list");
 		parent.addChild(ts);
 		parent.addChild(sq);
 		RESULT = parent;
@@ -4305,13 +4305,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 118: // specifier_qualifier_list ::= type_specifier 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int tsleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int tsright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode ts = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito ts = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 116");
-		TreeNode parent = new TreeNode(null, "specifier_qualifier_list");
+		MiArbolito parent = new MiArbolito(null, "specifier_qualifier_list");
 		parent.addChild(ts);
 		RESULT = parent;
 	
@@ -4322,16 +4322,16 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 119: // specifier_qualifier_list ::= type_qualifier specifier_qualifier_list 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int tqleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int tqright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
-		TreeNode tq = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+		MiArbolito tq = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		int sqleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int sqright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode sq = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito sq = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 117");
-		TreeNode parent = new TreeNode(null, "specifier_qualifier_list");
+		MiArbolito parent = new MiArbolito(null, "specifier_qualifier_list");
 		parent.addChild(tq);
 		parent.addChild(sq);
 		RESULT = parent;
@@ -4343,13 +4343,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 120: // specifier_qualifier_list ::= type_qualifier 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int tqleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int tqright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode tq = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito tq = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 118");
-		TreeNode parent = new TreeNode(null, "specifier_qualifier_list");
+		MiArbolito parent = new MiArbolito(null, "specifier_qualifier_list");
 		parent.addChild(tq);
 		RESULT = parent;
 	
@@ -4360,13 +4360,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 121: // struct_declarator_list ::= struct_declarator 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int sleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int sright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode s = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito s = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 119");
-		TreeNode parent = new TreeNode(null, "struct_declarator_list");
+		MiArbolito parent = new MiArbolito(null, "struct_declarator_list");
 		parent.addChild(s);
 		RESULT = parent;
 	
@@ -4377,16 +4377,16 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 122: // struct_declarator_list ::= struct_declarator_list COMMA struct_declarator 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int slleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int slright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
-		TreeNode sl = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
+		MiArbolito sl = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		int sleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int sright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode s = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito s = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 120");
-		TreeNode parent = new TreeNode(null, "struct_declarator_list");
+		MiArbolito parent = new MiArbolito(null, "struct_declarator_list");
 		parent.addChild(sl);
 		parent.addChild(s);
 		RESULT = parent;
@@ -4398,13 +4398,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 123: // struct_declarator ::= declarator 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int dleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int dright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode d = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito d = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 121");
-		TreeNode parent = new TreeNode(null, "struct_declarator");
+		MiArbolito parent = new MiArbolito(null, "struct_declarator");
 		parent.addChild(d);
 		RESULT = parent;
 	
@@ -4415,13 +4415,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 124: // struct_declarator ::= COLON constant_expression 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int celeft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int ceright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode ce = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito ce = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 122");
-		TreeNode parent = new TreeNode(null, "struct_declarator");
+		MiArbolito parent = new MiArbolito(null, "struct_declarator");
 		parent.addChild(ce);
 		RESULT = parent;
 	
@@ -4432,16 +4432,16 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 125: // struct_declarator ::= declarator COLON constant_expression 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int dleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int dright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
-		TreeNode d = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
+		MiArbolito d = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		int celeft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int ceright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode ce = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito ce = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 123");
-		TreeNode parent = new TreeNode(null, "struct_declarator");
+		MiArbolito parent = new MiArbolito(null, "struct_declarator");
 		parent.addChild(d);
 		parent.addChild(ce);
 		RESULT = parent;
@@ -4453,13 +4453,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 126: // enum_specifier ::= ENUM CURLYL enumerator_list CURLYR 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int elleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int elright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
-		TreeNode el = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+		MiArbolito el = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		
 		System.out.println("Produccion 124");
-		TreeNode parent = new TreeNode(null, "enum_specifier");
+		MiArbolito parent = new MiArbolito(null, "enum_specifier");
 		parent.addChild(el);
 		RESULT = parent;
 	
@@ -4470,16 +4470,16 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 127: // enum_specifier ::= ENUM IDENTIFIER CURLYL enumerator_list CURLYR 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int idleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)).left;
 		int idright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)).right;
 		Object id = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-3)).value;
 		int elleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int elright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
-		TreeNode el = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+		MiArbolito el = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		
 		System.out.println("Produccion 125");
-		TreeNode parent = new TreeNode(null, "enum_specifier");
+		MiArbolito parent = new MiArbolito(null, "enum_specifier");
 		parent.addChild(id);
 		parent.addChild(el);
 		RESULT = parent;
@@ -4491,13 +4491,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 128: // enum_specifier ::= ENUM IDENTIFIER 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int idleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int idright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Object id = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 126");
-		TreeNode parent = new TreeNode(null, "enum_specifier");
+		MiArbolito parent = new MiArbolito(null, "enum_specifier");
 		parent.addChild(id);
 		RESULT = parent;
 	
@@ -4508,13 +4508,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 129: // enumerator_list ::= enumerator 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int eleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int eright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode e = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito e = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 127");
-		TreeNode parent = new TreeNode(null, "enumerator_list");
+		MiArbolito parent = new MiArbolito(null, "enumerator_list");
 		parent.addChild(e);
 		RESULT = parent;
 	
@@ -4525,16 +4525,16 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 130: // enumerator_list ::= enumerator_list COMMA enumerator 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int elleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int elright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
-		TreeNode el = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
+		MiArbolito el = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		int eleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int eright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode e = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito e = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 128");
-		TreeNode parent = new TreeNode(null, "enumerator_list");
+		MiArbolito parent = new MiArbolito(null, "enumerator_list");
 		parent.addChild(el);
 		parent.addChild(e);
 		RESULT = parent;
@@ -4546,13 +4546,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 131: // enumerator ::= IDENTIFIER 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int idleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int idright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Object id = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 129");
-		TreeNode parent = new TreeNode(null, "enumerator");
+		MiArbolito parent = new MiArbolito(null, "enumerator");
 		parent.addChild(id);
 		RESULT = parent;
 	
@@ -4563,16 +4563,16 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 132: // enumerator ::= IDENTIFIER ASSIGN constant_expression 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int idleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int idright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
 		Object id = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		int celeft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int ceright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode ce = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito ce = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 130");
-		TreeNode parent = new TreeNode(null, "enumerator");
+		MiArbolito parent = new MiArbolito(null, "enumerator");
 		parent.addChild(id);
 		parent.addChild(ce);
 		RESULT = parent;
@@ -4584,13 +4584,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 133: // type_qualifier ::= CONST 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int idleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int idright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Object id = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 131");
-		TreeNode parent = new TreeNode(null, "type_qualifier");
+		MiArbolito parent = new MiArbolito(null, "type_qualifier");
 		parent.addChild(id);
 		RESULT = parent;
 	
@@ -4601,13 +4601,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 134: // type_qualifier ::= VOLATILE 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int idleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int idright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Object id = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 132");
-		TreeNode parent = new TreeNode(null, "type_qualifier");
+		MiArbolito parent = new MiArbolito(null, "type_qualifier");
 		parent.addChild(id);
 		RESULT = parent;
 	
@@ -4618,16 +4618,16 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 135: // declarator ::= pointer direct_declarator 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int pleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int pright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
-		TreeNode p = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+		MiArbolito p = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		int directleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int directright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode direct = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito direct = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 133");
-		TreeNode parent = new TreeNode(null, "declarator");
+		MiArbolito parent = new MiArbolito(null, "declarator");
 		parent.addChild(p);
 		parent.addChild(direct);
 		RESULT = parent;
@@ -4639,13 +4639,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 136: // declarator ::= direct_declarator 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int directleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int directright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode direct = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito direct = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 134");
-		TreeNode parent = new TreeNode(null, "declarator");
+		MiArbolito parent = new MiArbolito(null, "declarator");
 		parent.addChild(direct);
 		RESULT = parent;
 	
@@ -4656,13 +4656,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 137: // direct_declarator ::= IDENTIFIER 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int identifierleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int identifierright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Object identifier = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 135");
-		TreeNode parent = new TreeNode(null, "direct_declarator");
+		MiArbolito parent = new MiArbolito(null, "direct_declarator");
 		parent.addChild(identifier);
 		RESULT = parent;
 	
@@ -4673,13 +4673,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 138: // direct_declarator ::= PARAL declarator PARAR 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int dleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int dright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
-		TreeNode d = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+		MiArbolito d = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		
 		System.out.println("Produccion 136");
-		TreeNode parent = new TreeNode(null, "direct_declarator");
+		MiArbolito parent = new MiArbolito(null, "direct_declarator");
 		parent.addChild(d);
 		RESULT = parent;
 	
@@ -4690,16 +4690,16 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 139: // direct_declarator ::= direct_declarator SQUAREDL constant_expression SQUAREDR 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int ddleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)).left;
 		int ddright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)).right;
-		TreeNode dd = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-3)).value;
+		MiArbolito dd = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-3)).value;
 		int celeft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int ceright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
-		TreeNode ce = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+		MiArbolito ce = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		
 		System.out.println("Produccion 137");
-		TreeNode parent = new TreeNode(null, "direct_declarator");
+		MiArbolito parent = new MiArbolito(null, "direct_declarator");
 		parent.addChild(new Symbol(-1,0,0,"array_declarator"));
 		parent.addChild(dd);
 		parent.addChild(ce);
@@ -4712,13 +4712,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 140: // direct_declarator ::= direct_declarator SQUAREDL SQUAREDR 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int ddleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int ddright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
-		TreeNode dd = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
+		MiArbolito dd = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		
 		System.out.println("Produccion 138");
-		TreeNode parent = new TreeNode(null, "direct_declarator");
+		MiArbolito parent = new MiArbolito(null, "direct_declarator");
 		parent.addChild(new Symbol(-1,0,0,"array_declarator"));
 		parent.addChild(dd);
 		RESULT = parent;
@@ -4730,16 +4730,16 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 141: // direct_declarator ::= direct_declarator PARAL parameter_type_list PARAR 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int ddleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)).left;
 		int ddright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)).right;
-		TreeNode dd = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-3)).value;
+		MiArbolito dd = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-3)).value;
 		int ptlleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int ptlright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
-		TreeNode ptl = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+		MiArbolito ptl = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		
 		System.out.println("Produccion 139");
-		TreeNode parent = new TreeNode(null, "direct_declarator");
+		MiArbolito parent = new MiArbolito(null, "direct_declarator");
 		parent.addChild(new Symbol(-1,0,0,"function_declarator"));
 		parent.addChild(dd);
 		parent.addChild(ptl);
@@ -4752,16 +4752,16 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 142: // direct_declarator ::= direct_declarator PARAL identifier_list PARAR 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int ddleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)).left;
 		int ddright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)).right;
-		TreeNode dd = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-3)).value;
+		MiArbolito dd = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-3)).value;
 		int illeft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int ilright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
-		TreeNode il = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+		MiArbolito il = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		
 		System.out.println("Produccion 140");
-		TreeNode parent = new TreeNode(null, "direct_declarator");
+		MiArbolito parent = new MiArbolito(null, "direct_declarator");
 		parent.addChild(new Symbol(-1,0,0,"function_declarator"));
 		parent.addChild(dd);
 		parent.addChild(il);
@@ -4774,13 +4774,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 143: // direct_declarator ::= direct_declarator PARAL PARAR 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int ddleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int ddright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
-		TreeNode dd = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
+		MiArbolito dd = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		
 		System.out.println("Produccion 141");
-		TreeNode parent = new TreeNode(null, "direct_declarator");
+		MiArbolito parent = new MiArbolito(null, "direct_declarator");
 		parent.addChild(new Symbol(-1,0,0,"function_declarator"));
 		parent.addChild(dd);
 		RESULT = parent;
@@ -4792,13 +4792,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 144: // pointer ::= MUL 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int idleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int idright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Object id = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 142");
-		TreeNode parent = new TreeNode(null, "pointer");
+		MiArbolito parent = new MiArbolito(null, "pointer");
 		parent.addChild(id);
 		RESULT = parent;
 	
@@ -4809,16 +4809,16 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 145: // pointer ::= MUL type_qualifier_list 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int idleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int idright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
 		Object id = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		int tqlleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int tqlright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode tql = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito tql = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 143");
-		TreeNode parent = new TreeNode(null, "pointer");
+		MiArbolito parent = new MiArbolito(null, "pointer");
 		parent.addChild(id);
 		parent.addChild(tql);
 		RESULT = parent;
@@ -4830,16 +4830,16 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 146: // pointer ::= MUL pointer 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int idleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int idright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
 		Object id = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		int pleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int pright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode p = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito p = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 144");
-		TreeNode parent = new TreeNode(null, "pointer");
+		MiArbolito parent = new MiArbolito(null, "pointer");
 		parent.addChild(id);
 		parent.addChild(p);
 		RESULT = parent;
@@ -4851,19 +4851,19 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 147: // pointer ::= MUL type_qualifier_list pointer 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int idleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int idright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
 		Object id = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		int tqlleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int tqlright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
-		TreeNode tql = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+		MiArbolito tql = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		int pleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int pright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode p = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito p = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 145");
-		TreeNode parent = new TreeNode(null, "pointer");
+		MiArbolito parent = new MiArbolito(null, "pointer");
 		parent.addChild(id);
 		parent.addChild(tql);
 		parent.addChild(p);
@@ -4876,13 +4876,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 148: // type_qualifier_list ::= type_qualifier 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int tqleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int tqright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode tq = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito tq = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 146");
-		TreeNode parent = new TreeNode(null, "type_qualifier_list");
+		MiArbolito parent = new MiArbolito(null, "type_qualifier_list");
 		parent.addChild(tq);
 		RESULT = parent;
 	
@@ -4893,16 +4893,16 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 149: // type_qualifier_list ::= type_qualifier_list type_qualifier 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int tqlleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int tqlright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
-		TreeNode tql = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+		MiArbolito tql = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		int tqleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int tqright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode tq = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito tq = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 147");
-		TreeNode parent = new TreeNode(null, "type_qualifier_list");
+		MiArbolito parent = new MiArbolito(null, "type_qualifier_list");
 		parent.addChild(tql);
 		parent.addChild(tq);
 		RESULT = parent;
@@ -4914,13 +4914,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 150: // parameter_type_list ::= parameter_list 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int plleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int plright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode pl = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito pl = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 148");
-		TreeNode parent = new TreeNode(null, "parameter_type_list");
+		MiArbolito parent = new MiArbolito(null, "parameter_type_list");
 		parent.addChild(pl);
 		RESULT = parent;
 	
@@ -4931,16 +4931,16 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 151: // parameter_type_list ::= parameter_list COMMA ELLIPSIS 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int plleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int plright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
-		TreeNode pl = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
+		MiArbolito pl = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		int idleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int idright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Object id = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 149");
-		TreeNode parent = new TreeNode(null, "parameter_type_list");
+		MiArbolito parent = new MiArbolito(null, "parameter_type_list");
 		parent.addChild(pl);
 		parent.addChild(id);
 		RESULT = parent;
@@ -4952,13 +4952,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 152: // parameter_list ::= parameter_declaration 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int pdleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int pdright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode pd = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito pd = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 150");
-		TreeNode parent = new TreeNode(null, "parameter_list");
+		MiArbolito parent = new MiArbolito(null, "parameter_list");
 		parent.addChild(pd);
 		RESULT = parent;
 	
@@ -4969,16 +4969,16 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 153: // parameter_list ::= parameter_list COMMA parameter_declaration 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int plleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int plright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
-		TreeNode pl = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
+		MiArbolito pl = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		int pdleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int pdright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode pd = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito pd = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 151");
-		TreeNode parent = new TreeNode(null, "parameter_list");
+		MiArbolito parent = new MiArbolito(null, "parameter_list");
 		parent.addChild(pl);
 		parent.addChild(pd);
 		RESULT = parent;
@@ -4990,16 +4990,16 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 154: // parameter_declaration ::= declaration_specifiers declarator 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int dsleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int dsright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
-		TreeNode ds = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+		MiArbolito ds = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		int dleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int dright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode d = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito d = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 152");
-		TreeNode parent = new TreeNode(null, "parameter_declaration");
+		MiArbolito parent = new MiArbolito(null, "parameter_declaration");
 		parent.addChild(ds);
 		parent.addChild(d);
 		RESULT = parent;
@@ -5011,16 +5011,16 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 155: // parameter_declaration ::= declaration_specifiers abstract_declarator 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int dsleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int dsright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
-		TreeNode ds = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+		MiArbolito ds = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		int adleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int adright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode ad = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito ad = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 153");
-		TreeNode parent = new TreeNode(null, "parameter_declaration");
+		MiArbolito parent = new MiArbolito(null, "parameter_declaration");
 		parent.addChild(ds);
 		parent.addChild(ad);
 		RESULT = parent;
@@ -5032,13 +5032,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 156: // parameter_declaration ::= declaration_specifiers 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int dsleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int dsright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode ds = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito ds = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 154");
-		TreeNode parent = new TreeNode(null, "parameter_declaration");
+		MiArbolito parent = new MiArbolito(null, "parameter_declaration");
 		parent.addChild(ds);
 		RESULT = parent;
 	
@@ -5049,13 +5049,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 157: // identifier_list ::= IDENTIFIER 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int idleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int idright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Object id = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 155");
-		TreeNode parent = new TreeNode(null, "identifier_list");
+		MiArbolito parent = new MiArbolito(null, "identifier_list");
 		parent.addChild(id);
 		RESULT = parent;
 	
@@ -5066,16 +5066,16 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 158: // identifier_list ::= identifier_list COMMA IDENTIFIER 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int idlleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int idlright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
-		TreeNode idl = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
+		MiArbolito idl = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		int idleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int idright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Object id = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 156");
-		TreeNode parent = new TreeNode(null, "identifier_list");
+		MiArbolito parent = new MiArbolito(null, "identifier_list");
 		parent.addChild(idl);
 		parent.addChild(id);
 		RESULT = parent;
@@ -5087,13 +5087,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 159: // type_name ::= specifier_qualifier_list 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int slleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int slright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode sl = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito sl = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 157");
-		TreeNode parent = new TreeNode(null, "type_name");
+		MiArbolito parent = new MiArbolito(null, "type_name");
 		parent.addChild(sl);
 		RESULT = parent;
 	
@@ -5104,16 +5104,16 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 160: // type_name ::= specifier_qualifier_list abstract_declarator 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int slleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int slright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
-		TreeNode sl = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+		MiArbolito sl = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		int adleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int adright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode ad = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito ad = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 158");
-		TreeNode parent = new TreeNode(null, "type_name");
+		MiArbolito parent = new MiArbolito(null, "type_name");
 		parent.addChild(sl);
 		parent.addChild(ad);
 		RESULT = parent;
@@ -5125,13 +5125,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 161: // abstract_declarator ::= pointer 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int pleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int pright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode p = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito p = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 159");
-		TreeNode parent = new TreeNode(null, "abstract_declarator");
+		MiArbolito parent = new MiArbolito(null, "abstract_declarator");
 		parent.addChild(p);
 		RESULT = parent;
 	
@@ -5142,13 +5142,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 162: // abstract_declarator ::= direct_abstract_declarator 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int dadleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int dadright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode dad = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito dad = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 160");
-		TreeNode parent = new TreeNode(null, "abstract_declarator");
+		MiArbolito parent = new MiArbolito(null, "abstract_declarator");
 		parent.addChild(dad);
 		RESULT = parent;
 	
@@ -5159,16 +5159,16 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 163: // abstract_declarator ::= pointer direct_abstract_declarator 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int pleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int pright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
-		TreeNode p = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+		MiArbolito p = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		int dleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int dright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode d = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito d = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 161");
-		TreeNode parent = new TreeNode(null, "abstract_declarator");
+		MiArbolito parent = new MiArbolito(null, "abstract_declarator");
 		parent.addChild(p);
 		parent.addChild(d);
 		RESULT = parent;
@@ -5180,19 +5180,19 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 164: // direct_abstract_declarator ::= PARAL abstract_declarator PARAR 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int idleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int idright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
 		Object id = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		int adleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int adright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
-		TreeNode ad = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+		MiArbolito ad = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		int idrleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int idrright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Object idr = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 162");
-		TreeNode parent = new TreeNode(null, "direct_abstract_declarator");
+		MiArbolito parent = new MiArbolito(null, "direct_abstract_declarator");
 		parent.addChild(ad);
 		RESULT = parent;
 	
@@ -5203,7 +5203,7 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 165: // direct_abstract_declarator ::= SQUAREDL SQUAREDR 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int idleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int idright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
 		Object id = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
@@ -5212,7 +5212,7 @@ class CUP$parser$actions {
 		Object idr = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 163");
-		TreeNode parent = new TreeNode(null, "direct_abstract_declarator");
+		MiArbolito parent = new MiArbolito(null, "direct_abstract_declarator");
 		RESULT = parent;
 	
               CUP$parser$result = parser.getSymbolFactory().newSymbol("direct_abstract_declarator",46, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
@@ -5222,19 +5222,19 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 166: // direct_abstract_declarator ::= SQUAREDL constant_expression SQUAREDR 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int idleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int idright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
 		Object id = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		int celeft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int ceright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
-		TreeNode ce = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+		MiArbolito ce = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		int idrleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int idrright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Object idr = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 164");
-		TreeNode parent = new TreeNode(null, "direct_abstract_declarator");
+		MiArbolito parent = new MiArbolito(null, "direct_abstract_declarator");
 		parent.addChild(ce);
 		RESULT = parent;
 	
@@ -5245,10 +5245,10 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 167: // direct_abstract_declarator ::= direct_abstract_declarator SQUAREDL SQUAREDR 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int dadleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int dadright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
-		TreeNode dad = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
+		MiArbolito dad = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		int idleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int idright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
 		Object id = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
@@ -5257,7 +5257,7 @@ class CUP$parser$actions {
 		Object idr = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 165");
-		TreeNode parent = new TreeNode(null, "direct_abstract_declarator");
+		MiArbolito parent = new MiArbolito(null, "direct_abstract_declarator");
 		parent.addChild(dad);
 		RESULT = parent;
 	
@@ -5268,22 +5268,22 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 168: // direct_abstract_declarator ::= direct_abstract_declarator SQUAREDL constant_expression SQUAREDR 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int dadleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)).left;
 		int dadright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)).right;
-		TreeNode dad = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-3)).value;
+		MiArbolito dad = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-3)).value;
 		int idleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int idright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
 		Object id = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		int celeft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int ceright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
-		TreeNode ce = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+		MiArbolito ce = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		int idrleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int idrright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Object idr = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 166");
-		TreeNode parent = new TreeNode(null, "direct_abstract_declarator");
+		MiArbolito parent = new MiArbolito(null, "direct_abstract_declarator");
 		parent.addChild(dad);
 		parent.addChild(ce);
 		RESULT = parent;
@@ -5295,7 +5295,7 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 169: // direct_abstract_declarator ::= PARAL PARAR 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int idleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int idright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
 		Object id = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
@@ -5304,7 +5304,7 @@ class CUP$parser$actions {
 		Object idr = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 167");
-		TreeNode parent = new TreeNode(null, "direct_abstract_declarator");
+		MiArbolito parent = new MiArbolito(null, "direct_abstract_declarator");
 		RESULT = parent;
 	
               CUP$parser$result = parser.getSymbolFactory().newSymbol("direct_abstract_declarator",46, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
@@ -5314,19 +5314,19 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 170: // direct_abstract_declarator ::= PARAL parameter_type_list PARAR 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int idleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int idright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
 		Object id = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		int ptlleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int ptlright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
-		TreeNode ptl = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+		MiArbolito ptl = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		int idrleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int idrright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Object idr = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 168");
-		TreeNode parent = new TreeNode(null, "direct_abstract_declarator");
+		MiArbolito parent = new MiArbolito(null, "direct_abstract_declarator");
 		parent.addChild(ptl);
 		RESULT = parent;
 	
@@ -5337,10 +5337,10 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 171: // direct_abstract_declarator ::= direct_abstract_declarator PARAL PARAR 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int dadleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int dadright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
-		TreeNode dad = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
+		MiArbolito dad = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		int idleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int idright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
 		Object id = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
@@ -5349,7 +5349,7 @@ class CUP$parser$actions {
 		Object idr = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 169");
-		TreeNode parent = new TreeNode(null, "direct_abstract_declarator");
+		MiArbolito parent = new MiArbolito(null, "direct_abstract_declarator");
 		parent.addChild(dad);
 		RESULT = parent;
 	
@@ -5360,22 +5360,22 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 172: // direct_abstract_declarator ::= direct_abstract_declarator PARAL parameter_type_list PARAR 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int dadleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)).left;
 		int dadright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)).right;
-		TreeNode dad = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-3)).value;
+		MiArbolito dad = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-3)).value;
 		int idleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int idright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
 		Object id = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		int ptlleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int ptlright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
-		TreeNode ptl = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+		MiArbolito ptl = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		int idrleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int idrright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Object idr = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 170");
-		TreeNode parent = new TreeNode(null, "direct_abstract_declarator");
+		MiArbolito parent = new MiArbolito(null, "direct_abstract_declarator");
 		parent.addChild(dad);
 		parent.addChild(ptl);
 		RESULT = parent;
@@ -5387,13 +5387,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 173: // initializer ::= assignment_expression 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int aeleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int aeright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode ae = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito ae = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 171");
-		TreeNode parent = new TreeNode(null, "initializer");
+		MiArbolito parent = new MiArbolito(null, "initializer");
 		parent.addChild(ae);
 		RESULT = parent;
 	
@@ -5404,13 +5404,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 174: // initializer ::= CURLYL initializer_list CURLYR 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int illeft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int ilright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
-		TreeNode il = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+		MiArbolito il = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		
 		System.out.println("Produccion 172");
-		TreeNode parent = new TreeNode(null, "initializer");
+		MiArbolito parent = new MiArbolito(null, "initializer");
 		parent.addChild(il);
 		RESULT = parent;
 	
@@ -5421,13 +5421,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 175: // initializer ::= CURLYL initializer_list COMMA CURLYR 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int illeft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int ilright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
-		TreeNode il = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
+		MiArbolito il = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		
 		System.out.println("Produccion 173");
-		TreeNode parent = new TreeNode(null, "initializer");
+		MiArbolito parent = new MiArbolito(null, "initializer");
 		parent.addChild(il);
 		RESULT = parent;
 	
@@ -5438,13 +5438,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 176: // initializer_list ::= initializer 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int ileft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int iright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode i = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito i = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 174");
-		TreeNode parent = new TreeNode(null, "initializer");
+		MiArbolito parent = new MiArbolito(null, "initializer");
 		parent.addChild(i);
 		RESULT = parent;
 	
@@ -5455,16 +5455,16 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 177: // initializer_list ::= initializer_list COMMA initializer 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int illeft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int ilright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
-		TreeNode il = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
+		MiArbolito il = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		int ileft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int iright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode i = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito i = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 175");
-		TreeNode parent = new TreeNode(null, "initializer");
+		MiArbolito parent = new MiArbolito(null, "initializer");
 		parent.addChild(i);
 		parent.addChild(il);
 		RESULT = parent;
@@ -5476,13 +5476,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 178: // statement ::= labeled_statement 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int otherstmntleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int otherstmntright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode otherstmnt = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito otherstmnt = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 176");
-		TreeNode parent = new TreeNode(null, "statement");
+		MiArbolito parent = new MiArbolito(null, "statement");
 		parent.addChild(otherstmnt);
 		RESULT = parent;
 	
@@ -5493,13 +5493,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 179: // statement ::= compound_statement 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int otherstmntleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int otherstmntright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode otherstmnt = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito otherstmnt = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 177");
-		TreeNode parent = new TreeNode(null, "statement");
+		MiArbolito parent = new MiArbolito(null, "statement");
 		parent.addChild(otherstmnt);
 		RESULT = parent;
 	
@@ -5510,13 +5510,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 180: // statement ::= expression_statement 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int otherstmntleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int otherstmntright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode otherstmnt = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito otherstmnt = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 178");
-		TreeNode parent = new TreeNode(null, "statement");
+		MiArbolito parent = new MiArbolito(null, "statement");
 		parent.addChild(otherstmnt);
 		RESULT = parent;
 	
@@ -5527,13 +5527,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 181: // statement ::= selection_statement 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int otherstmntleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int otherstmntright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode otherstmnt = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito otherstmnt = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 179");
-		TreeNode parent = new TreeNode(null, "statement");
+		MiArbolito parent = new MiArbolito(null, "statement");
 		parent.addChild(otherstmnt);
 		RESULT = parent;
 	
@@ -5544,13 +5544,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 182: // statement ::= iteration_statement 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int otherstmntleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int otherstmntright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode otherstmnt = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito otherstmnt = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 180");
-		TreeNode parent = new TreeNode(null, "statement");
+		MiArbolito parent = new MiArbolito(null, "statement");
 		parent.addChild(otherstmnt);
 		RESULT = parent;
 	
@@ -5561,13 +5561,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 183: // statement ::= jump_statement 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int otherstmntleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int otherstmntright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode otherstmnt = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito otherstmnt = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 181");
-		TreeNode parent = new TreeNode(null, "statement");
+		MiArbolito parent = new MiArbolito(null, "statement");
 		parent.addChild(otherstmnt);
 		RESULT = parent;
 	
@@ -5578,16 +5578,16 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 184: // labeled_statement ::= IDENTIFIER COLON statement 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int idleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int idright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
 		Object id = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		int sleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int sright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode s = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito s = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 182");
-		TreeNode parent = new TreeNode(null, "labeled_statement");
+		MiArbolito parent = new MiArbolito(null, "labeled_statement");
 		parent.addChild(id);
 		parent.addChild(s);
 		RESULT = parent;
@@ -5599,19 +5599,19 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 185: // labeled_statement ::= CASE constant_expression COLON statement 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int csleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)).left;
 		int csright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)).right;
 		Object cs = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-3)).value;
 		int celeft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int ceright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
-		TreeNode ce = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
+		MiArbolito ce = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		int sleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int sright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode s = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito s = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 183");
-		TreeNode parent = new TreeNode(null, "labeled_statement");
+		MiArbolito parent = new MiArbolito(null, "labeled_statement");
 		parent.addChild(cs);
 		parent.addChild(ce);
 		parent.addChild(s);
@@ -5624,16 +5624,16 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 186: // labeled_statement ::= DEFAULT COLON statement 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int dleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int dright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
 		Object d = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		int sleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int sright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode s = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito s = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 184");
-		TreeNode parent = new TreeNode(null, "labeled_statement");
+		MiArbolito parent = new MiArbolito(null, "labeled_statement");
 		parent.addChild(d);
 		parent.addChild(s);
 		RESULT = parent;
@@ -5645,10 +5645,10 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 187: // compound_statement ::= CURLYL CURLYR 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		
 		System.out.println("Produccion 185");
-		TreeNode parent = new TreeNode(null, "compound_statement");
+		MiArbolito parent = new MiArbolito(null, "compound_statement");
 		RESULT = parent;
 	
               CUP$parser$result = parser.getSymbolFactory().newSymbol("compound_statement",50, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
@@ -5658,13 +5658,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 188: // compound_statement ::= CURLYL decl_stmnt_list CURLYR 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int dslleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int dslright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
-		TreeNode dsl = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+		MiArbolito dsl = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		
 		System.out.println("Produccion 186");
-		TreeNode parent = new TreeNode(null, "compound_statement");
+		MiArbolito parent = new MiArbolito(null, "compound_statement");
 		parent.addChild(dsl);
 		RESULT = parent;
 	
@@ -5675,13 +5675,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 189: // declaration_list ::= declaration 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int dleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int dright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode d = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito d = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 187");
-		TreeNode parent = new TreeNode(null, "declaration_list");
+		MiArbolito parent = new MiArbolito(null, "declaration_list");
 		parent.addChild(d);
 		RESULT = parent;
 	
@@ -5692,16 +5692,16 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 190: // declaration_list ::= declaration_list declaration 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int dlleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int dlright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
-		TreeNode dl = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+		MiArbolito dl = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		int dleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int dright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode d = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito d = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 188");
-		TreeNode parent = new TreeNode(null, "declaration_list");
+		MiArbolito parent = new MiArbolito(null, "declaration_list");
 		parent.addChild(dl);
 		parent.addChild(d);
 		RESULT = parent;
@@ -5713,13 +5713,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 191: // statement_list ::= statement 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int sleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int sright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode s = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito s = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 189");
-		TreeNode parent = new TreeNode(null, "statement_list");
+		MiArbolito parent = new MiArbolito(null, "statement_list");
 		parent.addChild(s);
 		RESULT = parent;
 	
@@ -5730,16 +5730,16 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 192: // statement_list ::= statement_list statement 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int slleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int slright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
-		TreeNode sl = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+		MiArbolito sl = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		int sleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int sright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode s = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito s = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 190");
-		TreeNode parent = new TreeNode(null, "statement_list");
+		MiArbolito parent = new MiArbolito(null, "statement_list");
 		parent.addChild(sl);
 		parent.addChild(s);
 		RESULT = parent;
@@ -5751,13 +5751,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 193: // decl_stmnt_list ::= declaration_list 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int dlleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int dlright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode dl = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito dl = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 191");
-		TreeNode parent = new TreeNode(null, "decl_stmnt_list");
+		MiArbolito parent = new MiArbolito(null, "decl_stmnt_list");
 		parent.addChild(dl);
 		RESULT = parent;
 	
@@ -5768,13 +5768,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 194: // decl_stmnt_list ::= statement_list 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int slleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int slright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode sl = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito sl = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 191");
-		TreeNode parent = new TreeNode(null, "decl_stmnt_list");
+		MiArbolito parent = new MiArbolito(null, "decl_stmnt_list");
 		parent.addChild(sl);
 		RESULT = parent;
 	
@@ -5785,16 +5785,16 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 195: // decl_stmnt_list ::= declaration_list statement_list 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int dlleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int dlright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
-		TreeNode dl = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+		MiArbolito dl = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		int slleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int slright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode sl = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito sl = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 192");
-		TreeNode parent = new TreeNode(null, "decl_stmnt_list");
+		MiArbolito parent = new MiArbolito(null, "decl_stmnt_list");
 		parent.addChild(dl);
 		parent.addChild(sl);
 		RESULT = parent;
@@ -5806,16 +5806,16 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 196: // decl_stmnt_list ::= statement_list declaration_list 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int slleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int slright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
-		TreeNode sl = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+		MiArbolito sl = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		int dlleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int dlright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode dl = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito dl = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 193");
-		TreeNode parent = new TreeNode(null, "decl_stmnt_list");
+		MiArbolito parent = new MiArbolito(null, "decl_stmnt_list");
 		parent.addChild(sl);
 		parent.addChild(new Symbol(-1,0,0,"ERROR"));
 		System.err.println("Las declaraciones se hacen antes");
@@ -5829,10 +5829,10 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 197: // expression_statement ::= SEMI 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		
 		System.out.println("Produccion 194");
-		TreeNode parent = new TreeNode(null, "expression_statement");
+		MiArbolito parent = new MiArbolito(null, "expression_statement");
 		RESULT = parent;
 	
               CUP$parser$result = parser.getSymbolFactory().newSymbol("expression_statement",54, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
@@ -5842,13 +5842,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 198: // expression_statement ::= expression SEMI 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int eleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int eright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
-		TreeNode e = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+		MiArbolito e = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		
 		System.out.println("Produccion 195");
-		TreeNode parent = new TreeNode(null, "expression_statement");
+		MiArbolito parent = new MiArbolito(null, "expression_statement");
 		parent.addChild(e);
 		RESULT = parent;
 	
@@ -5859,16 +5859,16 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 199: // expression_statement ::= expression declaration 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int eleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int eright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
-		TreeNode e = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+		MiArbolito e = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		int dleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int dright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode d = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito d = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 196");
-		TreeNode parent = new TreeNode(null, "expression_statement");
+		MiArbolito parent = new MiArbolito(null, "expression_statement");
 		parent.addChild(e);
 		parent.addChild(new Symbol(-1,0,0,"ERROR"));
 		RESULT = parent;
@@ -5884,10 +5884,10 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 200: // expression_statement ::= error SEMI 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		
 		System.out.println("Produccion 197");
-		TreeNode parent = new TreeNode(null, "expression_statement");
+		MiArbolito parent = new MiArbolito(null, "expression_statement");
 		parent.addChild(new Symbol(-1,0,0,"ERROR"));
 		RESULT = parent;
 		System.err.println("Expresion malformada");
@@ -5902,19 +5902,19 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 201: // selection_statement ::= IF PARAL expression PARAR statement 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int ileft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-4)).left;
 		int iright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-4)).right;
 		Object i = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-4)).value;
 		int eleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int eright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
-		TreeNode e = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
+		MiArbolito e = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		int sleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int sright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode s = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito s = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 198");
-		TreeNode parent = new TreeNode(null, "selection_statement");
+		MiArbolito parent = new MiArbolito(null, "selection_statement");
 		parent.addChild(i);
 		parent.addChild(e);
 		parent.addChild(s);
@@ -5927,22 +5927,22 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 202: // selection_statement ::= IF PARAL expression PARAR statement ELSE statement 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int ileft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-6)).left;
 		int iright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-6)).right;
 		Object i = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-6)).value;
 		int eleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-4)).left;
 		int eright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-4)).right;
-		TreeNode e = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-4)).value;
+		MiArbolito e = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-4)).value;
 		int s1left = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int s1right = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
-		TreeNode s1 = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
+		MiArbolito s1 = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		int s2left = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int s2right = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode s2 = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito s2 = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 199");
-		TreeNode parent = new TreeNode(null, "selection_statement");
+		MiArbolito parent = new MiArbolito(null, "selection_statement");
 		parent.addChild(i);
 		parent.addChild(e);
 		parent.addChild(s1);
@@ -5956,19 +5956,19 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 203: // selection_statement ::= SWITCH PARAL expression PARAR statement 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int swleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-4)).left;
 		int swright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-4)).right;
 		Object sw = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-4)).value;
 		int eleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int eright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
-		TreeNode e = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
+		MiArbolito e = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		int sleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int sright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode s = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito s = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 200");
-		TreeNode parent = new TreeNode(null, "selection_statement");
+		MiArbolito parent = new MiArbolito(null, "selection_statement");
 		parent.addChild(sw);
 		parent.addChild(e);
 		parent.addChild(s);
@@ -5981,19 +5981,19 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 204: // iteration_statement ::= WHILE PARAL expression PARAR statement 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int whleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-4)).left;
 		int whright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-4)).right;
 		Object wh = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-4)).value;
 		int eleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int eright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
-		TreeNode e = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
+		MiArbolito e = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		int sleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int sright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode s = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito s = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 201");
-		TreeNode parent = new TreeNode(null, "iteration_statement");
+		MiArbolito parent = new MiArbolito(null, "iteration_statement");
 		parent.addChild(wh);
 		parent.addChild(e);
 		parent.addChild(s);
@@ -6006,22 +6006,22 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 205: // iteration_statement ::= DO statement WHILE PARAL expression PARAR SEMI 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int dleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-6)).left;
 		int dright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-6)).right;
 		Object d = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-6)).value;
 		int sleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-5)).left;
 		int sright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-5)).right;
-		TreeNode s = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-5)).value;
+		MiArbolito s = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-5)).value;
 		int whleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-4)).left;
 		int whright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-4)).right;
 		Object wh = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-4)).value;
 		int eleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int eright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
-		TreeNode e = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
+		MiArbolito e = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		
 		System.out.println("Produccion 202");
-		TreeNode parent = new TreeNode(null, "iteration_statement");
+		MiArbolito parent = new MiArbolito(null, "iteration_statement");
 		parent.addChild(d);
 		parent.addChild(s);
 		parent.addChild(wh);
@@ -6035,22 +6035,22 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 206: // iteration_statement ::= FOR PARAL expression_statement expression_statement PARAR statement 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int fleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-5)).left;
 		int fright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-5)).right;
 		Object f = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-5)).value;
 		int es1left = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)).left;
 		int es1right = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)).right;
-		TreeNode es1 = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-3)).value;
+		MiArbolito es1 = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-3)).value;
 		int es2left = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int es2right = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
-		TreeNode es2 = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
+		MiArbolito es2 = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		int sleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int sright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode s = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito s = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 203");
-		TreeNode parent = new TreeNode(null, "iteration_statement");
+		MiArbolito parent = new MiArbolito(null, "iteration_statement");
 		parent.addChild(f);
 		parent.addChild(es1);
 		parent.addChild(es2);
@@ -6064,25 +6064,25 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 207: // iteration_statement ::= FOR PARAL expression_statement expression_statement expression PARAR statement 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int fleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-6)).left;
 		int fright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-6)).right;
 		Object f = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-6)).value;
 		int es1left = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-4)).left;
 		int es1right = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-4)).right;
-		TreeNode es1 = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-4)).value;
+		MiArbolito es1 = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-4)).value;
 		int es2left = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)).left;
 		int es2right = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)).right;
-		TreeNode es2 = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-3)).value;
+		MiArbolito es2 = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-3)).value;
 		int eleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int eright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
-		TreeNode e = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
+		MiArbolito e = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		int sleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int sright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode s = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito s = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 204");
-		TreeNode parent = new TreeNode(null, "iteration_statement");
+		MiArbolito parent = new MiArbolito(null, "iteration_statement");
 		parent.addChild(f);
 		parent.addChild(es1);
 		parent.addChild(es2);
@@ -6097,7 +6097,7 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 208: // jump_statement ::= GOTO IDENTIFIER SEMI 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int gtleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int gtright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
 		Object gt = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
@@ -6106,7 +6106,7 @@ class CUP$parser$actions {
 		Object id = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		
 		System.out.println("Produccion 205");
-		TreeNode parent = new TreeNode(null, "jump_statement");
+		MiArbolito parent = new MiArbolito(null, "jump_statement");
 		parent.addChild(gt);
 		parent.addChild(id);
 		RESULT = parent;
@@ -6118,13 +6118,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 209: // jump_statement ::= CONTINUE SEMI 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int cleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int cright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
 		Object c = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		
 		System.out.println("Produccion 206");
-		TreeNode parent = new TreeNode(null, "jump_statement");
+		MiArbolito parent = new MiArbolito(null, "jump_statement");
 		parent.addChild(c);
 		RESULT = parent;
 	
@@ -6135,13 +6135,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 210: // jump_statement ::= BREAK SEMI 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int brleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int brright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
 		Object br = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		
 		System.out.println("Produccion 207");
-		TreeNode parent = new TreeNode(null, "jump_statement");
+		MiArbolito parent = new MiArbolito(null, "jump_statement");
 		parent.addChild(br);
 		RESULT = parent;
 	
@@ -6152,13 +6152,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 211: // jump_statement ::= RETURN SEMI 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int rleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int rright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
 		Object r = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		
 		System.out.println("Produccion 208");
-		TreeNode parent = new TreeNode(null, "jump_statement");
+		MiArbolito parent = new MiArbolito(null, "jump_statement");
 		parent.addChild(r);
 		RESULT = parent;
 	
@@ -6169,16 +6169,16 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 212: // jump_statement ::= RETURN expression SEMI 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int rleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int rright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
 		Object r = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		int eleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int eright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
-		TreeNode e = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+		MiArbolito e = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		
 		System.out.println("Produccion 209");
-		TreeNode parent = new TreeNode(null, "jump_statement");
+		MiArbolito parent = new MiArbolito(null, "jump_statement");
 		parent.addChild(r);
 		parent.addChild(e);
 		RESULT = parent;
@@ -6190,13 +6190,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 213: // translation_unit ::= external_declaration 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int edleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int edright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode ed = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito ed = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 210");
-		TreeNode parent = new TreeNode(null, "translation_unit");
+		MiArbolito parent = new MiArbolito(null, "translation_unit");
 		parent.addChild(ed);
 		RESULT = parent;                
 	
@@ -6207,16 +6207,16 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 214: // translation_unit ::= translation_unit external_declaration 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int tuleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int turight = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
-		TreeNode tu = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+		MiArbolito tu = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		int edleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int edright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode ed = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito ed = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 211");
-		TreeNode parent = new TreeNode(null, "translation_unit");
+		MiArbolito parent = new MiArbolito(null, "translation_unit");
 		parent.addChild(tu);
 		parent.addChild(ed);
 		RESULT = parent;
@@ -6228,13 +6228,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 215: // external_declaration ::= function_definition 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int fdleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int fdright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode fd = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito fd = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 214");
-		TreeNode parent = new TreeNode(null, "external_declaration");
+		MiArbolito parent = new MiArbolito(null, "external_declaration");
 		parent.addChild(fd);
 		RESULT = parent;
 	
@@ -6245,13 +6245,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 216: // external_declaration ::= declaration 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int dleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int dright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode d = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito d = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 215");
-		TreeNode parent = new TreeNode(null, "external_declaration");
+		MiArbolito parent = new MiArbolito(null, "external_declaration");
 		parent.addChild(d);
 		RESULT = parent;
 	
@@ -6262,10 +6262,10 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 217: // external_declaration ::= error 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		
 		System.out.println("Produccion 216");
-		TreeNode parent = new TreeNode(null, "external_declaration");
+		MiArbolito parent = new MiArbolito(null, "external_declaration");
 		parent.addChild(new Symbol(-1,0,0,"ERROR"));
 		RESULT = parent;
 		System.err.println("No se esperaba token");
@@ -6279,22 +6279,22 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 218: // function_definition ::= declaration_specifiers declarator declaration_list compound_statement 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int dsleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)).left;
 		int dsright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)).right;
-		TreeNode ds = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-3)).value;
+		MiArbolito ds = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-3)).value;
 		int dleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int dright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
-		TreeNode d = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
+		MiArbolito d = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		int dlleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int dlright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
-		TreeNode dl = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+		MiArbolito dl = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		int csleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int csright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode cs = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito cs = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 217");
-		TreeNode parent = new TreeNode(null, "function_definition");
+		MiArbolito parent = new MiArbolito(null, "function_definition");
 		parent.addChild(ds);
 		parent.addChild(d);
 		parent.addChild(dl);
@@ -6308,19 +6308,19 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 219: // function_definition ::= declaration_specifiers declarator compound_statement 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int dsleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int dsright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
-		TreeNode ds = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
+		MiArbolito ds = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		int dleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int dright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
-		TreeNode d = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+		MiArbolito d = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		int csleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int csright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode cs = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito cs = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 218");
-		TreeNode parent = new TreeNode(null, "function_definition");
+		MiArbolito parent = new MiArbolito(null, "function_definition");
 		parent.addChild(ds);
 		parent.addChild(d);
 		parent.addChild(cs);
@@ -6333,19 +6333,19 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 220: // function_definition ::= declarator declaration_list compound_statement 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int dleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int dright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
-		TreeNode d = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
+		MiArbolito d = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		int dlleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int dlright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
-		TreeNode dl = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+		MiArbolito dl = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		int csleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int csright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode cs = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito cs = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 219");
-		TreeNode parent = new TreeNode(null, "function_definition");
+		MiArbolito parent = new MiArbolito(null, "function_definition");
 		parent.addChild(d);
 		parent.addChild(dl);
 		parent.addChild(cs);
@@ -6358,16 +6358,16 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 221: // function_definition ::= declarator compound_statement 
             {
-              TreeNode RESULT =null;
+              MiArbolito RESULT =null;
 		int dleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int dright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
-		TreeNode d = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+		MiArbolito d = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		int csleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int csright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		TreeNode cs = (TreeNode)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		MiArbolito cs = (MiArbolito)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 		System.out.println("Produccion 220");
-		TreeNode parent = new TreeNode(null, "function_definition");
+		MiArbolito parent = new MiArbolito(null, "function_definition");
 		parent.addChild(d);
 		parent.addChild(cs);
 		RESULT = parent;
@@ -6398,6 +6398,6 @@ class CUP$parser$actions {
                                CUP$parser$stack,
                                CUP$parser$top);
     }
-}
+    }
 
 }

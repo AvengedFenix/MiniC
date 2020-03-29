@@ -11,41 +11,41 @@ import java_cup.runtime.Symbol;
 import org.graphstream.graph.*;
 import org.graphstream.graph.implementations.SingleGraph;
 
-public class TreeNode {
+public class MiArbolito {
 
     public ArrayList<String[]> graphList = new ArrayList<String[]>();
     Graph graph = new SingleGraph("AST");
 
-    private TreeNode parent;
-    private ArrayList<TreeNode> childs = new ArrayList();
+    private MiArbolito parent;
+    private ArrayList<MiArbolito> childs = new ArrayList();
     private Symbol value;
 
-    public TreeNode(TreeNode copy) {
+    public MiArbolito(MiArbolito copy) {
         parent = copy.parent;
         childs = copy.childs;
         value = copy.value;
     }
 
-    public TreeNode(TreeNode parent, Symbol value) {
+    public MiArbolito(MiArbolito parent, Symbol value) {
         this.parent = parent;
         this.value = value;
     }
 
-    public TreeNode(TreeNode parent, String value) {
+    public MiArbolito(MiArbolito parent, String value) {
         this.parent = parent;
         this.value = new Symbol(-1, 0, 0, value);
     }
 
-    public boolean addChild(TreeNode newChild) {
+    public boolean addChild(MiArbolito newChild) {
         newChild.parent = this;
         return childs.add(newChild);
     }
 
     public boolean addChild(Object value) {
-        return childs.add(new TreeNode(this, (Symbol) value));
+        return childs.add(new MiArbolito(this, (Symbol) value));
     }
 
-    public void setParent(TreeNode parent) {
+    public void setParent(MiArbolito parent) {
         this.parent = parent;
     }
 
@@ -53,7 +53,7 @@ public class TreeNode {
         this.parent = null;
     }
 
-    public TreeNode getParent() {
+    public MiArbolito getParent() {
         return this.parent;
     }
 
@@ -69,7 +69,7 @@ public class TreeNode {
         this.value.sym = value;
     }
 
-    public ArrayList<TreeNode> getChilds() {
+    public ArrayList<MiArbolito> getChilds() {
         return childs;
     }
 
@@ -125,7 +125,7 @@ public class TreeNode {
         }
         tree += value.value.toString() + "\n";
         int index = 0;
-        for (TreeNode child : childs) {
+        for (MiArbolito child : childs) {
             index++;
           
             StringBuilder name = new StringBuilder(myParent);
@@ -161,12 +161,12 @@ public class TreeNode {
     }
 
 
-    public ArrayList<TreeNode> getNodes(String value) {
-        ArrayList<TreeNode> result = new ArrayList();
+    public ArrayList<MiArbolito> getNodes(String value) {
+        ArrayList<MiArbolito> result = new ArrayList();
         if (this.value.value.equals(value)) {
             result.add(this);
         } else {
-            for (TreeNode node : childs) {
+            for (MiArbolito node : childs) {
                 result.addAll(node.getNodes(value));
             }
         }
