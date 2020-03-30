@@ -5,16 +5,12 @@
         <group>
             <file>file:/C:/Users/k_k_r/Documents/NetBeansProjects/test/MiniC/src/proyectocompiladores/MiArbolito.java</file>
             <file>file:/C:/Users/k_k_r/Documents/NetBeansProjects/test/MiniC/src/proyectocompiladores/App.java</file>
-            <file>file:/C:/Users/k_k_r/Documents/NetBeansProjects/test/MiniC/src/proyectocompiladores/Syntax.cup</file>
             <file>file:/C:/Users/k_k_r/Documents/NetBeansProjects/test/MiniC/src/proyectocompiladores/sym.java</file>
             <file>file:/C:/Users/k_k_r/Documents/NetBeansProjects/test/MiniC/src/proyectocompiladores/parser.java</file>
             <file>file:/C:/Users/k_k_r/Documents/NetBeansProjects/test/MiniC/src/proyectocompiladores/Lexer.java</file>
-            <file>file:/C:/Users/k_k_r/Documents/NetBeansProjects/test/MiniC/src/proyectocompiladores/parser2.cup</file>
             <file>file:/C:/Users/k_k_r/Documents/NetBeansProjects/test/MiniC/src/proyectocompiladores/parser.cup</file>
             <file>file:/C:/Users/k_k_r/Documents/NetBeansProjects/test/MiniC/src/proyectocompiladores/newLexer.flex</file>
-            <file>file:/C:/Users/k_k_r/Documents/NetBeansProjects/test/MiniC/src/proyectocompiladores/Values.java</file>
             <file>file:/C:/Users/k_k_r/Documents/NetBeansProjects/test/MiniC/src/proyectocompiladores/graphStyles.css</file>
-            <file>file:/C:/Users/k_k_r/Documents/NetBeansProjects/test/MiniC/src/proyectocompiladores/Lexer.flex</file>
         </group>
     </open-files>
 </project-private>

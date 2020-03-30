@@ -1883,15 +1883,12 @@ public class parser extends java_cup.runtime.lr_parser {
      @Override
     public void syntax_error(Symbol s){
         String lexVal = s.value != null ? s.value.toString() : getToken(s.sym);
-        int line = s.right;
-        int column = s.left;
         String err = "";
         if(lexVal.equals("EOF")){
             err = "Error found: expected }";
         } else {
-            err = "Error found: " +  " line: " + line + " column: " + column + ", Token not expected: " + lexVal;
+            err = "Error found: " +  " line: " + s.right + " column: " + s.left + ", Token not expected: " + lexVal;
         }
-
         System.err.println(err);
         errors.add(err);
     }
@@ -1899,22 +1896,19 @@ public class parser extends java_cup.runtime.lr_parser {
     @Override
     public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception {
         String lexVal = s.value != null ? s.value.toString() : getToken(s.sym);
-        int line = s.right;
-        int column = s.left;
         String err = "";
         if(lexVal.equals("EOF")){
             err = "";
         }else{
-            err = "PANIC MODE! Error found: " + " line: " + line + " column: " + column + ", Token not expected: " + lexVal;
+            err = "PANIC MODE! Error found: " + " line: " + s.right + " column: " + s.left + ", Token not expected: " + lexVal;
         }
         System.err.println(err);
         errors.add(err);
     }
 
     public String getToken(int id){
-        String value = "";
-        value = sym.terminalNames[id];
-
+        String name = "";
+        name = sym.terminalNames[id];
         switch(id){
             case sym.CURLYL:
                 return "{";
@@ -1925,8 +1919,7 @@ public class parser extends java_cup.runtime.lr_parser {
             case sym.PARAR:
                 return ")";
             default:
-                return value;
- 
+                return name;
     }
 }
 
