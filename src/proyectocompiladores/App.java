@@ -264,7 +264,7 @@ public class App extends javax.swing.JFrame {
                 MiArbolito myTree = (MiArbolito) x;
 
                 //Compi II
-                myTree.reduce();
+                //myTree.reduce();
                 Table table = new Table();
                 semantico(myTree, table);
 
@@ -389,13 +389,15 @@ public class App extends javax.swing.JFrame {
                 frame.setLocationRelativeTo(null);
                 JOptionPane.showMessageDialog(this, "Para navegar el arbol utilize las teclas direccionales, Page UP y Page Down para hacer Zoom");
                 frame.setVisible(true);
-
+                
+                table.print();
             } catch (FileNotFoundException ex) {
 
                 Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
             } catch (Exception ex) {
                 //Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
             }
+            
             System.out.println();
 
         }
@@ -486,7 +488,8 @@ public class App extends javax.swing.JFrame {
                     getDeclarations(child.getChildren().get(1), type, table);
                 }
             } else if (child.getValue().value.equals("=")) {
-                Asignacion(child, table);
+                
+                //Asignacion(child, table);
 
             } else if (child.getValue().value.equals("function_definition")) {
 
@@ -507,6 +510,7 @@ public class App extends javax.swing.JFrame {
         }
     }
 
+    /*
     public static void Asignacion(MiArbolito node, Table table) {
         if (node.getChildren().size() == 2) {
             MiArbolito first = node.getChildren().get(0);
@@ -608,6 +612,8 @@ public class App extends javax.swing.JFrame {
         }
     }
 
+    */
+    
     public static void getDeclarations(MiArbolito node, String type, Table table) {
         String id = node.getValue().value.toString();
         ArrayList<MiArbolito> node_childs = node.getChildren();
