@@ -1,4 +1,3 @@
-
 package proyectocompiladores;
 
 import proyectocompiladores.Values;
@@ -77,7 +76,6 @@ public class MiArbolito {
         children = new ArrayList();
     }
 
-   
     String myParent;
 
     public Values printAndFill() {
@@ -95,11 +93,10 @@ public class MiArbolito {
             System.out.println("\n\n");
 
         }
-        */
+         */
         graphList = new ArrayList<String[]>(v.list);
         return v;
     }
-
 
     private Values toString(String mySubParent, String indent, boolean last, ArrayList<String[]> list) {
         Values temp;
@@ -127,11 +124,10 @@ public class MiArbolito {
         int index = 0;
         for (MiArbolito child : children) {
             index++;
-          
+
             StringBuilder name = new StringBuilder(myParent);
 
             //System.out.println("This is child's name: " + child.getValue().value.toString());
-
             name.append(child.getValue().value.toString() + Integer.toString(index));
             //String name = myParent + child.getValue().value.toString() + Integer.toString(index);
             //graph.addNode(name).addAttribute("ui.label", name);
@@ -150,7 +146,7 @@ public class MiArbolito {
             System.out.println("toString graphList Element 3: " + graphList.get(i)[2]);
             System.out.println("\n\n");
         }
-        */
+         */
         temp = new Values(tree, list);
         //graph.display();
         return temp;
@@ -159,7 +155,6 @@ public class MiArbolito {
     public boolean valueIsString(String other) {
         return this.value.value.toString().equals(other);
     }
-
 
     public ArrayList<MiArbolito> getNodes(String value) {
         ArrayList<MiArbolito> result = new ArrayList();
@@ -172,4 +167,19 @@ public class MiArbolito {
         }
         return result;
     }
+
+    
+    public void reduce() {
+        if (children.size() == 1) {
+            value = children.get(0).value;
+            children = children.get(0).children;
+            this.reduce();
+        }
+        if (children.size() > 1) {
+            for (MiArbolito child : children) {
+                child.reduce();
+            }
+        }
+    }
 }
+

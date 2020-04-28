@@ -19,6 +19,7 @@ import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java_cup.runtime.Symbol;
 import javax.swing.BorderFactory;
 
 import javax.swing.JFileChooser;
@@ -261,6 +262,13 @@ public class App extends javax.swing.JFrame {
 
                 //System.out.println(x.toString());
                 MiArbolito myTree = (MiArbolito) x;
+
+                //Compi II
+                myTree.reduce();
+                Table table = new Table();
+                semantico(myTree, table);
+
+                //END Compi II
                 Values v = myTree.printAndFill();
                 Graph graph = new SingleGraph("AST");
 
@@ -389,6 +397,7 @@ public class App extends javax.swing.JFrame {
                 //Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
             }
             System.out.println();
+
         }
 
     }//GEN-LAST:event_jb_RUNActionPerformed
@@ -459,6 +468,463 @@ public class App extends javax.swing.JFrame {
         } catch (Exception e) {
             System.out.println(e);
         }
+    }
+
+    //COMPI II
+    public static void semantico(MiArbolito parent_node, Table table) {
+        ArrayList<MiArbolito> childs = parent_node.getChildren();
+        for (MiArbolito child : childs) {
+            if (child.getValue().value.toString().equals("declaration")
+                    || child.getValue().value.equals("parameter_declaration")) {
+                String type = child.getChildren().get(0).getValue().value.toString();
+                if (parent_node.valueIsString("iteration_statement")) {
+
+                    Table child_table = new Table(table);
+                    table.addChild(child_table);
+                    getDeclarations(child.getChildren().get(1), type, child_table);
+                } else {
+                    getDeclarations(child.getChildren().get(1), type, table);
+                }
+            } else if (child.getValue().value.equals("=")) {
+                Asignacion(child, table);
+
+            } else if (child.getValue().value.equals("function_definition")) {
+
+                Table child_table = new Table(table);
+                table.addChild(child_table);
+                ArrayList<MiArbolito> function_definition_childs = child.getChildren();
+                for (MiArbolito function_child : function_definition_childs) {
+                    semantico(function_child, child_table);
+                }
+            } else if (child.getValue().value.equals("decl_stmnt_list") && !parent_node.getValue().value.equals("function_definition")) {
+
+                Table child_table = new Table(table);
+                table.addChild(child_table);
+                semantico(child, child_table);
+            } else {
+                semantico(child, table);
+            }
+        }
+    }
+
+    public static void Asignacion(MiArbolito node, Table table) {
+        if (node.getChildren().size() == 2) {
+            MiArbolito first = node.getChildren().get(0);
+            MiArbolito second = node.getChildren().get(1);
+            if (first.getValue().sym == sym.IDENTIFIER) {
+                TableRow firstResult = table.search(first.getValue().value.toString());
+                if (firstResult != null) {
+                    if (second.getValue().value.equals("unary_expression")) {
+                        if (second.getChildren().get(0).getValue().sym == 71) {
+                            if (!firstResult.type.contains("Pointer")) {
+                                System.err.println("Error en la linea " + (first.getValue().right + 1) + ", columna " + first.getValue().left + " en el token " + first.getValue().value + ": Varibales son de diferente tipo");
+                            }
+                        }
+                    }
+                    switch (second.getValue().sym) {
+                        case sym.IDENTIFIER:
+                            TableRow secondResult = table.search(second.getValue().value.toString());
+                            if (secondResult != null) {
+                                if (firstResult.type.equals(secondResult.type)) {
+                                    firstResult.value = secondResult.value;
+                                } else {
+                                    System.err.println("Error en la linea " + (first.getValue().right + 1) + ", columna " + first.getValue().left + " en el token " + first.getValue().value + ": Varibales son de diferente tipo");
+                                }
+                            } else {
+                                System.err.println("Error en la linea " + (second.getValue().right + 1) + ", columna " + second.getValue().left + " en el token " + second.getValue().value + ": Variable no ha sido declarada");
+                            }
+                            break;
+                        case sym.CONSTANT:
+                        case sym.STRING_LITERAL:
+                        case -1:
+                            if (second.getChildren().size() > 0 && second.getChildren().get(0).getValue().sym == 71) {
+
+                            } else if (checkValueType(second, firstResult.type)) {
+                                firstResult.value = second.getValue().value;
+                            } else if (second.getChildren().size() > 0 && second.getChildren().get(0).getValue().sym != 71 || second.getChildren().size() == 0) {
+                                System.err.println("Error en la linea " + (first.getValue().right + 1) + ", columna " + first.getValue().left + " en el token " + first.getValue().value + ": Varibales son de diferente tipo");
+                            }
+                            break;
+                        case sym.PLUS:
+                        case sym.MINUS:
+                        case sym.DIVIDE:
+                        case sym.MUL:
+                            if (firstResult.type.equals("int")
+                                    || firstResult.type.equals("char")
+                                    || firstResult.type.equals("double")
+                                    || firstResult.type.equals("float")
+                                    || firstResult.type.equals("long")) {
+                                aritmetica(node, firstResult.type);
+                            } else {
+                                System.err.println("Error en la linea " + (first.getValue().right + 1) + ", columna " + first.getValue().left + " en el token " + first.getValue().value + ": No se puede asignar expresion aritmetica");
+                            }
+                            break;
+                    }
+
+                } else {
+                    System.err.println("Error en la linea " + (first.getValue().right + 1) + ", columna " + first.getValue().left + " en el token " + first.getValue().value + ": Variable no ha sido declarada");
+                }
+            } else if (first.getValue().sym == -1 && !first.valueIsString("ERROR")) {
+                System.err.println(first.getValue().value);
+                MiArbolito firstchild = first.getChildren().get(0);
+                if (firstchild.getValue().sym == -1) {
+                    MiArbolito secondchild = first.getChildren().get(1);
+                    TableRow firstResult = table.search(secondchild.getValue().value.toString());
+                    if (firstResult != null) {
+                        MiArbolito thirdchild = first.getChildren().get(2);
+                        String properties[] = arrayParse(firstResult);
+                        String sizeOfArray = properties[0];
+                        String type = properties[1];
+                        if (Integer.parseInt(sizeOfArray) - 1 >= Integer.parseInt(thirdchild.getValue().value.toString())) {
+
+                            switch (second.getValue().sym) {
+                                case sym.CONSTANT:
+                                    if (type.equals("int")
+                                            || firstResult.type.equals("char")
+                                            || firstResult.type.equals("double")
+                                            || firstResult.type.equals("float")
+                                            || firstResult.type.equals("long")) {
+                                        setValidNumber(second.getValue().value.toString(), second, type, false);
+                                    } else {
+                                        System.err.println("Error en la linea " + (thirdchild.getValue().right + 1) + ", columna " + thirdchild.getValue().left + " en el token " + thirdchild.getValue().value + ": Asignacion no es del tipo " + type);
+                                    }
+                                    break;
+                                case sym.STRING_LITERAL:
+                                    if (type.contains("Pointer")) {
+                                        setValidNumber(second.getValue().value.toString(), second, type, false);
+                                    } else {
+                                        System.err.println("Error en la linea " + (thirdchild.getValue().right + 1) + ", columna " + thirdchild.getValue().left + " en el token " + thirdchild.getValue().value + ": Asignacion no es del tipo " + type);
+                                    }
+                                    break;
+                            }
+                        } else {
+                            System.err.println("Error en la linea " + (thirdchild.getValue().right + 1) + ", columna " + thirdchild.getValue().left + " en el token " + thirdchild.getValue().value + ": Asignacion del arreglo fuera del limite");
+                        }
+
+                    }
+
+                }
+            }
+        }
+    }
+
+    public static void getDeclarations(MiArbolito node, String type, Table table) {
+        String id = node.getValue().value.toString();
+        ArrayList<MiArbolito> node_childs = node.getChildren();
+        MiArbolito child_id, child_value;
+        switch (id) {
+            case "declaration_list":
+                break;
+            case "parameter_list":
+            case "init_declarator_list":
+                for (MiArbolito child : node_childs) {
+                    getDeclarations(child, type, table);
+                }
+                break;
+            case "init_declarator":
+                child_id = node_childs.get(0);
+                child_value = node_childs.get(1);
+                if (child_id.getValue().value.equals("declarator")) {
+                    child_id = child_id.getChildren().get(1);
+                    if (checkValueType(child_value, "Pointer(" + type + ")")) {
+                        int offset = table.getActualOffset();
+                        table.addTableRow(child_id.getValue().value.toString(), child_value.getValue().value, "Pointer(" + type + ")", offset);
+                    } else {
+                        System.err.println("Error en linea " + (child_id.getValue().right + 1) + ", columna " + child_id.getValue().left + " en el token " + child_id.getValue().value + ", asignacion no es de tipo " + type + "*");
+                    }
+                } else if (child_id.getValue().value.equals("direct_declarator") && child_id.getChildren().get(0).getValue().value == "array_declarator") {
+                    int offset = table.getActualOffset();
+
+                    if (child_id.getChildren().size() == 3) {
+                        if (child_id.getChildren().get(2).getValue().sym == sym.CONSTANT) {
+                            if (setValidNumber(child_id.getChildren().get(2).getValue().value.toString(), child_id.getChildren().get(2), "int", false)) {
+                                table.addTableRow(child_id.getChildren().get(1).getValue().value.toString(), null, "array(" + child_id.getChildren().get(2).getValue().value + ", " + type + ")", offset);
+                            }
+
+                        } else {
+                            System.err.println("Error en linea " + (child_id.getChildren().get(1).getValue().right + 1) + ", columna " + child_id.getChildren().get(1).getValue().left + " en el token " + child_id.getChildren().get(1).getValue().value + ": asignacion no es de tipo arreglo " + type);
+                        }
+                    } else if (child_id.getChildren().size() == 2) {
+                        table.addTableRow(child_id.getChildren().get(1).getValue().value.toString(), null, "array(0, " + type + ")", offset);
+                    }
+
+                    System.err.println("Advertencia en la linea " + (child_id.getChildren().get(1).getValue().right + 1) + ", columna " + child_id.getChildren().get(1).getValue().left + " en el token " + child_id.getChildren().get(1).getValue().value + ": no se acepta incializacion de arreglos");
+                } else if (checkValueType(child_value, type)) {
+                    int offset = table.getActualOffset();
+                    if (child_value.getValue().sym != sym.PLUS
+                            && child_value.getValue().sym != sym.MUL
+                            && child_value.getValue().sym != sym.DIVIDE
+                            && child_value.getValue().sym != sym.MINUS) {
+                        table.addTableRow(child_id.getValue().value.toString(), child_value.getValue().value, type, offset);
+                    } else {
+                        table.addTableRow(child_id.getValue().value.toString(), null, type, offset);
+                    }
+                } else {
+                    System.err.println("Error en linea " + (child_id.getValue().right + 1) + ", columna " + child_id.getValue().left + " en el token " + child_id.getValue().value + ": asignacion no es de tipo " + type);
+                }
+                break;
+            case "direct_declarator": {
+                String declaration_type = node_childs.get(0).getValue().value.toString();
+                if (declaration_type.equals("function_declarator")) {
+                    child_id = node_childs.get(1);
+                    String parameter_types = "";
+                    if (node_childs.size() > 2) {
+                        parameter_types = node_childs.get(2).getValue().value.toString();
+                        if (parameter_types.equals("parameter_list")) {
+                            ArrayList<String> params = new ArrayList();
+                            ArrayList<MiArbolito> param_childs = node_childs.get(2).getChildren();
+                            for (MiArbolito param : param_childs) {
+                                params.add(param.getValue().value.toString());
+                            }
+                            parameter_types = String.join(" x ", params);
+                        }
+                    }
+                    parameter_types = type + " -> " + parameter_types;
+                    int offset = table.getActualOffset();
+                    table.addTableRow(child_id.getValue().value.toString(), null, parameter_types, offset);
+                } else if (declaration_type.equals("array_declarator")) {
+                    child_id = node_childs.get(1);
+                    int offset = table.getActualOffset();
+                    if (node_childs.size() == 3) {
+                        child_value = node_childs.get(2);
+                        if (child_value.getValue().sym == 3) {
+                            if (setValidNumber(child_value.getValue().value.toString(), child_value, "int", false)) {
+                                table.addTableRow(child_id.getValue().value.toString(), null, "array(" + child_value.getValue().value + ", " + type + ")", offset);
+                            }
+                        } else {
+                            System.err.println("Error en linea " + (child_id.getValue().right + 1) + ", columna " + child_id.getValue().left + " en el token " + child_id.getValue().value + ": asignacion no es de tipo arreglo " + type);
+                        }
+                    } else {
+                        table.addTableRow(child_id.getValue().value.toString(), null, "array(0, " + type + ")", offset);
+                    }
+                }
+                break;
+            }
+            case "declarator":
+                child_id = node_childs.get(1);
+                int offset = table.getActualOffset();
+                table.addTableRow(child_id.getValue().value.toString(), null, "Pointer(" + type + ")", offset);
+                break;
+            case "parameter_declaration":
+                type = node_childs.get(0).getValue().value.toString();
+                child_id = node_childs.get(1);
+                getDeclarations(child_id, type, table);
+                break;
+
+            default:
+                offset = table.getActualOffset();
+                table.addTableRow(id, null, type, offset);
+        }
+    }
+
+    public static boolean checkValueType(MiArbolito node, String type) {
+        Symbol value = node.getValue();
+        switch (type) {
+            case "int":
+            case "short":
+            case "long":
+            case "float":
+            case "double":
+            case "char":
+                if (value.sym == 3) {
+                    return setValidNumber(value.value.toString(), node, type, false);
+                } else if (value.value.toString().equals("unary_expression")) {
+                    return setValidNumber(node.getChildren().get(1).getValue().value.toString(), node, type, true);
+                } else if (value.sym >= 74 && value.sym <= 77) {
+                    aritmetica(node, type);
+                    return true;
+                }
+                break;
+            case "Pointer(char)":
+                return value.sym == 4;
+        }
+        return false;
+    }
+
+    public static void aritmetica(MiArbolito node, String type) {
+        int symbol = node.getValue().sym;
+
+        if (node.getChildren().size() == 2) {
+
+            int firstChild = node.getChildren().get(0).getValue().sym;
+            Object a = null;
+            boolean AisNegative = false;
+
+            switch (firstChild) {
+                case sym.CONSTANT:
+                    setValidNumber(node.getChildren().get(0).getValue().value.toString(), node.getChildren().get(0), type, false);
+                    a = node.getChildren().get(0).getValue().value;
+                    break;
+                case sym.PLUS:
+                case sym.MUL:
+                case sym.DIVIDE:
+                case sym.MINUS:
+                    if (node.getChildren().get(0).getChildren().size() > 0) {
+                        aritmetica(node.getChildren().get(0), type);
+                        if (node.getChildren().get(0).getValue().sym == sym.CONSTANT) {
+                            a = node.getChildren().get(0).getValue().value;
+                        }
+                    } else {
+                        System.err.println("Error en la linea " + (node.getChildren().get(0).getValue().right + 1) + ", columna " + node.getChildren().get(0).getValue().left + " en el token " + node.getChildren().get(0).getValue().value + ": Valor en expresion aritmetica no valida");
+                    }
+                    break;
+                case -1:
+                    if (node.getChildren().get(0).getChildren().get(0).equals("-")) {
+                        setValidNumber(node.getChildren().get(0).getChildren().get(1).getValue().value.toString(), node.getChildren().get(0), type, false);
+                        node.getChildren().get(0).setSym(sym.CONSTANT);
+                        node.getChildren().get(0).deleteChildren();
+                        a = node.getChildren().get(0).getValue().value;
+                        AisNegative = true;
+                    } else {
+                        System.err.println("Error en la linea " + (node.getChildren().get(0).getChildren().get(0).getValue().right + 1) + ", columna " + node.getChildren().get(0).getChildren().get(0).getValue().left + " en el token " + node.getChildren().get(0).getChildren().get(0).getValue().value + ": Valor en expresion aritmetica no valida");
+                    }
+                    break;
+                case sym.IDENTIFIER:
+                    break;
+                default:
+                    System.err.println("Error en la linea " + (node.getChildren().get(0).getValue().right + 1) + ", columna " + node.getChildren().get(0).getValue().left + " en el token " + node.getChildren().get(0).getValue().value + ": Valor en expresion aritmetica no valida");
+                    if (node.getValue().sym == sym.PLUS
+                            || node.getValue().sym == sym.MINUS) {
+                        setValidNumber("0", node.getChildren().get(0), type, false);
+                    } else {
+                        setValidNumber("1", node.getChildren().get(0), type, false);
+                    }
+                    node.getChildren().get(0).setSym(sym.CONSTANT);
+                    node.getChildren().get(0).deleteChildren();
+                    a = node.getChildren().get(0).getValue().value;
+                    break;
+            }
+
+            int secondChild = node.getChildren().get(1).getValue().sym;
+            Object b = null;
+            boolean BisNegative = false;
+
+            switch (secondChild) {
+                case sym.CONSTANT:
+                    setValidNumber(node.getChildren().get(1).getValue().value.toString(), node.getChildren().get(1), type, false);
+                    b = node.getChildren().get(1).getValue().value;
+                    break;
+                case sym.PLUS:
+                case sym.MUL:
+                case sym.DIVIDE:
+                case sym.MINUS:
+                    if (node.getChildren().get(1).getChildren().size() > 0) {
+                        aritmetica(node.getChildren().get(1), type);
+                        if (node.getChildren().get(1).getValue().sym == sym.CONSTANT) {
+                            b = node.getChildren().get(1).getValue().value;
+                        }
+                    } else {
+                        System.err.println("Error en la linea " + (node.getChildren().get(1).getValue().right + 1) + ", columna " + node.getChildren().get(1).getValue().left + " en el token " + node.getChildren().get(1).getValue().value + ": Valor en expresion aritmetica no valida");
+                    }
+                    break;
+                case -1:
+                    if (node.getChildren().get(1).getChildren().get(0).equals("-")) {
+                        setValidNumber(node.getChildren().get(1).getChildren().get(1).getValue().value.toString(), node.getChildren().get(1), type, false);
+                        node.getChildren().get(1).setSym(sym.CONSTANT);
+                        node.getChildren().get(1).deleteChildren();
+                        b = node.getChildren().get(1).getValue().value;
+                        BisNegative = true;
+                    } else {
+                        System.err.println("Error en la linea " + (node.getChildren().get(1).getChildren().get(0).getValue().right + 1) + ", columna " + node.getChildren().get(1).getChildren().get(0).getValue().left + " en el token " + node.getChildren().get(1).getChildren().get(0).getValue().value + ": Valor en expresion aritmetica no valida");
+                    }
+                    break;
+                case sym.IDENTIFIER:
+                    break;
+                default:
+                    System.err.println("Error en la linea " + (node.getChildren().get(1).getValue().right + 1) + ", columna " + node.getChildren().get(1).getValue().left + " en el token " + node.getChildren().get(1).getValue().value + ": Valor en expresion aritmetica no valida");
+                    if (node.getValue().sym == sym.PLUS
+                            || node.getValue().sym == sym.MINUS) {
+                        setValidNumber("0", node.getChildren().get(1), type, false);
+                    } else {
+                        setValidNumber("1", node.getChildren().get(1), type, false);
+                    }
+                    node.getChildren().get(1).setSym(sym.CONSTANT);
+                    node.getChildren().get(1).deleteChildren();
+                    b = node.getChildren().get(1).getValue().value;
+                    break;
+            }
+
+            if (a != null && b != null) {
+                Double A = Double.parseDouble(a.toString());
+                if (AisNegative) {
+                    A = A * -1;
+                }
+                Double B = Double.parseDouble(b.toString());
+                if (BisNegative) {
+                    B = B * -1;
+                }
+
+                String res = "";
+                switch (symbol) {
+                    case sym.PLUS:
+                        res = Double.toString(A + B);
+                        break;
+                    case sym.MUL:
+                        res = Double.toString(A * B);
+                        break;
+                    case sym.DIVIDE:
+                        res = Double.toString(A / B);
+                        break;
+                    case sym.MINUS:
+                        res = Double.toString(A - B);
+                        break;
+                }
+                if (res.contains("-")) {
+                    res = res.replace("-", "");
+                    if (setValidNumber(res, node, type, true)) {
+                        node.setSym(sym.CONSTANT);
+                        node.deleteChildren();
+                    }
+                } else if (setValidNumber(res, node, type, false)) {
+                    node.setSym(sym.CONSTANT);
+                    node.deleteChildren();
+                }
+            }
+        }
+    }
+
+    public static boolean setValidNumber(String value, MiArbolito node, String type, boolean negative) {
+        Double ret;
+        if (value.matches("[0-9.]*")) {
+            ret = Double.parseDouble(value);
+        } else {
+            Integer ascii = (int) value.replace("\'", "").charAt(0);
+            ret = ascii.doubleValue();
+        }
+        node.deleteChildren();
+        if (negative) {
+            ret = ret * -1;
+        }
+        switch (type) {
+            case "short":
+                if (ret.shortValue() >= -32768 && ret.shortValue() <= 32767) {
+                    node.setValue(ret.shortValue());
+                    return true;
+                }
+                break;
+            case "long":
+                node.setValue(ret.longValue());
+                return true;
+            case "int":
+            case "char":
+                node.setValue(ret.intValue());
+                return true;
+            case "float":
+                node.setValue(ret.floatValue());
+                return true;
+            case "double":
+                node.setValue(ret);
+                return true;
+        }
+        return false;
+    }
+
+    public static String[] arrayParse(TableRow row) {
+        String type = "";
+        type = row.type.replace("array(", "");
+        type = type.replace(")", "");
+        String response[] = type.split(", ");
+        return response;
     }
 
     /**
