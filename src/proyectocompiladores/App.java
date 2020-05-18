@@ -255,6 +255,7 @@ public class App extends javax.swing.JFrame {
 
     private void jb_RUNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_RUNActionPerformed
         System.setProperty("org.graphstream.ui.renderer", "org.graphstream.ui.j2dviewer.J2DGraphRenderer");
+        errores= "";
         if (ta_code.getText() != null) {
             try {
                 parser p = new parser(new Lexer(new StringReader(ta_code.getText())));
@@ -264,16 +265,18 @@ public class App extends javax.swing.JFrame {
                 MiArbolito myTree = (MiArbolito) x;
 
                 //Compi II
-                //myTree.reduce();
+                myTree.reduce();
                 Table table = new Table();
                 semantico(myTree, table);
+                System.out.println("Print table main");
+                table.print();
 
                 //END Compi II
                 Values v = myTree.printAndFill();
                 Graph graph = new SingleGraph("AST");
 
                 ArrayList<String> resultado = p.errors;
-                String errores = "";
+                //String errores = "";
 
                 for (String error : resultado) {
                     errores += error + "\n";
@@ -479,6 +482,7 @@ public class App extends javax.swing.JFrame {
             if (child.getValue().value.toString().equals("declaration")
                     || child.getValue().value.equals("parameter_declaration")) {
                 String type = child.getChildren().get(0).getValue().value.toString();
+                System.out.println("type var: " + type);
                 if (parent_node.valueIsString("iteration_statement")) {
 
                     Table child_table = new Table(table);
@@ -510,7 +514,7 @@ public class App extends javax.swing.JFrame {
         }
     }
 
-    /*
+    
     public static void Asignacion(MiArbolito node, Table table) {
         if (node.getChildren().size() == 2) {
             MiArbolito first = node.getChildren().get(0);
@@ -612,7 +616,7 @@ public class App extends javax.swing.JFrame {
         }
     }
 
-    */
+    
     
     public static void getDeclarations(MiArbolito node, String type, Table table) {
         String id = node.getValue().value.toString();
@@ -636,7 +640,9 @@ public class App extends javax.swing.JFrame {
                         int offset = table.getActualOffset();
                         table.addTableRow(child_id.getValue().value.toString(), child_value.getValue().value, "Pointer(" + type + ")", offset);
                     } else {
-                        System.err.println("Error en linea " + (child_id.getValue().right + 1) + ", columna " + child_id.getValue().left + " en el token " + child_id.getValue().value + ", asignacion no es de tipo " + type + "*");
+                        String error = "Error en linea " + (child_id.getValue().right + 1) + ", columna " + child_id.getValue().left + " en el token " + child_id.getValue().value + ", asignacion no es de tipo " + type + "*";
+                        System.err.println(error);
+                        errores += error;
                     }
                 } else if (child_id.getValue().value.equals("direct_declarator") && child_id.getChildren().get(0).getValue().value == "array_declarator") {
                     int offset = table.getActualOffset();
@@ -648,7 +654,9 @@ public class App extends javax.swing.JFrame {
                             }
 
                         } else {
-                            System.err.println("Error en linea " + (child_id.getChildren().get(1).getValue().right + 1) + ", columna " + child_id.getChildren().get(1).getValue().left + " en el token " + child_id.getChildren().get(1).getValue().value + ": asignacion no es de tipo arreglo " + type);
+                            String error = "Error en linea " + (child_id.getChildren().get(1).getValue().right + 1) + ", columna " + child_id.getChildren().get(1).getValue().left + " en el token " + child_id.getChildren().get(1).getValue().value + ": asignacion no es de tipo arreglo " + type;
+                            System.err.println(error);
+                            errores +=error;
                         }
                     } else if (child_id.getChildren().size() == 2) {
                         table.addTableRow(child_id.getChildren().get(1).getValue().value.toString(), null, "array(0, " + type + ")", offset);
@@ -666,7 +674,9 @@ public class App extends javax.swing.JFrame {
                         table.addTableRow(child_id.getValue().value.toString(), null, type, offset);
                     }
                 } else {
-                    System.err.println("Error en linea " + (child_id.getValue().right + 1) + ", columna " + child_id.getValue().left + " en el token " + child_id.getValue().value + ": asignacion no es de tipo " + type);
+                    String error = "Error en linea " + (child_id.getValue().right + 1) + ", columna " + child_id.getValue().left + " en el token " + child_id.getValue().value + ": asignacion no es de tipo " + type;
+                    System.err.println(error);
+                    errores+=error;
                 }
                 break;
             case "direct_declarator": {
@@ -698,7 +708,9 @@ public class App extends javax.swing.JFrame {
                                 table.addTableRow(child_id.getValue().value.toString(), null, "array(" + child_value.getValue().value + ", " + type + ")", offset);
                             }
                         } else {
-                            System.err.println("Error en linea " + (child_id.getValue().right + 1) + ", columna " + child_id.getValue().left + " en el token " + child_id.getValue().value + ": asignacion no es de tipo arreglo " + type);
+                            String error= "Error en linea " + (child_id.getValue().right + 1) + ", columna " + child_id.getValue().left + " en el token " + child_id.getValue().value + ": asignacion no es de tipo arreglo " + type;
+                            System.err.println(error);
+                            errores += error;
                         }
                     } else {
                         table.addTableRow(child_id.getValue().value.toString(), null, "array(0, " + type + ")", offset);
@@ -721,6 +733,8 @@ public class App extends javax.swing.JFrame {
                 offset = table.getActualOffset();
                 table.addTableRow(id, null, type, offset);
         }
+                //System.out.println("Print table");
+                //table.print();
     }
 
     public static boolean checkValueType(MiArbolito node, String type) {
@@ -894,6 +908,7 @@ public class App extends javax.swing.JFrame {
         if (value.matches("[0-9.]*")) {
             ret = Double.parseDouble(value);
         } else {
+            //Aqui es donde hace los chars en int, los pasa a ascii
             Integer ascii = (int) value.replace("\'", "").charAt(0);
             ret = ascii.doubleValue();
         }
@@ -983,5 +998,6 @@ public class App extends javax.swing.JFrame {
     private javax.swing.JTextArea ta_result;
     // End of variables declaration//GEN-END:variables
     File input_C;
+    static String errores;
 
 }
