@@ -1,6 +1,5 @@
 package proyectocompiladores;
 
-
 import java.util.ArrayList;
 
 public class Table {
@@ -8,34 +7,45 @@ public class Table {
     Table parent = null;
     ArrayList<TableRow> rows = new ArrayList();
     ArrayList<Table> childs = new ArrayList();
-    
-    public Table(){
+
+    public Table() {
     }
+
     public Table(Table parent) {
         this.parent = parent;
     }
 
-    public boolean addTableRow(TableRow to_add) {
+    public Values addTableRow(TableRow to_add) {
+        Values v;
+        v = new Values(false);
         TableRow result = searchLocal(to_add);
         if (result == null) {
             this.rows.add(to_add);
-            return true;
+            v = new Values(true);
+            return v;
         } else {
-            System.err.println("Error en variable " + to_add.id + ", ya ha sido declarada");
+            String error = "Error en variable " + to_add.id + ", ya ha sido declarada";
+            System.err.println(error);
+            v = new Values(false, error);
         }
-        return false;
+        return v;
     }
 
-    public boolean addTableRow(String id, Object value, String type, int offset) {
+    public Values addTableRow(String id, Object value, String type, int offset) {
+        Values v;
+        v = new Values(false);
         TableRow to_add = new TableRow(id, value, type, offset);
         TableRow result = searchLocal(to_add);
         if (result == null) {
             this.rows.add(to_add);
-            return true;
+            v = new Values(true);
+            return v;
         } else {
-            System.err.println("Error en variable " + id + ", ya ha sido declarada");
+            String error = "Error en variable " + id + ", ya ha sido declarada";
+            System.err.println(error);
+            v = new Values(false, error);
         }
-        return false;
+        return v;
     }
 
     public void setParent(Table parent) {
@@ -87,9 +97,11 @@ public class Table {
         }
         return 0;
     }
-    public ArrayList<Table> getChilds(){
+
+    public ArrayList<Table> getChilds() {
         return childs;
     }
+
     public void print() {
         System.out.println("PARENT");
         for (TableRow tr : this.rows) {
@@ -124,4 +136,3 @@ public class Table {
         return 0;
     }
 }
-

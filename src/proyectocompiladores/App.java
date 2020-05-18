@@ -255,7 +255,7 @@ public class App extends javax.swing.JFrame {
 
     private void jb_RUNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_RUNActionPerformed
         System.setProperty("org.graphstream.ui.renderer", "org.graphstream.ui.j2dviewer.J2DGraphRenderer");
-        errores= "";
+        errores = "";
         if (ta_code.getText() != null) {
             try {
                 parser p = new parser(new Lexer(new StringReader(ta_code.getText())));
@@ -263,9 +263,10 @@ public class App extends javax.swing.JFrame {
 
                 //System.out.println(x.toString());
                 MiArbolito myTree = (MiArbolito) x;
-
                 //Compi II
+
                 myTree.reduce();
+                globalVariables = new Table();
                 Table table = new Table();
                 semantico(myTree, table);
                 System.out.println("Print table main");
@@ -392,7 +393,7 @@ public class App extends javax.swing.JFrame {
                 frame.setLocationRelativeTo(null);
                 JOptionPane.showMessageDialog(this, "Para navegar el arbol utilize las teclas direccionales, Page UP y Page Down para hacer Zoom");
                 frame.setVisible(true);
-                
+
                 table.print();
             } catch (FileNotFoundException ex) {
 
@@ -400,7 +401,7 @@ public class App extends javax.swing.JFrame {
             } catch (Exception ex) {
                 //Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
+
             System.out.println();
 
         }
@@ -492,13 +493,14 @@ public class App extends javax.swing.JFrame {
                     getDeclarations(child.getChildren().get(1), type, table);
                 }
             } else if (child.getValue().value.equals("=")) {
-                
-                //Asignacion(child, table);
+
+                Asignacion(child, table);
 
             } else if (child.getValue().value.equals("function_definition")) {
 
                 Table child_table = new Table(table);
                 table.addChild(child_table);
+                //globalVariables.addTableRow(to_add)
                 ArrayList<MiArbolito> function_definition_childs = child.getChildren();
                 for (MiArbolito function_child : function_definition_childs) {
                     semantico(function_child, child_table);
@@ -514,8 +516,9 @@ public class App extends javax.swing.JFrame {
         }
     }
 
-    
     public static void Asignacion(MiArbolito node, Table table) {
+
+        //Esto sirve para hacer x = b
         if (node.getChildren().size() == 2) {
             MiArbolito first = node.getChildren().get(0);
             MiArbolito second = node.getChildren().get(1);
@@ -525,7 +528,9 @@ public class App extends javax.swing.JFrame {
                     if (second.getValue().value.equals("unary_expression")) {
                         if (second.getChildren().get(0).getValue().sym == 71) {
                             if (!firstResult.type.contains("Pointer")) {
-                                System.err.println("Error en la linea " + (first.getValue().right + 1) + ", columna " + first.getValue().left + " en el token " + first.getValue().value + ": Varibales son de diferente tipo");
+                                String error = "Error en la linea " + (first.getValue().right + 1) + ", columna " + first.getValue().left + " en el token " + first.getValue().value + ": Varibales son de diferente tipo\n";
+                                System.err.println(error);
+                                errores += error;
                             }
                         }
                     }
@@ -533,13 +538,20 @@ public class App extends javax.swing.JFrame {
                         case sym.IDENTIFIER:
                             TableRow secondResult = table.search(second.getValue().value.toString());
                             if (secondResult != null) {
+                                //Aquí le asigna a x el valor de b, virificando si son del mismo tipo
                                 if (firstResult.type.equals(secondResult.type)) {
                                     firstResult.value = secondResult.value;
                                 } else {
-                                    System.err.println("Error en la linea " + (first.getValue().right + 1) + ", columna " + first.getValue().left + " en el token " + first.getValue().value + ": Varibales son de diferente tipo");
+                                    //La segunda variable no es del mismo tipo
+                                    String error = "Error en la linea " + (first.getValue().right + 1) + ", columna " + first.getValue().left + " en el token " + first.getValue().value + ": Varibales son de diferente tipo\n";
+                                    System.err.println(error);
+                                    errores += error;
                                 }
                             } else {
-                                System.err.println("Error en la linea " + (second.getValue().right + 1) + ", columna " + second.getValue().left + " en el token " + second.getValue().value + ": Variable no ha sido declarada");
+                                //La segunda variable no existe
+                                String error = "Error en la linea " + (second.getValue().right + 1) + ", columna " + second.getValue().left + " en el token " + second.getValue().value + ": Variable no ha sido declarada\n";
+                                System.err.println(error);
+                                errores += error;
                             }
                             break;
                         case sym.CONSTANT:
@@ -550,7 +562,9 @@ public class App extends javax.swing.JFrame {
                             } else if (checkValueType(second, firstResult.type)) {
                                 firstResult.value = second.getValue().value;
                             } else if (second.getChildren().size() > 0 && second.getChildren().get(0).getValue().sym != 71 || second.getChildren().size() == 0) {
-                                System.err.println("Error en la linea " + (first.getValue().right + 1) + ", columna " + first.getValue().left + " en el token " + first.getValue().value + ": Varibales son de diferente tipo");
+                                String error = "Error en la linea " + (first.getValue().right + 1) + ", columna " + first.getValue().left + " en el token " + first.getValue().value + ": Varibales son de diferente tipo\n";
+                                System.err.println(error);
+                                errores += error;
                             }
                             break;
                         case sym.PLUS:
@@ -564,13 +578,17 @@ public class App extends javax.swing.JFrame {
                                     || firstResult.type.equals("long")) {
                                 aritmetica(node, firstResult.type);
                             } else {
-                                System.err.println("Error en la linea " + (first.getValue().right + 1) + ", columna " + first.getValue().left + " en el token " + first.getValue().value + ": No se puede asignar expresion aritmetica");
+                                String error = "Error en la linea " + (first.getValue().right + 1) + ", columna " + first.getValue().left + " en el token " + first.getValue().value + ": No se puede asignar expresion aritmetica\n";
+                                System.err.println(error);
+                                errores += error;
                             }
                             break;
                     }
 
                 } else {
-                    System.err.println("Error en la linea " + (first.getValue().right + 1) + ", columna " + first.getValue().left + " en el token " + first.getValue().value + ": Variable no ha sido declarada");
+                    String error = "Error en la linea " + (first.getValue().right + 1) + ", columna " + first.getValue().left + " en el token " + first.getValue().value + ": Variable no ha sido declarada\n";
+                    System.err.println(error);
+                    errores += error;
                 }
             } else if (first.getValue().sym == -1 && !first.valueIsString("ERROR")) {
                 System.err.println(first.getValue().value);
@@ -594,19 +612,25 @@ public class App extends javax.swing.JFrame {
                                             || firstResult.type.equals("long")) {
                                         setValidNumber(second.getValue().value.toString(), second, type, false);
                                     } else {
-                                        System.err.println("Error en la linea " + (thirdchild.getValue().right + 1) + ", columna " + thirdchild.getValue().left + " en el token " + thirdchild.getValue().value + ": Asignacion no es del tipo " + type);
+                                        String error = "Error en la linea " + (thirdchild.getValue().right + 1) + ", columna " + thirdchild.getValue().left + " en el token " + thirdchild.getValue().value + ": Asignacion no es del tipo " + type + "\n";
+                                        System.err.println(error);
+                                        errores += error;
                                     }
                                     break;
                                 case sym.STRING_LITERAL:
                                     if (type.contains("Pointer")) {
                                         setValidNumber(second.getValue().value.toString(), second, type, false);
                                     } else {
-                                        System.err.println("Error en la linea " + (thirdchild.getValue().right + 1) + ", columna " + thirdchild.getValue().left + " en el token " + thirdchild.getValue().value + ": Asignacion no es del tipo " + type);
+                                        String error = "Error en la linea " + (thirdchild.getValue().right + 1) + ", columna " + thirdchild.getValue().left + " en el token " + thirdchild.getValue().value + ": Asignacion no es del tipo " + type + "\n";
+                                        System.err.println(error);
+                                        errores += error;
                                     }
                                     break;
                             }
                         } else {
-                            System.err.println("Error en la linea " + (thirdchild.getValue().right + 1) + ", columna " + thirdchild.getValue().left + " en el token " + thirdchild.getValue().value + ": Asignacion del arreglo fuera del limite");
+                            String error = "Error en la linea " + (thirdchild.getValue().right + 1) + ", columna " + thirdchild.getValue().left + " en el token " + thirdchild.getValue().value + ": Asignacion del arreglo fuera del limite\n";
+                            System.err.println(error);
+                            errores += error;
                         }
 
                     }
@@ -616,8 +640,6 @@ public class App extends javax.swing.JFrame {
         }
     }
 
-    
-    
     public static void getDeclarations(MiArbolito node, String type, Table table) {
         String id = node.getValue().value.toString();
         ArrayList<MiArbolito> node_childs = node.getChildren();
@@ -638,9 +660,13 @@ public class App extends javax.swing.JFrame {
                     child_id = child_id.getChildren().get(1);
                     if (checkValueType(child_value, "Pointer(" + type + ")")) {
                         int offset = table.getActualOffset();
-                        table.addTableRow(child_id.getValue().value.toString(), child_value.getValue().value, "Pointer(" + type + ")", offset);
+
+                        Values v = table.addTableRow(child_id.getValue().value.toString(), child_value.getValue().value, "Pointer(" + type + ")", offset);
+                        if (v.addReturn == false) {
+                            errores += v.message;
+                        }
                     } else {
-                        String error = "Error en linea " + (child_id.getValue().right + 1) + ", columna " + child_id.getValue().left + " en el token " + child_id.getValue().value + ", asignacion no es de tipo " + type + "*";
+                        String error = "Error en linea " + (child_id.getValue().right + 1) + ", columna " + child_id.getValue().left + " en el token " + child_id.getValue().value + ", asignacion no es de tipo " + type + "*\n";
                         System.err.println(error);
                         errores += error;
                     }
@@ -650,16 +676,22 @@ public class App extends javax.swing.JFrame {
                     if (child_id.getChildren().size() == 3) {
                         if (child_id.getChildren().get(2).getValue().sym == sym.CONSTANT) {
                             if (setValidNumber(child_id.getChildren().get(2).getValue().value.toString(), child_id.getChildren().get(2), "int", false)) {
-                                table.addTableRow(child_id.getChildren().get(1).getValue().value.toString(), null, "array(" + child_id.getChildren().get(2).getValue().value + ", " + type + ")", offset);
+                                Values v = table.addTableRow(child_id.getChildren().get(1).getValue().value.toString(), null, "array(" + child_id.getChildren().get(2).getValue().value + ", " + type + ")", offset);
+                                if (v.addReturn == false) {
+                                    errores += v.message;
+                                }
                             }
 
                         } else {
-                            String error = "Error en linea " + (child_id.getChildren().get(1).getValue().right + 1) + ", columna " + child_id.getChildren().get(1).getValue().left + " en el token " + child_id.getChildren().get(1).getValue().value + ": asignacion no es de tipo arreglo " + type;
+                            String error = "Error en linea " + (child_id.getChildren().get(1).getValue().right + 1) + ", columna " + child_id.getChildren().get(1).getValue().left + " en el token " + child_id.getChildren().get(1).getValue().value + ": asignacion no es de tipo arreglo " + type + "\n";
                             System.err.println(error);
-                            errores +=error;
+                            errores += error;
                         }
                     } else if (child_id.getChildren().size() == 2) {
-                        table.addTableRow(child_id.getChildren().get(1).getValue().value.toString(), null, "array(0, " + type + ")", offset);
+                        Values v = table.addTableRow(child_id.getChildren().get(1).getValue().value.toString(), null, "array(0, " + type + ")", offset);
+                        if (v.addReturn == false) {
+                            errores += v.message;
+                        }
                     }
 
                     System.err.println("Advertencia en la linea " + (child_id.getChildren().get(1).getValue().right + 1) + ", columna " + child_id.getChildren().get(1).getValue().left + " en el token " + child_id.getChildren().get(1).getValue().value + ": no se acepta incializacion de arreglos");
@@ -669,14 +701,20 @@ public class App extends javax.swing.JFrame {
                             && child_value.getValue().sym != sym.MUL
                             && child_value.getValue().sym != sym.DIVIDE
                             && child_value.getValue().sym != sym.MINUS) {
-                        table.addTableRow(child_id.getValue().value.toString(), child_value.getValue().value, type, offset);
+                        Values v = table.addTableRow(child_id.getValue().value.toString(), child_value.getValue().value, type, offset);
+                        if (v.addReturn == false) {
+                            errores += v.message;
+                        }
                     } else {
-                        table.addTableRow(child_id.getValue().value.toString(), null, type, offset);
+                        Values v = table.addTableRow(child_id.getValue().value.toString(), null, type, offset);
+                        if (v.addReturn == false) {
+                            errores += v.message;
+                        }
                     }
                 } else {
-                    String error = "Error en linea " + (child_id.getValue().right + 1) + ", columna " + child_id.getValue().left + " en el token " + child_id.getValue().value + ": asignacion no es de tipo " + type;
+                    String error = "Error en linea " + (child_id.getValue().right + 1) + ", columna " + child_id.getValue().left + " en el token " + child_id.getValue().value + ": asignacion no es de tipo " + type + "\n";
                     System.err.println(error);
-                    errores+=error;
+                    errores += error;
                 }
                 break;
             case "direct_declarator": {
@@ -697,7 +735,10 @@ public class App extends javax.swing.JFrame {
                     }
                     parameter_types = type + " -> " + parameter_types;
                     int offset = table.getActualOffset();
-                    table.addTableRow(child_id.getValue().value.toString(), null, parameter_types, offset);
+                    Values v = table.addTableRow(child_id.getValue().value.toString(), null, parameter_types, offset);
+                    if (v.addReturn == false) {
+                        errores += v.message;
+                    }
                 } else if (declaration_type.equals("array_declarator")) {
                     child_id = node_childs.get(1);
                     int offset = table.getActualOffset();
@@ -705,15 +746,21 @@ public class App extends javax.swing.JFrame {
                         child_value = node_childs.get(2);
                         if (child_value.getValue().sym == 3) {
                             if (setValidNumber(child_value.getValue().value.toString(), child_value, "int", false)) {
-                                table.addTableRow(child_id.getValue().value.toString(), null, "array(" + child_value.getValue().value + ", " + type + ")", offset);
+                                Values v = table.addTableRow(child_id.getValue().value.toString(), null, "array(" + child_value.getValue().value + ", " + type + ")", offset);
+                                if (v.addReturn == false) {
+                                    errores += v.message;
+                                }
                             }
                         } else {
-                            String error= "Error en linea " + (child_id.getValue().right + 1) + ", columna " + child_id.getValue().left + " en el token " + child_id.getValue().value + ": asignacion no es de tipo arreglo " + type;
+                            String error = "Error en linea " + (child_id.getValue().right + 1) + ", columna " + child_id.getValue().left + " en el token " + child_id.getValue().value + ": asignacion no es de tipo arreglo " + type + "\n";
                             System.err.println(error);
                             errores += error;
                         }
                     } else {
-                        table.addTableRow(child_id.getValue().value.toString(), null, "array(0, " + type + ")", offset);
+                        Values v = table.addTableRow(child_id.getValue().value.toString(), null, "array(0, " + type + ")", offset);
+                        if (v.addReturn == false) {
+                            errores += v.message;
+                        }
                     }
                 }
                 break;
@@ -721,7 +768,10 @@ public class App extends javax.swing.JFrame {
             case "declarator":
                 child_id = node_childs.get(1);
                 int offset = table.getActualOffset();
-                table.addTableRow(child_id.getValue().value.toString(), null, "Pointer(" + type + ")", offset);
+                Values v = table.addTableRow(child_id.getValue().value.toString(), null, "Pointer(" + type + ")", offset);
+                if (v.addReturn == false) {
+                    errores += v.message;
+                }
                 break;
             case "parameter_declaration":
                 type = node_childs.get(0).getValue().value.toString();
@@ -731,10 +781,13 @@ public class App extends javax.swing.JFrame {
 
             default:
                 offset = table.getActualOffset();
-                table.addTableRow(id, null, type, offset);
+                Values v1 = table.addTableRow(id, null, type, offset);
+                if (v1.addReturn == false) {
+                    errores += v1.message;
+                }
         }
-                //System.out.println("Print table");
-                //table.print();
+        //System.out.println("Print table");
+        //table.print();
     }
 
     public static boolean checkValueType(MiArbolito node, String type) {
@@ -785,7 +838,9 @@ public class App extends javax.swing.JFrame {
                             a = node.getChildren().get(0).getValue().value;
                         }
                     } else {
-                        System.err.println("Error en la linea " + (node.getChildren().get(0).getValue().right + 1) + ", columna " + node.getChildren().get(0).getValue().left + " en el token " + node.getChildren().get(0).getValue().value + ": Valor en expresion aritmetica no valida");
+                        String error = "Error en la linea " + (node.getChildren().get(0).getValue().right + 1) + ", columna " + node.getChildren().get(0).getValue().left + " en el token " + node.getChildren().get(0).getValue().value + ": Valor en expresion aritmetica no valida\n";
+                        System.err.println(error);
+                        errores += error;
                     }
                     break;
                 case -1:
@@ -796,13 +851,17 @@ public class App extends javax.swing.JFrame {
                         a = node.getChildren().get(0).getValue().value;
                         AisNegative = true;
                     } else {
-                        System.err.println("Error en la linea " + (node.getChildren().get(0).getChildren().get(0).getValue().right + 1) + ", columna " + node.getChildren().get(0).getChildren().get(0).getValue().left + " en el token " + node.getChildren().get(0).getChildren().get(0).getValue().value + ": Valor en expresion aritmetica no valida");
+                        String error= "Error en la linea " + (node.getChildren().get(0).getChildren().get(0).getValue().right + 1) + ", columna " + node.getChildren().get(0).getChildren().get(0).getValue().left + " en el token " + node.getChildren().get(0).getChildren().get(0).getValue().value + ": Valor en expresion aritmetica no valida\n";
+                        System.err.println(error);
+                        errores += error;
                     }
                     break;
                 case sym.IDENTIFIER:
                     break;
                 default:
-                    System.err.println("Error en la linea " + (node.getChildren().get(0).getValue().right + 1) + ", columna " + node.getChildren().get(0).getValue().left + " en el token " + node.getChildren().get(0).getValue().value + ": Valor en expresion aritmetica no valida");
+                    String error = "Error en la linea " + (node.getChildren().get(0).getValue().right + 1) + ", columna " + node.getChildren().get(0).getValue().left + " en el token " + node.getChildren().get(0).getValue().value + ": Valor en expresion aritmetica no valida\n";
+                    System.err.println(error);
+                    errores += error;
                     if (node.getValue().sym == sym.PLUS
                             || node.getValue().sym == sym.MINUS) {
                         setValidNumber("0", node.getChildren().get(0), type, false);
@@ -834,7 +893,9 @@ public class App extends javax.swing.JFrame {
                             b = node.getChildren().get(1).getValue().value;
                         }
                     } else {
-                        System.err.println("Error en la linea " + (node.getChildren().get(1).getValue().right + 1) + ", columna " + node.getChildren().get(1).getValue().left + " en el token " + node.getChildren().get(1).getValue().value + ": Valor en expresion aritmetica no valida");
+                        String error = "Error en la linea " + (node.getChildren().get(1).getValue().right + 1) + ", columna " + node.getChildren().get(1).getValue().left + " en el token " + node.getChildren().get(1).getValue().value + ": Valor en expresion aritmetica no valida\n";
+                        System.err.println(error);
+                        errores += error;
                     }
                     break;
                 case -1:
@@ -845,13 +906,17 @@ public class App extends javax.swing.JFrame {
                         b = node.getChildren().get(1).getValue().value;
                         BisNegative = true;
                     } else {
-                        System.err.println("Error en la linea " + (node.getChildren().get(1).getChildren().get(0).getValue().right + 1) + ", columna " + node.getChildren().get(1).getChildren().get(0).getValue().left + " en el token " + node.getChildren().get(1).getChildren().get(0).getValue().value + ": Valor en expresion aritmetica no valida");
+                        String error = "Error en la linea " + (node.getChildren().get(1).getChildren().get(0).getValue().right + 1) + ", columna " + node.getChildren().get(1).getChildren().get(0).getValue().left + " en el token " + node.getChildren().get(1).getChildren().get(0).getValue().value + ": Valor en expresion aritmetica no valida\n";
+                        System.err.println(error);
+                        errores += error;
                     }
                     break;
                 case sym.IDENTIFIER:
                     break;
                 default:
-                    System.err.println("Error en la linea " + (node.getChildren().get(1).getValue().right + 1) + ", columna " + node.getChildren().get(1).getValue().left + " en el token " + node.getChildren().get(1).getValue().value + ": Valor en expresion aritmetica no valida");
+                    String error = "Error en la linea " + (node.getChildren().get(1).getValue().right + 1) + ", columna " + node.getChildren().get(1).getValue().left + " en el token " + node.getChildren().get(1).getValue().value + ": Valor en expresion aritmetica no valida\n";
+                    System.err.println(error);
+                    errores += error;
                     if (node.getValue().sym == sym.PLUS
                             || node.getValue().sym == sym.MINUS) {
                         setValidNumber("0", node.getChildren().get(1), type, false);
@@ -999,5 +1064,6 @@ public class App extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
     File input_C;
     static String errores;
+    static Table globalVariables;
 
 }
