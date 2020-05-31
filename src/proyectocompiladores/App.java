@@ -268,6 +268,8 @@ public class App extends javax.swing.JFrame {
                 myTree.reduce();
                 globalVariables = new Table();
                 Table table = new Table();
+                
+                System.out.println("Este es el primer nodo del arbol: " + myTree.getValue().value);
                 semantico(myTree, table);
                 System.out.println("Print table main");
                 table.print();
@@ -478,6 +480,7 @@ public class App extends javax.swing.JFrame {
 
     //COMPI II
     public static void semantico(MiArbolito parent_node, Table table) {
+        
         ArrayList<MiArbolito> childs = parent_node.getChildren();
         for (MiArbolito child : childs) {
             if (child.getValue().value.toString().equals("declaration")
@@ -576,6 +579,8 @@ public class App extends javax.swing.JFrame {
                                     || firstResult.type.equals("double")
                                     || firstResult.type.equals("float")
                                     || firstResult.type.equals("long")) {
+                                System.out.println("First Result: " +  firstResult.id);
+                                System.out.println("Node at this point: " + node.getValue().value);
                                 aritmetica(node, firstResult.type);
                             } else {
                                 String error = "Error en la linea " + (first.getValue().right + 1) + ", columna " + first.getValue().left + " en el token " + first.getValue().value + ": No se puede asignar expresion aritmetica\n";
@@ -815,6 +820,7 @@ public class App extends javax.swing.JFrame {
     }
 
     public static void aritmetica(MiArbolito node, String type) {
+        System.out.println("Aritmetica, Node: " + node.getValue().value + ", type: " + type);
         int symbol = node.getValue().sym;
 
         if (node.getChildren().size() == 2) {
