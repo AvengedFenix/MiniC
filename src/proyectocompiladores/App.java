@@ -268,7 +268,7 @@ public class App extends javax.swing.JFrame {
                 myTree.reduce();
                 globalVariables = new Table();
                 Table table = new Table();
-                
+
                 System.out.println("Este es el primer nodo del arbol: " + myTree.getValue().value);
                 semantico(myTree, table);
                 System.out.println("Print table main");
@@ -480,7 +480,7 @@ public class App extends javax.swing.JFrame {
 
     //COMPI II
     public static void semantico(MiArbolito parent_node, Table table) {
-        
+
         ArrayList<MiArbolito> childs = parent_node.getChildren();
         for (MiArbolito child : childs) {
             if (child.getValue().value.toString().equals("declaration")
@@ -579,9 +579,9 @@ public class App extends javax.swing.JFrame {
                                     || firstResult.type.equals("double")
                                     || firstResult.type.equals("float")
                                     || firstResult.type.equals("long")) {
-                                System.out.println("First Result: " +  firstResult.id);
+                                System.out.println("First Result: " + firstResult.id);
                                 System.out.println("Node at this point: " + node.getValue().value);
-                                aritmetica(node, firstResult.type);
+                                aritmetica(node, firstResult.type, table);
                             } else {
                                 String error = "Error en la linea " + (first.getValue().right + 1) + ", columna " + first.getValue().left + " en el token " + first.getValue().value + ": No se puede asignar expresion aritmetica\n";
                                 System.err.println(error);
@@ -809,7 +809,7 @@ public class App extends javax.swing.JFrame {
                 } else if (value.value.toString().equals("unary_expression")) {
                     return setValidNumber(node.getChildren().get(1).getValue().value.toString(), node, type, true);
                 } else if (value.sym >= 74 && value.sym <= 77) {
-                    aritmetica(node, type);
+                    aritmetica(node, type, new Table());
                     return true;
                 }
                 break;
@@ -819,13 +819,14 @@ public class App extends javax.swing.JFrame {
         return false;
     }
 
-    public static void aritmetica(MiArbolito node, String type) {
+    public static void aritmetica(MiArbolito node, String type, Table table) {
         System.out.println("Aritmetica, Node: " + node.getValue().value + ", type: " + type);
         int symbol = node.getValue().sym;
 
         if (node.getChildren().size() == 2) {
 
             int firstChild = node.getChildren().get(0).getValue().sym;
+            MiArbolito fChild = node.getChildren().get(0);
             Object a = null;
             boolean AisNegative = false;
 
@@ -839,7 +840,7 @@ public class App extends javax.swing.JFrame {
                 case sym.DIVIDE:
                 case sym.MINUS:
                     if (node.getChildren().get(0).getChildren().size() > 0) {
-                        aritmetica(node.getChildren().get(0), type);
+                        aritmetica(node.getChildren().get(0), type, table);
                         if (node.getChildren().get(0).getValue().sym == sym.CONSTANT) {
                             a = node.getChildren().get(0).getValue().value;
                         }
@@ -857,13 +858,51 @@ public class App extends javax.swing.JFrame {
                         a = node.getChildren().get(0).getValue().value;
                         AisNegative = true;
                     } else {
-                        String error= "Error en la linea " + (node.getChildren().get(0).getChildren().get(0).getValue().right + 1) + ", columna " + node.getChildren().get(0).getChildren().get(0).getValue().left + " en el token " + node.getChildren().get(0).getChildren().get(0).getValue().value + ": Valor en expresion aritmetica no valida\n";
+                        String error = "Error en la linea " + (node.getChildren().get(0).getChildren().get(0).getValue().right + 1) + ", columna " + node.getChildren().get(0).getChildren().get(0).getValue().left + " en el token " + node.getChildren().get(0).getChildren().get(0).getValue().value + ": Valor en expresion aritmetica no valida\n";
                         System.err.println(error);
                         errores += error;
                     }
                     break;
                 case sym.IDENTIFIER:
-                    break;
+                    /*
+                    TableRow secondResult = table.search(second.getValue().value.toString());
+                            if (secondResult != null) {
+                                //Aquí le asigna a x el valor de b, virificando si son del mismo tipo
+                                if (firstResult.type.equals(secondResult.type)) {
+                                    firstResult.value = secondResult.value;
+                                } else {
+                                    //La segunda variable no es del mismo tipo
+                                    String error = "Error en la linea " + (first.getValue().right + 1) + ", columna " + first.getValue().left + " en el token " + first.getValue().value + ": Varibales son de diferente tipo\n";
+                                    System.err.println(error);
+                                    errores += error;
+                                }
+                            } else {
+                                //La segunda variable no existe
+                                String error = "Error en la linea " + (second.getValue().right + 1) + ", columna " + second.getValue().left + " en el token " + second.getValue().value + ": Variable no ha sido declarada\n";
+                                System.err.println(error);
+                                errores += error;
+                            }
+                            break;
+                    
+                     */
+
+                    //Aqui es donde entra cuando hacemos int c = a + 2 y a no existe
+                    TableRow varExists = table.search(fChild.getValue().value.toString());
+
+                    if (varExists != null) {
+                        System.out.println("varExists: " + varExists.id);
+                        System.out.println("Existe");
+                        break;
+                    } else {
+                        String error = "Error en la linea " + (node.getChildren().get(0).getValue().right + 1)
+                                + ", columna " + node.getChildren().get(0).getValue().left
+                                + " en el token " + node.getChildren().get(0).getValue().value + ": la variable no existe\n";
+                        System.err.println(error);
+                        errores += error;
+                        break;
+                    }
+
+                //break;
                 default:
                     String error = "Error en la linea " + (node.getChildren().get(0).getValue().right + 1) + ", columna " + node.getChildren().get(0).getValue().left + " en el token " + node.getChildren().get(0).getValue().value + ": Valor en expresion aritmetica no valida\n";
                     System.err.println(error);
@@ -894,7 +933,7 @@ public class App extends javax.swing.JFrame {
                 case sym.DIVIDE:
                 case sym.MINUS:
                     if (node.getChildren().get(1).getChildren().size() > 0) {
-                        aritmetica(node.getChildren().get(1), type);
+                        aritmetica(node.getChildren().get(1), type, table);
                         if (node.getChildren().get(1).getValue().sym == sym.CONSTANT) {
                             b = node.getChildren().get(1).getValue().value;
                         }
