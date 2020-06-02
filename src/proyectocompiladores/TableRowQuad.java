@@ -14,27 +14,26 @@ public class TableRowQuad {
     public String arg2;
     public String res;
 
-    TableRowQuad(String op, String arg1) {
+    public TableRowQuad(String op, String arg1) {
         this.op = op;
         this.arg1 = arg1;
     }
 
-    TableRowQuad(String op, String arg1, String res) {
+    public TableRowQuad(String op, String arg1, String res) {
         this.op = op;
         this.arg1 = arg1;
         this.res = res;
     }
 
-    TableRowQuad(String op, String arg1, String arg2, String res) {
+    public TableRowQuad(String op, String arg1, String arg2, String res) {
         this.op = op;
         this.arg1 = arg1;
         this.arg2 = arg2;
         this.res = res;
     }
 
-    @Override
-    public String toString() {
-        return "TableQuadRow{" + "op=" + op + ", arg1=" + arg1 + ", arg2=" + arg2 + ", res=" + res + '}';
+    public void printRow(){
+        String ret = op + "       " + arg1 + "        " + arg2 + "        " + res;
+        System.out.println(ret);
     }
-
 }

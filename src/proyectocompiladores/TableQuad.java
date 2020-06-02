@@ -14,16 +14,21 @@ public class TableQuad {
 
     //ArrayList<TableRowQuad> headerRows = new ArrayList():
     //int msgcount = 0;
+
+    public TableQuad(){
+
+    }
+
     public void addRow(TableRowQuad new_row) {
         rows.add(new_row);
     }
 
     public void addRow(String op, String arg) {
-        rows.add(new TableRowQuad(op, arg));
+        rows.add(new TableRowQuad(op, arg, "", ""));
     }
 
     public void addRow(String op, String arg, String res) {
-        rows.add(new TableRowQuad(op, arg, res));
+        rows.add(new TableRowQuad(op, arg, "", res));
     }
 
     public void addRow(String op, String arg1, String arg2, String res) {
@@ -32,5 +37,16 @@ public class TableQuad {
 
     public ArrayList<TableRowQuad> getRows() {
         return rows;
+    }
+
+    public void printTable(){
+
+
+        System.out.println("-------------------Tabla Cuadruplos--------------------");
+        System.out.println("OP  " + "   ARG1    " +  "  ARG2    " + "   RES ");
+        for (TableRowQuad tableRowQuad : rows) {
+            tableRowQuad.printRow();
+        }
+        System.out.println("-------------------------------------------------------");
     }
 }

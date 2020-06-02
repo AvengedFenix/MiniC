@@ -18,6 +18,7 @@ public class MiArbolito {
     private MiArbolito parent;
     private ArrayList<MiArbolito> children = new ArrayList();
     private Symbol value;
+    private String Lugar = "";
 
     public MiArbolito(MiArbolito copy) {
         parent = copy.parent;
@@ -74,6 +75,14 @@ public class MiArbolito {
 
     public void deleteChildren() {
         children = new ArrayList();
+    }
+
+    public void setLugar(String Lugar){
+        this.Lugar = Lugar;
+    }
+
+    public String getLugar(){
+        return this.Lugar;
     }
 
     String myParent;
