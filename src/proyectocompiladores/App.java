@@ -500,10 +500,94 @@ public class App extends javax.swing.JFrame {
                 Asignacion(child, table);
 
             } else if (child.getValue().value.equals("function_definition")) {
+                ArrayList<String> parameters = new ArrayList();
 
                 Table child_table = new Table(table);
+                funcType = child.getChildren().get(0).getValue().value.toString();
+                if (child.getChildren().get(1).getValue().value.toString().equals("direct_declarator")) {
+                    System.out.println("Entre al if del direct_declarator");
+                    if (child.getChildren().get(1).getChildren().get(0).getValue().value.toString().equals("function_declarator")) {
+
+                        funName = child.getChildren().get(1).getChildren().get(1).getValue().value.toString();
+                        System.out.println("FunName: " + funName);
+
+                        //ESTO SE TIENE QUE HACER CON RECURSION PORQUE SI HAY MUCHOS PARAMETROS, NO SE GUARDAN TODOS
+                        try {
+                            if (child.getChildren().get(1).getChildren().get(2).getValue().value.toString().equals("parameter_list")) {
+                                System.out.println("parameter_list if");
+                                ArrayList<MiArbolito> paramChild = new ArrayList();
+                                paramChild = child.getChildren().get(1).getChildren().get(2).getChildren();
+                                System.out.println("param Child 0: " + paramChild.get(0).getValue().value.toString());
+                                if (paramChild.get(0).getValue().value.equals("parameter_list")) {
+                                    System.out.println("if paramChild");
+                                    ArrayList<MiArbolito> paramChild2 = paramChild.get(0).getChildren();
+                                    for (MiArbolito params : paramChild2) {
+                                        System.out.println("for paramsChild2: " + params.getValue().value.toString());
+                                        if (params.getValue().value.equals("parameter_declaration")) {
+                                            System.out.println("parameter_declaration if");
+                                            String getParameter = params.getChildren().get(0).getValue().value.toString();
+                                            System.out.println("Parameter paramChild2: " + getParameter);
+                                            parameters.add(getParameter);
+
+                                        }
+                                    }
+                                }
+
+                                System.out.println("paramlist Children: " + paramChild.toString());
+                                for (MiArbolito params : paramChild) {
+                                    System.out.println("En el for: " + params.getValue().value.toString());
+                                    if (params.getValue().value.equals("parameter_declaration")) {
+                                        System.out.println("parameter_declaration if");
+                                        String getParameter = params.getChildren().get(0).getValue().value.toString();
+                                        System.out.println("Parameter: " + getParameter);
+                                        parameters.add(getParameter);
+
+                                    }
+                                }
+                            }
+                            if (child.getChildren().get(1).getChildren().get(2).getValue().value.toString().equals("parameter_declaration")) {
+                                System.out.println("Solo uno parameter_declaration if");
+                                String getParameter = child.getChildren().get(1).getChildren().get(2).getChildren().get(0).getValue().value.toString();
+                                System.out.println("Parameter: " + getParameter);
+                                parameters.add(getParameter);
+
+                            }
+                        } catch (Exception e) {
+                            System.err.println(e);
+                        }
+                        System.out.println("parameters array: " + parameters.toString());
+                        if (!funName.equals("main")) {
+                            if (!parameters.isEmpty()) {
+                                StringBuilder concatParams = new StringBuilder();
+                                for (int i = 0; i < parameters.size(); i++) {
+                                    System.out.println("i: " + i + " parameters size: " + parameters.size());
+                                    if ((i + 1) != parameters.size()) {
+                                        concatParams.append(parameters.get(i) + " x ");
+
+                                    } else {
+                                        System.err.println("no x");
+                                        concatParams.append(parameters.get(i));
+                                    }
+
+                                }
+
+                                System.out.println("concatParams: " + concatParams.toString());
+                                concatParams.append(" -> " + funcType);
+
+                                table.addTableRow(child.getChildren().get(1).getChildren().get(1).getValue().value.toString(),
+                                        null, concatParams.toString(), 0);
+
+                            } else {
+                                table.addTableRow(child.getChildren().get(1).getChildren().get(1).getValue().value.toString(),
+                                        null, child.getChildren().get(0).getValue().value.toString(), 0);
+
+                            }
+                        }
+                    }
+                }
+                System.out.println("FuncType: " + funcType);
+
                 table.addChild(child_table);
-                //globalVariables.addTableRow(to_add)
                 ArrayList<MiArbolito> function_definition_childs = child.getChildren();
                 for (MiArbolito function_child : function_definition_childs) {
                     semantico(function_child, child_table);
@@ -522,6 +606,7 @@ public class App extends javax.swing.JFrame {
     public static void Asignacion(MiArbolito node, Table table) {
 
         //Esto sirve para hacer x = b
+        boolean funCall = false;
         if (node.getChildren().size() == 2) {
             MiArbolito first = node.getChildren().get(0);
             MiArbolito second = node.getChildren().get(1);
@@ -529,13 +614,38 @@ public class App extends javax.swing.JFrame {
                 TableRow firstResult = table.search(first.getValue().value.toString());
                 if (firstResult != null) {
                     if (second.getValue().value.equals("unary_expression")) {
-                        if (second.getChildren().get(0).getValue().sym == 71) {
+                        if (second.getChildren().get(0).getValue().sym == 71) { //Address de memoria
                             if (!firstResult.type.contains("Pointer")) {
                                 String error = "Error en la linea " + (first.getValue().right + 1) + ", columna " + first.getValue().left + " en el token " + first.getValue().value + ": Varibales son de diferente tipo\n";
                                 System.err.println(error);
                                 errores += error;
                             }
                         }
+                    } else if (second.getValue().value.equals("postfix_expression")) {
+
+                        try {
+                            System.out.println("-----------------Table en asignacion------------------");
+                            table.print();
+                            System.out.println("Parent de la table");
+                            table.parent.print();
+                            System.out.println("------------------------------------------------------");
+                            String currentFun = second.getChildren().get(1).getValue().value.toString();
+                            System.out.println("second child, buscando la funcion: " + currentFun);
+                            TableRow functionResult = table.search(currentFun);
+                            if (functionResult != null) {
+                                System.out.println("Function Result: " + functionResult.id);
+
+                                firstResult.type.equals(functionResult.type);
+                            } else {
+                                String error = "Error en la linea " + (second.getValue().right + 1) + ", columna " + second.getValue().left + " en el token " + second.getValue().value + ": La funcion no existe\n";
+                                System.err.println(error);
+                                errores += error;
+                            }
+
+                            funCall = true;
+                        } catch (Exception e) {
+                        }
+
                     }
                     switch (second.getValue().sym) {
                         case sym.IDENTIFIER:
@@ -560,15 +670,18 @@ public class App extends javax.swing.JFrame {
                         case sym.CONSTANT:
                         case sym.STRING_LITERAL:
                         case -1:
-                            if (second.getChildren().size() > 0 && second.getChildren().get(0).getValue().sym == 71) {
+                            if (funCall == false) {
+                                if (second.getChildren().size() > 0 && second.getChildren().get(0).getValue().sym == 71) {
 
-                            } else if (checkValueType(second, firstResult.type)) {
-                                firstResult.value = second.getValue().value;
-                            } else if (second.getChildren().size() > 0 && second.getChildren().get(0).getValue().sym != 71 || second.getChildren().size() == 0) {
-                                String error = "Error en la linea " + (first.getValue().right + 1) + ", columna " + first.getValue().left + " en el token " + first.getValue().value + ": Varibales son de diferente tipo\n";
-                                System.err.println(error);
-                                errores += error;
+                                } else if (checkValueType(second, firstResult.type)) {
+                                    firstResult.value = second.getValue().value;
+                                } else if (second.getChildren().size() > 0 && second.getChildren().get(0).getValue().sym != 71 || second.getChildren().size() == 0) {
+                                    String error = "Error en la linea " + (first.getValue().right + 1) + ", columna " + first.getValue().left + " en el token " + first.getValue().value + ": Varibales son de diferente tipo\n";
+                                    System.err.println(error);
+                                    errores += error;
+                                }
                             }
+                            funCall = false;
                             break;
                         case sym.PLUS:
                         case sym.MINUS:
@@ -1110,5 +1223,7 @@ public class App extends javax.swing.JFrame {
     File input_C;
     static String errores;
     static Table globalVariables;
+    static String funcType;
+    static String funName;
 
 }
