@@ -48,6 +48,7 @@ public class App extends javax.swing.JFrame {
     static int CantTemporales = 1;
 
     static TableQuad TablaCuadruplos = new TableQuad();
+    static TablaMensajes tablamensajes = new TablaMensajes();
 
     /**
      * Creates new form App
@@ -404,9 +405,12 @@ public class App extends javax.swing.JFrame {
                 // System.out.println("DespueIntermedio");
 
                 TablaCuadruplos.imprimirTablaCuadruplo();
+                System.out.println("\n");
+                tablamensajes.imprimirTablaMensajes();
 
                 // resetear tabla y temps
                 TablaCuadruplos.resetearTabla();
+                tablamensajes.resetearTabla();
                 CantTemporales = 1;
 
                 // END Compi II
@@ -1143,7 +1147,27 @@ public class App extends javax.swing.JFrame {
                 table.addChild(child_table);
 
                 recorrerFinal(child, child_table);
-            } else {
+            } else if (child.getValue().value.equals("postfix_expression")){
+                ArrayList<MiArbolito> hijos = child.getChildren();
+
+                MiArbolito nodoExpresionPrint = hijos.get(2);
+
+                String mensaje = nodoExpresionPrint.getChildren().get(0).getValue().value + "";
+                String variable = nodoExpresionPrint.getChildren().get(1).getValue().value + "";
+
+                String nombreMensaje = "_msg"+ (tablamensajes.rows.size()+1);
+
+                tablamensajes.addMensaje(new Mensaje(mensaje, variable, nombreMensaje));
+
+                
+
+                TablaCuadruplos.addRow("PRINT", nombreMensaje, variable, "");
+
+                
+
+            }
+            else
+            {
                 Intermedio(child, table);
             }
         }
