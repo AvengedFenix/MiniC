@@ -1150,31 +1150,55 @@ public class App extends javax.swing.JFrame {
             } else if (child.getValue().value.equals("postfix_expression")) {
                 ArrayList<MiArbolito> hijos = child.getChildren();
 
+                // System.out.println("\n ////////////// ");
+
+                // for (MiArbolito nodoHijo : hijos) {
+                //     System.out.println(nodoHijo.getValue().value);
+
+                // }
+
+                // System.out.println("\n ////////////// ");
+
+                MiArbolito tipoPostFix = hijos.get(1);
                 MiArbolito nodoPrint = hijos.get(2);
 
-                if (nodoPrint.getValue().value.equals("expression")) { // es un print con variable
+                if (tipoPostFix.getValue().value.equals("printf")) {
+                    if (nodoPrint.getValue().value.equals("expression")) { // es un print con variable
 
-                    String mensaje = nodoPrint.getChildren().get(0).getValue().value + "";
-                    String variable = nodoPrint.getChildren().get(1).getValue().value + "";
+                        String mensaje = nodoPrint.getChildren().get(0).getValue().value + "";
+                        String variable = nodoPrint.getChildren().get(1).getValue().value + "";
 
-                    String nombreMensaje = "_msg" + (tablamensajes.rows.size() + 1);
+                        String nombreMensaje = "_msg" + (tablamensajes.rows.size() + 1);
 
-                    tablamensajes.addMensaje(new Mensaje(mensaje, variable, nombreMensaje));
+                        tablamensajes.addMensaje(new Mensaje(mensaje, variable, nombreMensaje));
 
-                    TablaCuadruplos.addRow("PRINT", nombreMensaje, variable, "");
+                        TablaCuadruplos.addRow("PRINT", nombreMensaje, variable, "");
 
-                } else { // es un print normal
+                    } else { // es un print normal
 
-                    String mensaje = nodoPrint.getValue().value + "";
+                        String mensaje = nodoPrint.getValue().value + "";
 
-                    String nombreMensaje = "_msg" + (tablamensajes.rows.size() + 1);
+                        String nombreMensaje = "_msg" + (tablamensajes.rows.size() + 1);
 
-                    tablamensajes.addMensaje(new Mensaje(mensaje, "", nombreMensaje));
+                        tablamensajes.addMensaje(new Mensaje(mensaje, "", nombreMensaje));
 
-                    TablaCuadruplos.addRow("PRINT", nombreMensaje, "", "");
+                        TablaCuadruplos.addRow("PRINTF", nombreMensaje, "", "");
+                    }
+
+                } else if (tipoPostFix.getValue().value.equals("scanf")) {
+                    MiArbolito primerArgumentoString = nodoPrint.getChildren().get(0);
+                    MiArbolito unaryExpression = nodoPrint.getChildren().get(1);
+
+                    MiArbolito ampersand = unaryExpression.getChildren().get(0);
+                    MiArbolito variable = unaryExpression.getChildren().get(1);
+    
+                    String puntero = ampersand.getValue().value + "" + variable.getValue().value;
+
+                    TablaCuadruplos.addRow("SCANF", primerArgumentoString.getValue().value + "", puntero, "");
+
                 }
 
-            } else {
+            } else { 
                 Intermedio(child, table);
             }
         }
@@ -1206,7 +1230,7 @@ public class App extends javax.swing.JFrame {
                 MiArbolito variable = second.getChildren().get(1);
 
                 String puntero = ampersand.getValue().value + "" + variable.getValue().value;
-                
+
                 TablaCuadruplos.addRow("=", puntero, "", primero.getValue().value + "");
             } else {
                 switch (firstChild) {
