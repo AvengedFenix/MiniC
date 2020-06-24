@@ -1231,7 +1231,7 @@ public class App extends javax.swing.JFrame {
 
                 String puntero = ampersand.getValue().value + "" + variable.getValue().value;
 
-                TablaCuadruplos.addRow("=", puntero, "", primero.getValue().value + "");
+                TablaCuadruplos.addRow("=", puntero, "", "_" + primero.getValue().value + "");
             } else {
                 switch (firstChild) {
                     case sym.PLUS:
@@ -1375,7 +1375,7 @@ public class App extends javax.swing.JFrame {
 
                 // String newTemp = newTemporal();
 
-                TablaCuadruplos.addRow(op, der.getLugar(), izq.getValue().value + "");
+                TablaCuadruplos.addRow(op, der.getLugar(), "_" + izq.getValue().value + "");
 
             } else if (!isUnary && !isUnaryFirst) {
                 // este es el fondo del arbol, ninguno de los nodos hijos son operadores
