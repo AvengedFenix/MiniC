@@ -394,20 +394,23 @@ public class App extends javax.swing.JFrame {
 
                 table.print();
 
-                System.out.println("AntesIntermedio");
+                // System.out.println("AntesIntermedio");
 
                 myTree = (MiArbolito) x;
                 table = new Table();
 
                 Intermedio(myTree, table);
 
-                System.out.println("DespueIntermedio");
+                // System.out.println("DespueIntermedio");
 
-                TablaCuadruplos.printTable();
+                TablaCuadruplos.imprimirTablaCuadruplo();
+
+                // resetear tabla y temps
+                TablaCuadruplos.resetearTabla();
+                CantTemporales = 1;
 
                 // END Compi II
-                
-                
+
             } catch (FileNotFoundException ex) {
 
                 Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
@@ -852,7 +855,7 @@ public class App extends javax.swing.JFrame {
 
     public static boolean checkValueType(MiArbolito node, String type) {
         Symbol value = node.getValue();
-        
+
         switch (type) {
             case "int":
             case "short":
@@ -1134,12 +1137,10 @@ public class App extends javax.swing.JFrame {
         ArrayList<MiArbolito> children = parent_node.getChildren();
 
         for (MiArbolito child : children) {
-            
+
             if (child.getValue().value.equals("=")) {
                 Table child_table = new Table(table);
                 table.addChild(child_table);
-
-                
 
                 recorrerFinal(child, child_table);
             } else {
@@ -1156,110 +1157,368 @@ public class App extends javax.swing.JFrame {
 
     public static void recorrerFinal(MiArbolito node, Table table) {
 
-
         if (node.getChildren().size() == 2) {
 
             MiArbolito second = node.getChildren().get(1);
+            MiArbolito primero = node.getChildren().get(0);
 
             int secondChild = second.getValue().sym;
+            int firstChild = primero.getValue().sym;
 
-            second.setParent(node);
+            // second.setParent(node);
 
-            // System.out.println("Sym: " + secondChild +  "Left: " + node.getChildren().get(0).getValue().value 
-            //  + " , V: " + second.getValue().value);
+            // System.out.println("Sym: " + secondChild + " Left: " +
+            // node.getChildren().get(0).getValue().value
+            // + " , DER: " + second.getValue().value);
 
             // System.out.println("Node: " + node.getValue().value);
 
             // System.out.println("Fath: " + node.getParent().getValue().value);
             // System.out.println("Hij1: " + node.getChildren().get(0).getValue().value);
-            // System.out.println("Hij2: " +  node.getChildren().get(1).getValue().value);
+            // System.out.println("Hij2: " + node.getChildren().get(1).getValue().value);
             // System.out.println("");
 
-            
-            switch (secondChild) {
+            switch (firstChild) {
                 case sym.PLUS:
                 case sym.MUL:
                 case sym.DIVIDE:
                 case sym.MINUS:
-                    recorrerFinal(second, table);
+                    switch (secondChild) {
+                        case sym.PLUS:
+                        case sym.MUL:
+                        case sym.DIVIDE:
+                        case sym.MINUS:
+                            recorrerFinal(primero, table);
+                            recorrerFinal(second, table);
+                            break;
+                        case -1:
+
+                            break;
+
+                        default:
+                        case sym.IDENTIFIER:
+                            // addtoQuad(node, table);
+                            recorrerFinal(primero, table);
+                            break;
+                    }
+
                     break;
                 case -1:
-                    
+
                     break;
                 case sym.IDENTIFIER:
-                    break;
                 default:
-                    addtoQuad(node, table);
+
+                    switch (secondChild) {
+                        case sym.PLUS:
+                        case sym.MUL:
+                        case sym.DIVIDE:
+                        case sym.MINUS:
+                            // recorrerFinal(primero, table);
+                            recorrerFinal(second, table);
+                            break;
+                        case -1:
+
+                            break;
+
+                        default:
+                        case sym.IDENTIFIER:
+                            addtoQuad(node, table);
+                            break;
+                    }
+
                     break;
+
             }
 
         }
+
     }
 
-    public static void addtoQuad(MiArbolito node, Table table){
-        
-        MiArbolito izq = node.getChildren().get(0);
-        MiArbolito der = node.getChildren().get(1);
+    public static void addtoQuad(MiArbolito node, Table table) {
 
-        MiArbolito padre = node.getParent();
+        // System.out.println("\n + ///////////////////// \n Nodo: " + node.getValue().value);
+        // System.out.println("Padre mio: " + node.getParent().getValue().value);
+        // System.out.println("Cant hijos mios: " + node.getChildren().size());
+        // System.out.println("Padre de mi padre: " + node.getParent().getParent().getValue().value + "\n");
 
-        int secondChild = der.getValue().sym;
+        String father = node.getParent().getValue().value.toString();
+        String nodeString = node.getValue().value.toString();
 
-        boolean isUnary = checkUnaryNode(secondChild);
-            
-        // System.out.println(node.getValue().value);
-        // System.out.println(izq.getValue().value);   
-        // System.out.println(der.getValue().value);
+        int hijos = node.getChildren().size();
+        boolean isGarbageNode = true;
 
-        // System.out.println(isUnary);
+        if (hijos == 2) {
+            isGarbageNode = false;
+        }
 
-        if(!isUnary){
-            //este es el fondo del arbol.
+        if (
 
-            izq.setLugar(izq.getValue().value + "");
-            der.setLugar(der.getValue().value + "");
+        (father.equals("additive_expression") || father.equals("shift_expression")
+                || father.equals("relational_expression") || father.equals("equality_expression")
+                || father.equals("and_expression") || father.equals("inclusive_or_expression")
+                || father.equals("logical_and_expression") || father.equals("conditional_expression")
+                || father.equals("logical_or_expression")
+        // revisar si es un nodo restante del arbol, si lo es, subir su padre y asi
+        // sucesivamente
 
-            String newTemp = newTemporal();
+        ) && isGarbageNode) {
+            node.getParent().setLugar(node.getLugar());
+            addtoQuad(node.getParent(), table);
+        } else if (nodeString.equals("conditional_expression")) {
 
-            node.setLugar(newTemp);
+            node.getParent().setLugar(node.getLugar());
+            addtoQuad(node.getParent().getParent(), table);
+        } else if (nodeString.equals("multiplicative_expression")) {
 
-            String op = node.getValue().value + "";
+            node.getParent().setLugar(node.getLugar());
+            addtoQuad(node.getParent().getParent(), table);
+        } else {
+            MiArbolito izq = node.getChildren().get(0);
+            MiArbolito der = node.getChildren().get(1);
 
+            MiArbolito padre = node.getParent();
 
-            TablaCuadruplos.addRow(op, izq.getLugar(), der.getLugar(), newTemp);
+            int secondChild = der.getValue().sym;
+            int firstChild = izq.getValue().sym;
 
-            addtoQuad(padre, table);
+            boolean isUnary = checkUnaryNode(secondChild);
+            boolean isUnaryFirst = checkUnaryNode(firstChild);
 
-        } else if(node.getValue().value.equals("=")){
-            //ya llego al tope, fin de recursion
+            // System.out.println(izq.getValue().value);
+            // System.out.println(der.getValue().value);
 
-            String op = node.getValue().value + "";
+            // System.out.println("");
 
-            // String newTemp = newTemporal();
+            // System.out.println(isUnary);
 
-            TablaCuadruplos.addRow(op, der.getLugar(), izq.getValue().value + "");
+            if (node.getValue().value.equals("=")) {
+                
 
-        }else{
-            //subiendo el arbol
+                // ya llego al tope, fin de recursion
 
-            izq.setLugar(izq.getValue().value + "");
+                String op = node.getValue().value + "";
 
-            String newTemp = newTemporal();
+                if(der.getLugar().equals("")){
+                    der.setLugar(der.getValue().value + "");
+                }
 
-            node.setLugar(newTemp);
+                // String newTemp = newTemporal();
 
-            String op = node.getValue().value + "";
+                TablaCuadruplos.addRow(op, der.getLugar(), izq.getValue().value + "");
 
-            TablaCuadruplos.addRow(op, izq.getLugar(), der.getLugar(), newTemp);
+            } else if (!isUnary && !isUnaryFirst) {
+                // este es el fondo del arbol, ninguno de los nodos hijos son operadores
+                
+                izq.setLugar(izq.getValue().value + "");
+                der.setLugar(der.getValue().value + "");
 
-            
+                String newTemp = newTemporal();
 
-            addtoQuad(padre, table);
+                node.setLugar(newTemp);
+
+                String op = node.getValue().value + "";
+
+                TablaCuadruplos.addRow(op, izq.getLugar(), der.getLugar(), newTemp);
+
+                addtoQuad(padre, table);
+
+            } else {
+                // subiendo el arbol
+
+                if (isUnaryFirst && isUnary) {
+                    // cuando ambos nodos son operadores.
+
+                    // System.out.println("VVV Ambos ops VVv");
+                    // System.out.println(
+                    // "Op1: " + izq.getValue().value + " OP 2: " + der.getValue().value + "\n
+                    // ^^^^^^^ \n");
+
+                    if (der.getLugar().equals("") || izq.getLugar().equals("")) {
+                        // ignorar
+                    } else {
+
+                        TableRowQuad ultimoCuad = TablaCuadruplos.rows.get(TablaCuadruplos.rows.size() - 1);
+
+                        String arg1 = ultimoCuad.getArg1();
+                        String arg2 = ultimoCuad.getArg2();
+                        String op = ultimoCuad.getOp();
+                        String res = ultimoCuad.getRes();
+
+                        String opNodo = node.getValue().value + "";
+
+                        // System.out.println("Ultimo CUAD -> Arg1: " + arg1 + " Arg2: " + arg2 + " OP:
+                        // " + op);
+                        // System.out.println("CUAD a agregar -> Arg1: " + izq.getLugar() + " Arg2: " +
+                        // der.getLugar()
+                        // + " OP: " + opNodo);
+
+                        String izqLugar = izq.getLugar();
+                        String derLugar = der.getLugar();
+
+                        if (arg1.equals(izqLugar) && arg2.equals(derLugar) && op.equals(opNodo))
+
+                        {
+
+                            node.setLugar(res);
+
+                            // System.out.println("SOY IGUAL");
+
+                            // TablaCuadruplos.addRow(opNodo, izq.getLugar(), der.getLugar(), newTemp);
+
+                            String father1 = node.getParent().getValue().value.toString();
+
+                            if (father1.equals("multiplicative_expression") || father1.equals("additive_expression")) {
+                                node.getParent().setLugar(node.getLugar());
+                                addtoQuad(node.getParent(), table);
+                            } else {
+                                addtoQuad(padre, table);
+                            }
+
+                        } else {
+
+                            String newTemp = newTemporal();
+                            node.setLugar(newTemp);
+
+                            TablaCuadruplos.addRow(opNodo, izq.getLugar(), der.getLugar(), newTemp);
+
+                            String father1 = node.getParent().getValue().value.toString();
+
+                            if (father1.equals("multiplicative_expression") || father1.equals("additive_expression")) {
+                                node.getParent().setLugar(node.getLugar());
+                                addtoQuad(node.getParent(), table);
+                            } else {
+                                addtoQuad(padre, table);
+                            }
+                        }
+
+                    }
+
+                } else if (isUnaryFirst) {
+                    // el nodo izq es un op, que agarre el lugar
+                    der.setLugar(der.getValue().value + "");
+
+                    String opNodo = node.getValue().value + "";
+
+                    TableRowQuad ultimoCuad = TablaCuadruplos.rows.get(TablaCuadruplos.rows.size() - 1);
+
+                    String arg1 = ultimoCuad.arg1;
+                    String arg2 = ultimoCuad.arg2;
+                    String op = ultimoCuad.op;
+
+                    String res = ultimoCuad.getRes();
+
+                    // System.out.println("Ultimo CUAD -> Arg1: " + arg1 + " Arg2: " + arg2 + " OP:
+                    // " + op);
+                    // System.out.println("CUAD a agregar -> Arg1: " + izq.getLugar() + " Arg2: " +
+                    // der.getLugar()
+                    // + " OP: " + opNodo);
+
+                    String izqLugar = izq.getLugar();
+                    String derLugar = der.getLugar();
+
+                    if (arg1.equals(izqLugar) && arg2.equals(derLugar) && op.equals(opNodo))
+
+                    {
+
+                        node.setLugar(res);
+
+                        // System.out.println("SOY IGUAL");
+
+                        // TablaCuadruplos.addRow(opNodo, izq.getLugar(), der.getLugar(), newTemp);
+
+                        String father1 = node.getParent().getValue().value.toString();
+
+                        if (father1.equals("multiplicative_expression") || father1.equals("additive_expression")) {
+                            node.getParent().setLugar(node.getLugar());
+                            addtoQuad(node.getParent(), table);
+                        } else {
+                            addtoQuad(padre, table);
+                        }
+
+                    } else {
+
+                        String newTemp = newTemporal();
+                        node.setLugar(newTemp);
+
+                        TablaCuadruplos.addRow(opNodo, izq.getLugar(), der.getLugar(), newTemp);
+
+                        String father1 = node.getParent().getValue().value.toString();
+
+                        if (father1.equals("multiplicative_expression") || father1.equals("additive_expression")) {
+                            node.getParent().setLugar(node.getLugar());
+                            addtoQuad(node.getParent(), table);
+                        } else {
+                            addtoQuad(padre, table);
+                        }
+                    }
+
+                } else if (isUnary) {
+                    // el nodo derecho es un op
+                    izq.setLugar(izq.getValue().value + "");
+
+                    String opNodo = node.getValue().value + "";
+
+                    TableRowQuad ultimoCuad = TablaCuadruplos.rows.get(TablaCuadruplos.rows.size() - 1);
+
+                    String arg1 = ultimoCuad.arg1;
+                    String arg2 = ultimoCuad.arg2;
+                    String op = ultimoCuad.op;
+                    String res = ultimoCuad.getRes();
+
+                    // System.out.println("Ultimo CUAD -> Arg1: " + arg1 + " Arg2: " + arg2 + " OP:
+                    // " + op);
+                    // System.out.println("CUAD a agregar -> Arg1: " + izq.getLugar() + " Arg2: " +
+                    // der.getLugar()
+                    // + " OP: " + opNodo);
+
+                    String izqLugar = izq.getLugar();
+                    String derLugar = der.getLugar();
+
+                    if (arg1.equals(izqLugar) && arg2.equals(derLugar) && op.equals(opNodo))
+
+                    {
+
+                        node.setLugar(res);
+
+                        // System.out.println("SOY IGUAL");
+
+                        // TablaCuadruplos.addRow(opNodo, izq.getLugar(), der.getLugar(), newTemp);
+
+                        String father1 = node.getParent().getValue().value.toString();
+
+                        if (father1.equals("multiplicative_expression") || father1.equals("additive_expression")) {
+                            node.getParent().setLugar(node.getLugar());
+                            addtoQuad(node.getParent(), table);
+                        } else {
+                            addtoQuad(padre, table);
+                        }
+
+                    } else {
+
+                        String newTemp = newTemporal();
+                        node.setLugar(newTemp);
+
+                        TablaCuadruplos.addRow(opNodo, izq.getLugar(), der.getLugar(), newTemp);
+
+                        String father1 = node.getParent().getValue().value.toString();
+
+                        if (father1.equals("multiplicative_expression") || father1.equals("additive_expression")) {
+                            node.getParent().setLugar(node.getLugar());
+                            addtoQuad(node.getParent(), table);
+                        } else {
+                            addtoQuad(padre, table);
+                        }
+                    }
+
+                }
+
+            }
         }
 
     }
 
-    public static boolean checkUnaryNode(int secondChild){
+    public static boolean checkUnaryNode(int secondChild) {
 
         boolean isUnary = false;
 
@@ -1271,7 +1530,7 @@ public class App extends javax.swing.JFrame {
                 isUnary = true;
                 break;
             case -1:
-                
+
                 break;
             case sym.IDENTIFIER:
                 break;

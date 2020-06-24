@@ -19,6 +19,7 @@ public class MiArbolito {
     private ArrayList<MiArbolito> children = new ArrayList();
     private Symbol value;
     private String Lugar = "";
+    private boolean visitado = false;
 
     public MiArbolito(MiArbolito copy) {
         parent = copy.parent;
@@ -79,6 +80,14 @@ public class MiArbolito {
 
     public void setLugar(String Lugar){
         this.Lugar = Lugar;
+    }
+
+    public void setVisitado(){
+        this.visitado =  true;
+    }
+
+    public boolean getVisitado(){
+        return this.visitado;
     }
 
     public String getLugar(){
