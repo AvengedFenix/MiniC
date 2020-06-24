@@ -1147,27 +1147,34 @@ public class App extends javax.swing.JFrame {
                 table.addChild(child_table);
 
                 recorrerFinal(child, child_table);
-            } else if (child.getValue().value.equals("postfix_expression")){
+            } else if (child.getValue().value.equals("postfix_expression")) {
                 ArrayList<MiArbolito> hijos = child.getChildren();
 
-                MiArbolito nodoExpresionPrint = hijos.get(2);
+                MiArbolito nodoPrint = hijos.get(2);
 
-                String mensaje = nodoExpresionPrint.getChildren().get(0).getValue().value + "";
-                String variable = nodoExpresionPrint.getChildren().get(1).getValue().value + "";
+                if (nodoPrint.getValue().value.equals("expression")) { // es un print con variable
 
-                String nombreMensaje = "_msg"+ (tablamensajes.rows.size()+1);
+                    String mensaje = nodoPrint.getChildren().get(0).getValue().value + "";
+                    String variable = nodoPrint.getChildren().get(1).getValue().value + "";
 
-                tablamensajes.addMensaje(new Mensaje(mensaje, variable, nombreMensaje));
+                    String nombreMensaje = "_msg" + (tablamensajes.rows.size() + 1);
 
-                
+                    tablamensajes.addMensaje(new Mensaje(mensaje, variable, nombreMensaje));
 
-                TablaCuadruplos.addRow("PRINT", nombreMensaje, variable, "");
+                    TablaCuadruplos.addRow("PRINT", nombreMensaje, variable, "");
 
-                
+                } else { //es un print normal
 
-            }
-            else
-            {
+                    String mensaje = nodoPrint.getValue().value + "";
+
+                    String nombreMensaje = "_msg" + (tablamensajes.rows.size() + 1);
+
+                    tablamensajes.addMensaje(new Mensaje(mensaje, "", nombreMensaje));
+
+                    TablaCuadruplos.addRow("PRINT", nombreMensaje, "", "");
+                }
+
+            } else {
                 Intermedio(child, table);
             }
         }
@@ -1261,10 +1268,12 @@ public class App extends javax.swing.JFrame {
 
     public static void addtoQuad(MiArbolito node, Table table) {
 
-        // System.out.println("\n + ///////////////////// \n Nodo: " + node.getValue().value);
+        // System.out.println("\n + ///////////////////// \n Nodo: " +
+        // node.getValue().value);
         // System.out.println("Padre mio: " + node.getParent().getValue().value);
         // System.out.println("Cant hijos mios: " + node.getChildren().size());
-        // System.out.println("Padre de mi padre: " + node.getParent().getParent().getValue().value + "\n");
+        // System.out.println("Padre de mi padre: " +
+        // node.getParent().getParent().getValue().value + "\n");
 
         String father = node.getParent().getValue().value.toString();
         String nodeString = node.getValue().value.toString();
@@ -1317,13 +1326,12 @@ public class App extends javax.swing.JFrame {
             // System.out.println(isUnary);
 
             if (node.getValue().value.equals("=")) {
-                
 
                 // ya llego al tope, fin de recursion
 
                 String op = node.getValue().value + "";
 
-                if(der.getLugar().equals("")){
+                if (der.getLugar().equals("")) {
                     der.setLugar(der.getValue().value + "");
                 }
 
@@ -1333,7 +1341,7 @@ public class App extends javax.swing.JFrame {
 
             } else if (!isUnary && !isUnaryFirst) {
                 // este es el fondo del arbol, ninguno de los nodos hijos son operadores
-                
+
                 izq.setLugar(izq.getValue().value + "");
                 der.setLugar(der.getValue().value + "");
 
