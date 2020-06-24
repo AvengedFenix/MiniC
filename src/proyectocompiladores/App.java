@@ -1163,7 +1163,7 @@ public class App extends javax.swing.JFrame {
 
                     TablaCuadruplos.addRow("PRINT", nombreMensaje, variable, "");
 
-                } else { //es un print normal
+                } else { // es un print normal
 
                     String mensaje = nodoPrint.getValue().value + "";
 
@@ -1196,6 +1196,73 @@ public class App extends javax.swing.JFrame {
             int secondChild = second.getValue().sym;
             int firstChild = primero.getValue().sym;
 
+            // revision de punteros
+
+            if (second.getValue().value.equals("unary_expression")) { // si el nodo a la derecha es un puntero, realizar
+                                                                      // operacion distinta
+                // String newTemp = newTemporal();
+
+                MiArbolito ampersand = second.getChildren().get(0);
+                MiArbolito variable = second.getChildren().get(1);
+
+                String puntero = ampersand.getValue().value + "" + variable.getValue().value;
+                
+                TablaCuadruplos.addRow("=", puntero, "", primero.getValue().value + "");
+            } else {
+                switch (firstChild) {
+                    case sym.PLUS:
+                    case sym.MUL:
+                    case sym.DIVIDE:
+                    case sym.MINUS:
+                        switch (secondChild) {
+                            case sym.PLUS:
+                            case sym.MUL:
+                            case sym.DIVIDE:
+                            case sym.MINUS:
+                                recorrerFinal(primero, table);
+                                recorrerFinal(second, table);
+                                break;
+                            case -1:
+
+                                break;
+
+                            default:
+                            case sym.IDENTIFIER:
+                                // addtoQuad(node, table);
+                                recorrerFinal(primero, table);
+                                break;
+                        }
+
+                        break;
+                    case -1:
+
+                        break;
+                    case sym.IDENTIFIER:
+                    default:
+
+                        switch (secondChild) {
+                            case sym.PLUS:
+                            case sym.MUL:
+                            case sym.DIVIDE:
+                            case sym.MINUS:
+                                // recorrerFinal(primero, table);
+                                recorrerFinal(second, table);
+                                break;
+                            case -1:
+
+                                break;
+
+                            default:
+                            case sym.IDENTIFIER:
+                                addtoQuad(node, table);
+                                break;
+                        }
+
+                        break;
+
+                }
+            }
+
             // second.setParent(node);
 
             // System.out.println("Sym: " + secondChild + " Left: " +
@@ -1208,59 +1275,6 @@ public class App extends javax.swing.JFrame {
             // System.out.println("Hij1: " + node.getChildren().get(0).getValue().value);
             // System.out.println("Hij2: " + node.getChildren().get(1).getValue().value);
             // System.out.println("");
-
-            switch (firstChild) {
-                case sym.PLUS:
-                case sym.MUL:
-                case sym.DIVIDE:
-                case sym.MINUS:
-                    switch (secondChild) {
-                        case sym.PLUS:
-                        case sym.MUL:
-                        case sym.DIVIDE:
-                        case sym.MINUS:
-                            recorrerFinal(primero, table);
-                            recorrerFinal(second, table);
-                            break;
-                        case -1:
-
-                            break;
-
-                        default:
-                        case sym.IDENTIFIER:
-                            // addtoQuad(node, table);
-                            recorrerFinal(primero, table);
-                            break;
-                    }
-
-                    break;
-                case -1:
-
-                    break;
-                case sym.IDENTIFIER:
-                default:
-
-                    switch (secondChild) {
-                        case sym.PLUS:
-                        case sym.MUL:
-                        case sym.DIVIDE:
-                        case sym.MINUS:
-                            // recorrerFinal(primero, table);
-                            recorrerFinal(second, table);
-                            break;
-                        case -1:
-
-                            break;
-
-                        default:
-                        case sym.IDENTIFIER:
-                            addtoQuad(node, table);
-                            break;
-                    }
-
-                    break;
-
-            }
 
         }
 
