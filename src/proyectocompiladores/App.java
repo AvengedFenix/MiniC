@@ -579,7 +579,7 @@ public class App extends javax.swing.JFrame {
 
                             } else {
                                 table.addTableRow(child.getChildren().get(1).getChildren().get(1).getValue().value.toString(),
-                                        null, child.getChildren().get(0).getValue().value.toString(), 0);
+                                        null, "void -> " + funcType, 0);
 
                             }
                         }
@@ -635,7 +635,50 @@ public class App extends javax.swing.JFrame {
                             if (functionResult != null) {
                                 System.out.println("Function Result: " + functionResult.id);
 
-                                firstResult.type.equals(functionResult.type);
+                                if (functionResult.type.contains("void -> ")) {
+                                    System.out.println("CONTAINS VOID");
+                                } else {
+
+                                    String separator = " -> ";
+                                    int sepPos = functionResult.type.indexOf(separator);
+                                    if (sepPos == -1) {
+                                        System.out.println("");
+                                    }
+                                    String funcType = functionResult.type.substring(sepPos + separator.length());
+                                    System.out.println("Substring after separator = " + funcType);
+
+                                    String getParameters = functionResult.type.substring(0, sepPos);
+                                    String[] parameters;
+                                    parameters = getParameters.split(" x ");
+                                    System.out.println("Parameters");
+                                    for (int i = 0; i < parameters.length; i++) {
+                                        System.out.println(parameters[i]);
+                                    }
+
+                                    if (second.getChildren().get(2).getValue().value.toString().equals("expression")) {
+                                        ArrayList<String> recursiveParams = new ArrayList();
+
+                                        Values v = getAsignationParams(second.getChildren().get(2), recursiveParams, parameters, 0, 0);
+
+                                        recursiveParams = v.parameters;
+                                        recursiveParams.toString();
+
+                                        if (v.errors > 0) {
+                                            String error = "Error en la linea " + (second.getValue().right + 1) + ", columna " + second.getValue().left + " en el token " + second.getValue().value + ": Los parametros de la funcion no son correctos\n";
+                                            System.err.println(error);
+                                            errores += error;
+                                        }
+
+                                    }
+
+                                }
+
+                                if (!firstResult.type.equals(funcType)) {
+                                    String error = "Error en la linea " + (second.getValue().right + 1) + ", columna " + second.getValue().left + " en el token " + second.getValue().value + ": La funcion es de diferente tipo\n";
+                                    System.err.println(error);
+                                    errores += error;
+                                }
+
                             } else {
                                 String error = "Error en la linea " + (second.getValue().right + 1) + ", columna " + second.getValue().left + " en el token " + second.getValue().value + ": La funcion no existe\n";
                                 System.err.println(error);
@@ -756,6 +799,53 @@ public class App extends javax.swing.JFrame {
                 }
             }
         }
+    }
+
+    public static Values getAsignationParams(MiArbolito node, ArrayList list, String[] parameters, int index, int errors) {
+        MiArbolito firstChild = node.getChildren().get(0);
+        if (firstChild.getValue().value.toString().equals("expression")) {
+            list.add(node.getChildren().get(1).getValue().value.toString());
+            System.out.println("Param value: " + node.getChildren().get(1).getValue().value.toString());
+            if (!checkValueType(node.getChildren().get(1), parameters[index])) {
+                System.out.println("Check value types parameters index: " + index);
+                errors++;
+            }
+
+            getAsignationParams(firstChild, list, parameters, index++, errors);
+        } else {
+            try {
+                System.out.println("Param value: " + firstChild.getValue().value.toString());
+
+                if (!checkValueType(firstChild, parameters[index])) {
+                    System.out.println("Check value types parameters last 1 index: " + index);
+                    errors++;
+                } else {
+                    list.add(firstChild.getValue().value.toString());
+
+                }
+                index++;
+                
+                System.out.println("Param value: " + node.getChildren().get(1).getValue().value.toString());
+                aqui esta pasando el numero como que fuera char, y no deberia pasar
+                      obtener el tipo que viene con el valor
+                if (!checkValueType(node.getChildren().get(1), parameters[index])) {
+                    System.out.println("Check value types parameters last 2 index: " + index);
+                    errors++;
+                } else {
+                    list.add(node.getChildren().get(1).getValue().value.toString());
+
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        if (!(list.size() == parameters.length)) {
+            errors++;
+        }
+
+        Values v = new Values(list, errors);
+        return v;
     }
 
     public static void getDeclarations(MiArbolito node, String type, Table table) {
