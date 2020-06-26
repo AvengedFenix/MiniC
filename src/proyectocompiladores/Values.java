@@ -13,6 +13,8 @@ public class Values {
     public ArrayList<String[]> list = new ArrayList<String[]>();
     public boolean addReturn;
     public String message;
+    ArrayList<String> parameters;
+    int errors;
 
     public Values(String tree, ArrayList<String[]> list ) {
         this.tree = tree;
@@ -26,6 +28,11 @@ public class Values {
 
     public Values(boolean addReturn) {
         this.addReturn = addReturn;
+    }
+    
+    public Values(ArrayList<String> parameters, int errors){
+        this.errors = errors;
+        this.parameters = parameters;
     }
     
     
