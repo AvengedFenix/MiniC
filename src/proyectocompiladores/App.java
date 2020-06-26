@@ -1382,42 +1382,65 @@ public class App extends javax.swing.JFrame {
 
                 // System.out.println("\n ////////////// ");
 
-                MiArbolito tipoPostFix = hijos.get(1);
-                MiArbolito nodoPrint = hijos.get(2);
+                if (hijos.size() == 2) { // auto incremento/decremento
 
-                if (tipoPostFix.getValue().value.equals("printf")) {
-                    if (nodoPrint.getValue().value.equals("expression")) { // es un print con variable
+                    MiArbolito variable = hijos.get(0);
+                    MiArbolito tipoincdecr = hijos.get(1);
 
-                        String mensaje = nodoPrint.getChildren().get(0).getValue().value + "";
-                        String variable = nodoPrint.getChildren().get(1).getValue().value + "";
+                    if (tipoincdecr.getValue().value.equals("++")) {
 
-                        String nombreMensaje = "_msg" + (tablamensajes.rows.size() + 1);
+                        String tempnuevo = newTemporal();
+                        String guardarTemp = tempnuevo;
 
-                        tablamensajes.addMensaje(new Mensaje(mensaje, variable, nombreMensaje));
+                        TablaCuadruplos.addRow("+", "_" + variable.getValue().value + "", 1 + "", tempnuevo);
+                        TablaCuadruplos.addRow("=", guardarTemp, "", "_" + variable.getValue().value + "");
 
-                        TablaCuadruplos.addRow("PRINT", nombreMensaje, variable, "");
+                    } else if (tipoincdecr.getValue().value.equals("--")) {
+                        String tempnuevo = newTemporal();
+                        String guardarTemp = tempnuevo;
 
-                    } else { // es un print normal
-
-                        String mensaje = nodoPrint.getValue().value + "";
-
-                        String nombreMensaje = "_msg" + (tablamensajes.rows.size() + 1);
-
-                        tablamensajes.addMensaje(new Mensaje(mensaje, "", nombreMensaje));
-
-                        TablaCuadruplos.addRow("PRINTF", nombreMensaje, "", "");
+                        TablaCuadruplos.addRow("-", "_" + variable.getValue().value + "", 1 + "", tempnuevo);
+                        TablaCuadruplos.addRow("=", guardarTemp, "", "_" + variable.getValue().value + "");
                     }
+                } else { // prints y scans van aqui abajo
+                    MiArbolito tipoPostFix = hijos.get(1);
+                    MiArbolito nodoPrint = hijos.get(2);
 
-                } else if (tipoPostFix.getValue().value.equals("scanf")) {
-                    MiArbolito primerArgumentoString = nodoPrint.getChildren().get(0);
-                    MiArbolito unaryExpression = nodoPrint.getChildren().get(1);
+                    if (tipoPostFix.getValue().value.equals("printf")) {
+                        if (nodoPrint.getValue().value.equals("expression")) { // es un print con variable
 
-                    MiArbolito ampersand = unaryExpression.getChildren().get(0);
-                    MiArbolito variable = unaryExpression.getChildren().get(1);
+                            String mensaje = nodoPrint.getChildren().get(0).getValue().value + "";
+                            String variable = nodoPrint.getChildren().get(1).getValue().value + "";
 
-                    String puntero = ampersand.getValue().value + "" + variable.getValue().value;
+                            String nombreMensaje = "_msg" + (tablamensajes.rows.size() + 1);
 
-                    TablaCuadruplos.addRow("SCANF", primerArgumentoString.getValue().value + "", puntero, "");
+                            tablamensajes.addMensaje(new Mensaje(mensaje, variable, nombreMensaje));
+
+                            TablaCuadruplos.addRow("PRINT", nombreMensaje, variable, "");
+
+                        } else { // es un print normal
+
+                            String mensaje = nodoPrint.getValue().value + "";
+
+                            String nombreMensaje = "_msg" + (tablamensajes.rows.size() + 1);
+
+                            tablamensajes.addMensaje(new Mensaje(mensaje, "", nombreMensaje));
+
+                            TablaCuadruplos.addRow("PRINTF", nombreMensaje, "", "");
+                        }
+
+                    } else if (tipoPostFix.getValue().value.equals("scanf")) {
+                        MiArbolito primerArgumentoString = nodoPrint.getChildren().get(0);
+                        MiArbolito unaryExpression = nodoPrint.getChildren().get(1);
+
+                        MiArbolito ampersand = unaryExpression.getChildren().get(0);
+                        MiArbolito variable = unaryExpression.getChildren().get(1);
+
+                        String puntero = ampersand.getValue().value + "" + variable.getValue().value;
+
+                        TablaCuadruplos.addRow("SCANF", primerArgumentoString.getValue().value + "", puntero, "");
+
+                    }
 
                 }
 
@@ -1443,12 +1466,12 @@ public class App extends javax.swing.JFrame {
             int secondChild = second.getValue().sym;
             int firstChild = primero.getValue().sym;
 
-            System.out.println("Node: " + node.getValue().value);
+            // System.out.println("Node: " + node.getValue().value);
 
-            System.out.println("Fath: " + node.getParent().getValue().value);
-            System.out.println("Hij1: " + node.getChildren().get(0).getValue().value);
-            System.out.println("Hij2: " + node.getChildren().get(1).getValue().value);
-            System.out.println("");
+            // System.out.println("Fath: " + node.getParent().getValue().value);
+            // System.out.println("Hij1: " + node.getChildren().get(0).getValue().value);
+            // System.out.println("Hij2: " + node.getChildren().get(1).getValue().value);
+            // System.out.println("");
 
             // revision de punteros
 
@@ -1468,8 +1491,8 @@ public class App extends javax.swing.JFrame {
                 MiArbolito IDfunction = second.getChildren().get(1);
                 MiArbolito expression = second.getChildren().get(2);
 
-                if(functionCall.getValue().value.equals("function_call")){
-                    if(expression.getChildren().size() > 0){ //si hay mas de un parametro
+                if (functionCall.getValue().value.equals("function_call")) {
+                    if (expression.getChildren().size() > 0) { // si hay mas de un parametro
 
                         ArrayList<MiArbolito> params = expression.getChildren();
 
@@ -1478,26 +1501,22 @@ public class App extends javax.swing.JFrame {
                         }
 
                         TablaCuadruplos.addRow("CALL", "_ETIQ" + IDfunction.getValue().value + "", "", "");
-                        TablaCuadruplos.addRow("=", "RET", "", "_"+primero.getValue().value + "");
+                        TablaCuadruplos.addRow("=", "RET", "", "_" + primero.getValue().value + "");
 
-                    } else if(expression.getChildren().size()  == 0){
+                    } else if (expression.getChildren().size() == 0) {
                         TablaCuadruplos.addRow("PARAM", expression.getValue().value + "", "", "");
-                        TablaCuadruplos.addRow("CALL", "_ETIQ"+ IDfunction.getValue().value + "", "", "");
+                        TablaCuadruplos.addRow("CALL", "_ETIQ" + IDfunction.getValue().value + "", "", "");
 
-                        TablaCuadruplos.addRow("=", "RET", "", "_"+primero.getValue().value + "");
+                        TablaCuadruplos.addRow("=", "RET", "", "_" + primero.getValue().value + "");
 
                     }
-    
-    
-    
-                    ArrayList<MiArbolito> hijos = second.getChildren();
-    
-                    for (MiArbolito nodoHijo : hijos) {
-                        System.out.println(nodoHijo.getValue().value);
-                    }
+
+                    // ArrayList<MiArbolito> hijos = second.getChildren();
+
+                    // for (MiArbolito nodoHijo : hijos) {
+                    // System.out.println(nodoHijo.getValue().value);
+                    // }
                 }
-
-                
 
             } else {
                 switch (firstChild) {
@@ -1559,17 +1578,6 @@ public class App extends javax.swing.JFrame {
             // System.out.println("Sym: " + secondChild + " Left: " +
             // node.getChildren().get(0).getValue().value
             // + " , DER: " + second.getValue().value);
-
-        } else if (node.getChildren().size() == 1) {
-
-            // revisar que tipo de nodo viene
-
-            MiArbolito primero = node.getChildren().get(0);
-
-            System.out.println("HELOOOO");
-
-            if (primero.getValue().value.equals("postfix_expression")) {
-            }
 
         }
 
