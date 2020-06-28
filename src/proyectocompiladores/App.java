@@ -43,7 +43,7 @@ public class App extends javax.swing.JFrame {
     PrintWriter writer;
     Process powerShellProcess;
     String path = ".\\src\\FlexAndCup\\";
-    String[] pathSyntax = { "-parser", "Syntax", path + "Syntax.cup" };
+    String[] pathSyntax = {"-parser", "Syntax", path + "Syntax.cup"};
 
     static int CantTemporales = 1;
 
@@ -276,7 +276,6 @@ public class App extends javax.swing.JFrame {
                 table.print();
 
                 // intermedio
-
                 Values v = myTree.printAndFill();
 
                 Graph graph = new SingleGraph("AST");
@@ -396,14 +395,12 @@ public class App extends javax.swing.JFrame {
                 table.print();
 
                 // System.out.println("AntesIntermedio");
-
                 myTree = (MiArbolito) x;
                 table = new Table();
 
                 Intermedio(myTree, table);
 
                 // System.out.println("DespueIntermedio");
-
                 TablaCuadruplos.imprimirTablaCuadruplo();
                 System.out.println("\n");
                 tablamensajes.imprimirTablaMensajes();
@@ -414,7 +411,6 @@ public class App extends javax.swing.JFrame {
                 CantTemporales = 1;
 
                 // END Compi II
-
             } catch (FileNotFoundException ex) {
 
                 Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
@@ -478,7 +474,7 @@ public class App extends javax.swing.JFrame {
     }
 
     public static void generateLexer() {
-        String parametros[] = { "-d", "src/proyectocompiladores/", "src/proyectocompiladores/newLexer.flex" };
+        String parametros[] = {"-d", "src/proyectocompiladores/", "src/proyectocompiladores/newLexer.flex"};
         try {
             jflex.Main.generate(parametros);
         } catch (Exception e) {
@@ -488,8 +484,8 @@ public class App extends javax.swing.JFrame {
     }
 
     public static void generateParser() {
-        String parametros[] = { "-destdir", "src/proyectocompiladores/", "-parser", "parser",
-                "src/proyectocompiladores/parser.cup" };
+        String parametros[] = {"-destdir", "src/proyectocompiladores/", "-parser", "parser",
+            "src/proyectocompiladores/parser.cup"};
         try {
             java_cup.Main.main(parametros);
         } catch (Exception e) {
@@ -885,9 +881,8 @@ public class App extends javax.swing.JFrame {
                 index++;
 
                 System.out.println("Param value: " + node.getChildren().get(1).getValue().value.toString());
-                /*
-                 * aqui esta pasando el numero como que fuera char, y no deberia pasar obtener
-                 * el tipo que viene con el valor
+                /*aqui esta pasando el numero como que fuera char, y no deberia pasar
+                      obtener el tipo que viene con el valor
                  */
                 if (!checkValueType(node.getChildren().get(1), parameters[index])) {
                     System.out.println("Check value types parameters last 2 index: " + index);
@@ -1141,6 +1136,7 @@ public class App extends javax.swing.JFrame {
                     }
                     break;
                 case -1:
+                    System.out.println("-1 node: " + node.getChildren().get(0).getChildren().get(0).getValue().value.toString());
                     if (node.getChildren().get(0).getChildren().get(0).equals("-")) {
                         setValidNumber(node.getChildren().get(0).getChildren().get(1).getValue().value.toString(),
                                 node.getChildren().get(0), type, false);
@@ -1148,6 +1144,14 @@ public class App extends javax.swing.JFrame {
                         node.getChildren().get(0).deleteChildren();
                         a = node.getChildren().get(0).getValue().value;
                         AisNegative = true;
+                    } else if (node.getChildren().get(0).getChildren().get(0).getValue().value.equals("function_call")) {
+                        System.out.println("Hello there");
+                        TableRow functionExists = table.search(node.getChildren().get(0).getChildren().get(1).getValue().value.toString());
+
+                        if (functionExists != null) {
+                            System.out.println("Function: " + functionExists.id + " exists");
+                            break;
+                        }
                     } else {
                         String error = "Error en la linea "
                                 + (node.getChildren().get(0).getChildren().get(0).getValue().right + 1) + ", columna "
@@ -1191,7 +1195,7 @@ public class App extends javax.swing.JFrame {
                         break;
                     }
 
-                    // break;
+                // break;
                 default:
                     String error = "Error en la linea " + (node.getChildren().get(0).getValue().right + 1)
                             + ", columna " + node.getChildren().get(0).getValue().left + " en el token "
@@ -1211,6 +1215,8 @@ public class App extends javax.swing.JFrame {
             }
 
             int secondChild = node.getChildren().get(1).getValue().sym;
+            MiArbolito sChild = node.getChildren().get(1);
+
             Object b = null;
             boolean BisNegative = false;
 
@@ -1239,6 +1245,7 @@ public class App extends javax.swing.JFrame {
                     }
                     break;
                 case -1:
+                    System.out.println("-1 second: " + node.getChildren().get(1).getChildren().get(0).getValue().value.toString());
                     if (node.getChildren().get(1).getChildren().get(0).equals("-")) {
                         setValidNumber(node.getChildren().get(1).getChildren().get(1).getValue().value.toString(),
                                 node.getChildren().get(1), type, false);
@@ -1246,6 +1253,14 @@ public class App extends javax.swing.JFrame {
                         node.getChildren().get(1).deleteChildren();
                         b = node.getChildren().get(1).getValue().value;
                         BisNegative = true;
+                    } else if (node.getChildren().get(1).getChildren().get(0).getValue().value.equals("function_call")) {
+                        System.out.println("Hello there");
+                        TableRow functionExists = table.search(node.getChildren().get(1).getChildren().get(1).getValue().value.toString());
+
+                        if (functionExists != null) {
+                            System.out.println("Function: " + functionExists.id + " exists");
+                            break;
+                        }
                     } else {
                         String error = "Error en la linea "
                                 + (node.getChildren().get(1).getChildren().get(0).getValue().right + 1) + ", columna "
@@ -1257,7 +1272,22 @@ public class App extends javax.swing.JFrame {
                     }
                     break;
                 case sym.IDENTIFIER:
-                    break;
+
+                    TableRow varExists = table.search(sChild.getValue().value.toString());
+
+                    if (varExists != null) {
+                        System.out.println("varExists: " + varExists.id);
+                        System.out.println("Existe");
+                        break;
+                    } else {
+                        String error = "Error en la linea " + (node.getChildren().get(1).getValue().right + 1)
+                                + ", columna " + node.getChildren().get(1).getValue().left + " en el token "
+                                + node.getChildren().get(1).getValue().value + ": la variable no existe\n";
+                        System.err.println(error);
+                        errores += error;
+                        break;
+                    }
+
                 default:
                     String error = "Error en la linea " + (node.getChildren().get(1).getValue().right + 1)
                             + ", columna " + node.getChildren().get(1).getValue().left + " en el token "
@@ -1374,12 +1404,9 @@ public class App extends javax.swing.JFrame {
                 ArrayList<MiArbolito> hijos = child.getChildren();
 
                 // System.out.println("\n ////////////// ");
-
                 // for (MiArbolito nodoHijo : hijos) {
-                // System.out.println(nodoHijo.getValue().value);
-
+                //     System.out.println(nodoHijo.getValue().value);
                 // }
-
                 // System.out.println("\n ////////////// ");
 
                 if (hijos.size() == 2) { // auto incremento/decremento
@@ -1474,9 +1501,8 @@ public class App extends javax.swing.JFrame {
             // System.out.println("");
 
             // revision de punteros
-
             if (second.getValue().value.equals("unary_expression")) { // si el nodo a la derecha es un puntero, realizar
-                                                                      // operacion distinta
+                // operacion distinta
                 // String newTemp = newTemporal();
 
                 MiArbolito ampersand = second.getChildren().get(0);
@@ -1574,11 +1600,14 @@ public class App extends javax.swing.JFrame {
             }
 
             // second.setParent(node);
-
             // System.out.println("Sym: " + secondChild + " Left: " +
             // node.getChildren().get(0).getValue().value
             // + " , DER: " + second.getValue().value);
-
+            // System.out.println("Node: " + node.getValue().value);
+            // System.out.println("Fath: " + node.getParent().getValue().value);
+            // System.out.println("Hij1: " + node.getChildren().get(0).getValue().value);
+            // System.out.println("Hij2: " + node.getChildren().get(1).getValue().value);
+            // System.out.println("");
         }
 
     }
@@ -1591,7 +1620,6 @@ public class App extends javax.swing.JFrame {
         // System.out.println("Cant hijos mios: " + node.getChildren().size());
         // System.out.println("Padre de mi padre: " +
         // node.getParent().getParent().getValue().value + "\n");
-
         String father = node.getParent().getValue().value.toString();
         String nodeString = node.getValue().value.toString();
 
@@ -1602,17 +1630,13 @@ public class App extends javax.swing.JFrame {
             isGarbageNode = false;
         }
 
-        if (
-
-        (father.equals("additive_expression") || father.equals("shift_expression")
+        if ((father.equals("additive_expression") || father.equals("shift_expression")
                 || father.equals("relational_expression") || father.equals("equality_expression")
                 || father.equals("and_expression") || father.equals("inclusive_or_expression")
                 || father.equals("logical_and_expression") || father.equals("conditional_expression")
-                || father.equals("logical_or_expression")
-        // revisar si es un nodo restante del arbol, si lo es, subir su padre y asi
-        // sucesivamente
-
-        ) && isGarbageNode) {
+                || father.equals("logical_or_expression") // revisar si es un nodo restante del arbol, si lo es, subir su padre y asi
+                // sucesivamente
+                ) && isGarbageNode) {
             node.getParent().setLugar(node.getLugar());
             addtoQuad(node.getParent(), table);
         } else if (nodeString.equals("conditional_expression")) {
@@ -1637,15 +1661,11 @@ public class App extends javax.swing.JFrame {
 
             // System.out.println(izq.getValue().value);
             // System.out.println(der.getValue().value);
-
             // System.out.println("");
-
             // System.out.println(isUnary);
-
             if (node.getValue().value.equals("=")) {
 
                 // ya llego al tope, fin de recursion
-
                 String op = node.getValue().value + "";
 
                 if (der.getLugar().equals("")) {
@@ -1653,7 +1673,6 @@ public class App extends javax.swing.JFrame {
                 }
 
                 // String newTemp = newTemporal();
-
                 TablaCuadruplos.addRow(op, der.getLugar(), "_" + izq.getValue().value + "");
 
             } else if (!isUnary && !isUnaryFirst) {
@@ -1682,7 +1701,6 @@ public class App extends javax.swing.JFrame {
                     // System.out.println(
                     // "Op1: " + izq.getValue().value + " OP 2: " + der.getValue().value + "\n
                     // ^^^^^^^ \n");
-
                     if (der.getLugar().equals("") || izq.getLugar().equals("")) {
                         // ignorar
                     } else {
@@ -1701,20 +1719,15 @@ public class App extends javax.swing.JFrame {
                         // System.out.println("CUAD a agregar -> Arg1: " + izq.getLugar() + " Arg2: " +
                         // der.getLugar()
                         // + " OP: " + opNodo);
-
                         String izqLugar = izq.getLugar();
                         String derLugar = der.getLugar();
 
-                        if (arg1.equals(izqLugar) && arg2.equals(derLugar) && op.equals(opNodo))
-
-                        {
+                        if (arg1.equals(izqLugar) && arg2.equals(derLugar) && op.equals(opNodo)) {
 
                             node.setLugar(res);
 
                             // System.out.println("SOY IGUAL");
-
                             // TablaCuadruplos.addRow(opNodo, izq.getLugar(), der.getLugar(), newTemp);
-
                             String father1 = node.getParent().getValue().value.toString();
 
                             if (father1.equals("multiplicative_expression") || father1.equals("additive_expression")) {
@@ -1762,20 +1775,15 @@ public class App extends javax.swing.JFrame {
                     // System.out.println("CUAD a agregar -> Arg1: " + izq.getLugar() + " Arg2: " +
                     // der.getLugar()
                     // + " OP: " + opNodo);
-
                     String izqLugar = izq.getLugar();
                     String derLugar = der.getLugar();
 
-                    if (arg1.equals(izqLugar) && arg2.equals(derLugar) && op.equals(opNodo))
-
-                    {
+                    if (arg1.equals(izqLugar) && arg2.equals(derLugar) && op.equals(opNodo)) {
 
                         node.setLugar(res);
 
                         // System.out.println("SOY IGUAL");
-
                         // TablaCuadruplos.addRow(opNodo, izq.getLugar(), der.getLugar(), newTemp);
-
                         String father1 = node.getParent().getValue().value.toString();
 
                         if (father1.equals("multiplicative_expression") || father1.equals("additive_expression")) {
@@ -1820,20 +1828,15 @@ public class App extends javax.swing.JFrame {
                     // System.out.println("CUAD a agregar -> Arg1: " + izq.getLugar() + " Arg2: " +
                     // der.getLugar()
                     // + " OP: " + opNodo);
-
                     String izqLugar = izq.getLugar();
                     String derLugar = der.getLugar();
 
-                    if (arg1.equals(izqLugar) && arg2.equals(derLugar) && op.equals(opNodo))
-
-                    {
+                    if (arg1.equals(izqLugar) && arg2.equals(derLugar) && op.equals(opNodo)) {
 
                         node.setLugar(res);
 
                         // System.out.println("SOY IGUAL");
-
                         // TablaCuadruplos.addRow(opNodo, izq.getLugar(), der.getLugar(), newTemp);
-
                         String father1 = node.getParent().getValue().value.toString();
 
                         if (father1.equals("multiplicative_expression") || father1.equals("additive_expression")) {
