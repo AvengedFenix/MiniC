@@ -1193,6 +1193,8 @@ public class App extends javax.swing.JFrame {
             }
 
             int secondChild = node.getChildren().get(1).getValue().sym;
+            MiArbolito sChild = node.getChildren().get(1);
+
             Object b = null;
             boolean BisNegative = false;
 
@@ -1248,7 +1250,22 @@ public class App extends javax.swing.JFrame {
                     }
                     break;
                 case sym.IDENTIFIER:
-                    break;
+
+                    TableRow varExists = table.search(sChild.getValue().value.toString());
+
+                    if (varExists != null) {
+                        System.out.println("varExists: " + varExists.id);
+                        System.out.println("Existe");
+                        break;
+                    } else {
+                        String error = "Error en la linea " + (node.getChildren().get(1).getValue().right + 1)
+                                + ", columna " + node.getChildren().get(1).getValue().left + " en el token "
+                                + node.getChildren().get(1).getValue().value + ": la variable no existe\n";
+                        System.err.println(error);
+                        errores += error;
+                        break;
+                    }
+
                 default:
                     String error = "Error en la linea " + (node.getChildren().get(1).getValue().right + 1)
                             + ", columna " + node.getChildren().get(1).getValue().left + " en el token "
