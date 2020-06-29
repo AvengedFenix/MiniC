@@ -1485,10 +1485,124 @@ public class App extends javax.swing.JFrame {
 
                     TablaCuadruplos.addRow("_ETIQ", idFunction.getValue().value + "", "", "");
                 }
+            } else if (child.getValue().value.equals("jump_statement")) {
+
+                if (child.getChildren().size() == 2) {
+                    MiArbolito ret = child.getChildren().get(0);
+                    MiArbolito expression = child.getChildren().get(1);
+
+                    if (ret.getValue().value.equals("return")) {
+                        boolean isUnary = checkUnaryNode(expression.getValue().sym);
+                        if (isUnary) {
+                            // es un operador con una expresion larga
+
+                            System.out.println("h1");
+
+                            recorrerFinal(expression, table);
+
+                            System.out.println("h2");
+
+                            TablaCuadruplos.addRow("RET", expression.getLugar(), "", "");
+
+                        } else {
+
+                            if (expression.getValue().value.equals("postfix_expression")) {
+                                MiArbolito functionCall = expression.getChildren().get(0);
+                                MiArbolito IDfunction = expression.getChildren().get(1);
+                                MiArbolito expr = expression.getChildren().get(2);
+
+                                if (functionCall.getValue().value.equals("function_call")) {
+
+                                    // revisar si trae un operador como hijo
+
+                                    if (expr.getChildren().size() > 0) { // si hay mas de un parametro
+
+                                        if (expr.getChildren().size() == 2) {
+                                            // puede ser que traiga un operador, o simplemente dos parametros normales
+                                            // entonces hay que comprobar que es lo que viene
+
+                                            boolean revisarExpresion = checkUnaryNode(expr.getValue().sym);
+
+                                            if (revisarExpresion) {
+                                                recorrerFinal(expr, table);
+
+                                                String newTemp = newTemporal();
+
+                                                TablaCuadruplos.addRow("PARAM", expr.getLugar(), "", "");
+                                                TablaCuadruplos.addRow("CALL",
+                                                        "_ETIQ" + IDfunction.getValue().value + "", "", "");
+                                                TablaCuadruplos.addRow("=", "RET", "", newTemp);
+                                                TablaCuadruplos.addRow("RET", newTemp, "", "");
+
+                                                expression.setLugar(newTemp);
+
+                                                expression.setVisitado();
+
+                                            } else {
+                                                System.out.println("A1");
+                                                recorrerExpressionAbajo(expr);
+                                                System.out.println("A2");
+
+                                                String newTemp = newTemporal();
+
+                                                TablaCuadruplos.addRow("CALL",
+                                                        "_ETIQ" + IDfunction.getValue().value + "", "", "");
+                                                TablaCuadruplos.addRow("=", "RET", "", newTemp);
+                                                TablaCuadruplos.addRow("RET", newTemp, "", "");
+
+                                                expression.setLugar(newTemp);
+
+                                                expression.setVisitado();
+                                            }
+
+                                        } else {
+                                            recorrerExpressionAbajo(expr);
+
+                                            String newTemp = newTemporal();
+
+                                            TablaCuadruplos.addRow("CALL", "_ETIQ" + IDfunction.getValue().value + "",
+                                                    "", "");
+                                            TablaCuadruplos.addRow("=", "RET", "", newTemp);
+                                            TablaCuadruplos.addRow("RET", newTemp, "", "");
+
+                                            expression.setLugar(newTemp);
+
+                                            expression.setVisitado();
+                                        }
+
+                                    } else if (expression.getChildren().size() == 0) {
+
+                                        String newTemp = newTemporal();
+                                        TablaCuadruplos.addRow("PARAM",
+                                                revisarSiEsVariable(expression.getValue().value + ""), "", "");
+                                        TablaCuadruplos.addRow("CALL", "_ETIQ" + IDfunction.getValue().value + "", "",
+                                                "");
+
+                                        TablaCuadruplos.addRow("=", "RET", "", newTemp);
+                                        TablaCuadruplos.addRow("RET", newTemp, "", "");
+
+                                        expression.setLugar(newTemp);
+
+                                        expression.setVisitado();
+
+                                    }
+
+                                }
+
+                            } else {
+                                TablaCuadruplos.addRow("RET", revisarSiEsVariable(expression.getValue().value + ""), "",
+                                        "");
+                            }
+
+                        }
+                    }
+                }
+
             } else {
                 Intermedio(child, table);
             }
         }
+
     }
 
     public static String newTemporal() {
@@ -1637,10 +1751,10 @@ public class App extends javax.swing.JFrame {
 
     public static void addtoQuad(MiArbolito node, Table table) {
 
-        // System.out.println("\n + ///////////////////// \n Nodo: " + node.getValue().value);
-        // System.out.println("Padre mio: " + node.getParent().getValue().value);
-        // System.out.println("Cant hijos mios: " + node.getChildren().size());
-        // System.out.println("Padre de mi padre: " + node.getParent().getParent().getValue().value + "\n");
+        System.out.println("\n + ///////////////////// \n Nodo: " + node.getValue().value);
+        System.out.println("Padre mio: " + node.getParent().getValue().value);
+        System.out.println("Cant hijos mios: " + node.getChildren().size());
+        System.out.println("Padre de mi padre: " + node.getParent().getParent().getValue().value + "\n");
         String father = node.getParent().getValue().value.toString();
         String nodeString = node.getValue().value.toString();
 
@@ -1674,6 +1788,12 @@ public class App extends javax.swing.JFrame {
         } else if (father.equals("postfix_expression") && !node.getLugar().equals("")) {
 
             node.getParent().setLugar(node.getLugar());
+        } else if (father.equals("jump_statement") && !node.getLugar().equals("")) {
+
+            node.getParent().setLugar(node.getLugar());
+        } else if (father.equals("expression") && !node.getLugar().equals("")) {
+
+            node.getParent().setLugar(node.getLugar());
         } else {
             MiArbolito izq = node.getChildren().get(0);
             MiArbolito der = node.getChildren().get(1);
@@ -1686,9 +1806,9 @@ public class App extends javax.swing.JFrame {
             boolean isUnary = checkUnaryNode(secondChild);
             boolean isUnaryFirst = checkUnaryNode(firstChild);
 
-            System.out.println(izq.getValue().value);
-            System.out.println(der.getValue().value);
-            System.out.println("");
+            // System.out.println(izq.getValue().value);
+            // System.out.println(der.getValue().value);
+            // System.out.println("");
             // System.out.println(isUnary);
             if (node.getValue().value.equals("=")) {
 
@@ -2066,6 +2186,8 @@ public class App extends javax.swing.JFrame {
 
                 if (father.equals("postfix_expression")) {
                     //
+                } else if (father.equals("jump_statement")) {
+                    //
                 } else {
                     addtoQuad(padre, table);
                 }
@@ -2431,13 +2553,37 @@ public class App extends javax.swing.JFrame {
         MiArbolito primero = nodo.getChildren().get(0);
         MiArbolito segundo = nodo.getChildren().get(1);
 
+        boolean isUnaryFirst = checkUnaryNode(primero.getValue().sym);
+        boolean isUnarySecond = checkUnaryNode(segundo.getValue().sym);
+
+        boolean isUnaryAny = isUnaryFirst || isUnarySecond;
+
+        if (isUnaryFirst) {
+            recorrerFinal(primero, null);
+            TablaCuadruplos.addRow("PARAM", revisarSiEsVariable(primero.getLugar()), "", "");
+            // if(!isUnarySecond){
+            //     TablaCuadruplos.addRow("PARAM", revisarSiEsVariable(segundo.getValue().value + ""), "", "");
+            // }
+        }
+
+        if (isUnarySecond && !nodo.getParent().getValue().value.equals("postfix_expression")) {
+            recorrerFinal(segundo, null);
+            TablaCuadruplos.addRow("PARAM", revisarSiEsVariable(segundo.getLugar()), "", "");
+            // if(!isUnaryFirst){
+            //     TablaCuadruplos.addRow("PARAM", revisarSiEsVariable(primero.getValue().value + ""), "", "");
+            // }
+           
+        }
+
         if (primero.getValue().value.equals("expression")) {
 
             recorrerExpressionAbajo(primero);
         } else {
 
-            TablaCuadruplos.addRow("PARAM", revisarSiEsVariable(primero.getValue().value + ""), "", "");
-            TablaCuadruplos.addRow("PARAM", revisarSiEsVariable(segundo.getValue().value + ""), "", "");
+            if (!isUnaryAny) {
+                TablaCuadruplos.addRow("PARAM", revisarSiEsVariable(primero.getValue().value + ""), "", "");
+                TablaCuadruplos.addRow("PARAM", revisarSiEsVariable(segundo.getValue().value + ""), "", "");
+            }
 
             if (nodo.getParent().getValue().value.equals("postfix_expression")) {
 
@@ -2453,7 +2599,17 @@ public class App extends javax.swing.JFrame {
 
         MiArbolito papa = nodo.getParent();
         if (papa.getValue().value.equals("postfix_expression")) {
-            TablaCuadruplos.addRow("PARAM", revisarSiEsVariable(segundo.getValue().value + ""), "", "");
+
+            boolean isUnarySecond = checkUnaryNode(segundo.getValue().sym);
+
+            if(isUnarySecond){
+                recorrerFinal(segundo,null);
+                TablaCuadruplos.addRow("PARAM", segundo.getLugar(), "");
+            } else{
+                TablaCuadruplos.addRow("PARAM", revisarSiEsVariable(segundo.getValue().value + ""), "", "");
+            }
+
+            
         } else {
             TablaCuadruplos.addRow("PARAM", revisarSiEsVariable(segundo.getValue().value + ""), "", "");
             recorrerExpressionArriba(nodo.getParent());
