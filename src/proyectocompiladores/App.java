@@ -405,6 +405,10 @@ public class App extends javax.swing.JFrame {
                 System.out.println("\n");
                 tablamensajes.imprimirTablaMensajes();
 
+                FinalCode code = new FinalCode(new File("final/" + "temporal" + ".asm"));
+                
+                code.generate(TablaCuadruplos, table);
+                
                 // resetear tabla y temps
                 TablaCuadruplos.resetearTabla();
                 tablamensajes.resetearTabla();
@@ -678,7 +682,7 @@ public class App extends javax.swing.JFrame {
                                     if (second.getChildren().get(2).getValue().value.toString().equals("expression")) {
                                         ArrayList<String> recursiveParams = new ArrayList();
 
-                                        Values v = getAsignationParams(second.getChildren().get(2), recursiveParams, parameters, 0, 0);
+                                        Values v = getAssignationParams(second.getChildren().get(2), recursiveParams, parameters, 0, 0);
 
                                         recursiveParams = v.parameters;
                                         recursiveParams.toString();
@@ -689,7 +693,7 @@ public class App extends javax.swing.JFrame {
                                             errores += error;
                                         }
 
-                                    }
+                                    } //Cuando solo es un parametro no hace nodo expression
 
                                 }
 
@@ -834,7 +838,7 @@ public class App extends javax.swing.JFrame {
         }
     }
 
-    public static Values getAsignationParams(MiArbolito node, ArrayList list, String[] parameters, int index, int errors) {
+    public static Values getAssignationParams(MiArbolito node, ArrayList list, String[] parameters, int index, int errors) {
         MiArbolito firstChild = node.getChildren().get(0);
         if (firstChild.getValue().value.toString().equals("expression")) {
             list.add(node.getChildren().get(1).getValue().value.toString());
@@ -844,7 +848,7 @@ public class App extends javax.swing.JFrame {
                 errors++;
             }
 
-            getAsignationParams(firstChild, list, parameters, index++, errors);
+            getAssignationParams(firstChild, list, parameters, index++, errors);
         } else {
             try {
                 System.out.println("Param value: " + firstChild.getValue().value.toString());
@@ -874,7 +878,7 @@ public class App extends javax.swing.JFrame {
             }
         }
 
-        if (!(list.size() == parameters.length)) {
+        if (list.size() != parameters.length) {
             errors++;
         }
 
