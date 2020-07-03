@@ -46,6 +46,7 @@ public class App extends javax.swing.JFrame {
     String[] pathSyntax = { "-parser", "Syntax", path + "Syntax.cup" };
 
     static int CantTemporales = 1;
+    static int CantEtiquetas = 0;
 
     static TableQuad TablaCuadruplos = new TableQuad();
     static TablaMensajes tablamensajes = new TablaMensajes();
@@ -409,6 +410,7 @@ public class App extends javax.swing.JFrame {
                 TablaCuadruplos.resetearTabla();
                 tablamensajes.resetearTabla();
                 CantTemporales = 1;
+                CantEtiquetas = 0;
 
                 // END Compi II
             } catch (FileNotFoundException ex) {
@@ -1398,6 +1400,7 @@ public class App extends javax.swing.JFrame {
     }
 
     public static void Intermedio(MiArbolito parent_node, Table table) {
+
         ArrayList<MiArbolito> children = parent_node.getChildren();
 
         for (MiArbolito child : children) {
@@ -1598,6 +1601,218 @@ public class App extends javax.swing.JFrame {
                     }
                 }
 
+            } else if (child.getValue().value.equals("selection_statement")) {
+                ArrayList<MiArbolito> hijos = child.getChildren();
+                // for (MiArbolito nodoHijo : hijos) {
+                // System.out.println(nodoHijo.getValue().value);
+                // }
+                if (hijos.size() == 3) {
+                    if (hijos.get(0).getValue().value.equals("if")) {
+
+                        // revisar si solo viene un id oprel id
+
+                        MiArbolito relexpr = hijos.get(1);
+
+                        if (relexpr.getValue().value.equals("relational_expression")||
+                        relexpr.getValue().value.equals("equality_expression" )) {
+                            MiArbolito id1 = relexpr.getChildren().get(0);
+                            MiArbolito oprel = relexpr.getChildren().get(1);
+                            MiArbolito id2 = relexpr.getChildren().get(2);
+
+                            int etiqV = newEtiqueta();
+
+                            int etiqF = newEtiqueta();
+
+                            // ejecutar codigo
+                            TablaCuadruplos.addRow("IF" + oprel.getValue().value,
+                                    revisarSiEsVariable(id1.getValue().value + ""),
+                                    revisarSiEsVariable(id2.getValue().value + ""), "_ETIQ" + etiqV + "");
+                            TablaCuadruplos.addRow("GOTO", "_ETIQ" + etiqF + "", "", "");
+
+                            TablaCuadruplos.addRow("_ETIQ", etiqV + "", "", "");
+
+                            if (child.getValue().value.equals("=")) {
+                                recorrerFinal(child, table);
+                            } else {
+                                Intermedio(child, table);
+                            }
+
+                            TablaCuadruplos.addRow("_ETIQ", etiqF + "", "", "");
+
+                        } else {
+
+                        }
+
+                        // revisarBooleanos(hijos.get(1));
+                    }
+                } else if (hijos.size() == 4) {
+                    // if E then S else S
+                    if (hijos.get(0).getValue().value.equals("if")) {
+
+                        // revisar si solo viene un id oprel id
+
+                        MiArbolito relexpr = hijos.get(1);
+                        MiArbolito statementV = hijos.get(2);
+                        MiArbolito statementF = hijos.get(3);
+
+                        if (relexpr.getValue().value.equals("relational_expression")||
+                        relexpr.getValue().value.equals("equality_expression" )) {
+                            MiArbolito id1 = relexpr.getChildren().get(0);
+                            MiArbolito oprel = relexpr.getChildren().get(1);
+                            MiArbolito id2 = relexpr.getChildren().get(2);
+
+                            int etiqV = newEtiqueta();
+
+                            int etiqF = newEtiqueta();
+
+                            int etiqSig = newEtiqueta();
+
+                            // ejecutar codigo
+                            TablaCuadruplos.addRow("IF" + oprel.getValue().value,
+                                    revisarSiEsVariable(id1.getValue().value + ""),
+                                    revisarSiEsVariable(id2.getValue().value + ""), "_ETIQ" + etiqV + "");
+                            TablaCuadruplos.addRow("GOTO", "_ETIQ" + etiqF + "", "", "");
+
+                            TablaCuadruplos.addRow("_ETIQ", etiqV + "", "", "");
+
+                            if (statementV.getValue().value.equals("=")) {
+                                recorrerFinal(statementV, table);
+                            } else {
+                                Intermedio(statementV, table);
+                            }
+
+                            TablaCuadruplos.addRow("GOTO", "_ETIQ" + etiqSig + "", "", "");
+
+                            TablaCuadruplos.addRow("_ETIQ", etiqF + "", "", "");
+
+                            if (statementF.getValue().value.equals("=")) {
+                                recorrerFinal(statementF, table);
+                            } else {
+                                Intermedio(statementF, table);
+                            }
+
+                            // TablaCuadruplos.addRow("GOTO", etiqSig + "", "", "");
+                            TablaCuadruplos.addRow("_ETIQ", etiqSig + "", "", "");
+
+                        } else {
+
+                        }
+
+                        // revisarBooleanos(hijos.get(1));
+                    }
+                }
+
+            } else if (child.getValue().value.equals("iteration_statement")) {
+                ArrayList<MiArbolito> hijos = child.getChildren();
+                MiArbolito tipoIteration = hijos.get(0);
+
+                for (MiArbolito nodoHijo : hijos) {
+                    System.out.println(nodoHijo.getValue().value);
+                }
+                if (hijos.size() == 3) {
+                    if (tipoIteration.getValue().value.equals("while")) {
+
+                        MiArbolito relexpr = hijos.get(1);
+
+                        if (relexpr.getValue().value.equals("relational_expression")
+                        ||relexpr.getValue().value.equals("equality_expression" )) {
+                            MiArbolito id1 = relexpr.getChildren().get(0);
+                            MiArbolito oprel = relexpr.getChildren().get(1);
+                            MiArbolito id2 = relexpr.getChildren().get(2);
+
+                            int etiqComienzo = newEtiqueta();
+
+                            int etiqV = newEtiqueta();
+
+                            int etiqF = newEtiqueta();
+
+                            // ejecutar codigo
+                            TablaCuadruplos.addRow("_ETIQ", etiqComienzo + "", "", "");
+                            TablaCuadruplos.addRow("IF" + oprel.getValue().value,
+                                    revisarSiEsVariable(id1.getValue().value + ""),
+                                    revisarSiEsVariable(id2.getValue().value + ""), "_ETIQ" + etiqV + "");
+                            TablaCuadruplos.addRow("GOTO", "_ETIQ" + etiqF + "", "", "");
+
+                            TablaCuadruplos.addRow("_ETIQ", etiqV + "", "", "");
+
+                            Intermedio(child, table);
+
+                            TablaCuadruplos.addRow("GOTO", "_ETIQ" + etiqComienzo + "", "", "");
+
+                            TablaCuadruplos.addRow("_ETIQ", etiqF + "", "", "");
+
+                        } else {
+
+                        }
+                    }
+                } else if (hijos.size() == 5) {
+                    if (tipoIteration.getValue().value.equals("for")) {
+                        MiArbolito asig = hijos.get(1);
+                        MiArbolito relexpr = hijos.get(2);
+                        MiArbolito sumaresta = hijos.get(3);
+                        MiArbolito st_list = hijos.get(4);
+
+                        // Intermedio(asig, table); //generar codigo de la asignacion del for
+                        recorrerFinal(asig, table);
+
+                        int etiqFOR = newEtiqueta();
+
+                        TablaCuadruplos.addRow("_ETIQ", etiqFOR + "", "", ""); // la etiqueta del if
+
+                        if (relexpr.getValue().value.equals("relational_expression")
+                        ||relexpr.getValue().value.equals("equality_expression" )) {
+
+                            MiArbolito var = relexpr.getChildren().get(0);
+                            MiArbolito oprel = relexpr.getChildren().get(1);
+                            MiArbolito var2 = relexpr.getChildren().get(2);
+
+                            int etiqV = newEtiqueta();
+                            int etiqF = newEtiqueta();
+
+                            TablaCuadruplos.addRow("IF" + oprel.getValue().value,
+                                    revisarSiEsVariable(var.getValue().value + ""),
+                                    revisarSiEsVariable(var2.getValue().value + ""), "_ETIQ" + etiqV);
+                            TablaCuadruplos.addRow("GOTO", "_ETIQ" + etiqF + "", "", "");
+
+                            int etiqAutoIncr = newEtiqueta();
+
+                            TablaCuadruplos.addRow("_ETIQ", +etiqAutoIncr + "", "", ""); // la etiqueta del
+                                                                                         // autoincremento/decreemento
+
+                            // Intermedio(sumaresta, table); //generar codigo de la asignacion del for
+
+                            MiArbolito variable = sumaresta.getChildren().get(0);
+                            MiArbolito tipoincdecr = sumaresta.getChildren().get(1);
+
+                            if (tipoincdecr.getValue().value.equals("++")) {
+
+                                String tempnuevo = newTemporal();
+                                String guardarTemp = tempnuevo;
+
+                                TablaCuadruplos.addRow("+", "_" + variable.getValue().value + "", 1 + "", tempnuevo);
+                                TablaCuadruplos.addRow("=", guardarTemp, "", "_" + variable.getValue().value + "");
+
+                            } else if (tipoincdecr.getValue().value.equals("--")) {
+                                String tempnuevo = newTemporal();
+                                String guardarTemp = tempnuevo;
+
+                                TablaCuadruplos.addRow("-", "_" + variable.getValue().value + "", 1 + "", tempnuevo);
+                                TablaCuadruplos.addRow("=", guardarTemp, "", "_" + variable.getValue().value + "");
+                            }
+
+                            TablaCuadruplos.addRow("GOTO", "_ETIQ" + etiqFOR + "", "", "");
+
+                            TablaCuadruplos.addRow("ETIQ", etiqV + "", "", ""); // generar la etiqueta verdadera
+
+                            Intermedio(st_list, table); // generar codigo adentro del for
+
+                            TablaCuadruplos.addRow("GOTO", "_ETIQ" + etiqAutoIncr + "", "", "");
+
+                            TablaCuadruplos.addRow("_ETIQ", etiqF + "", "", ""); // generar la etiqueta de salida
+
+                        }
+                    }
+                }
             } else {
                 Intermedio(child, table);
             }
@@ -1605,10 +1820,34 @@ public class App extends javax.swing.JFrame {
 
     }
 
+    public static void revisarBooleanos(MiArbolito nodo) {
+        int size = nodo.getChildren().size();
+        if (nodo.getValue().value.equals("relational_expression")
+                && nodo.getParent().getValue().value.equals("selection_statement") && size == 3) {
+
+        } else {
+
+            // si son solo dos, es que trae equality o relation expression
+            // si son 3 es que es un nodo con id oprel id
+
+            if (size == 2) {
+
+            } else if (size == 3) {
+
+            }
+        }
+    }
+
     public static String newTemporal() {
         String temp = "t" + String.valueOf(CantTemporales);
         CantTemporales++;
         return temp;
+    }
+
+    public static int newEtiqueta() {
+        // String temp = "_ETIQ" + String.valueOf(CantEtiquetas);
+        CantEtiquetas++;
+        return CantEtiquetas;
     }
 
     public static void recorrerFinal(MiArbolito node, Table table) {
@@ -2562,7 +2801,8 @@ public class App extends javax.swing.JFrame {
             recorrerFinal(primero, null);
             TablaCuadruplos.addRow("PARAM", revisarSiEsVariable(primero.getLugar()), "", "");
             // if(!isUnarySecond){
-            //     TablaCuadruplos.addRow("PARAM", revisarSiEsVariable(segundo.getValue().value + ""), "", "");
+            // TablaCuadruplos.addRow("PARAM", revisarSiEsVariable(segundo.getValue().value
+            // + ""), "", "");
             // }
         }
 
@@ -2570,9 +2810,10 @@ public class App extends javax.swing.JFrame {
             recorrerFinal(segundo, null);
             TablaCuadruplos.addRow("PARAM", revisarSiEsVariable(segundo.getLugar()), "", "");
             // if(!isUnaryFirst){
-            //     TablaCuadruplos.addRow("PARAM", revisarSiEsVariable(primero.getValue().value + ""), "", "");
+            // TablaCuadruplos.addRow("PARAM", revisarSiEsVariable(primero.getValue().value
+            // + ""), "", "");
             // }
-           
+
         }
 
         if (primero.getValue().value.equals("expression")) {
@@ -2602,14 +2843,13 @@ public class App extends javax.swing.JFrame {
 
             boolean isUnarySecond = checkUnaryNode(segundo.getValue().sym);
 
-            if(isUnarySecond){
-                recorrerFinal(segundo,null);
+            if (isUnarySecond) {
+                recorrerFinal(segundo, null);
                 TablaCuadruplos.addRow("PARAM", segundo.getLugar(), "");
-            } else{
+            } else {
                 TablaCuadruplos.addRow("PARAM", revisarSiEsVariable(segundo.getValue().value + ""), "", "");
             }
 
-            
         } else {
             TablaCuadruplos.addRow("PARAM", revisarSiEsVariable(segundo.getValue().value + ""), "", "");
             recorrerExpressionArriba(nodo.getParent());
