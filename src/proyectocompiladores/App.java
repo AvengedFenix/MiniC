@@ -1703,8 +1703,8 @@ public class App extends javax.swing.JFrame {
                 }
 
             } else if (child.getValue().value.equals("iteration_statement")) {
-                // ArrayList<MiArbolito> hijos = child.getChildren();
-                // MiArbolito tipoIteration = hijos.get(0);
+                ArrayList<MiArbolito> hijos = child.getChildren();
+                MiArbolito tipoIteration = hijos.get(0);
 
                 // for (MiArbolito nodoHijo : hijos) {
                 //     System.out.println(nodoHijo.getValue().value);
