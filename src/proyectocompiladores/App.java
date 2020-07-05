@@ -11,6 +11,7 @@ import java.awt.GridLayout;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -43,7 +44,7 @@ public class App extends javax.swing.JFrame {
     PrintWriter writer;
     Process powerShellProcess;
     String path = ".\\src\\FlexAndCup\\";
-    String[] pathSyntax = { "-parser", "Syntax", path + "Syntax.cup" };
+    String[] pathSyntax = {"-parser", "Syntax", path + "Syntax.cup"};
 
     static int CantTemporales = 1;
 
@@ -257,6 +258,9 @@ public class App extends javax.swing.JFrame {
     private void jb_RUNActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jb_RUNActionPerformed
         System.setProperty("org.graphstream.ui.renderer", "org.graphstream.ui.j2dviewer.J2DGraphRenderer");
         errores = "";
+        tablamensajes = new TablaMensajes();
+        TablaCuadruplos = new TableQuad();
+
         if (ta_code.getText() != null) {
             try {
                 parser p = new parser(new Lexer(new StringReader(ta_code.getText())));
@@ -276,7 +280,6 @@ public class App extends javax.swing.JFrame {
                 table.print();
 
                 // intermedio
-
                 Values v = myTree.printAndFill();
 
                 Graph graph = new SingleGraph("AST");
@@ -396,17 +399,17 @@ public class App extends javax.swing.JFrame {
                 table.print();
 
                 // System.out.println("AntesIntermedio");
-
                 myTree = (MiArbolito) x;
-                table = new Table();
+                Table tableIntermedio = new Table();
 
-                Intermedio(myTree, table);
+                Intermedio(myTree, tableIntermedio);
 
                 // System.out.println("DespueIntermedio");
-
                 TablaCuadruplos.imprimirTablaCuadruplo();
                 System.out.println("\n");
                 tablamensajes.imprimirTablaMensajes();
+
+                finalCode(table);
 
                 // resetear tabla y temps
                 TablaCuadruplos.resetearTabla();
@@ -414,7 +417,6 @@ public class App extends javax.swing.JFrame {
                 CantTemporales = 1;
 
                 // END Compi II
-
             } catch (FileNotFoundException ex) {
 
                 Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
@@ -427,6 +429,192 @@ public class App extends javax.swing.JFrame {
         }
 
     }// GEN-LAST:event_jb_RUNActionPerformed
+
+    public static void finalCode(Table table) throws FileNotFoundException, IOException {
+        File temporalFile = new File("finalCode.asm");
+        temporalFile.delete();
+        temporalFile.createNewFile();
+
+        FileOutputStream fileOut = new FileOutputStream(temporalFile, true);
+
+        ArrayList<TableRowQuad> tr = TablaCuadruplos.getRows();
+        ArrayList<Mensaje> hr = tablamensajes.rows;
+
+        //ArrayList<String[]> tempsList = new ArrayList<String[]>();
+        TempsList tempsList = new TempsList();
+
+        String toWrite;
+        int paramCount = 0;
+        int msgCount = 0;
+        int fixedStack = 0;
+        int tempCount = 0;
+
+        fileOut.write("\t\t.data\n".getBytes());
+
+        for (int i = 0; i < hr.size(); i++) {
+            Mensaje row = hr.get(i);
+            toWrite = row.id + ": " + "\t.asciiz " + row.mensaje + "\n";
+            fileOut.write(toWrite.getBytes());
+        }
+
+        toWrite = "\n\t\t.text\n\t\t.globl main\n\nmain:\n";
+        fileOut.write(toWrite.getBytes());
+
+        for (TableRowQuad row : tr) {
+            System.out.println("Row operator: " + row.op);
+            toWrite = "";
+
+            String[] freeRegistry = tempsList.nextAvailable();
+
+            switch (row.op) {
+                case "*":
+                    System.out.println("case *");
+                    if (toWrite.isEmpty()) {
+                        toWrite = "mul ";
+                    }
+                case "/":
+                    System.out.println("case /");
+                    if (toWrite.isEmpty()) {
+                        toWrite = "div ";
+                    }
+                case "+":
+                    System.out.println("case +");
+                    if (toWrite.isEmpty()) {
+                        toWrite = "add ";
+                    }
+                case "-": {
+                    System.out.println("case -");
+                    if (toWrite.isEmpty()) {
+                        toWrite = "sub ";
+                    }
+
+                    toWrite += freeRegistry[0] + ", ";
+                    tempsList.fill(freeRegistry[0], row.res);
+
+                    //toWrite += row.res + ", ";
+                    //toWrite += "$" + row.res + ", ";
+                    TableRow search = table.search(row.arg1);
+//                    if (search != null) {
+                    String arg1Temp = "";
+                    String arg2Temp = "";
+
+                    System.out.println("row.arg1: " + row.arg1 + " row.arg2: " + row.arg2);
+
+                    arg1Temp = tempsList.search(row.arg1);
+                    arg2Temp = tempsList.search(row.arg2);
+
+                    String toWriteImmediate = "";
+
+                    System.out.println("arg2Temp: " + arg2Temp);
+
+                    if (isNumeric(row.arg1)) {
+                        String[] loadImmediate = tempsList.nextAvailable();
+                        toWriteImmediate = "li " + loadImmediate[0] + ", " + row.arg1 + "\n";
+                        tempsList.fill(loadImmediate[0], row.arg1);
+                        fileOut.write(toWriteImmediate.getBytes());
+                        
+                        toWrite += loadImmediate[0] + ", ";
+                    } else if (!arg1Temp.isEmpty()) {
+                        toWrite += arg1Temp + ", ";
+                    } else {
+                        System.out.println("Arg1: Esa variable no tiene ningun temporal asignado");
+                    }
+
+                    if (isNumeric(row.arg2)) {
+                        String[] loadImmediate = tempsList.nextAvailable();
+                        toWriteImmediate = "li " + loadImmediate[0] + ", " + row.arg2 + "\n";
+                        tempsList.fill(loadImmediate[0], row.arg2);
+                        fileOut.write(toWriteImmediate.getBytes());
+                        
+                        toWrite += loadImmediate[0] + "\n";
+                    } else if (!arg2Temp.isEmpty()) {
+                        toWrite += arg2Temp + "\n";
+                    } else {
+                        System.out.println("Arg2: Esa variable no tiene ningun temporal asignado");
+                    }
+                    
+                    System.out.println(tempsList.toString());
+
+//                        int offset = fixedStack - search.offset - Table.getTypeSize(search.type);
+//                        String load = "lw $t0, " + offset + "($fp)\n";
+//                        fileOut.write(load.getBytes());
+                    //toWrite += "$t0, ";
+                    //} else {
+//                        toWrite += row.arg1 + ", ";
+//                    }
+//                    toWrite += row.arg2 + "\n";
+                    fileOut.write(toWrite.getBytes());
+                    break;
+                }
+                case "=": {
+                    System.out.println("case =");
+                    if (isNumeric(row.arg1)) {
+                        System.out.println("isNumeric");
+                        toWrite = "li " + freeRegistry[0] + ", " + row.arg1 + "\n";
+                        tempsList.fill(freeRegistry[0], row.res);
+                    }
+
+                    /*
+                            if (row.arg1.equals("t0")) {
+                                row.arg1 = "$" + row.arg1;
+                            } else if (row.arg1.equals("RET")) {
+                                row.arg1 = "$v0";
+                            }
+                            if (row.res.equals("t0")) {
+                                row.res = "$" + row.res;
+                                toWrite = "move " + row.res + ", " + row.arg1 + "\n";
+                            } else {
+                                TableRow search = table.search(row.res);
+                                System.out.println(row.res);
+                                int offset = fixedStack - search.offset - Table.getTypeSize(search.type);
+                                toWrite = "sw " + row.arg1 + ", " + offset + "($fp)\n";
+                            }
+                     */
+                    if (row.arg1.contains("t")) {
+                        row.arg1 = "$" + row.arg1;
+                    }
+                    if (row.res.contains("t")) {
+                        row.res = "$" + row.res;
+                        toWrite = "move " + row.res + ", " + row.arg1 + "\n";
+                    } else {
+                        System.out.println("row.res: " + row.res);
+                        String separator = "_";
+                        int sepPos = row.res.indexOf(separator);
+                        if (sepPos == -1) {
+                            System.out.println("");
+                        }
+                        String result = row.res.substring(sepPos + separator.length());
+                        System.out.println("Substring after separator _ " + result);
+
+//                        TableRow search = table.search(result);
+//
+//                        System.out.println("search: " + search.id);
+//                        int offset = fixedStack - search.offset - Table.getTypeSize(search.type);
+//                        toWrite = "sw " + row.arg1 + ", " + offset + "($fp)\n";
+                        System.out.println("= toWrite: " + toWrite);
+                        fileOut.write(toWrite.getBytes());
+                        break;
+                    }
+                }
+            }
+        }
+
+        fileOut.close();
+
+        //FinalCode code = new FinalCode(temporalFile);
+        //code.generate(TablaCuadruplos, table);
+        System.out.println("After code gen");
+
+    }
+
+    public static boolean isNumeric(String str) {
+        try {
+            Integer.parseInt(str);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
 
     public static void generate() throws IOException, Exception {
         generateLexer();
@@ -478,7 +666,7 @@ public class App extends javax.swing.JFrame {
     }
 
     public static void generateLexer() {
-        String parametros[] = { "-d", "src/proyectocompiladores/", "src/proyectocompiladores/newLexer.flex" };
+        String parametros[] = {"-d", "src/proyectocompiladores/", "src/proyectocompiladores/newLexer.flex"};
         try {
             jflex.Main.generate(parametros);
         } catch (Exception e) {
@@ -488,8 +676,8 @@ public class App extends javax.swing.JFrame {
     }
 
     public static void generateParser() {
-        String parametros[] = { "-destdir", "src/proyectocompiladores/", "-parser", "parser",
-                "src/proyectocompiladores/parser.cup" };
+        String parametros[] = {"-destdir", "src/proyectocompiladores/", "-parser", "parser",
+            "src/proyectocompiladores/parser.cup"};
         try {
             java_cup.Main.main(parametros);
         } catch (Exception e) {
@@ -968,7 +1156,7 @@ public class App extends javax.swing.JFrame {
                         break;
                     }
 
-                    // break;
+                // break;
                 default:
                     String error = "Error en la linea " + (node.getChildren().get(0).getValue().right + 1)
                             + ", columna " + node.getChildren().get(0).getValue().left + " en el token "
@@ -1151,14 +1339,10 @@ public class App extends javax.swing.JFrame {
                 ArrayList<MiArbolito> hijos = child.getChildren();
 
                 // System.out.println("\n ////////////// ");
-
                 // for (MiArbolito nodoHijo : hijos) {
                 //     System.out.println(nodoHijo.getValue().value);
-
                 // }
-
                 // System.out.println("\n ////////////// ");
-
                 MiArbolito tipoPostFix = hijos.get(1);
                 MiArbolito nodoPrint = hijos.get(2);
 
@@ -1191,14 +1375,14 @@ public class App extends javax.swing.JFrame {
 
                     MiArbolito ampersand = unaryExpression.getChildren().get(0);
                     MiArbolito variable = unaryExpression.getChildren().get(1);
-    
+
                     String puntero = ampersand.getValue().value + "" + variable.getValue().value;
 
                     TablaCuadruplos.addRow("SCANF", primerArgumentoString.getValue().value + "", puntero, "");
 
                 }
 
-            } else { 
+            } else {
                 Intermedio(child, table);
             }
         }
@@ -1221,9 +1405,8 @@ public class App extends javax.swing.JFrame {
             int firstChild = primero.getValue().sym;
 
             // revision de punteros
-
             if (second.getValue().value.equals("unary_expression")) { // si el nodo a la derecha es un puntero, realizar
-                                                                      // operacion distinta
+                // operacion distinta
                 // String newTemp = newTemporal();
 
                 MiArbolito ampersand = second.getChildren().get(0);
@@ -1288,18 +1471,14 @@ public class App extends javax.swing.JFrame {
             }
 
             // second.setParent(node);
-
             // System.out.println("Sym: " + secondChild + " Left: " +
             // node.getChildren().get(0).getValue().value
             // + " , DER: " + second.getValue().value);
-
             // System.out.println("Node: " + node.getValue().value);
-
             // System.out.println("Fath: " + node.getParent().getValue().value);
             // System.out.println("Hij1: " + node.getChildren().get(0).getValue().value);
             // System.out.println("Hij2: " + node.getChildren().get(1).getValue().value);
             // System.out.println("");
-
         }
 
     }
@@ -1312,7 +1491,6 @@ public class App extends javax.swing.JFrame {
         // System.out.println("Cant hijos mios: " + node.getChildren().size());
         // System.out.println("Padre de mi padre: " +
         // node.getParent().getParent().getValue().value + "\n");
-
         String father = node.getParent().getValue().value.toString();
         String nodeString = node.getValue().value.toString();
 
@@ -1323,17 +1501,13 @@ public class App extends javax.swing.JFrame {
             isGarbageNode = false;
         }
 
-        if (
-
-        (father.equals("additive_expression") || father.equals("shift_expression")
+        if ((father.equals("additive_expression") || father.equals("shift_expression")
                 || father.equals("relational_expression") || father.equals("equality_expression")
                 || father.equals("and_expression") || father.equals("inclusive_or_expression")
                 || father.equals("logical_and_expression") || father.equals("conditional_expression")
-                || father.equals("logical_or_expression")
-        // revisar si es un nodo restante del arbol, si lo es, subir su padre y asi
-        // sucesivamente
-
-        ) && isGarbageNode) {
+                || father.equals("logical_or_expression") // revisar si es un nodo restante del arbol, si lo es, subir su padre y asi
+                // sucesivamente
+                ) && isGarbageNode) {
             node.getParent().setLugar(node.getLugar());
             addtoQuad(node.getParent(), table);
         } else if (nodeString.equals("conditional_expression")) {
@@ -1358,15 +1532,11 @@ public class App extends javax.swing.JFrame {
 
             // System.out.println(izq.getValue().value);
             // System.out.println(der.getValue().value);
-
             // System.out.println("");
-
             // System.out.println(isUnary);
-
             if (node.getValue().value.equals("=")) {
 
                 // ya llego al tope, fin de recursion
-
                 String op = node.getValue().value + "";
 
                 if (der.getLugar().equals("")) {
@@ -1374,7 +1544,6 @@ public class App extends javax.swing.JFrame {
                 }
 
                 // String newTemp = newTemporal();
-
                 TablaCuadruplos.addRow(op, der.getLugar(), "_" + izq.getValue().value + "");
 
             } else if (!isUnary && !isUnaryFirst) {
@@ -1403,7 +1572,6 @@ public class App extends javax.swing.JFrame {
                     // System.out.println(
                     // "Op1: " + izq.getValue().value + " OP 2: " + der.getValue().value + "\n
                     // ^^^^^^^ \n");
-
                     if (der.getLugar().equals("") || izq.getLugar().equals("")) {
                         // ignorar
                     } else {
@@ -1422,20 +1590,15 @@ public class App extends javax.swing.JFrame {
                         // System.out.println("CUAD a agregar -> Arg1: " + izq.getLugar() + " Arg2: " +
                         // der.getLugar()
                         // + " OP: " + opNodo);
-
                         String izqLugar = izq.getLugar();
                         String derLugar = der.getLugar();
 
-                        if (arg1.equals(izqLugar) && arg2.equals(derLugar) && op.equals(opNodo))
-
-                        {
+                        if (arg1.equals(izqLugar) && arg2.equals(derLugar) && op.equals(opNodo)) {
 
                             node.setLugar(res);
 
                             // System.out.println("SOY IGUAL");
-
                             // TablaCuadruplos.addRow(opNodo, izq.getLugar(), der.getLugar(), newTemp);
-
                             String father1 = node.getParent().getValue().value.toString();
 
                             if (father1.equals("multiplicative_expression") || father1.equals("additive_expression")) {
@@ -1483,20 +1646,15 @@ public class App extends javax.swing.JFrame {
                     // System.out.println("CUAD a agregar -> Arg1: " + izq.getLugar() + " Arg2: " +
                     // der.getLugar()
                     // + " OP: " + opNodo);
-
                     String izqLugar = izq.getLugar();
                     String derLugar = der.getLugar();
 
-                    if (arg1.equals(izqLugar) && arg2.equals(derLugar) && op.equals(opNodo))
-
-                    {
+                    if (arg1.equals(izqLugar) && arg2.equals(derLugar) && op.equals(opNodo)) {
 
                         node.setLugar(res);
 
                         // System.out.println("SOY IGUAL");
-
                         // TablaCuadruplos.addRow(opNodo, izq.getLugar(), der.getLugar(), newTemp);
-
                         String father1 = node.getParent().getValue().value.toString();
 
                         if (father1.equals("multiplicative_expression") || father1.equals("additive_expression")) {
@@ -1541,20 +1699,15 @@ public class App extends javax.swing.JFrame {
                     // System.out.println("CUAD a agregar -> Arg1: " + izq.getLugar() + " Arg2: " +
                     // der.getLugar()
                     // + " OP: " + opNodo);
-
                     String izqLugar = izq.getLugar();
                     String derLugar = der.getLugar();
 
-                    if (arg1.equals(izqLugar) && arg2.equals(derLugar) && op.equals(opNodo))
-
-                    {
+                    if (arg1.equals(izqLugar) && arg2.equals(derLugar) && op.equals(opNodo)) {
 
                         node.setLugar(res);
 
                         // System.out.println("SOY IGUAL");
-
                         // TablaCuadruplos.addRow(opNodo, izq.getLugar(), der.getLugar(), newTemp);
-
                         String father1 = node.getParent().getValue().value.toString();
 
                         if (father1.equals("multiplicative_expression") || father1.equals("additive_expression")) {
