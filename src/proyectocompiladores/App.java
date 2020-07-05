@@ -1486,7 +1486,7 @@ public class App extends javax.swing.JFrame {
                 if (function_declarator.getValue().value.equals("function_declarator")) {
                     MiArbolito idFunction = child.getChildren().get(1);
 
-                    TablaCuadruplos.addRow("_ETIQ", idFunction.getValue().value + "", "", "");
+                    TablaCuadruplos.addRow("_FUN_", idFunction.getValue().value + "", "", "");
                 }
             } else if (child.getValue().value.equals("jump_statement")) {
 
@@ -1499,11 +1499,7 @@ public class App extends javax.swing.JFrame {
                         if (isUnary) {
                             // es un operador con una expresion larga
 
-                            System.out.println("h1");
-
                             recorrerFinal(expression, table);
-
-                            System.out.println("h2");
 
                             TablaCuadruplos.addRow("RET", expression.getLugar(), "", "");
 
@@ -1533,7 +1529,7 @@ public class App extends javax.swing.JFrame {
 
                                                 TablaCuadruplos.addRow("PARAM", expr.getLugar(), "", "");
                                                 TablaCuadruplos.addRow("CALL",
-                                                        "_ETIQ" + IDfunction.getValue().value + "", "", "");
+                                                        "_FUN_" + IDfunction.getValue().value + "", "", "");
                                                 TablaCuadruplos.addRow("=", "RET", "", newTemp);
                                                 TablaCuadruplos.addRow("RET", newTemp, "", "");
 
@@ -1549,9 +1545,10 @@ public class App extends javax.swing.JFrame {
                                                 String newTemp = newTemporal();
 
                                                 TablaCuadruplos.addRow("CALL",
-                                                        "_ETIQ" + IDfunction.getValue().value + "", "", "");
+                                                        "_FUN_" + IDfunction.getValue().value + "", "", "");
                                                 TablaCuadruplos.addRow("=", "RET", "", newTemp);
                                                 TablaCuadruplos.addRow("RET", newTemp, "", "");
+                                                TablaCuadruplos.addRow("FIN_FUN", "", "", "");  
 
                                                 expression.setLugar(newTemp);
 
@@ -1563,10 +1560,11 @@ public class App extends javax.swing.JFrame {
 
                                             String newTemp = newTemporal();
 
-                                            TablaCuadruplos.addRow("CALL", "_ETIQ" + IDfunction.getValue().value + "",
+                                            TablaCuadruplos.addRow("CALL", "_FUN_" + IDfunction.getValue().value + "",
                                                     "", "");
                                             TablaCuadruplos.addRow("=", "RET", "", newTemp);
                                             TablaCuadruplos.addRow("RET", newTemp, "", "");
+                                            TablaCuadruplos.addRow("FIN_FUN", "", "", "");  
 
                                             expression.setLugar(newTemp);
 
@@ -1578,11 +1576,12 @@ public class App extends javax.swing.JFrame {
                                         String newTemp = newTemporal();
                                         TablaCuadruplos.addRow("PARAM",
                                                 revisarSiEsVariable(expression.getValue().value + ""), "", "");
-                                        TablaCuadruplos.addRow("CALL", "_ETIQ" + IDfunction.getValue().value + "", "",
+                                        TablaCuadruplos.addRow("CALL", "_FUN_" + IDfunction.getValue().value + "", "",
                                                 "");
 
                                         TablaCuadruplos.addRow("=", "RET", "", newTemp);
                                         TablaCuadruplos.addRow("RET", newTemp, "", "");
+                                        TablaCuadruplos.addRow("FIN_FUN", "", "", "");  
 
                                         expression.setLugar(newTemp);
 
@@ -1595,6 +1594,7 @@ public class App extends javax.swing.JFrame {
                             } else {
                                 TablaCuadruplos.addRow("RET", revisarSiEsVariable(expression.getValue().value + ""), "",
                                         "");
+                                TablaCuadruplos.addRow("FIN_FUN", "", "", "");  
                             }
 
                         }
@@ -1613,8 +1613,8 @@ public class App extends javax.swing.JFrame {
 
                         MiArbolito relexpr = hijos.get(1);
 
-                        if (relexpr.getValue().value.equals("relational_expression")||
-                        relexpr.getValue().value.equals("equality_expression" )) {
+                        if (relexpr.getValue().value.equals("relational_expression")
+                                || relexpr.getValue().value.equals("equality_expression")) {
                             MiArbolito id1 = relexpr.getChildren().get(0);
                             MiArbolito oprel = relexpr.getChildren().get(1);
                             MiArbolito id2 = relexpr.getChildren().get(2);
@@ -1655,8 +1655,8 @@ public class App extends javax.swing.JFrame {
                         MiArbolito statementV = hijos.get(2);
                         MiArbolito statementF = hijos.get(3);
 
-                        if (relexpr.getValue().value.equals("relational_expression")||
-                        relexpr.getValue().value.equals("equality_expression" )) {
+                        if (relexpr.getValue().value.equals("relational_expression")
+                                || relexpr.getValue().value.equals("equality_expression")) {
                             MiArbolito id1 = relexpr.getChildren().get(0);
                             MiArbolito oprel = relexpr.getChildren().get(1);
                             MiArbolito id2 = relexpr.getChildren().get(2);
@@ -1715,7 +1715,7 @@ public class App extends javax.swing.JFrame {
                         MiArbolito relexpr = hijos.get(1);
 
                         if (relexpr.getValue().value.equals("relational_expression")
-                        ||relexpr.getValue().value.equals("equality_expression" )) {
+                                || relexpr.getValue().value.equals("equality_expression")) {
                             MiArbolito id1 = relexpr.getChildren().get(0);
                             MiArbolito oprel = relexpr.getChildren().get(1);
                             MiArbolito id2 = relexpr.getChildren().get(2);
@@ -1760,7 +1760,7 @@ public class App extends javax.swing.JFrame {
                         TablaCuadruplos.addRow("_ETIQ", etiqFOR + "", "", ""); // la etiqueta del if
 
                         if (relexpr.getValue().value.equals("relational_expression")
-                        ||relexpr.getValue().value.equals("equality_expression" )) {
+                                || relexpr.getValue().value.equals("equality_expression")) {
 
                             MiArbolito var = relexpr.getChildren().get(0);
                             MiArbolito oprel = relexpr.getChildren().get(1);
@@ -1959,6 +1959,65 @@ public class App extends javax.swing.JFrame {
                                 if (second.getValue().value.equals("postfix_expression")) {
                                     addtoQuad(node, table);
                                 }
+
+                                if (second.getValue().value.equals("conditional_expression")) {
+
+                                    if (node.getValue().value.equals("=")) {
+                                        ArrayList<MiArbolito> hijos = second.getChildren();
+
+                                        if (hijos.size() == 3) {
+                                            MiArbolito valorVerdadero = hijos.get(1);
+                                            MiArbolito valorFalso = hijos.get(2);
+                                            MiArbolito relexpr = hijos.get(0);
+
+                                            if (relexpr.getValue().value.equals("relational_expression")
+                                                    || relexpr.getValue().value.equals("equality_expression")) {
+
+                                                MiArbolito var = relexpr.getChildren().get(0);
+                                                MiArbolito oprel = relexpr.getChildren().get(1);
+                                                MiArbolito var2 = relexpr.getChildren().get(2);
+
+                                                int etiqV = newEtiqueta();
+                                                int etiqF = newEtiqueta();
+                                                int etiqSalto = newEtiqueta();
+
+                                                TablaCuadruplos.addRow("IF" + oprel.getValue().value,
+                                                        revisarSiEsVariable(var.getValue().value + ""),
+                                                        revisarSiEsVariable(var2.getValue().value + ""),
+                                                        "_ETIQ" + etiqV);
+                                                TablaCuadruplos.addRow("GOTO", "_ETIQ" + etiqF + "", "", "");
+
+                                                // generar la parte verdadera
+                                                TablaCuadruplos.addRow("_ETIQ", etiqV + "", "", "");
+
+                                                TablaCuadruplos.addRow("=",
+                                                        revisarSiEsVariable(valorVerdadero.getValue().value + ""), "",
+                                                        revisarSiEsVariable(primero.getValue().value + ""));
+
+                                                TablaCuadruplos.addRow("GOTO", "_ETIQ" + etiqSalto + "", "", "");
+
+                                                // generar la parte falsa
+                                                TablaCuadruplos.addRow("_ETIQ", etiqF + "", "", "");
+
+                                                TablaCuadruplos.addRow("=",
+                                                        revisarSiEsVariable(valorFalso.getValue().value + ""), "",
+                                                        revisarSiEsVariable(primero.getValue().value + ""));
+
+                                                TablaCuadruplos.addRow("GOTO", "_ETIQ" + etiqSalto + "", "", "");
+
+                                                TablaCuadruplos.addRow("_ETIQ", etiqSalto + "", "", "");
+
+                                            }
+                                        }
+
+                                        System.out.println("\n ////////////// ");
+                                        for (MiArbolito nodoHijo : hijos) {
+                                            System.out.println(nodoHijo.getValue().value);
+                                        }
+                                        System.out.println("\n ////////////// ");
+                                    }
+                                }
+
                                 break;
 
                             default:
@@ -2077,7 +2136,7 @@ public class App extends javax.swing.JFrame {
                                     String newTemp = newTemporal();
 
                                     TablaCuadruplos.addRow("PARAM", expression.getLugar(), "", "");
-                                    TablaCuadruplos.addRow("CALL", "_ETIQ" + IDfunction.getValue().value + "", "", "");
+                                    TablaCuadruplos.addRow("CALL", "_FUN_" + IDfunction.getValue().value + "", "", "");
                                     TablaCuadruplos.addRow("=", "RET", "", newTemp);
 
                                     der.setLugar(newTemp);
@@ -2089,7 +2148,7 @@ public class App extends javax.swing.JFrame {
 
                                     String newTemp = newTemporal();
 
-                                    TablaCuadruplos.addRow("CALL", "_ETIQ" + IDfunction.getValue().value + "", "", "");
+                                    TablaCuadruplos.addRow("CALL", "_FUN_" + IDfunction.getValue().value + "", "", "");
                                     TablaCuadruplos.addRow("=", "RET", "", newTemp);
 
                                     der.setLugar(newTemp);
@@ -2102,7 +2161,7 @@ public class App extends javax.swing.JFrame {
 
                                 String newTemp = newTemporal();
 
-                                TablaCuadruplos.addRow("CALL", "_ETIQ" + IDfunction.getValue().value + "", "", "");
+                                TablaCuadruplos.addRow("CALL", "_FUN_" + IDfunction.getValue().value + "", "", "");
                                 TablaCuadruplos.addRow("=", "RET", "", newTemp);
 
                                 der.setLugar(newTemp);
@@ -2115,7 +2174,7 @@ public class App extends javax.swing.JFrame {
                             String newTemp = newTemporal();
                             TablaCuadruplos.addRow("PARAM", revisarSiEsVariable(expression.getValue().value + ""), "",
                                     "");
-                            TablaCuadruplos.addRow("CALL", "_ETIQ" + IDfunction.getValue().value + "", "", "");
+                            TablaCuadruplos.addRow("CALL", "_FUN_" + IDfunction.getValue().value + "", "", "");
 
                             TablaCuadruplos.addRow("=", "RET", "", newTemp);
 
@@ -2247,7 +2306,7 @@ public class App extends javax.swing.JFrame {
                                         String newTemp = newTemporal();
 
                                         TablaCuadruplos.addRow("PARAM", expression.getLugar(), "", "");
-                                        TablaCuadruplos.addRow("CALL", "_ETIQ" + IDfunction.getValue().value + "", "",
+                                        TablaCuadruplos.addRow("CALL", "_FUN_" + IDfunction.getValue().value + "", "",
                                                 "");
                                         TablaCuadruplos.addRow("=", "RET", "", newTemp);
 
@@ -2264,7 +2323,7 @@ public class App extends javax.swing.JFrame {
 
                                         String newTemp = newTemporal();
 
-                                        TablaCuadruplos.addRow("CALL", "_ETIQ" + IDfunction.getValue().value + "", "",
+                                        TablaCuadruplos.addRow("CALL", "_FUN_" + IDfunction.getValue().value + "", "",
                                                 "");
                                         TablaCuadruplos.addRow("=", "RET", "", newTemp);
 
@@ -2282,7 +2341,7 @@ public class App extends javax.swing.JFrame {
 
                                     String newTemp = newTemporal();
 
-                                    TablaCuadruplos.addRow("CALL", "_ETIQ" + IDfunction.getValue().value + "", "", "");
+                                    TablaCuadruplos.addRow("CALL", "_FUN_" + IDfunction.getValue().value + "", "", "");
                                     TablaCuadruplos.addRow("=", "RET", "", newTemp);
 
                                     der.setLugar(newTemp);
@@ -2300,7 +2359,7 @@ public class App extends javax.swing.JFrame {
                                 String newTemp = newTemporal();
                                 TablaCuadruplos.addRow("PARAM", revisarSiEsVariable(expression.getValue().value + ""),
                                         "", "");
-                                TablaCuadruplos.addRow("CALL", "_ETIQ" + IDfunction.getValue().value + "", "", "");
+                                TablaCuadruplos.addRow("CALL", "_FUN_" + IDfunction.getValue().value + "", "", "");
 
                                 TablaCuadruplos.addRow("=", "RET", "", newTemp);
 
@@ -2339,7 +2398,7 @@ public class App extends javax.swing.JFrame {
                                         String newTemp = newTemporal();
 
                                         TablaCuadruplos.addRow("PARAM", expression.getLugar(), "", "");
-                                        TablaCuadruplos.addRow("CALL", "_ETIQ" + IDfunction.getValue().value + "", "",
+                                        TablaCuadruplos.addRow("CALL", "_FUN_" + IDfunction.getValue().value + "", "",
                                                 "");
                                         TablaCuadruplos.addRow("=", "RET", "", newTemp);
 
@@ -2356,7 +2415,7 @@ public class App extends javax.swing.JFrame {
 
                                         String newTemp = newTemporal();
 
-                                        TablaCuadruplos.addRow("CALL", "_ETIQ" + IDfunction.getValue().value + "", "",
+                                        TablaCuadruplos.addRow("CALL", "_FUN_" + IDfunction.getValue().value + "", "",
                                                 "");
                                         TablaCuadruplos.addRow("=", "RET", "", newTemp);
 
@@ -2374,7 +2433,7 @@ public class App extends javax.swing.JFrame {
 
                                     String newTemp = newTemporal();
 
-                                    TablaCuadruplos.addRow("CALL", "_ETIQ" + IDfunction.getValue().value + "", "", "");
+                                    TablaCuadruplos.addRow("CALL", "_FUN_" + IDfunction.getValue().value + "", "", "");
                                     TablaCuadruplos.addRow("=", "RET", "", newTemp);
 
                                     izq.setLugar(newTemp);
@@ -2391,7 +2450,7 @@ public class App extends javax.swing.JFrame {
                                 String newTemp = newTemporal();
                                 TablaCuadruplos.addRow("PARAM", revisarSiEsVariable(expression.getValue().value + ""),
                                         "", "");
-                                TablaCuadruplos.addRow("CALL", "_ETIQ" + IDfunction.getValue().value + "", "", "");
+                                TablaCuadruplos.addRow("CALL", "_FUN_" + IDfunction.getValue().value + "", "", "");
 
                                 TablaCuadruplos.addRow("=", "RET", "", newTemp);
 
@@ -2462,7 +2521,11 @@ public class App extends javax.swing.JFrame {
                         String izqLugar = izq.getLugar();
                         String derLugar = der.getLugar();
 
-                        if (arg1.equals(izqLugar) && arg2.equals(derLugar) && op.equals(opNodo)) {
+                        String izqArgConUS = "_" + izqLugar;
+                        String derArgConUS = "_" + derLugar;
+
+                        if ((arg1.equals(izqLugar) || arg1.equals(izqArgConUS))
+                                && (arg2.equals(derLugar) || arg2.equals(derArgConUS)) && op.equals(opNodo)) {
 
                             node.setLugar(res);
 
@@ -2530,7 +2593,7 @@ public class App extends javax.swing.JFrame {
                                         String newTemp = newTemporal();
 
                                         TablaCuadruplos.addRow("PARAM", expression.getLugar(), "", "");
-                                        TablaCuadruplos.addRow("CALL", "_ETIQ" + IDfunction.getValue().value + "", "",
+                                        TablaCuadruplos.addRow("CALL", "_FUN_" + IDfunction.getValue().value + "", "",
                                                 "");
                                         TablaCuadruplos.addRow("=", "RET", "", newTemp);
 
@@ -2543,7 +2606,7 @@ public class App extends javax.swing.JFrame {
 
                                         String newTemp = newTemporal();
 
-                                        TablaCuadruplos.addRow("CALL", "_ETIQ" + IDfunction.getValue().value + "", "",
+                                        TablaCuadruplos.addRow("CALL", "_FUN_" + IDfunction.getValue().value + "", "",
                                                 "");
                                         TablaCuadruplos.addRow("=", "RET", "", newTemp);
 
@@ -2557,7 +2620,7 @@ public class App extends javax.swing.JFrame {
 
                                     String newTemp = newTemporal();
 
-                                    TablaCuadruplos.addRow("CALL", "_ETIQ" + IDfunction.getValue().value + "", "", "");
+                                    TablaCuadruplos.addRow("CALL", "_FUN_" + IDfunction.getValue().value + "", "", "");
                                     TablaCuadruplos.addRow("=", "RET", "", newTemp);
 
                                     der.setLugar(newTemp);
@@ -2570,7 +2633,7 @@ public class App extends javax.swing.JFrame {
                                 String newTemp = newTemporal();
                                 TablaCuadruplos.addRow("PARAM", revisarSiEsVariable(expression.getValue().value + ""),
                                         "", "");
-                                TablaCuadruplos.addRow("CALL", "_ETIQ" + IDfunction.getValue().value + "", "", "");
+                                TablaCuadruplos.addRow("CALL", "_FUN_" + IDfunction.getValue().value + "", "", "");
 
                                 TablaCuadruplos.addRow("=", "RET", "", newTemp);
 
@@ -2604,11 +2667,17 @@ public class App extends javax.swing.JFrame {
                     String izqLugar = izq.getLugar();
                     String derLugar = der.getLugar();
 
-                    if (arg1.equals(izqLugar) && arg2.equals(derLugar) && op.equals(opNodo)) {
+                    String izqArgConUS = "_" + izqLugar;
+                    String derArgConUS = "_" + derLugar;
+
+                    if (
+
+                    (arg1.equals(izqLugar) || arg1.equals(izqArgConUS))
+                            && (arg2.equals(derLugar) || arg2.equals(derArgConUS)) && op.equals(opNodo)) {
 
                         node.setLugar(res);
 
-                        // System.out.println("SOY IGUAL");
+                        System.out.println("SOY IGUAL");
                         // TablaCuadruplos.addRow(opNodo, izq.getLugar(), der.getLugar(), newTemp);
                         String father1 = node.getParent().getValue().value.toString();
 
@@ -2670,7 +2739,7 @@ public class App extends javax.swing.JFrame {
                                         String newTemp = newTemporal();
 
                                         TablaCuadruplos.addRow("PARAM", expression.getLugar(), "", "");
-                                        TablaCuadruplos.addRow("CALL", "_ETIQ" + IDfunction.getValue().value + "", "",
+                                        TablaCuadruplos.addRow("CALL", "_FUN_" + IDfunction.getValue().value + "", "",
                                                 "");
                                         TablaCuadruplos.addRow("=", "RET", "", newTemp);
 
@@ -2683,7 +2752,7 @@ public class App extends javax.swing.JFrame {
 
                                         String newTemp = newTemporal();
 
-                                        TablaCuadruplos.addRow("CALL", "_ETIQ" + IDfunction.getValue().value + "", "",
+                                        TablaCuadruplos.addRow("CALL", "_FUN_" + IDfunction.getValue().value + "", "",
                                                 "");
                                         TablaCuadruplos.addRow("=", "RET", "", newTemp);
 
@@ -2697,7 +2766,7 @@ public class App extends javax.swing.JFrame {
 
                                     String newTemp = newTemporal();
 
-                                    TablaCuadruplos.addRow("CALL", "_ETIQ" + IDfunction.getValue().value + "", "", "");
+                                    TablaCuadruplos.addRow("CALL", "_FUN_" + IDfunction.getValue().value + "", "", "");
                                     TablaCuadruplos.addRow("=", "RET", "", newTemp);
 
                                     izq.setLugar(newTemp);
@@ -2710,7 +2779,7 @@ public class App extends javax.swing.JFrame {
                                 String newTemp = newTemporal();
                                 TablaCuadruplos.addRow("PARAM", revisarSiEsVariable(expression.getValue().value + ""),
                                         "", "");
-                                TablaCuadruplos.addRow("CALL", "_ETIQ" + IDfunction.getValue().value + "", "", "");
+                                TablaCuadruplos.addRow("CALL", "_FUN_" + IDfunction.getValue().value + "", "", "");
 
                                 TablaCuadruplos.addRow("=", "RET", "", newTemp);
 
@@ -2740,19 +2809,23 @@ public class App extends javax.swing.JFrame {
                     String op = ultimoCuad.op;
                     String res = ultimoCuad.getRes();
 
-                    // System.out.println("Ultimo CUAD -> Arg1: " + arg1 + " Arg2: " + arg2 + " OP:
-                    // " + op);
-                    // System.out.println("CUAD a agregar -> Arg1: " + izq.getLugar() + " Arg2: " +
-                    // der.getLugar()
-                    // + " OP: " + opNodo);
+                    System.out.println("Ultimo CUAD -> Arg1: " + arg1 + " Arg2: " + arg2 + " OP:" + op);
+                    System.out.println("CUAD a agregar -> Arg1: " + izq.getLugar() + " Arg2: " + der.getLugar()
+                            + " OP: " + opNodo);
                     String izqLugar = izq.getLugar();
                     String derLugar = der.getLugar();
 
-                    if (arg1.equals(izqLugar) && arg2.equals(derLugar) && op.equals(opNodo)) {
+                    String izqArgConUS = "_" + izqLugar;
+                    String derArgConUS = "_" + derLugar;
+
+                    System.out.println("ArgCuadViejo = " + arg1 +", ArgCuadNuevo: " + izqArgConUS);
+
+                    if ((arg1.equals(izqLugar) || arg1.equals(izqArgConUS))
+                            && (arg2.equals(derLugar) || arg2.equals(derArgConUS)) && op.equals(opNodo)) {
 
                         node.setLugar(res);
 
-                        // System.out.println("SOY IGUAL");
+                        System.out.println("SOY IGUAL2");
                         // TablaCuadruplos.addRow(opNodo, izq.getLugar(), der.getLugar(), newTemp);
                         String father1 = node.getParent().getValue().value.toString();
 
