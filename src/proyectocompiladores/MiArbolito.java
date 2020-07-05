@@ -19,6 +19,9 @@ public class MiArbolito {
     private ArrayList<MiArbolito> children = new ArrayList();
     private Symbol value;
     private String Lugar = "";
+    private String Verdadera = "";
+    private String Falsa = "";
+    private String Siguiente = "";
     private boolean visitado = false;
 
     public MiArbolito(MiArbolito copy) {
@@ -82,6 +85,18 @@ public class MiArbolito {
         this.Lugar = Lugar;
     }
 
+    public void setVerdadera(String Verdadera){
+        this.Verdadera = Verdadera;
+    }
+
+    public void setFalsa(String Falsa){
+        this.Falsa = Falsa;
+    }
+
+    public void setSiguiente(String Siguiente){
+        this.Siguiente = Siguiente;
+    }
+
     public void setVisitado(){
         this.visitado =  true;
     }
@@ -92,6 +107,18 @@ public class MiArbolito {
 
     public String getLugar(){
         return this.Lugar;
+    }
+
+    public String getVerdadera(){
+        return this.Verdadera;
+    }
+
+    public String getFalsa(){
+        return this.Falsa;
+    }
+
+    public String getSiguiente(){
+        return this.Siguiente;
     }
 
     String myParent;
