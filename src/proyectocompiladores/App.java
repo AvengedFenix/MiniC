@@ -300,101 +300,104 @@ public class App extends javax.swing.JFrame {
 
                 }
                 // graph.addNode("");
-                int initialPositionX = 0;
-                int initialPositionY = 0;
+                try {
+                    int initialPositionX = 0;
+                    int initialPositionY = 0;
 
-                for (int i = 0; i < v.list.size(); i++) {
-                    String sub1, sub2, sub3;
-                    sub1 = myTree.graphList.get(i)[0];
-                    sub2 = myTree.graphList.get(i)[1];
-                    sub3 = myTree.graphList.get(i)[2];
-                    /*
+                    for (int i = 0; i < v.list.size(); i++) {
+                        String sub1, sub2, sub3;
+                        sub1 = myTree.graphList.get(i)[0];
+                        sub2 = myTree.graphList.get(i)[1];
+                        sub3 = myTree.graphList.get(i)[2];
+                        /*
                      * System.out.println("Main graphList Element 1: " +
                      * myTree.graphList.get(i)[0]); System.out.println("Main graphList Element 2: "
                      * + myTree.graphList.get(i)[1]);
                      * System.out.println("Main graphList Element 2: " +
                      * myTree.graphList.get(i)[1]);
-                     */
-                    graph.addNode(sub1).addAttribute("ui.label", sub3/* , */);
-                    if (sub1 == "translation_unit") {
-                        Node node = graph.getNode(sub1);
-                        node.addAttribute("ui.class", "F");
-                        node.addAttribute("layout.frozen");
-                        node.addAttribute("x", 0.0);
-                        node.addAttribute("y", 0.0);
+                         */
+                        graph.addNode(sub1).addAttribute("ui.label", sub3/* , */);
+                        if (sub1 == "translation_unit") {
+                            Node node = graph.getNode(sub1);
+                            node.addAttribute("ui.class", "F");
+                            node.addAttribute("layout.frozen");
+                            node.addAttribute("x", 0.0);
+                            node.addAttribute("y", 0.0);
 
-                        node.addAttribute("ui.style", "fill-color: rgb(255,0,0);" + "size: 40px, 40px;");
+                            node.addAttribute("ui.style", "fill-color: rgb(255,0,0);" + "size: 40px, 40px;");
 
-                    } else {
-                        Node node = graph.getNode(sub1);
-                        node.addAttribute("ui.class", "N");
+                        } else {
+                            Node node = graph.getNode(sub1);
+                            node.addAttribute("ui.class", "N");
 
-                        // node.addAttribute("ui.style", "fill-color: rgb(255,255,0);");
-                        // graph.getNode(sub1).addAttribute("ui.style", "fill-mode: none;");
-                        // graph.getNode(sub1).addAttribute("ui.style", "text-align: center;");
+                            // node.addAttribute("ui.style", "fill-color: rgb(255,255,0);");
+                            // graph.getNode(sub1).addAttribute("ui.style", "fill-mode: none;");
+                            // graph.getNode(sub1).addAttribute("ui.style", "text-align: center;");
+                        }
+
+                        // graph.getNode(sub1).addAttribute("ui.style", "text-alignment: center;");
+                        // initialPositionY += 20;
+                        // initialPositionX += 20;
+                        // graph.addNode(sub1).addAttribute("ui.label", "Name: " + sub1 + " Parent: " +
+                        // sub2);
+                    }
+                    System.out.println(v.tree);
+                    System.out.println("length " + myTree.graphList.size());
+
+                    for (int i = 0; i < v.list.size(); i++) {
+                        String sub1, sub2;
+                        sub1 = myTree.graphList.get(i)[0];
+                        sub2 = myTree.graphList.get(i)[1];
+
+                        if (sub1.equals("translation_unit") && sub2.equals("")) {
+                            // System.out.println("translation_unit");
+                        } else {
+                            graph.addEdge(sub2 + " " + sub1, sub2, sub1).addAttribute("layout.weight", 4, pathSyntax);
+
+                        }
                     }
 
-                    // graph.getNode(sub1).addAttribute("ui.style", "text-alignment: center;");
-                    // initialPositionY += 20;
-                    // initialPositionX += 20;
-                    // graph.addNode(sub1).addAttribute("ui.label", "Name: " + sub1 + " Parent: " +
-                    // sub2);
-                }
-                System.out.println(v.tree);
-                System.out.println("length " + myTree.graphList.size());
+                    graph.addAttribute("ui.stylesheet", "graph { fill-color: #bc572f; " + "fill-mode: gradient-vertical;}"
+                            + "node { text-color: white;" + "text-size: 18px;" + "size: 30px, 30px;" + "shape: circle; "
+                            + "fill-color: red, orange;" + "    fill-mode: gradient-vertical;" + "    stroke-mode: plain;"
+                            + "    stroke-color: black;" + "    stroke-width: 5px; }" + "edge { fill-color: #d19214;"
+                            + "    size: 2px;  } " + "node:clicked { fill-color: rgb(0,0,255); } ");
 
-                for (int i = 0; i < v.list.size(); i++) {
-                    String sub1, sub2;
-                    sub1 = myTree.graphList.get(i)[0];
-                    sub2 = myTree.graphList.get(i)[1];
+                    graph.setAttribute("ui.antialias");
+                    graph.setAttribute("ui.quality");
 
-                    if (sub1.equals("translation_unit") && sub2.equals("")) {
-                        // System.out.println("translation_unit");
-                    } else {
-                        graph.addEdge(sub2 + " " + sub1, sub2, sub1).addAttribute("layout.weight", 4, pathSyntax);
-
-                    }
-                }
-
-                graph.addAttribute("ui.stylesheet", "graph { fill-color: #bc572f; " + "fill-mode: gradient-vertical;}"
-                        + "node { text-color: white;" + "text-size: 18px;" + "size: 30px, 30px;" + "shape: circle; "
-                        + "fill-color: red, orange;" + "    fill-mode: gradient-vertical;" + "    stroke-mode: plain;"
-                        + "    stroke-color: black;" + "    stroke-width: 5px; }" + "edge { fill-color: #d19214;"
-                        + "    size: 2px;  } " + "node:clicked { fill-color: rgb(0,0,255); } ");
-
-                graph.setAttribute("ui.antialias");
-                graph.setAttribute("ui.quality");
-
-                // viewer.disableAutoLayout();
-                // graph.display().disableAutoLayout();
-                // myTree.printGraph();
-                /*
+                    // viewer.disableAutoLayout();
+                    // graph.display().disableAutoLayout();
+                    // myTree.printGraph();
+                    /*
                  * Viewer viewer = graph.display();
                  * 
                  * viewer.setCloseFramePolicy(Viewer.CloseFramePolicy.HIDE_ONLY);
-                 */
-                JFrame frame = new JFrame("GRAPH");
-                @SuppressWarnings("serial")
-                JPanel panel = new JPanel(new GridLayout()) {
-                    @Override
-                    public Dimension getPreferredSize() {
-                        return new Dimension(640, 480);
-                    }
-                };
-                panel.setBorder(BorderFactory.createLineBorder(Color.blue, 5));
-                Viewer viewer = new Viewer(graph, Viewer.ThreadingModel.GRAPH_IN_GUI_THREAD);
-                ViewPanel viewPanel = viewer.addDefaultView(false);
-                viewer.enableAutoLayout();
-                viewPanel.getCamera().setViewPercent(0.25);
-                viewPanel.getCamera().setViewCenter(0, 0, 0);
-                viewPanel.requestFocusInWindow();
-                panel.add(viewPanel);
-                frame.add(panel);
-                frame.pack();
-                frame.setLocationRelativeTo(null);
-                JOptionPane.showMessageDialog(this,
-                        "Para navegar el arbol utilize las teclas direccionales, Page UP y Page Down para hacer Zoom");
-                frame.setVisible(true);
+                     */
+                    JFrame frame = new JFrame("GRAPH");
+                    @SuppressWarnings("serial")
+                    JPanel panel = new JPanel(new GridLayout()) {
+                        @Override
+                        public Dimension getPreferredSize() {
+                            return new Dimension(640, 480);
+                        }
+                    };
+                    panel.setBorder(BorderFactory.createLineBorder(Color.blue, 5));
+                    Viewer viewer = new Viewer(graph, Viewer.ThreadingModel.GRAPH_IN_GUI_THREAD);
+                    ViewPanel viewPanel = viewer.addDefaultView(false);
+                    viewer.enableAutoLayout();
+                    viewPanel.getCamera().setViewPercent(0.25);
+                    viewPanel.getCamera().setViewCenter(0, 0, 0);
+                    viewPanel.requestFocusInWindow();
+                    panel.add(viewPanel);
+                    frame.add(panel);
+                    frame.pack();
+                    frame.setLocationRelativeTo(null);
+                    JOptionPane.showMessageDialog(this,
+                            "Para navegar el arbol utilize las teclas direccionales, Page UP y Page Down para hacer Zoom");
+                    frame.setVisible(true);
+                } catch (Exception e) {
+                }
 
                 table.print();
 
@@ -431,6 +434,9 @@ public class App extends javax.swing.JFrame {
     }// GEN-LAST:event_jb_RUNActionPerformed
 
     public static void finalCode(Table table) throws FileNotFoundException, IOException {
+
+        System.out.println("FinalCodePrint: ");
+        table.print();
         File temporalFile = new File("finalCode.asm");
         temporalFile.delete();
         temporalFile.createNewFile();
@@ -512,7 +518,7 @@ public class App extends javax.swing.JFrame {
                         toWriteImmediate = "li " + loadImmediate[0] + ", " + row.arg1 + "\n";
                         tempsList.fill(loadImmediate[0], row.arg1);
                         fileOut.write(toWriteImmediate.getBytes());
-                        
+
                         toWrite += loadImmediate[0] + ", ";
                     } else if (!arg1Temp.isEmpty()) {
                         toWrite += arg1Temp + ", ";
@@ -525,15 +531,13 @@ public class App extends javax.swing.JFrame {
                         toWriteImmediate = "li " + loadImmediate[0] + ", " + row.arg2 + "\n";
                         tempsList.fill(loadImmediate[0], row.arg2);
                         fileOut.write(toWriteImmediate.getBytes());
-                        
+
                         toWrite += loadImmediate[0] + "\n";
                     } else if (!arg2Temp.isEmpty()) {
                         toWrite += arg2Temp + "\n";
                     } else {
                         System.out.println("Arg2: Esa variable no tiene ningun temporal asignado");
                     }
-                    
-                    System.out.println(tempsList.toString());
 
 //                        int offset = fixedStack - search.offset - Table.getTypeSize(search.type);
 //                        String load = "lw $t0, " + offset + "($fp)\n";
@@ -551,7 +555,9 @@ public class App extends javax.swing.JFrame {
                     if (isNumeric(row.arg1)) {
                         System.out.println("isNumeric");
                         toWrite = "li " + freeRegistry[0] + ", " + row.arg1 + "\n";
+                        fileOut.write(toWrite.getBytes());
                         tempsList.fill(freeRegistry[0], row.res);
+                        toWrite = "";
                     }
 
                     /*
@@ -570,40 +576,81 @@ public class App extends javax.swing.JFrame {
                                 toWrite = "sw " + row.arg1 + ", " + offset + "($fp)\n";
                             }
                      */
-                    if (row.arg1.contains("t")) {
-                        row.arg1 = "$" + row.arg1;
+                    System.out.println("row.res: " + row.res);
+                    String separator = "_";
+                    int sepPos = row.res.indexOf(separator);
+                    if (sepPos == -1) {
+                        System.out.println("");
                     }
-                    if (row.res.contains("t")) {
-                        row.res = "$" + row.res;
-                        toWrite = "move " + row.res + ", " + row.arg1 + "\n";
-                    } else {
-                        System.out.println("row.res: " + row.res);
-                        String separator = "_";
-                        int sepPos = row.res.indexOf(separator);
-                        if (sepPos == -1) {
-                            System.out.println("");
-                        }
-                        String result = row.res.substring(sepPos + separator.length());
-                        System.out.println("Substring after separator _ " + result);
 
+                    String toStore = tempsList.search(row.arg1);
+
+                    System.out.println("toStore: " + toStore);
+
+                    String result = row.res.substring(sepPos + separator.length());
+                    System.out.println("Substring after separator _ " + result);
+
+                    TableRow search = table.search(result);
+
+                    System.out.println("Search: " + search.id);
+
+                    int offset = fixedStack - search.offset - Table.getTypeSize(search.type);
+                    if (!toStore.isEmpty()) {
+                        toWrite = "sw " + toStore + ", " + offset + "($fp)\n";
+                        tempsList.fill(toWrite, toWrite);
+
+                        System.out.println("= toWrite: " + toWrite);
+                        fileOut.write(toWrite.getBytes());
+                    } else {
+                        toWrite = "sw " + freeRegistry[0] + ", " + offset + "($fp)\n";
+
+                        System.out.println("= toWrite: " + toWrite);
+                        fileOut.write(toWrite.getBytes());
+
+//                    if (row.arg1.contains("t")) {
+//                        row.arg1 = "$" + row.arg1;
+//                    }
+//                    if (row.res.contains("t")) {
+//                        row.res = "$" + row.res;
+//                        toWrite = "move " + row.res + ", " + row.arg1 + "\n";
+//                    } else {
 //                        TableRow search = table.search(result);
 //
 //                        System.out.println("search: " + search.id);
 //                        int offset = fixedStack - search.offset - Table.getTypeSize(search.type);
 //                        toWrite = "sw " + row.arg1 + ", " + offset + "($fp)\n";
-                        System.out.println("= toWrite: " + toWrite);
-                        fileOut.write(toWrite.getBytes());
-                        break;
                     }
+                    break;
+
                 }
+                case "PRINT": {
+                    toWrite += "\tli $v0, 4\n";
+                    toWrite += "\tla $a0, " + row.arg1 + "\n"
+                            + "\tsyscall\n";
+                    if (!row.arg2.isEmpty()) {
+                        TableRow search = table.search(row.arg2);
+
+                        int offset = fixedStack - search.offset - Table.getTypeSize(search.type);
+
+                        toWrite += "\tli $v0, 1\n";
+                        toWrite += "\tlw $a0, " + offset + "($fp)\n"
+                                + "\tsyscall\n";
+                    }
+                    fileOut.write(toWrite.getBytes());
+                    break;
+                }
+                //case ""
             }
         }
+
+        System.out.println(tempsList.toString());
 
         fileOut.close();
 
         //FinalCode code = new FinalCode(temporalFile);
         //code.generate(TablaCuadruplos, table);
-        System.out.println("After code gen");
+        System.out.println(
+                "After code gen");
 
     }
 
@@ -1781,16 +1828,21 @@ public class App extends javax.swing.JFrame {
                 if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(App.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(App.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(App.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(App.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(App.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(App.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(App.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(App.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         // </editor-fold>
         // sym s = new sym();

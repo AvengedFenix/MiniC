@@ -51,7 +51,7 @@ public class TempsList {
 
     public String search(String arg) {
         for (int i = 0; i < tempsList.size(); i++) {
-            if (tempsList.get(i)[1].contains("_" + arg)) {
+            if (tempsList.get(i)[1].contains("_" + arg) || tempsList.get(i)[1].contains(arg)) {
                 return tempsList.get(i)[0];
             }
         }

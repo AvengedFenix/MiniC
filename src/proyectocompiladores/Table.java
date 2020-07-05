@@ -79,15 +79,21 @@ public class Table {
     }
 
     public TableRow search(String id) {
-        for (TableRow row : rows) {
-            if (row.id.equals(id)) {
-                return row;
+        try {
+            for (TableRow row : rows) {
+                if (row.id.equals(id)) {
+                    return row;
+                }
             }
+            if (parent != null) {
+                return parent.search(id);
+            }
+            return null;
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
         }
-        if (parent != null) {
-            return parent.search(id);
-        }
-        return null;
     }
 
     public int getActualOffset() {
