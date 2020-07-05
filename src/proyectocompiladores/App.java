@@ -2033,6 +2033,7 @@ public class App extends javax.swing.JFrame {
                 }
 
             }
+            
 
             // second.setParent(node);
             // System.out.println("Sym: " + secondChild + " Left: " +
