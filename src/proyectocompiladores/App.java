@@ -1538,9 +1538,9 @@ public class App extends javax.swing.JFrame {
                                                 expression.setVisitado();
 
                                             } else {
-                                                System.out.println("A1");
+                                                // System.out.println("A1");
                                                 recorrerExpressionAbajo(expr);
-                                                System.out.println("A2");
+                                                // System.out.println("A2");
 
                                                 String newTemp = newTemporal();
 
@@ -1703,12 +1703,12 @@ public class App extends javax.swing.JFrame {
                 }
 
             } else if (child.getValue().value.equals("iteration_statement")) {
-                ArrayList<MiArbolito> hijos = child.getChildren();
-                MiArbolito tipoIteration = hijos.get(0);
+                // ArrayList<MiArbolito> hijos = child.getChildren();
+                // MiArbolito tipoIteration = hijos.get(0);
 
-                for (MiArbolito nodoHijo : hijos) {
-                    System.out.println(nodoHijo.getValue().value);
-                }
+                // for (MiArbolito nodoHijo : hijos) {
+                //     System.out.println(nodoHijo.getValue().value);
+                // }
                 if (hijos.size() == 3) {
                     if (tipoIteration.getValue().value.equals("while")) {
 
@@ -2010,11 +2010,11 @@ public class App extends javax.swing.JFrame {
                                             }
                                         }
 
-                                        System.out.println("\n ////////////// ");
-                                        for (MiArbolito nodoHijo : hijos) {
-                                            System.out.println(nodoHijo.getValue().value);
-                                        }
-                                        System.out.println("\n ////////////// ");
+                                        // System.out.println("\n ////////////// ");
+                                        // for (MiArbolito nodoHijo : hijos) {
+                                        //     System.out.println(nodoHijo.getValue().value);
+                                        // }
+                                        // System.out.println("\n ////////////// ");
                                     }
                                 }
 
@@ -2677,7 +2677,7 @@ public class App extends javax.swing.JFrame {
 
                         node.setLugar(res);
 
-                        System.out.println("SOY IGUAL");
+                        // System.out.println("SOY IGUAL");
                         // TablaCuadruplos.addRow(opNodo, izq.getLugar(), der.getLugar(), newTemp);
                         String father1 = node.getParent().getValue().value.toString();
 
@@ -2809,23 +2809,23 @@ public class App extends javax.swing.JFrame {
                     String op = ultimoCuad.op;
                     String res = ultimoCuad.getRes();
 
-                    System.out.println("Ultimo CUAD -> Arg1: " + arg1 + " Arg2: " + arg2 + " OP:" + op);
-                    System.out.println("CUAD a agregar -> Arg1: " + izq.getLugar() + " Arg2: " + der.getLugar()
-                            + " OP: " + opNodo);
+                    // System.out.println("Ultimo CUAD -> Arg1: " + arg1 + " Arg2: " + arg2 + " OP:" + op);
+                    // System.out.println("CUAD a agregar -> Arg1: " + izq.getLugar() + " Arg2: " + der.getLugar()
+                    //         + " OP: " + opNodo);
                     String izqLugar = izq.getLugar();
                     String derLugar = der.getLugar();
 
                     String izqArgConUS = "_" + izqLugar;
                     String derArgConUS = "_" + derLugar;
 
-                    System.out.println("ArgCuadViejo = " + arg1 +", ArgCuadNuevo: " + izqArgConUS);
+                    // System.out.println("ArgCuadViejo = " + arg1 +", ArgCuadNuevo: " + izqArgConUS);
 
                     if ((arg1.equals(izqLugar) || arg1.equals(izqArgConUS))
                             && (arg2.equals(derLugar) || arg2.equals(derArgConUS)) && op.equals(opNodo)) {
 
                         node.setLugar(res);
 
-                        System.out.println("SOY IGUAL2");
+                        // System.out.println("SOY IGUAL2");
                         // TablaCuadruplos.addRow(opNodo, izq.getLugar(), der.getLugar(), newTemp);
                         String father1 = node.getParent().getValue().value.toString();
 
