@@ -465,7 +465,7 @@ public class App extends javax.swing.JFrame {
             fileOut.write(toWrite.getBytes());
         }
         
-        toWrite = "\n\t\t.text\n\t\t.globl main\n\nmain:\n";
+        toWrite = "\n\t\t.text\n\t\t.globl main\n\nmain:\n\n";
         fileOut.write(toWrite.getBytes());
         
         for (TableRowQuad row : tr) {
@@ -473,6 +473,8 @@ public class App extends javax.swing.JFrame {
             toWrite = "";
             
             String[] freeRegistry = tempsList.nextAvailable();
+
+            String currentFunction = "";
             
             switch (row.op) {
                 case "*":
@@ -670,8 +672,90 @@ public class App extends javax.swing.JFrame {
                     fileOut.write(toWrite.getBytes());
                     break;
                 }
-                case "_FUN": {
-                    
+
+                case "RET":{
+
+                    break;
+                }
+
+                case "FIN_FUN":{
+
+                    // toWrite += "\n" + row.op + "_"+currentFunction + ":\n";
+
+                    // toWrite += "\tlw $fp, " + "-4" + "($sp)\n";
+                    // toWrite += "\tlw $ra, " + "-8" + "($sp)\n";
+
+                    // TableRow search = table.search(currentFunction);
+
+                    // String tipo = search.type;
+                    // String params = tipo.split("->")[0];
+
+                    // String[] paramsSeparados = params.split("x");
+
+                    // int counter = 8;
+
+                    // for(int i = 0; i < paramsSeparados.length; i++){
+                    //     if(paramsSeparados[i].trim().equals("char")){
+                    //         counter+=1;
+                    //     } else{
+                    //         counter+=4;
+                    //     }
+                    //     toWrite += "\tlw $s"+i+", " + "-"+counter + "($sp)\n";
+                    // }
+
+                    // toWrite += "\tjr $ra\n";
+
+                    // fileOut.write(toWrite.getBytes());
+
+                    break;
+                }
+
+                case "_FUN_": {
+                    // String idFunction = row.arg1;
+
+                    // if(idFunction.equals("main")){
+
+                    // } else{
+                    //     TableRow search = table.search(idFunction);
+
+                    //     currentFunction = row.arg1;
+
+                    //     toWrite += "\n" + row.op + row.arg1 + ":\n";
+                    //     // fileOut.write(toWrite.getBytes());
+
+                    //     String tipo = search.type;
+                    //     String params = tipo.split("->")[0];
+
+                    //     String[] paramsSeparados = params.split("x");
+
+                    //     toWrite += "\tsw $fp, " + "-4" + "($sp)\n";
+                    //     toWrite += "\tsw $ra, " + "-8" + "($sp)\n";
+
+                    //     System.out.println(paramsSeparados[0]);
+
+                    //     int counter = 8;
+
+                    //     for(int i = 0; i < paramsSeparados.length; i++){
+                    //         if(paramsSeparados[i].trim().equals("char")){
+                    //             counter+=1;
+                    //         } else{
+                    //             counter+=4;
+                    //         }
+                    //         toWrite += "\tsw $s"+i+", " + "-"+counter + "($sp)\n";
+                    //     }
+
+
+                    //     toWrite += "\tmove $fp, $sp\n\n";
+                        
+
+                    //     for(int i = 0; i < paramsSeparados.length; i++){
+                            
+                    //         toWrite += "\tmove $s"+i+", $a"+i+"\n";
+                    //     }
+
+                    //     fileOut.write(toWrite.getBytes());
+                    //     System.out.println(search);
+                    // }
                     break;
                 }
                 case "IF<": {
@@ -1868,6 +1952,7 @@ public class App extends javax.swing.JFrame {
                             recorrerFinal(expression, table);
                             
                             TablaCuadruplos.addRow("RET", expression.getLugar(), "", "");
+                            TablaCuadruplos.addRow("FIN_FUN", "", "", "");
                             
                         } else {
                             
@@ -1897,6 +1982,7 @@ public class App extends javax.swing.JFrame {
                                                         "_FUN_" + IDfunction.getValue().value + "", "", "");
                                                 TablaCuadruplos.addRow("=", "RET", "", newTemp);
                                                 TablaCuadruplos.addRow("RET", newTemp, "", "");
+                                                TablaCuadruplos.addRow("FIN_FUN", "", "", "");
                                                 
                                                 expression.setLugar(newTemp);
                                                 
