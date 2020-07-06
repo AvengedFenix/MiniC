@@ -599,7 +599,8 @@ public class App extends javax.swing.JFrame {
                     int offset = fixedStack - search.offset - Table.getTypeSize(search.type);
                     if (!toStore.isEmpty()) {
                         toWrite = "sw " + toStore + ", " + offset + "($fp)\n";
-                        tempsList.fill(toWrite, toWrite);
+                        tempsList.fill(toStore, row.res);
+                        //tempsList.fill(toWrite, toWrite);
 
                         System.out.println("= toWrite: " + toWrite);
                         fileOut.write(toWrite.getBytes());
@@ -625,7 +626,7 @@ public class App extends javax.swing.JFrame {
                     break;
 
                 }
-                case "PRINT": {
+                case "PRINTF": {
                     toWrite += "\tli $v0, 4\n";
                     toWrite += "\tla $a0, " + row.arg1 + "\n"
                             + "\tsyscall\n";
@@ -641,12 +642,103 @@ public class App extends javax.swing.JFrame {
                     fileOut.write(toWrite.getBytes());
                     break;
                 }
-                //case ""
+                case "SCANF": {
+                    System.out.println("SCANF \n"
+                            + "row.arg2: " + row.arg2);
+                    String separator = "&";
+                    int sepPos = row.arg2.indexOf(separator);
+                    String result = row.arg2.substring(sepPos + separator.length());
+                    if (sepPos == -1) {
+                        System.out.println("");
+                    }
+
+                    TableRow search = table.search(result);
+
+                    if (search.type.equals("int")) {
+                        toWrite += "\tli $v0, 5\n"
+                                + "\tsyscall\n";
+
+                    } else if (search.type.equals("char")) {
+                        toWrite += "\tli $v0, 12\n"
+                                + "\tsyscall\n";
+                    }
+                    int offset = fixedStack - search.offset - Table.getTypeSize(search.type);
+
+                    toWrite += "\tsw $v0, " + offset + "($fp)\n";
+                    fileOut.write(toWrite.getBytes());
+                    break;
+                }
+                case "_FUN": {
+
+                    break;
+                }
+                case "IF==": {
+
+                    String toWriteImmediate = "";
+                    String separator = "_";
+
+                    //Para el argumento 1
+                    if (!isNumeric(row.arg1)) {
+                        int sepPos = row.arg1.indexOf(separator);
+                        String resultArg1 = row.arg1.substring(sepPos + separator.length());
+
+                        TableRow search = table.search(resultArg1);
+
+                        int offsetArg1 = fixedStack - search.offset - Table.getTypeSize(search.type);
+
+                        toWriteImmediate += "\tlw " + freeRegistry[0] + ", " + offsetArg1 + "($fp)" + "\n";
+                    } else {
+                        toWriteImmediate += "\tli " + freeRegistry[0] + ", " + row.arg1 + "\n";
+                    }
+                    tempsList.fill(freeRegistry[0], row.arg1);
+
+                    //Para argumento 2
+                    freeRegistry = tempsList.nextAvailable();
+                    if (!isNumeric(row.arg2)) {
+                        int sepPos = row.arg2.indexOf(separator);
+                        String resultArg2 = row.arg2.substring(sepPos + separator.length());
+
+                        TableRow search = table.search(resultArg2);
+
+                        int offsetArg2 = fixedStack - search.offset - Table.getTypeSize(search.type);
+
+                        toWriteImmediate += "\tlw " + freeRegistry[0] + ", " + offsetArg2 + "($fp)" + "\n";
+                    } else {
+                        toWriteImmediate += "\tli " + freeRegistry[0] + ", " + row.arg1 + "\n";
+
+                    }
+                    tempsList.fill(freeRegistry[0], row.arg2);
+
+                    fileOut.write(toWriteImmediate.getBytes());
+
+                    String arg1 = "";
+                    String arg2 = "";
+
+                    arg1 = tempsList.search(row.arg1);
+                    arg2 = tempsList.search(row.arg2);
+                    toWrite += "\tbeq " + arg1 + ", " + arg2 + ", " + row.res + "\n";
+
+                    fileOut.write(toWrite.getBytes());
+                    break;
+                }
+                case "GOTO": {
+                    toWrite += "\tb " + row.arg1 + "\n";
+                    fileOut.write(toWrite.getBytes());
+                    break;
+                }
+                case "_ETIQ": {
+                    toWrite += row.op + row.arg1 + ":\n";
+                    fileOut.write(toWrite.getBytes());
+                    break;
+                }
             }
         }
 
         System.out.println(tempsList.toString());
-
+        toWrite = "";
+        toWrite += "\tli $v0, 10\n"
+                + "\tsyscall\n";
+        fileOut.write(toWrite.getBytes());
         fileOut.close();
 
         //FinalCode code = new FinalCode(temporalFile);
@@ -903,18 +995,17 @@ public class App extends javax.swing.JFrame {
                             TableRow functionResult = table.search(currentFun);
                             if (functionResult != null) {
                                 System.out.println("Function Result: " + functionResult.id);
+                                String separator = " -> ";
+                                int sepPos = functionResult.type.indexOf(separator);
+                                if (sepPos == -1) {
+                                    System.out.println("");
+                                }
+                                String funcType = functionResult.type.substring(sepPos + separator.length());
+                                System.out.println("Substring after separator = " + funcType);
 
                                 if (functionResult.type.contains("void -> ")) {
                                     System.out.println("CONTAINS VOID");
                                 } else {
-
-                                    String separator = " -> ";
-                                    int sepPos = functionResult.type.indexOf(separator);
-                                    if (sepPos == -1) {
-                                        System.out.println("");
-                                    }
-                                    String funcType = functionResult.type.substring(sepPos + separator.length());
-                                    System.out.println("Substring after separator = " + funcType);
 
                                     String getParameters = functionResult.type.substring(0, sepPos);
                                     String[] parameters;
@@ -1099,7 +1190,11 @@ public class App extends javax.swing.JFrame {
     public static Values getAsignationParams(MiArbolito node, ArrayList list, String[] parameters, int index,
             int errors) {
         MiArbolito firstChild = node.getChildren().get(0);
+        System.out.println("var firstChild en getAssignationParams\n"
+                + firstChild.getValue().value.toString());
+        System.out.println("Parameters -> " + parameters[0] + "; " + parameters[1]);
         if (firstChild.getValue().value.toString().equals("expression")) {
+            System.out.println("Entre a expression");
             list.add(node.getChildren().get(1).getValue().value.toString());
             System.out.println("Param value: " + node.getChildren().get(1).getValue().value.toString());
             if (!checkValueType(node.getChildren().get(1), parameters[index])) {
@@ -1109,6 +1204,7 @@ public class App extends javax.swing.JFrame {
 
             getAsignationParams(firstChild, list, parameters, index++, errors);
         } else {
+            System.out.println("Entre al else de expression");
             try {
                 System.out.println("Param value: " + firstChild.getValue().value.toString());
 
@@ -1138,7 +1234,10 @@ public class App extends javax.swing.JFrame {
             }
         }
 
+        System.out.println("List size: " + list.size() + "\n"
+                + "Parameters.length: " + parameters.length);
         if (!(list.size() == parameters.length)) {
+            System.out.println("No son el mismo numero de parametros");
             errors++;
         }
 
@@ -1657,7 +1756,6 @@ public class App extends javax.swing.JFrame {
                 // System.out.println(nodoHijo.getValue().value);
                 // }
                 // System.out.println("\n ////////////// ");
-
                 if (hijos.size() == 2) { // auto incremento/decremento
 
                     MiArbolito variable = hijos.get(0);
@@ -1692,7 +1790,7 @@ public class App extends javax.swing.JFrame {
 
                             tablamensajes.addMensaje(new Mensaje(mensaje, variable, nombreMensaje));
 
-                            TablaCuadruplos.addRow("PRINT", nombreMensaje, variable, "");
+                            TablaCuadruplos.addRow("PRINTF", nombreMensaje, variable, "");
 
                         } else { // es un print normal
 
@@ -1752,7 +1850,6 @@ public class App extends javax.swing.JFrame {
                                 if (functionCall.getValue().value.equals("function_call")) {
 
                                     // revisar si trae un operador como hijo
-
                                     if (expr.getChildren().size() > 0) { // si hay mas de un parametro
 
                                         if (expr.getChildren().size() == 2) {
@@ -1787,7 +1884,7 @@ public class App extends javax.swing.JFrame {
                                                         "_FUN_" + IDfunction.getValue().value + "", "", "");
                                                 TablaCuadruplos.addRow("=", "RET", "", newTemp);
                                                 TablaCuadruplos.addRow("RET", newTemp, "", "");
-                                                TablaCuadruplos.addRow("FIN_FUN", "", "", "");  
+                                                TablaCuadruplos.addRow("FIN_FUN", "", "", "");
 
                                                 expression.setLugar(newTemp);
 
@@ -1803,7 +1900,7 @@ public class App extends javax.swing.JFrame {
                                                     "", "");
                                             TablaCuadruplos.addRow("=", "RET", "", newTemp);
                                             TablaCuadruplos.addRow("RET", newTemp, "", "");
-                                            TablaCuadruplos.addRow("FIN_FUN", "", "", "");  
+                                            TablaCuadruplos.addRow("FIN_FUN", "", "", "");
 
                                             expression.setLugar(newTemp);
 
@@ -1820,7 +1917,7 @@ public class App extends javax.swing.JFrame {
 
                                         TablaCuadruplos.addRow("=", "RET", "", newTemp);
                                         TablaCuadruplos.addRow("RET", newTemp, "", "");
-                                        TablaCuadruplos.addRow("FIN_FUN", "", "", "");  
+                                        TablaCuadruplos.addRow("FIN_FUN", "", "", "");
 
                                         expression.setLugar(newTemp);
 
@@ -1833,7 +1930,7 @@ public class App extends javax.swing.JFrame {
                             } else {
                                 TablaCuadruplos.addRow("RET", revisarSiEsVariable(expression.getValue().value + ""), "",
                                         "");
-                                TablaCuadruplos.addRow("FIN_FUN", "", "", "");  
+                                TablaCuadruplos.addRow("FIN_FUN", "", "", "");
                             }
 
                         }
@@ -1849,7 +1946,6 @@ public class App extends javax.swing.JFrame {
                     if (hijos.get(0).getValue().value.equals("if")) {
 
                         // revisar si solo viene un id oprel id
-
                         MiArbolito relexpr = hijos.get(1);
 
                         if (relexpr.getValue().value.equals("relational_expression")
@@ -1889,7 +1985,6 @@ public class App extends javax.swing.JFrame {
                     if (hijos.get(0).getValue().value.equals("if")) {
 
                         // revisar si solo viene un id oprel id
-
                         MiArbolito relexpr = hijos.get(1);
                         MiArbolito statementV = hijos.get(2);
                         MiArbolito statementF = hijos.get(3);
@@ -2016,10 +2111,9 @@ public class App extends javax.swing.JFrame {
                             int etiqAutoIncr = newEtiqueta();
 
                             TablaCuadruplos.addRow("_ETIQ", +etiqAutoIncr + "", "", ""); // la etiqueta del
-                                                                                         // autoincremento/decreemento
+                            // autoincremento/decreemento
 
                             // Intermedio(sumaresta, table); //generar codigo de la asignacion del for
-
                             MiArbolito variable = sumaresta.getChildren().get(0);
                             MiArbolito tipoincdecr = sumaresta.getChildren().get(1);
 
@@ -2068,7 +2162,6 @@ public class App extends javax.swing.JFrame {
 
             // si son solo dos, es que trae equality o relation expression
             // si son 3 es que es un nodo con id oprel id
-
             if (size == 2) {
 
             } else if (size == 3) {
@@ -2107,7 +2200,6 @@ public class App extends javax.swing.JFrame {
             System.out.println("");
 
             // revision de punteros
-
             if (second.getValue().value.equals("unary_expression")) { // si el nodo a la derecha es un puntero, realizar
                 // operacion distinta
                 // String newTemp = newTemporal();
@@ -2118,9 +2210,7 @@ public class App extends javax.swing.JFrame {
                 String puntero = ampersand.getValue().value + "" + variable.getValue().value;
 
                 TablaCuadruplos.addRow("=", puntero, "", "_" + primero.getValue().value + "");
-            }
-
-            else {
+            } else {
                 // System.out.println("V1: " + primero.getValue().value);
                 // System.out.println("V2: " + second.getValue().value);
 
@@ -2272,7 +2362,6 @@ public class App extends javax.swing.JFrame {
                 }
 
             }
-            
 
             // second.setParent(node);
             // System.out.println("Sym: " + secondChild + " Left: " +
@@ -2308,9 +2397,9 @@ public class App extends javax.swing.JFrame {
                 || father.equals("and_expression") || father.equals("inclusive_or_expression")
                 || father.equals("logical_and_expression") || father.equals("conditional_expression")
                 || father.equals("logical_or_expression") // revisar si es un nodo restante del arbol, si lo es, subir
-                                                          // su padre y asi
-        // sucesivamente
-        ) && isGarbageNode) {
+                // su padre y asi
+                // sucesivamente
+                ) && isGarbageNode) {
             node.getParent().setLugar(node.getLugar());
             addtoQuad(node.getParent(), table);
         } else if (nodeString.equals("conditional_expression")) {
@@ -2361,7 +2450,6 @@ public class App extends javax.swing.JFrame {
                     if (functionCall.getValue().value.equals("function_call")) {
 
                         // revisar si trae un operador como hijo
-
                         if (expression.getChildren().size() > 0) { // si hay mas de un parametro
 
                             if (expression.getChildren().size() == 2) {
@@ -2433,7 +2521,6 @@ public class App extends javax.swing.JFrame {
                     if (functionCall.getValue().value.equals("function_call")) {
 
                         // revisar si trae un operador como hijo
-
                         if (expression.getChildren().size() > 0) { // si hay mas de un parametro
 
                             if (expression.getChildren().size() == 2) {
@@ -2531,7 +2618,6 @@ public class App extends javax.swing.JFrame {
                         if (functionCall.getValue().value.equals("function_call")) {
 
                             // revisar si trae un operador como hijo
-
                             if (expression.getChildren().size() > 0) { // si hay mas de un parametro
 
                                 if (expression.getChildren().size() == 2) {
@@ -2623,7 +2709,6 @@ public class App extends javax.swing.JFrame {
                         if (functionCall.getValue().value.equals("function_call")) {
 
                             // revisar si trae un operador como hijo
-
                             if (expression.getChildren().size() > 0) { // si hay mas de un parametro
 
                                 if (expression.getChildren().size() == 2) {
@@ -2812,7 +2897,6 @@ public class App extends javax.swing.JFrame {
                         if (functionCall.getValue().value.equals("function_call")) {
 
                             // revisar si trae un operador como hijo
-
                             if (expression.getChildren().size() > 0) { // si hay mas de un parametro
 
                                 if (expression.getChildren().size() == 2) {
@@ -2826,7 +2910,6 @@ public class App extends javax.swing.JFrame {
 
                                     // System.out.println("VALOR NODO1: " + node1.getValue().value);
                                     // System.out.println("VALOR NODO2: " + node2.getValue().value);
-
                                     if (revisarExpresion) {
                                         recorrerFinal(expression, table);
 
@@ -2910,9 +2993,7 @@ public class App extends javax.swing.JFrame {
                     String izqArgConUS = "_" + izqLugar;
                     String derArgConUS = "_" + derLugar;
 
-                    if (
-
-                    (arg1.equals(izqLugar) || arg1.equals(izqArgConUS))
+                    if ((arg1.equals(izqLugar) || arg1.equals(izqArgConUS))
                             && (arg2.equals(derLugar) || arg2.equals(derArgConUS)) && op.equals(opNodo)) {
 
                         node.setLugar(res);
@@ -2958,7 +3039,6 @@ public class App extends javax.swing.JFrame {
                         if (functionCall.getValue().value.equals("function_call")) {
 
                             // revisar si trae un operador como hijo
-
                             if (expression.getChildren().size() > 0) { // si hay mas de un parametro
 
                                 if (expression.getChildren().size() == 2) {
@@ -2972,7 +3052,6 @@ public class App extends javax.swing.JFrame {
 
                                     // System.out.println("VALOR NODO1: " + node1.getValue().value);
                                     // System.out.println("VALOR NODO2: " + node2.getValue().value);
-
                                     if (revisarExpresion) {
                                         recorrerFinal(expression, table);
 
@@ -3030,11 +3109,9 @@ public class App extends javax.swing.JFrame {
                             }
 
                             // ArrayList<MiArbolito> hijos = second.getChildren();
-
                             // for (MiArbolito nodoHijo : hijos) {
                             // System.out.println(nodoHijo.getValue().value);
                             // }
-
                         }
                     } else {
                         izq.setLugar(izq.getValue().value + "");
@@ -3059,7 +3136,6 @@ public class App extends javax.swing.JFrame {
                     String derArgConUS = "_" + derLugar;
 
                     // System.out.println("ArgCuadViejo = " + arg1 +", ArgCuadNuevo: " + izqArgConUS);
-
                     if ((arg1.equals(izqLugar) || arg1.equals(izqArgConUS))
                             && (arg2.equals(derLugar) || arg2.equals(derArgConUS)) && op.equals(opNodo)) {
 
