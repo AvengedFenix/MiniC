@@ -478,77 +478,103 @@ public class App extends javax.swing.JFrame {
                 case "*":
                     System.out.println("case *");
                     if (toWrite.isEmpty()) {
-                        toWrite = "mul ";
+                        toWrite = "\tmul ";
                     }
                 case "/":
                     System.out.println("case /");
                     if (toWrite.isEmpty()) {
-                        toWrite = "div ";
+                        toWrite = "\tdiv ";
                     }
                 case "+":
                     System.out.println("case +");
                     if (toWrite.isEmpty()) {
-                        toWrite = "add ";
+                        toWrite = "\tadd ";
                     }
                 case "-": {
                     System.out.println("case -");
                     if (toWrite.isEmpty()) {
-                        toWrite = "sub ";
+                        toWrite = "\tsub ";
                     }
-
-                    toWrite += freeRegistry[0] + ", ";
-                    tempsList.fill(freeRegistry[0], row.res);
 
                     //toWrite += row.res + ", ";
                     //toWrite += "$" + row.res + ", ";
-                    TableRow search = table.search(row.arg1);
+                    //TableRow search = table.search(row.arg1);
 //                    if (search != null) {
-                    String arg1Temp = "";
-                    String arg2Temp = "";
-
                     System.out.println("row.arg1: " + row.arg1 + " row.arg2: " + row.arg2);
 
-                    arg1Temp = tempsList.search(row.arg1);
-                    arg2Temp = tempsList.search(row.arg2);
-
+//                    if (isNumeric(row.arg1)) {
+//                        String[] loadImmediate = tempsList.nextAvailable();
+//                        toWriteImmediate = "li " + loadImmediate[0] + ", " + row.arg1 + "\n";
+//                        tempsList.fill(loadImmediate[0], row.arg1);
+//                        fileOut.write(toWriteImmediate.getBytes());
+//
+//                        toWrite += loadImmediate[0] + ", ";
+//                    } else if (!arg1Temp.isEmpty()) {
+//                        toWrite += arg1Temp + ", ";
+//                    } else {
+//                        System.out.println("Arg1: Esa variable no tiene ningun temporal asignado");
+//                    }
+//
+//                    if (isNumeric(row.arg2)) {
+//                        String[] loadImmediate = tempsList.nextAvailable();
+//                        toWriteImmediate = "li " + loadImmediate[0] + ", " + row.arg2 + "\n";
+//                        tempsList.fill(loadImmediate[0], row.arg2);
+//                        fileOut.write(toWriteImmediate.getBytes());
+//
+//                        toWrite += loadImmediate[0] + "\n";
+//                    } else if (!arg2Temp.isEmpty()) {
+//                        toWrite += arg2Temp + "\n";
+//                    } else {
+//                        System.out.println("Arg2: Esa variable no tiene ningun temporal asignado");
+//                    }
+                    String separator = "_";
                     String toWriteImmediate = "";
 
-                    System.out.println("arg2Temp: " + arg2Temp);
+                    if (!isNumeric(row.arg1)) {
+                        int sepPos = row.arg1.indexOf(separator);
+                        String resultArg1 = row.arg1.substring(sepPos + separator.length());
 
-                    if (isNumeric(row.arg1)) {
-                        String[] loadImmediate = tempsList.nextAvailable();
-                        toWriteImmediate = "li " + loadImmediate[0] + ", " + row.arg1 + "\n";
-                        tempsList.fill(loadImmediate[0], row.arg1);
-                        fileOut.write(toWriteImmediate.getBytes());
+                        TableRow search = table.search(resultArg1);
 
-                        toWrite += loadImmediate[0] + ", ";
-                    } else if (!arg1Temp.isEmpty()) {
-                        toWrite += arg1Temp + ", ";
+                        int offsetArg1 = fixedStack - search.offset - Table.getTypeSize(search.type);
+
+                        toWriteImmediate += "\tlw " + freeRegistry[0] + ", " + offsetArg1 + "($fp)" + "\n";
                     } else {
-                        System.out.println("Arg1: Esa variable no tiene ningun temporal asignado");
+                        toWriteImmediate += "\tli " + freeRegistry[0] + ", " + row.arg1 + "\n";
                     }
+                    tempsList.fill(freeRegistry[0], row.arg1);
 
-                    if (isNumeric(row.arg2)) {
-                        String[] loadImmediate = tempsList.nextAvailable();
-                        toWriteImmediate = "li " + loadImmediate[0] + ", " + row.arg2 + "\n";
-                        tempsList.fill(loadImmediate[0], row.arg2);
-                        fileOut.write(toWriteImmediate.getBytes());
+                    //Para argumento 2
+                    freeRegistry = tempsList.nextAvailable();
+                    if (!isNumeric(row.arg2)) {
+                        int sepPos = row.arg2.indexOf(separator);
+                        String resultArg2 = row.arg2.substring(sepPos + separator.length());
 
-                        toWrite += loadImmediate[0] + "\n";
-                    } else if (!arg2Temp.isEmpty()) {
-                        toWrite += arg2Temp + "\n";
+                        TableRow search = table.search(resultArg2);
+
+                        int offsetArg2 = fixedStack - search.offset - Table.getTypeSize(search.type);
+
+                        toWriteImmediate += "\tlw " + freeRegistry[0] + ", " + offsetArg2 + "($fp)" + "\n";
                     } else {
-                        System.out.println("Arg2: Esa variable no tiene ningun temporal asignado");
+                        toWriteImmediate += "\tli " + freeRegistry[0] + ", " + row.arg2 + "\n";
                     }
+                    tempsList.fill(freeRegistry[0], row.arg2);
 
-//                        int offset = fixedStack - search.offset - Table.getTypeSize(search.type);
-//                        String load = "lw $t0, " + offset + "($fp)\n";
-//                        fileOut.write(load.getBytes());
-                    //toWrite += "$t0, ";
-                    //} else {
-//                        toWrite += row.arg1 + ", ";
-//                    }
-//                    toWrite += row.arg2 + "\n";
+                    fileOut.write(toWriteImmediate.getBytes());
+
+                    String arg1 = "";
+                    String arg2 = "";
+
+                    arg1 = tempsList.search(row.arg1);
+                    arg2 = tempsList.search(row.arg2);
+
+                    freeRegistry = tempsList.nextAvailable();
+
+                    toWrite += freeRegistry[0] + ", " + arg1 + ", " + arg2 + "\n";
+                    tempsList.fill(freeRegistry[0], row.res);
+                    tempsList.freeTemp(arg1);
+                    tempsList.freeTemp(arg2);
+
                     fileOut.write(toWrite.getBytes());
                     break;
                 }
@@ -556,41 +582,24 @@ public class App extends javax.swing.JFrame {
                     System.out.println("case =");
                     if (isNumeric(row.arg1)) {
                         System.out.println("isNumeric");
-                        toWrite = "li " + freeRegistry[0] + ", " + row.arg1 + "\n";
+                        toWrite = "\tli " + freeRegistry[0] + ", " + row.arg1 + "\n";
                         fileOut.write(toWrite.getBytes());
                         tempsList.fill(freeRegistry[0], row.res);
                         toWrite = "";
                     }
 
-                    /*
-                            if (row.arg1.equals("t0")) {
-                                row.arg1 = "$" + row.arg1;
-                            } else if (row.arg1.equals("RET")) {
-                                row.arg1 = "$v0";
-                            }
-                            if (row.res.equals("t0")) {
-                                row.res = "$" + row.res;
-                                toWrite = "move " + row.res + ", " + row.arg1 + "\n";
-                            } else {
-                                TableRow search = table.search(row.res);
-                                System.out.println(row.res);
-                                int offset = fixedStack - search.offset - Table.getTypeSize(search.type);
-                                toWrite = "sw " + row.arg1 + ", " + offset + "($fp)\n";
-                            }
-                     */
                     System.out.println("row.res: " + row.res);
                     String separator = "_";
                     int sepPos = row.res.indexOf(separator);
                     if (sepPos == -1) {
                         System.out.println("");
                     }
+                    String result = row.res.substring(sepPos + separator.length());
+                    System.out.println("Substring after separator _ " + result);
 
                     String toStore = tempsList.search(row.arg1);
 
                     System.out.println("toStore: " + toStore);
-
-                    String result = row.res.substring(sepPos + separator.length());
-                    System.out.println("Substring after separator _ " + result);
 
                     TableRow search = table.search(result);
 
@@ -598,30 +607,23 @@ public class App extends javax.swing.JFrame {
 
                     int offset = fixedStack - search.offset - Table.getTypeSize(search.type);
                     if (!toStore.isEmpty()) {
-                        toWrite = "sw " + toStore + ", " + offset + "($fp)\n";
+                        toWrite = "\tsw " + toStore + ", " + offset + "($fp)\n";
                         tempsList.fill(toStore, row.res);
                         //tempsList.fill(toWrite, toWrite);
 
                         System.out.println("= toWrite: " + toWrite);
+
+                        tempsList.freeTemp(toStore);
+
                         fileOut.write(toWrite.getBytes());
                     } else {
-                        toWrite = "sw " + freeRegistry[0] + ", " + offset + "($fp)\n";
+                        toWrite = "\tsw " + freeRegistry[0] + ", " + offset + "($fp)\n";
 
                         System.out.println("= toWrite: " + toWrite);
+                        tempsList.freeTemp(freeRegistry[0]);
+
                         fileOut.write(toWrite.getBytes());
 
-//                    if (row.arg1.contains("t")) {
-//                        row.arg1 = "$" + row.arg1;
-//                    }
-//                    if (row.res.contains("t")) {
-//                        row.res = "$" + row.res;
-//                        toWrite = "move " + row.res + ", " + row.arg1 + "\n";
-//                    } else {
-//                        TableRow search = table.search(result);
-//
-//                        System.out.println("search: " + search.id);
-//                        int offset = fixedStack - search.offset - Table.getTypeSize(search.type);
-//                        toWrite = "sw " + row.arg1 + ", " + offset + "($fp)\n";
                     }
                     break;
 
@@ -672,8 +674,35 @@ public class App extends javax.swing.JFrame {
 
                     break;
                 }
+                case "IF<": {
+                    if (toWrite.isEmpty()) {
+                        toWrite += "\tblt ";
+                    }
+                }
+                case "IF>": {
+                    if (toWrite.isEmpty()) {
+                        toWrite += "\tbgt ";
+                    }
+                }
+                case "IF<=": {
+                    if (toWrite.isEmpty()) {
+                        toWrite += "\tble ";
+                    }
+                }
+                case "IF>=": {
+                    if (toWrite.isEmpty()) {
+                        toWrite += "\tbte ";
+                    }
+                }
+                case "IF!=": {
+                    if (toWrite.isEmpty()) {
+                        toWrite += "\tbne ";
+                    }
+                }
                 case "IF==": {
-
+                    if (toWrite.isEmpty()) {
+                        toWrite += "\tbeq ";
+                    }
                     String toWriteImmediate = "";
                     String separator = "_";
 
@@ -704,7 +733,7 @@ public class App extends javax.swing.JFrame {
 
                         toWriteImmediate += "\tlw " + freeRegistry[0] + ", " + offsetArg2 + "($fp)" + "\n";
                     } else {
-                        toWriteImmediate += "\tli " + freeRegistry[0] + ", " + row.arg1 + "\n";
+                        toWriteImmediate += "\tli " + freeRegistry[0] + ", " + row.arg2 + "\n";
 
                     }
                     tempsList.fill(freeRegistry[0], row.arg2);
@@ -716,7 +745,7 @@ public class App extends javax.swing.JFrame {
 
                     arg1 = tempsList.search(row.arg1);
                     arg2 = tempsList.search(row.arg2);
-                    toWrite += "\tbeq " + arg1 + ", " + arg2 + ", " + row.res + "\n";
+                    toWrite += arg1 + ", " + arg2 + ", " + row.res + "\n";
 
                     fileOut.write(toWrite.getBytes());
                     break;
@@ -727,7 +756,7 @@ public class App extends javax.swing.JFrame {
                     break;
                 }
                 case "_ETIQ": {
-                    toWrite += row.op + row.arg1 + ":\n";
+                    toWrite += "\n" + row.op + row.arg1 + ":\n";
                     fileOut.write(toWrite.getBytes());
                     break;
                 }
@@ -2135,7 +2164,7 @@ public class App extends javax.swing.JFrame {
 
                             TablaCuadruplos.addRow("GOTO", "_ETIQ" + etiqFOR + "", "", "");
 
-                            TablaCuadruplos.addRow("ETIQ", etiqV + "", "", ""); // generar la etiqueta verdadera
+                            TablaCuadruplos.addRow("_ETIQ", etiqV + "", "", ""); // generar la etiqueta verdadera
 
                             Intermedio(st_list, table); // generar codigo adentro del for
 
